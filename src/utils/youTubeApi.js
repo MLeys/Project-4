@@ -9,7 +9,7 @@ const API_KEY = 'AIzaSyAWWv9fl6un_cNgTplFYQnBlCZ_MNMJUzg'
 // const BASE_URL = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cid&chart=mostPopular&id=Ks-_Mh1QhMc%2Cc0KYU2j0TM4%2CeIho2S0ZahI&key=${API_KEY}`
 // SECRET = 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
 const part = 'snippet'
-const max = '25'
+const max = '1'
 const search = 'surfing'
 const BASE_URL = 
     `https://youtube.googleapis.com/youtube/v3/search?part=${part}&maxResults=${max}&q=${search}&key=${API_KEY}`
@@ -18,14 +18,14 @@ const BASE_URL =
 export function searchYouTube(keywords) {
     return fetch(`${BASE_URL}`, {
         headers: {
-			Authorization: "Bearer " + tokenService.getToken(),
+			// Authorization: "Bearer " + tokenService.getToken(),
             // Accept: application/json
             
 			//this is how we grab the token from local storage
 		}
     }).then(res => {
         if(res.ok) return res.json()
-        throw new Error('Error creating a like, check server terminal')
+        throw new Error('Error grabbing Youtube Search, check server terminal')
     })
 }
 

@@ -11,7 +11,7 @@ function Dashboard() {
           const response = await youTubeApi.searchYouTube();
           console.log(response, " <------ response from YOUTUBE SEARCH");
           // update the cards with likes array
-          getPosts();// getPosts updates our state, so we'll see a change in the UI, heart will go to red
+          
         } catch (err) {
           console.log(err.message, " <<<<<YouTube SEARCH ERROR>>>>>");
         }
