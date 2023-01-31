@@ -23,7 +23,8 @@
     "semantic-ui-css": "^2.5.0",
     "semantic-ui-react": "^2.1.4",
     "serve-favicon": "^2.5.0",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "uuidv4": "^6.2.13"
   },
   "devDependencies": {
     "@types/react": "^18.0.24",

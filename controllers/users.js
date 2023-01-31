@@ -10,11 +10,7 @@ const s3 = new S3();
 const BUCKET_NAME = process.env.BUCKET_NAME
 console.log(BUCKET_NAME, 'bucketname')
 
-export default {
-  signup,
-  login,
-  profile
-};
+
 async function profile(req, res){
   try {
     // First find the user using the params from the request
@@ -69,13 +65,17 @@ async function login(req, res) {
  
   try {
     const user = await User.findOne({email: req.body.email});
+    console.log(" HEY MOTHER FUCKER")
+    console.log(User.find(), '< Find USER *********')
    
     if (!user) return res.status(401).json({err: 'bad credentials'});
     user.comparePassword(req.body.password, (err, isMatch) => {
       
       if (isMatch) {
+        console.log("*********** MATCHED CREATING TOKEN ************")
         const token = createJWT(user);
         res.json({token});
+        console.log(token, ' RESJSON TOKEN AFTER LOGIN')
       } else {
         return res.status(401).json({err: 'bad credentials'});
       }
@@ -95,4 +95,8 @@ function createJWT(user) {
   );
 }
 
-
+export default {
+  signup,
+  login,
+  profile
+};

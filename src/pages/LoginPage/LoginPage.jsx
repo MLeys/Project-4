@@ -14,7 +14,7 @@ import {
   Segment,
 } from "semantic-ui-react";
 
-export default function LoginPage(props) {
+export default function LoginPage({handleSignUpOrLogin}) {
   const [error, setError] = useState("");
   const [state, setState] = useState({
     email: "",
@@ -34,9 +34,10 @@ export default function LoginPage(props) {
     e.preventDefault();
 
     try {
+      
       await userService.login(state);
       // Route to wherever you want!
-      props.handleSignUpOrLogin();
+      handleSignUpOrLogin();
       navigate("/");
     } catch (err) {
       // Invalid user data (probably duplicate email)

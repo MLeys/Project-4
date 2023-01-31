@@ -19,6 +19,7 @@ export default function App() {
 
 
   function handleSignUpOrLogin() {
+    console.log(" RIGHT HERE M<OTHER FUICKER")
     setUser(userService.getUser());
   }
 
