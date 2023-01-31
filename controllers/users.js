@@ -65,7 +65,7 @@ async function signup(req, res) {
 } // end of signup
 
 
-async function login(req, res) {v
+async function login(req, res) {
  
   try {
     const user = await User.findOne({email: req.body.email});

@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom';
 import 'semantic-ui-css/semantic.min.css' // import
 import './index.css';
 
-import LandingPage from "./pages/LandingPage/LandingPAge";
+import LandingPage from "./pages/LandingPage/LandingPage";
 import SignUpPage from "./pages/SignupPage/SignupPage";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import LoginPage from "./pages/LoginPage/LoginPage";
