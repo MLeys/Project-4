@@ -1,11 +1,10 @@
-import userService from "../../utils/userService";
-
 import { Button, Form, Grid, Header, Image, Segment } from "semantic-ui-react";
 import { useState } from "react";
+
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { useNavigate } from "react-router-dom";
 
-
+import userService from "../../utils/userService";
 
 
 function SignUpPage({handleSignUpOrLogin}) {
@@ -19,7 +18,9 @@ function SignUpPage({handleSignUpOrLogin}) {
   });
 
   const [selectedFile, setSelectedFile] = useState("");
+
   const [error, setError] = useState("");
+
   const navigate = useNavigate()
   
 
@@ -37,9 +38,9 @@ function SignUpPage({handleSignUpOrLogin}) {
 	try {
 		
 		await userService.signup(formData); 
-		handleSignUpOrLogin(); 
-
-		navigate('/')
+		
+    handleSignUpOrLogin();
+		navigate("/");
 
 	} catch(err){
 		console.log(err.message, ' this is the error in signup')
