@@ -19,7 +19,7 @@ export function searchYouTube(keywords) {
     return fetch(`${BASE_URL}`, {
         headers: {
 			Authorization: "Bearer " + tokenService.getToken(),
-            Accept: application/json
+            // Accept: application/json
             
 			//this is how we grab the token from local storage
 		}
