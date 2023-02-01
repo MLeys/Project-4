@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 // import * as youTubeApi from "../src/utils/youTubeApi";
 import * as youTubeApi from "../../utils/youTubeApi"
 
-import PageHeader from "../../components/PageHeader/PageHeader";
+import SidebarExampleTarget from "../../components/SideBar/SideBar";
 
 
 
@@ -39,7 +39,7 @@ function Dashboard() {
 
     return ( 
         <>
-          <PageHeader />
+          <SidebarExampleTarget />
             <h1> Dashboard page </h1>
 
         </>

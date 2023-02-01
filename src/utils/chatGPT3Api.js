@@ -1,0 +1,48 @@
+// import { fetch } from 'https://deno.land/x/http/m
+const API_KEY = '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'
+import { Configuration, OpenAIApi } from 'openai'
+
+const getSkills = async () => {
+  try {
+
+    const configuration = new Configuration({
+        apiKey: API_KEY,
+      });
+      const openai = new OpenAIApi(configuration);
+      
+      const response = await openai.createCompletion({
+        model: "text-davinci-003",
+        prompt: "What are the top 100 web development skills?",
+        temperature: 0,
+        max_tokens: 100,
+        top_p: 1,
+        frequency_penalty: 0.0,
+        presence_penalty: 0.0,
+        
+      });
+      console.log(response, "<______ RESPONSE")
+      console.log(response.data.choices[0].text)
+//     const response = await fetch('https://api.openai.com/v1/engines/davinci', {
+//       method: 'GET',
+//       headers: {
+//         'Content-Type': 'application/json',
+//         'Authorization': `Bearer ${API_KEY}`
+//       }
+//     });
+
+//     if (!response.ok) {
+//       throw new Error(response.statusText);
+//     }
+
+//     const data = await response.json();
+//     console.log(data, "<________=== OPENAPI DATA")
+//     const fullStackSkills = data.filter(item => item.includes("Full Stack Developer"));
+//     const topSkills = fullStackSkills.slice(0, 10);
+//     console.log(topSkills, "<<<<< TOP SKILLS")
+//     return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export { getSkills };
