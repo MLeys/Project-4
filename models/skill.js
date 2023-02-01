@@ -21,3 +21,6 @@ const skillSchema = new Schema({
 }, {
     timestamps: true
 })
+
+export default mongoose.model('Skill', skillSchema)
+// export default mongoose.model('SubSkill', subSkillSchema)

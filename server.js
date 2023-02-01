@@ -36,7 +36,7 @@ import skillRoutes from './routes/api/skills.js';
 
 app.use('/api/users', userRoutes);
 app.use('/api/skills', skillRoutes);
-app.use('')
+
 // "catch all" route
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));

@@ -7,3 +7,5 @@ const upload = multer();
 // *================= PUBLIC ROUTES ================*
 
 router.post('/skills/', skillsCtrl.create)
+
+export default router;
