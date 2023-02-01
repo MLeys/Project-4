@@ -74,7 +74,7 @@ function Dashboard() {
 
     return ( 
       <Grid>
-        <AddSkillForm />
+        <AddSkillForm handleAddSkill={handleAddSkill}/>
         <SidebarExampleTarget />
         <h1> Dashboard page </h1>
 
