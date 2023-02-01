@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Form, Segment, Button } from "semantic-ui-react";
 
 
-function AddSkillForm({handleAddSkill}) {
+function AddSkillForm({ handleAddSkill }) {
     const [skillInfo, setSkillInfo] = useState({
         name: "",
         type: "",
@@ -10,17 +10,33 @@ function AddSkillForm({handleAddSkill}) {
 
     function handleChange(e) {
         setSkillInfo({
-          ...state,
+          ...skillInfo,
           [e.target.name]: e.target.value,
         });
       }
 
-    function handleSubmit(e){
-        e.preventDefault();
-    }
-
-
-
+      async function handleSubmit(e) {
+        e.preventDefault(); 
+    
+        
+        
+        for (let key in skillInfo) {
+          setSkillInfo.append(key, skillInfo[key]);
+        }
+        console.log(data.forEach((item) => console.log(item)));
+    
+      try {
+        
+        await handleAddSkill(data); 
+    
+      } catch(err){
+        console.log(err.message, ' this is the error in addSkillForm Submit')
+        setError('Check your terminal, Error with AddSkill Submit')
+      }
+    
+    
+      }
+    
     return (
       <Segment>
         <Form autoComplete='off' onSubmit={handleSubmit}>

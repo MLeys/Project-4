@@ -72,15 +72,14 @@ function Dashboard() {
         
       }, []); 
 
-    return ( 
-      <Grid>
-        <AddSkillForm handleAddSkill={handleAddSkill}/>
-        <SidebarExampleTarget />
-        <h1> Dashboard page </h1>
+      return ( 
+        <Grid>
+          <AddSkillForm handleAddSkill={handleAddSkill} />
+          
+          <h1> Dashboard page </h1>
+        </Grid>
 
-      </Grid>
-
-    );
+      );
 }
 
 export default Dashboard;
