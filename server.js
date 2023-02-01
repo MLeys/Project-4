@@ -31,8 +31,12 @@ import auth from './config/auth.js'
 app.use(auth); 
 // api routes must be before the "catch all" route
 import userRoutes from './routes/api/users.js';
+import skillRoutes from './routes/api/skills.js';
+
 
 app.use('/api/users', userRoutes);
+app.use('/api/skills', skillRoutes);
+app.use('')
 // "catch all" route
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));

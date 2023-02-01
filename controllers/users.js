@@ -35,7 +35,7 @@ async function signup(req, res) {
   if(!req.file) return res.status(400).json({error: "Please Submit a Photo"})
 
   // where we will store our image on aws s3 bucket
-  const filePath = `skillmap/${uuidv4()}-${req.file.originalname}`
+  const filePath = `skillmap/users/${uuidv4()}-${req.file.originalname}`
   const params = {Bucket: BUCKET_NAME, Key: filePath, Body: req.file.buffer}; // req.file.buffer is the actually from the form when it was sent to our express server
   // s3.upload is making the request to s3
   s3.upload(params, async function(err, data){ // < inside the function in the response from aws
