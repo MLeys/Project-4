@@ -1,4 +1,6 @@
 // import { fetch } from 'https://deno.land/x/http/m
+// NEED TO UPDATE openAI key. Was changed due to over activity
+
 const API_KEY = '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'
 import { Configuration, OpenAIApi } from 'openai'
 
