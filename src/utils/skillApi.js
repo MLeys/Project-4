@@ -1,15 +1,18 @@
+import { json } from "react-router-dom";
 import tokenService from "./tokenService";
 
 const BASE_URL = '/api/skills/';
 
 
 export function create(data) {
+    console.log(data, 'THS IS DATA')
+    console.log(JSON.stringify(data), " <<< <STRINGIFIED DATA")
     return fetch(BASE_URL, {
         method: 'POST',
         headers: {
-            Authorization: "Bearer " + tokenService.getToken(),
+            Authorization: "Bearer" + tokenService.getToken(),
             // 'Content-Type': 'application/json',
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
         }
         
     }).then((res) =>{
@@ -29,5 +32,5 @@ export function getAll() {
         headers: {
             Authorization: "Bearer " + tokenService.getToken(),
         }
-    }.then(console.log())).then(res => res.json(), console.log(res, "<---RES", res.json(), " ==<<<<<RES.JSON"));
+    }).then(console.log(" +++++++ AFTER FETCH IN GET ALL ++++++")).then(res => res.json());
 }

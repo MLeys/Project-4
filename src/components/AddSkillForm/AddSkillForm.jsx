@@ -2,67 +2,56 @@ import { useState } from "react";
 import { Form, Segment, Button } from "semantic-ui-react";
 
 
-function AddSkillForm({ handleAddSkill }) {
-    const [skillInfo, setSkillInfo] = useState({
+export default function AddSkillForm({ handleAddSkill }) {
+    const [state, setState] = useState({
         name: "",
         type: "",
     })
 
     function handleChange(e) {
-        setSkillInfo({
-          ...skillInfo,
+		console.log(e.target.name, "e.target.name in handleChange in Addskillform")
+        setState({
+          ...state,
           [e.target.name]: e.target.value,
         });
+		console.log(state, " <<<UPDATED STATE FROM HANDLE CHANGE")
       }
 
-      async function handleSubmit(e) {
-        e.preventDefault(); 
+    function handleSubmit(e) {
+		e.preventDefault();
+	
+		console.log(state, "<___<<<<<<<< state in handleSubmit")
+		handleAddSkill(state);
+	}
     
-        
-        
-        for (let key in skillInfo) {
-          setSkillInfo.append(key, skillInfo[key]);
-        }
-        console.log(data.forEach((item) => console.log(item)));
-    
-      try {
-        
-        await handleAddSkill(data); 
-    
-      } catch(err){
-        console.log(err.message, ' this is the error in addSkillForm Submit')
-        setError('Check your terminal, Error with AddSkill Submit')
-      }
-    
-    
-      }
-    
-    return (
-      <Segment>
-        <Form autoComplete='off' onSubmit={handleSubmit}>
-          <Form.Input
-            className="form-control"
-            name="name"
-            value={skillInfo.name}
-            placeholder="Enter Skill Name"
-            onChange={handleChange}
-            required
-          />
-          <Form.Input
-            className="form-control"
-            name="type"
-            value={skillInfo.type}
-            placeholder="Enter Type of Skill"
-            onChange={handleChange}
-          />
-          <Button type="submit" className="btn">
-            Add Skill
-          </Button>
+  return (
+	
+	<Segment>
+		<h1> this is inside form segment</h1>
+		<Form onSubmit={handleSubmit}>
+		<Form.Input
+			className="form-control"
+			name="name"
+			value={state.name}
+			placeholder="Enter Skill Name"
+			onChange={handleChange}
+			
+		/>
+		<Form.Input
+			className="form-control"
+			name="type"
+			value={state.type}
+			placeholder="Enter Type of Skill"
+			onChange={handleChange}
+		/>
+		<Button type="submit" className="btn">
+			Add Skill
+		</Button>
 
-        </Form>
-      </Segment>
+		</Form>
+	</Segment> 
 
-     );
+  );
 }
 
-export default AddSkillForm;
+

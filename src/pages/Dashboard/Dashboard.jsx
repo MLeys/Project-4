@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { Grid } from 'semantic-ui-react'
 // import * as youTubeApi from "../src/utils/youTubeApi";
-import * as youTubeApi from "../../utils/youTubeApi"
-import * as skillsApi from "../../utils/skillApi"
+// import * as youTubeApi from "../../utils/youTubeApi"
+import * as skillApi from "../../utils/skillApi"
 
-import SidebarExampleTarget from "../../components/SideBar/SideBar";
-import AddSkillForm from "../../components/AddSkillForm/AddSkillform";
+// import SidebarExampleTarget from "../../components/SideBar/SideBar";
+import AddSkillForm from "../../components/AddSkillForm/AddSkillForm";
 
 
 
@@ -14,15 +14,15 @@ import AddSkillForm from "../../components/AddSkillForm/AddSkillform";
 function Dashboard() {
     const [skills, setSkills] = useState([]);
     const [error, setError] = useState('');
-    const [state, setState] = useState('');
 
 
     async function handleAddSkill(skill) {
+        console.log(skill, "<<<<< SKILL IN handleAddSKill")
       try { 
-        const response = await skillsApi.create(skill);
-        console.log(response, "++++ handleAddPost RESPONSE")
+        const response = await skillApi.create(skill);
+        console.log(response, "++++ handleAddskill RESPONSE")
 
-        setSkills([response.skill, skills])
+        setSkills([response.skill, ...skills])
 
 
       } catch(err) {
@@ -32,10 +32,10 @@ function Dashboard() {
     } // END handleAddSkill Function
 
     async function getSkills() {
-      try { 
-        const response = await skillsApi.getAll();
+      try {
+        const response = await skillApi.getAll();
         console.log(response, "++++ getAll Skills RESPONSE *************========");
-        setSkills([response.data])
+        setSkills(response.data)
 
       } catch(err) {
         setError(console.log('^^^^ getSkills Error!!! ^^^^'));
@@ -45,39 +45,35 @@ function Dashboard() {
     
 
 
-    async function searchYouTube() {
+    // async function searchYouTube() {
         
-        try {
-          const response = await youTubeApi.searchYouTube();
-          console.log(response, " <------ response from YOUTUBE SEARCH");
-          // update the cards with likes array
+    //     try {
+    //       const response = await youTubeApi.searchYouTube();
+    //       console.log(response, " <------ response from YOUTUBE SEARCH");
+    //       // update the cards with likes array
           
-        } catch (err) {
-          console.log(err.message, " <<<<<YouTube SEARCH ERROR>>>>>");
-        }
-      }
+    //     } catch (err) {
+    //       console.log(err.message, " <<<<<YouTube SEARCH ERROR>>>>>");
+    //     }
+    //   }
     
-    function handleChange(e) {
-        setState({
-          ...state,
-          [e.target.name]: e.target.value,
-        });
-    }
+
 
     useEffect(() => {
         //Getting posts, C(R)UD
-        getSkills();
+        // getSkills();
         
-        
-        
+    
       }, []); 
 
       return ( 
-        <Grid>
-          <AddSkillForm handleAddSkill={handleAddSkill} />
+        <>
+         <AddSkillForm handleAddSkill={handleAddSkill} />
+        <h1>HELLO is anything here</h1>
+        </>
+         
           
-          <h1> Dashboard page </h1>
-        </Grid>
+
 
       );
 }
