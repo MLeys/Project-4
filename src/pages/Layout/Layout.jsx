@@ -20,12 +20,12 @@ import FixedMenuHeader from '../../components/FixedMenuHeader/FixedMenuHeader';
 
 function Layout({loggedUser, handleLogout}) {
     return (
-        <div>
+        <div style={{ margin: 0, padding: 0, border: 0}} >
             <FixedMenuHeader loggedUser={loggedUser} handleLogout={handleLogout} />
-
+            <SideBar />
             <Container text style={{ marginTop: '7em' }}>
-                <Header as='h1'>---Fixed Template Layout---</Header>
-                <SideBar />
+                
+                
                 <Outlet />
             </Container>
 

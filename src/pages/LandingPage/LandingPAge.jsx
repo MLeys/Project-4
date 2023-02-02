@@ -8,11 +8,7 @@ import PageHeader from "../../components/PageHeader/PageHeader";
 function LandingPage({loggedUser}) {
     console.log(loggedUser)
     return (
-        <>
-            
-            <h1>LandingPage for all general info</h1> 
-        </>
-        
+<></>
     
     
     
