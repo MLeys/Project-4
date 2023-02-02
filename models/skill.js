@@ -13,7 +13,7 @@ const Schema = mongoose.Schema;
 
 const skillSchema = new Schema({
     user: { type: Schema.Types.ObjectId, ref: 'User'},
-    name: String,
+    name: {type: String, required: true},
     type: String,
     // usersAssigned: [{type: Schema.Types.ObjectId, ref: 'User', autopopulate: true}],
     // subSkill: [{subSkillSchema}],

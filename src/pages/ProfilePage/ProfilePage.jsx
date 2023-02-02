@@ -15,7 +15,6 @@ import AddSkillForm from "../../components/AddSkillForm/AddSkillForm";
 
 function ProfilePage() {
     const [skills, setSkills] = useState([]);
-    const [allSkills, setAllSkills] = useState([])
     const [error, setError] = useState('');
 
 
@@ -33,11 +32,11 @@ function ProfilePage() {
 
     } // END handleAddSkill Function
 
-    async function getAllSkills() {
+    async function getSkills() {
       try {
         const response = await skillsApi.getAll();
         console.log(response, "++++ getAll Skills RESPONSE *************========");
-        setAllSkills(response.data)
+        setSkills(response.data)
 
       } catch(err) {
         setError(console.log('^^^^ getSkills Error!!! ^^^^'));
@@ -49,9 +48,8 @@ function ProfilePage() {
 
     useEffect(() => {
         //Getting posts, C(R)UD
-        getAllSkills();
+        getSkills();
         
-    
       }, []); 
 
       return ( 
