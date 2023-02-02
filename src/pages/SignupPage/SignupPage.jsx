@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 
 import userService from "../../utils/userService";
 
-
 function SignUpPage({handleSignUpOrLogin}) {
   const [state, setState] = useState({
     username: "",
@@ -14,7 +13,7 @@ function SignUpPage({handleSignUpOrLogin}) {
     password: "",
     passwordConf: "",
     name: "",
-    career: ""
+    career: "",
   });
 
   const [selectedFile, setSelectedFile] = useState("");
@@ -23,7 +22,6 @@ function SignUpPage({handleSignUpOrLogin}) {
 
   const navigate = useNavigate()
   
-
   async function handleSubmit(e) {
     e.preventDefault(); 
 
@@ -31,6 +29,7 @@ function SignUpPage({handleSignUpOrLogin}) {
     formData.append("photo", selectedFile);
 
     for (let key in state) {
+      console.log(key, "<<<<_KEY")
       formData.append(key, state[key]);
     }
     console.log(formData.forEach((item) => console.log(item)));
@@ -40,7 +39,7 @@ function SignUpPage({handleSignUpOrLogin}) {
 		await userService.signup(formData); 
 		
     handleSignUpOrLogin();
-		navigate("/");
+		navigate('/');
 
 	} catch(err){
 		console.log(err.message, ' this is the error in signup')
@@ -58,6 +57,7 @@ function SignUpPage({handleSignUpOrLogin}) {
   }
 
   function handleFileInput(e) {
+    console.log("&&&&&&&&&   handlefileInput   &&&&&*&")
     // e.target.files is an array, we just want the first file uploaded to set in state
     setSelectedFile(e.target.files[0]);
   }
@@ -101,15 +101,13 @@ function SignUpPage({handleSignUpOrLogin}) {
               onChange={handleChange}
               required
             />
-            <Form.TextArea
-              label="name"
+            <Form.Input
               name="name"
               value={state.name}
               placeholder="Enter name"
               onChange={handleChange}
             />
-            <Form.TextArea
-              label="career"
+            <Form.Input
               name="career"
               value={state.career}
               placeholder="Enter current job title or goal"

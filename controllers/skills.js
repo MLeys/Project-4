@@ -18,7 +18,7 @@ async function create(req, res) {
 
   // if(!req.file) return res.status(400).json({err: 'No file was submitted sKILL***'});
 
-  // generate our key for our photo on aws
+  // // generate our key for our photo on aws
   // const key = `skillmap/skills/${uuidv4()}-${req.file.originalname}`;
   // const params = { Bucket: BUCKET_NAME, Key: key, Body: req.file.buffer}
   // // upload image to aws
@@ -27,7 +27,7 @@ async function create(req, res) {
   //   console.log(err, ' err from aws')
   //   console.log('========================')
   //   if (err) return res.status(400).json({err: 'Check terminal error from aws SKILL***'})
-
+    console.log(req.body, "!!!!!! skillsCtrl req.body")
     try {
       // adding our skill information to the database
       const skill = await Skill.create({
@@ -35,9 +35,11 @@ async function create(req, res) {
         name: req.body.name,
         type: req.body.type,
       })
-      console.log(skill, "<<<<<<<< SKILLS CONTROLLER")
-      await Skill.populate('user')// populating on a document "skill"
+      
+      // console.log(skill, "<<<<<<<< SKILLS CONTROLLER")
+      await skill.populate('user')// populating on a document "skill"
       // respond to the client
+      // skill.save()
       res.status(201).json({skill})
 
     } catch(err){

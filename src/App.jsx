@@ -1,28 +1,31 @@
-
-import { Route, Routes, Navigate } from "react-router-dom";
 import { useState } from "react";
-import "./App.css";
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { Route, Routes, Navigate } from "react-router-dom";
 
-import './index.css';
+import "./App.css";
+// import React from 'react';
+// import ReactDOM from 'react-dom';
+
+// import './index.css';
 
 import Layout from "./pages/Layout/Layout";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import SignUpPage from "./pages/SignupPage/SignupPage";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import LoginPage from "./pages/LoginPage/LoginPage";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
 
 import userService from "./utils/userService";
 
+
 export default function App() {
-  const [user, setUser] = useState(userService.getUser())
+  const [user, setUser] = useState(userService.getUser());
 
   function handleSignUpOrLogin() {
     setUser(userService.getUser());
   }
 
   function handleLogout() {
+    console.log("+++++ SIGNOUT USER +++++")
     userService.logout();
     setUser(null);
   }
@@ -37,7 +40,7 @@ export default function App() {
         >
           <Route
           index
-          element={<LandingPage loggedUser={user} handleLogout={handleLogout} />}
+          element={<ProfilePage loggedUser={user} handleLogout={handleLogout} />}
           />
           <Route
           path="/:username"

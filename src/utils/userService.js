@@ -3,20 +3,30 @@ import tokenService from './tokenService';
 const BASE_URL = '/api/users/';
 
 function signup(user) {
+  
   return fetch(BASE_URL + 'signup', {
     method: 'POST',
-   // headers: new Headers({'Content-Type': 'application/json'}),  // If you are sending a file/photo over
+    // headers: new Headers({'Content-Type': 'application/json'}),  // If you are sending a file/photo over
     // what do datatype do you need to change this too?
     // body: JSON.stringify(user)
     body: user
   })
   .then(res => {
-    if (res.ok) return res.json();
-    // Probably a duplicate email
-    throw new Error('Email already taken!');
+    // THis is handling the response from our express server after we submit our form and get a response from the server
+    if (res.ok) return res.json()
+    
+    // Probably ja duplicate email
+    // the return for the error
+    return res.json().then(response => {
+      console.log(response.error); // this is the error message
+      // from the server
+      // you can choose to throw whatever you want
+      throw new Error(response.error);
+    })
+     // throws an error to the catch block where we called the function, SignUpPage handleSUbmit
   })
   // Parameter destructuring!
-  .then(({token}) => tokenService.setToken(token));
+  .then(({token}) => tokenService.setToken(token)); // storing the token in localstorage (jwt), then we can access that token, to see who the logged in user is, in our react app
   // The above could have been written as
   //.then((token) => token.token);
 }
@@ -43,9 +53,25 @@ function login(creds) {
   .then(({token}) => tokenService.setToken(token));
 }
 
+// the definition
+// this is the function that makes a request to the profile controller function on the express back end api
+function getProfile(username){
+  return fetch(BASE_URL + username, {
+    headers: {
+			Authorization: "Bearer " + tokenService.getToken() 
+			//this is how we grab the token from local storage
+		}
+  }).then(res => {
+    if(res.ok) return res.json() // decoding the json from the server response
+    // so that we can interact with it like a regular javascript object
+    throw new Error('Error from getProfile request, check the server terminal')
+  })
+}
+
 export default {
   signup, 
   getUser,
   logout,
-  login
+  login,
+  getProfile
 };

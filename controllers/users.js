@@ -1,14 +1,21 @@
 import User from '../models/user.js'
+import Skill from '../models/skill.js'
 import jwt from 'jsonwebtoken'
 const SECRET = process.env.SECRET;
-
-import { v4 as uuidv4 } from 'uuid';
-import S3 from 'aws-sdk/clients/s3.js';
-// initialize the S3 consturctor function to give us the object that can perform crud operations to aws
-const s3 = new S3();
-
 const BUCKET_NAME = process.env.BUCKET_NAME
+
+import {s3} from '../config/s3-config.js'
+import { v4 as uuidv4 } from 'uuid';
+
+
 console.log(BUCKET_NAME, 'bucketname')
+
+
+export default {
+  signup,
+  login,
+  profile
+};
 
 
 async function profile(req, res){
@@ -16,17 +23,18 @@ async function profile(req, res){
     // First find the user using the params from the request
     // findOne finds first match, its useful to have unique usernames!
     const user = await User.findOne({username: req.params.username})
-    // Then find all the posts that belong to that user
+    // Then find all the skills that belong to that user
     if(!user) return res.status(404).json({error: 'User not found'})
 
-    const posts = await Post.find({user: user._id}).populate("user").exec();
-    console.log(posts, ' this posts')
-    res.status(200).json({data: posts, user: user})
+    const skills = await Skill.find({user: user._id}).populate("user").exec();
+    console.log(skills, ' this skills')
+    res.status(200).json({data: skills, user: user})
   } catch(err){
     console.log(err)
     res.status(400).json({err})
   }
 }
+
 
 
 async function signup(req, res) {
@@ -35,7 +43,7 @@ async function signup(req, res) {
   if(!req.file) return res.status(400).json({error: "Please Submit a Photo"})
 
   // where we will store our image on aws s3 bucket
-  const filePath = `skillmap/users/${uuidv4()}-${req.file.originalname}`
+  const filePath = `skillmap/${uuidv4()}-${req.file.originalname}`
   const params = {Bucket: BUCKET_NAME, Key: filePath, Body: req.file.buffer}; // req.file.buffer is the actually from the form when it was sent to our express server
   // s3.upload is making the request to s3
   s3.upload(params, async function(err, data){ // < inside the function in the response from aws
@@ -65,7 +73,6 @@ async function login(req, res) {
  
   try {
     const user = await User.findOne({email: req.body.email});
-    console.log(" HEY MOTHER FUCKER")
     console.log(User.find(), '< Find USER *********')
    
     if (!user) return res.status(401).json({err: 'bad credentials'});
@@ -95,8 +102,3 @@ function createJWT(user) {
   );
 }
 
-export default {
-  signup,
-  login,
-  profile
-};

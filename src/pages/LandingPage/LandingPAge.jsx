@@ -1,8 +1,8 @@
 import PageHeader from "../../components/PageHeader/PageHeader";
-import { getSkills } from '../../utils/chatGPT3Api'
+// import { getSkills } from '../../utils/chatGPT3Api'
 
-const skills = await getSkills()
-console.log(skills)
+// // const skills = await getSkills()
+// console.log(skills)
 
 
 function LandingPage({loggedUser}) {
