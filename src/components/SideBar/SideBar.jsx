@@ -65,16 +65,7 @@ function SidebarExampleTransitions() {
 
   return (
     <div>
-      <Header as='h5'>Toggles</Header>
-      <Button.Group>
-        <Button
-          active={direction === 'left'}
-          onClick={() =>
-            dispatch({ type: 'CHANGE_DIRECTION', direction: 'left' })
-          }
-        >
-          Left
-        </Button>
+
         <Button
         onClick={() =>
           dispatch({ type: 'CHANGE_ANIMATION', animation: 'push' })
@@ -82,8 +73,6 @@ function SidebarExampleTransitions() {
         >
         Push
       </Button>
-
-      </Button.Group>
 
 
 
@@ -105,7 +94,10 @@ function SidebarExampleTransitions() {
         )}
 
         <Sidebar.Pusher dimmed={dimmed && visible}>
-          <Segment basic>
+          <Segment basic 
+            onClick={() =>
+              dispatch({ type: 'CHANGE_ANIMATION', animation: 'push' })
+            }>
             <Header as='h3'>Application Content</Header>
             <Image src='/images/wireframe/paragraph.png' />
           </Segment>
