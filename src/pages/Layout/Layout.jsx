@@ -12,16 +12,20 @@ import {
   } from 'semantic-ui-react';
 
 import { Outlet } from 'react-router-dom';
+
+import SideBar from '../../components/SideBar/SideBar';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import FixedMenuHeader from '../../components/FixedMenuHeader/FixedMenuHeader';
+
 
 function Layout({loggedUser, handleLogout}) {
     return (
         <div>
             <FixedMenuHeader loggedUser={loggedUser} handleLogout={handleLogout} />
-            <PageHeader loggedUser={loggedUser} handleLogout={handleLogout} />
+
             <Container text style={{ marginTop: '7em' }}>
-                <Header as='h1'>Semantic UI React Fixed Template</Header>
+                <Header as='h1'>---Fixed Template Layout---</Header>
+                <SideBar />
                 <Outlet />
             </Container>
 

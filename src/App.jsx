@@ -40,7 +40,7 @@ export default function App() {
         >
           <Route
           index
-          element={<ProfilePage loggedUser={user} handleLogout={handleLogout} />}
+          element={<LandingPage loggedUser={user} handleLogout={handleLogout} />}
           />
           <Route
           path="/:username"

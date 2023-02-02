@@ -21,13 +21,13 @@ import { Link } from "react-router-dom";
                 <Menu.Item as='a' header>
                     <Link to={`/${loggedUser?.username}`}>
                         <Image
-                        style={{ marginRight: '1.5em' }} 
-                        src={
-                        loggedUser?.photoUrl
-                            ? loggedUser?.photoUrl
-                            : "https://react.semantic-ui.com/images/wireframe/square-image.png"
-                        }
-                        avatar 
+                            style={{ marginRight: '1.5em' }} 
+                            src={
+                            loggedUser?.photoUrl
+                                ? loggedUser?.photoUrl
+                                : "https://react.semantic-ui.com/images/wireframe/square-image.png"
+                            }
+                            avatar 
                         />
                     </Link>
                 </Menu.Item>

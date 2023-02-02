@@ -9,54 +9,9 @@ import {
   Menu,
   Segment,
   Sidebar,
-  Item,
 } from 'semantic-ui-react'
 
 
-// THIS IS WHERE SKILLS GO FOR MAP
-const items = [
-  {
-    childKey: 0,
-    image: '/images/wireframe/image.png',
-    header: 'Header',
-    description: 'Description',
-    meta: 'Metadata',
-    extra: 'Extra',
-  },
-
-]
-
-// THIS IS WHAT WE USE TO GROUP INTO SIDEBAR
-const ItemExampleProps = () => <Item.Group items={items} />
-
-
-const HorizontalSidebar = ({ animation, direction, visible }) => (
-  <Sidebar
-    as={Segment}
-    animation={animation}
-    direction={direction}
-    visible={visible}
-  >
-    <Grid textAlign='center'>
-      <Grid.Row columns={1}>
-        <Grid.Column>
-          <Header as='h3'>New Content Awaits</Header>
-        </Grid.Column>
-      </Grid.Row>
-      <Grid.Row columns={3}>
-        <Grid.Column>
-          <Image src='/images/wireframe/media-paragraph.png' />
-        </Grid.Column>
-        <Grid.Column>
-          <Image src='/images/wireframe/media-paragraph.png' />
-        </Grid.Column>
-        <Grid.Column>
-          <Image src='/images/wireframe/media-paragraph.png' />
-        </Grid.Column>
-      </Grid.Row>
-    </Grid>
-  </Sidebar>
-)
 
 const VerticalSidebar = ({ animation, direction, visible }) => (
   <Sidebar
@@ -110,16 +65,7 @@ function SidebarExampleTransitions() {
 
   return (
     <div>
-      <Checkbox
-        checked={dimmed}
-        label='Dim Page'
-        onChange={(e, { checked }) =>
-          dispatch({ type: 'CHANGE_DIMMED', dimmed: checked })
-        }
-        toggle
-      />
-
-      <Header as='h5'>Direction</Header>
+      <Header as='h5'>Toggles</Header>
       <Button.Group>
         <Button
           active={direction === 'left'}
@@ -130,79 +76,17 @@ function SidebarExampleTransitions() {
           Left
         </Button>
         <Button
-          active={direction === 'right'}
-          onClick={() =>
-            dispatch({ type: 'CHANGE_DIRECTION', direction: 'right' })
-          }
-        >
-          Right
-        </Button>
-        <Button
-          active={direction === 'top'}
-          onClick={() =>
-            dispatch({ type: 'CHANGE_DIRECTION', direction: 'top' })
-          }
-        >
-          Top
-        </Button>
-        <Button
-          active={direction === 'bottom'}
-          onClick={() =>
-            dispatch({ type: 'CHANGE_DIRECTION', direction: 'bottom' })
-          }
-        >
-          Bottom
-        </Button>
-      </Button.Group>
-
-      <Header as='h5'>All Direction Animations</Header>
-      <Button
-        onClick={() =>
-          dispatch({ type: 'CHANGE_ANIMATION', animation: 'overlay' })
-        }
-      >
-        Overlay
-      </Button>
-      <Button
         onClick={() =>
           dispatch({ type: 'CHANGE_ANIMATION', animation: 'push' })
         }
-      >
+        >
         Push
       </Button>
-      <Button
-        onClick={() =>
-          dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' })
-        }
-      >
-        Scale Down
-      </Button>
 
-      <Header as='h5'>Vertical-Only Animations</Header>
-      <Button
-        disabled={vertical}
-        onClick={() =>
-          dispatch({ type: 'CHANGE_ANIMATION', animation: 'uncover' })
-        }
-      >
-        Uncover
-      </Button>
-      <Button
-        disabled={vertical}
-        onClick={() =>
-          dispatch({ type: 'CHANGE_ANIMATION', animation: 'slide along' })
-        }
-      >
-        Slide Along
-      </Button>
-      <Button
-        disabled={vertical}
-        onClick={() =>
-          dispatch({ type: 'CHANGE_ANIMATION', animation: 'slide out' })
-        }
-      >
-        Slide Out
-      </Button>
+      </Button.Group>
+
+
+
 
       <Sidebar.Pushable as={Segment} style={{ overflow: 'hidden' }}>
         {vertical && (
