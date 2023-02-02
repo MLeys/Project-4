@@ -23,21 +23,17 @@ function Layout({loggedUser, handleLogout, allSkills, handleAddSkill }) {
     
 
     return (
-        // <div style={{ margin: 0, padding: 0, border: 0}} >
+  
         
             <Grid>
-                <Grid.Row>
-                <FixedMenuHeader loggedUser={loggedUser} handleLogout={handleLogout} />
+                <Grid.Row >
+                    <FixedMenuHeader loggedUser={loggedUser} handleLogout={handleLogout} />
 
                 </Grid.Row>
-                <Grid.Row style={{ margin: '0em 0em 0em', padding: '0em 0em' }}>
+                <Grid.Row >                    
                     <Grid.Column>
-                        <SideBar allSkills={allSkills} loggedUser={loggedUser} handleLogout={handleLogout} handleAddSkill={handleAddSkill}/>
-                    </Grid.Column>
-                    
-                    {/* <Grid.Column>
                         <Outlet />
-                    </Grid.Column> */}
+                    </Grid.Column>
                 </Grid.Row>
                 <Grid.Row style={{ margin: '0em 0em 0em', padding: '0em 0em' }}>
                     <Segment inverted fixed='bottom' vertical style={{ margin: '0em 0em 0em', padding: '0em 0em' }}>
@@ -61,8 +57,6 @@ function Layout({loggedUser, handleLogout, allSkills, handleAddSkill }) {
                 </Grid.Row>
             </Grid>
             
-        
-
 
         // </div>
 
