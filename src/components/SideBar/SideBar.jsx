@@ -1,4 +1,5 @@
 import React from 'react'
+import { useState, useEffect } from "react";
 import {
   Button,
   Checkbox,
@@ -9,11 +10,16 @@ import {
   Menu,
   Segment,
   Sidebar,
+  Item
 } from 'semantic-ui-react'
+import { Outlet } from 'react-router-dom';
+import SkillList from '../SkillList/SkillList';
 
 
 
-const VerticalSidebar = ({ animation, direction, visible }) => (
+
+const VerticalSidebar = ({ animation, direction, visible, loggedUser, allSkills }) => (
+
   <Sidebar
     as={Menu}
     animation={animation}
@@ -24,18 +30,12 @@ const VerticalSidebar = ({ animation, direction, visible }) => (
     visible={visible}
     width='thin'
   >
+    {allSkills.map((skill) => {
     <Menu.Item as='a'>
-      <Icon name='home' />
-      Home
+      {skill.name}
     </Menu.Item>
-    <Menu.Item as='a'>
-      <Icon name='gamepad' />
-      Games
-    </Menu.Item>
-    <Menu.Item as='a'>
-      <Icon name='camera' />
-      Channels
-    </Menu.Item>
+    })}
+
   </Sidebar>
 )
 
@@ -52,31 +52,23 @@ function exampleReducer(state, action) {
   }
 }
 
-function SidebarExampleTransitions() {
+
+
+function SidebarExampleTransitions({ loggedUser, handleLogout, allSkills, handleAddSkill  }) {
   const [state, dispatch] = React.useReducer(exampleReducer, {
     animation: 'overlay',
     direction: 'left',
     dimmed: false,
-    visible: false,
+    visible: true,
   })
 
   const { animation, dimmed, direction, visible } = state
   const vertical = direction === 'bottom' || direction === 'top'
 
+ 
+
   return (
-    <div>
-
-        <Button
-        onClick={() =>
-          dispatch({ type: 'CHANGE_ANIMATION', animation: 'push' })
-        }
-        >
-        Push
-      </Button>
-
-
-
-
+    
       <Sidebar.Pushable as={Segment} style={{ overflow: 'hidden' }}>
         {vertical && (
           <HorizontalSidebar
@@ -87,6 +79,7 @@ function SidebarExampleTransitions() {
         )}
         {!vertical && (
           <VerticalSidebar
+            allSkills={allSkills}
             animation={animation}
             direction={direction}
             visible={visible}
@@ -98,12 +91,12 @@ function SidebarExampleTransitions() {
             onClick={() =>
               dispatch({ type: 'CHANGE_ANIMATION', animation: 'push' })
             }>
-            <Header as='h3'>Application Content</Header>
-            <Image src='/images/wireframe/paragraph.png' />
+            
+              <Outlet allSkills={allSkills} loggedUser={loggedUser} handleLogout={handleLogout} handleAddSkill={handleAddSkill}/>
           </Segment>
         </Sidebar.Pusher>
       </Sidebar.Pushable>
-    </div>
+    
   )
 }
 

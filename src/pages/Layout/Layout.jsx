@@ -18,92 +18,54 @@ import PageHeader from '../../components/PageHeader/PageHeader';
 import FixedMenuHeader from '../../components/FixedMenuHeader/FixedMenuHeader';
 
 
-function Layout({loggedUser, handleLogout}) {
+function Layout({loggedUser, handleLogout, allSkills, handleAddSkill }) {
+    
+    
+
     return (
-        <div style={{ margin: 0, padding: 0, border: 0}} >
-            <FixedMenuHeader loggedUser={loggedUser} handleLogout={handleLogout} />
-            <SideBar />
-            <Container text style={{ marginTop: '7em' }}>
-                
-                
-                <Outlet />
-            </Container>
+        // <div style={{ margin: 0, padding: 0, border: 0}} >
+        
+            <Grid>
+                <Grid.Row>
+                <FixedMenuHeader loggedUser={loggedUser} handleLogout={handleLogout} />
 
-                <Segment inverted vertical style={{ margin: '5em 0em 0em', padding: '5em 0em' }}>
-                    <Container textAlign='center'>
-                        <Grid divided inverted stackable>
-                        <Grid.Column width={3}>
-                            <Header inverted as='h4' content='Group 1' />
-                            <List link inverted>
-                            <List.Item as='a'>Link One</List.Item>
-                            <List.Item as='a'>Link Two</List.Item>
-                            <List.Item as='a'>Link Three</List.Item>
-                            <List.Item as='a'>Link Four</List.Item>
+                </Grid.Row>
+                <Grid.Row style={{ margin: '0em 0em 0em', padding: '0em 0em' }}>
+                    <Grid.Column>
+                        <SideBar allSkills={allSkills} loggedUser={loggedUser} handleLogout={handleLogout} handleAddSkill={handleAddSkill}/>
+                    </Grid.Column>
+                    
+                    {/* <Grid.Column>
+                        <Outlet />
+                    </Grid.Column> */}
+                </Grid.Row>
+                <Grid.Row style={{ margin: '0em 0em 0em', padding: '0em 0em' }}>
+                    <Segment inverted fixed='bottom' vertical style={{ margin: '0em 0em 0em', padding: '0em 0em' }}>
+                        <Container textAlign='center'>
+                            <List horizontal inverted divided link size='small'>
+                            <List.Item as='a' href='#'>
+                                Site Map
+                            </List.Item>
+                            <List.Item as='a' href='#'>
+                                Contact Us
+                            </List.Item>
+                            <List.Item as='a' href='#'>
+                                Terms and Conditions
+                            </List.Item>
+                            <List.Item as='a' href='#'>
+                                Privacy Policy
+                            </List.Item>
                             </List>
-                        </Grid.Column>
-                        <Grid.Column width={3}>
-                            <Header inverted as='h4' content='Group 2' />
-                            <List link inverted>
-                            <List.Item as='a'>Link One</List.Item>
-                            <List.Item as='a'>Link Two</List.Item>
-                            <List.Item as='a'>Link Three</List.Item>
-                            <List.Item as='a'>Link Four</List.Item>
-                            </List>
-                        </Grid.Column>
-                        <Grid.Column width={3}>
-                            <Header inverted as='h4' content='Group 3' />
-                            <List link inverted>
-                            <List.Item as='a'>Link One</List.Item>
-                            <List.Item as='a'>Link Two</List.Item>
-                            <List.Item as='a'>Link Three</List.Item>
-                            <List.Item as='a'>Link Four</List.Item>
-                            </List>
-                        </Grid.Column>
-                        <Grid.Column width={7}>
-                            <Header inverted as='h4' content='Footer Header' />
-                            <p>
-                            Extra space for a call to action inside the footer that could help re-engage users.
-                            </p>
-                        </Grid.Column>
-                        </Grid>
-
-                        <Divider inverted section />
-                        <Image centered size='mini' src='/logo.png' />
-                        <List horizontal inverted divided link size='small'>
-                        <List.Item as='a' href='#'>
-                            Site Map
-                        </List.Item>
-                        <List.Item as='a' href='#'>
-                            Contact Us
-                        </List.Item>
-                        <List.Item as='a' href='#'>
-                            Terms and Conditions
-                        </List.Item>
-                        <List.Item as='a' href='#'>
-                            Privacy Policy
-                        </List.Item>
-                        </List>
-                    </Container>
-                </Segment>
-
-        </div>
+                        </Container>
+                    </Segment>
+                </Grid.Row>
+            </Grid>
+            
+        
 
 
+        // </div>
 
-
-        // <Grid>
-        //     <Grid.Row>
-        //         <Grid.Column>
-                  
-        //             <PageHeader loggedUser={loggedUser} handleLogout={handleLogout} />
-        //         </Grid.Column>
-        //     </Grid.Row>
-        //     <Grid.Row>
-        //         <Grid.Column>
-        //             <Outlet />
-        //         </Grid.Column>
-        //     </Grid.Row>
-        // </Grid>
     );
 }
 

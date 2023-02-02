@@ -8,7 +8,8 @@ import PageHeader from "../../components/PageHeader/PageHeader";
 function LandingPage({loggedUser}) {
     console.log(loggedUser)
     return (
-<></>
+        <div id='Landing page'></div>
+
     
     
     
