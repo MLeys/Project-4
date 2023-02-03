@@ -72,12 +72,12 @@ export default function App() {
     }
   } // END getSkills Function
 
-  useEffect(() => {
-    //Getting posts, C(R)UD
-    getSkills();
-    console.log(skills, " SKILLS HERE!!!!!!!")
+  // useEffect(() => {
+  //   //Getting posts, C(R)UD
+  //   getSkills();
+  //   console.log(skills, " SKILLS HERE!!!!!!!")
     
-  }, []); 
+  // }, []); 
 
 
 
