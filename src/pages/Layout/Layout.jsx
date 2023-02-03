@@ -13,9 +13,10 @@ import {
 
 import { Outlet } from 'react-router-dom';
 
-import SideBar from '../../components/SideBar/SideBar';
+import SideBar from '../../components/MainSideBar/MainSideBar';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import FixedMenuHeader from '../../components/FixedMenuHeader/FixedMenuHeader';
+import MainSideBar from '../../components/MainSideBar/MainSideBar';
 
 
 function Layout({loggedUser, handleLogout, allSkills, handleAddSkill }) {
@@ -24,19 +25,12 @@ function Layout({loggedUser, handleLogout, allSkills, handleAddSkill }) {
 
     return (
   
-        
-            <Grid>
-                <Grid.Row >
-                    <FixedMenuHeader loggedUser={loggedUser} handleLogout={handleLogout} />
+        <Container  style={{ margin: 0, padding: 0, "height": "90vh" }}>
+            <FixedMenuHeader loggedUser={loggedUser} handleLogout={handleLogout} />
 
-                </Grid.Row>
-                <Grid.Row >                    
-                    <Grid.Column>
-                        <Outlet />
-                    </Grid.Column>
-                </Grid.Row>
-                <Grid.Row style={{ margin: '0em 0em 0em', padding: '0em 0em' }}>
-                    <Segment inverted fixed='bottom' vertical style={{ margin: '0em 0em 0em', padding: '0em 0em' }}>
+            <MainSideBar loggedUser={loggedUser} handleLogout={handleLogout} allSkills={allSkills} handleAddSkill={handleAddSkill}/>
+
+                    <Segment id='main-seg' inverted fixed='bottom' vertical style={{ "margin": '0', padding: '0em 0em', "height": "2em" }}>
                         <Container textAlign='center'>
                             <List horizontal inverted divided link size='small'>
                             <List.Item as='a' href='#'>
@@ -54,8 +48,9 @@ function Layout({loggedUser, handleLogout, allSkills, handleAddSkill }) {
                             </List>
                         </Container>
                     </Segment>
-                </Grid.Row>
-            </Grid>
+
+        </Container>
+       
             
 
         // </div>

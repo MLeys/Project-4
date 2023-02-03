@@ -1,14 +1,24 @@
-import PageHeader from "../../components/PageHeader/PageHeader";
-// import { getSkills } from '../../utils/chatGPT3Api'
+import React from "react";
+import { Grid } from "semantic-ui-react";
 
-// // const skills = await getSkills()
-// console.log(skills)
+import MainSideBar from "../../components/MainSideBar/MainSideBar";
 
-
-function LandingPage({loggedUser}) {
+function LandingPage({loggedUser, handleLogout, allSkills, handleAddSkill }) {
     console.log(loggedUser)
+    console.log(allSkills, " ALL FUCKING SKILLS") 
     return (
-        <div id='Landing page'></div>
+
+            <Grid.Row>
+                {allSkills.map((skill) => {
+                    console.log(skill.name)
+
+
+                    })}
+
+
+            </Grid.Row>
+
+
 
     
     

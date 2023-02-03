@@ -15,7 +15,7 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 
 import userService from "./utils/userService";
-import * as skillsApi from "../src/utils/skillApi.js"
+import * as skillsApi from "/src/utils/skillApi.js"
 
 export default function App() {
 
@@ -39,23 +39,19 @@ export default function App() {
   } // END handleAddSkill Function
 
   async function getSkills() {
+    let qty = 0;
     try {
+      
       const response = await skillsApi.getAll();
-      console.log(response, "++++ getAll Skills RESPONSE *************========");
+      console.log(response, "++++ getSkills ++++++");
       setSkills(response.data)
-
-    } catch(err) {
-      setError(console.log('^^^^ getSkills Error!!! ^^^^'));
-      console.log(err, '<--- getSkills ERROR');
-    }
-  } // END getSkills Function
-
-  async function getSkills() {
-    try {
-      const response = await skillsApi.getAll();
-      console.log(response, "++++ getAll Skills RESPONSE *************========");
-      setSkills(response.data)
-      return skills
+      console.log(skills)
+      
+      // console.log(skills, "%%%%%%%%%%%")
+      // skills.map((skill) => {
+      //   qty = qty + 1
+      //   console.log(`Name: ${skill.name} Type: ${skill.type} Q: ${qty}`)
+      // })
 
     } catch(err) {
       setError(console.log('^^^^ getSkills Error!!! ^^^^'));
@@ -66,6 +62,7 @@ export default function App() {
   useEffect(() => {
     //Getting posts, C(R)UD
     getSkills();
+    console.log(skills, " SKILLS HERE!!!!!!!")
     
   }, []); 
 
@@ -94,11 +91,11 @@ export default function App() {
         >
           <Route
           index
-          element={<LandingPage loggedUser={user} handleLogout={handleLogout} />}
+          element={<LandingPage loggedUser={user} handleLogout={handleLogout} handleAddSkill={handleAddSkill} allSkills = {skills}/>}
           />
           <Route
           path="/:username"
-          element={<Dashboard loggedUser={user} handleLogout={handleLogout} />}
+          element={<Dashboard loggedUser={user} handleLogout={handleLogout} handleAddSkill={handleAddSkill} allSkills = {skills}/>}
           />
         </Route>
 

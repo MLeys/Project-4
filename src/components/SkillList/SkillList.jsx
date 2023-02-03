@@ -1,16 +1,22 @@
 import React from 'react'
-import { Button, Image, List } from 'semantic-ui-react'
+import { Button, Image, List, Menu} from 'semantic-ui-react'
 
-const SkillList = () => (
-  <List divided Link verticalAlign='middle'>
-    <List.Item as={a}>
-      <List.Content floated='right'>
-        <Button>Add</Button>
-      </List.Content>
-      <Image avatar src='/images/avatar/small/lena.png' />
-      <List.Content>Lena</List.Content>
-    </List.Item>
-  </List>
-)
 
-export default SkillList
+function SkillList({skill, key}) {
+  console.log(skill, "<<<<<EACH SKILL")
+  return ( 
+    <Menu.Item key={skill._id} as='a'>
+      {skill.name}
+    </Menu.Item>
+   );
+}
+
+export default SkillList;
+
+// const SkillList = () => (
+//   <List divided Link verticalAlign='middle'>
+
+//   </List>
+// )
+
+// export default SkillList

@@ -13,55 +13,55 @@ import * as skillsApi from "../../utils/skillApi"
 import AddSkillForm from "../../components/AddSkillForm/AddSkillForm";
 
 
-function ProfilePage() {
+function Dashboard({loggedUser, handleLogout, allSkills, handleAddSkill}) {
     const [skills, setSkills] = useState([]);
     const [error, setError] = useState('');
+    console.log(allSkills, "ALL FUCKING SKILLS DASHBOARD")
 
-
-    async function handleAddSkill(skill) {
-        try {
-            console.log(skill, "<<<<< skill data IN handleAddSKill")
+    // async function handleAddSkill(skill) {
+    //     try {
+    //         console.log(skill, "<<<<< skill data IN handleAddSKill")
       
-            const response = await skillsApi.create(skill);
-            console.log(response, "++++ handleAddskill RESPONSE")
+    //         const response = await skillsApi.create(skill);
+    //         console.log(response, "++++ handleAddskill RESPONSE")
     
-            setSkills([response.skill, ...skills])
-        } catch(err){
-            console.log(err, " Error IN THE HANDLEADD")
-        }
+    //         setSkills([response.skill, ...skills])
+    //     } catch(err){
+    //         console.log(err, " Error IN THE HANDLEADD")
+    //     }
 
-    } // END handleAddSkill Function
+    // } // END handleAddSkill Function
 
-    async function getSkills() {
-      try {
-        const response = await skillsApi.getAll();
-        console.log(response, "++++ getAll Skills RESPONSE *************========");
-        setSkills(response.data)
+    // async function getSkills() {
+    //   try {
+    //     const response = await skillsApi.getAll();
+    //     console.log(response, "++++ getAll Skills RESPONSE *************========");
+    //     setSkills(response.data)
 
-      } catch(err) {
-        setError(console.log('^^^^ getSkills Error!!! ^^^^'));
-        console.log(err, '<--- getSkills ERROR');
-      }
-    } // END getSkills Function
+    //   } catch(err) {
+    //     setError(console.log('^^^^ getSkills Error!!! ^^^^'));
+    //     console.log(err, '<--- getSkills ERROR');
+    //   }
+    // } // END getSkills Function
 
 
 
     useEffect(() => {
         //Getting posts, C(R)UD
-        getSkills();
+        // getSkills();
         
       }, []); 
 
       return ( 
         <>
          <AddSkillForm handleAddSkill={handleAddSkill} />
-        <h1>HELLO is anything here - Dashboard Page</h1>
+          <h1>HELLO is anything here - Dashboard Page</h1>
         </>
     
       );
 }
 
-export default ProfilePage;
+export default Dashboard;
 
     
 

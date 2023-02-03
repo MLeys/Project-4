@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+
  import {
     Container,
     Divider,
@@ -16,7 +17,7 @@ import { Link } from "react-router-dom";
 
  function FixedMenuHeader({ loggedUser, handleLogout }) {
     return (  
-        <Menu fixed='top' inverted>
+        <Menu  inverted style={{padding: '0em', margin: '0'}}>
             <Container>
                 <Menu.Item as='a' header>
                     <Link to={`/${loggedUser?.username}`}>

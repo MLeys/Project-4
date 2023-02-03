@@ -1,9 +1,10 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 1em;
+  padding: 0em;
   text-align: center;
-  
+  background-color: rgba(0,0,0,.5);
+  height: 100vh;
 }
 
 .logo {
@@ -18,7 +19,13 @@
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
+div.ui.basic.segment {
+  padding: 0;
+}
 
+div.row {
+  padding: 0;
+}
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);

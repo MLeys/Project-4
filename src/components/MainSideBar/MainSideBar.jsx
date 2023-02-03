@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useEffect } from "react";
+import { useState, useEffect} from "react";
 import {
   Button,
   Checkbox,
@@ -10,7 +10,10 @@ import {
   Menu,
   Segment,
   Sidebar,
-  Item
+  Item,
+  Input,
+  Label,
+  List
 } from 'semantic-ui-react'
 import { Outlet } from 'react-router-dom';
 import SkillList from '../SkillList/SkillList';
@@ -18,26 +21,37 @@ import SkillList from '../SkillList/SkillList';
 
 
 
-const VerticalSidebar = ({ animation, direction, visible, loggedUser, allSkills }) => (
+function VerticalSidebar({ animation, direction, visible, loggedUser, allSkills }) {
+  console.log(allSkills, "ALL SKIDSFJASDJFS AJSD:DJS:FA:DS:ALSD")
 
-  <Sidebar
-    as={Menu}
-    animation={animation}
-    direction={direction}
-    icon='labeled'
-    inverted
-    vertical
-    visible={visible}
-    width='thin'
-  >
-    {allSkills.map((skill) => {
-    <Menu.Item as='a'>
-      {skill.name}
-    </Menu.Item>
-    })}
+  return (
+    <Sidebar
+      style={{"text-color": 'white'}}
+      as={Menu}
+      animation={animation}
+      direction={direction}
+      
+      inverted
+      vertical
+      visible={visible}
+      width='thin'
+    >
+      {
+        allSkills.map((skill) => {
+          return (
+            <SkillList skill={skill}/>
+          )
+  
+        })
+      }
 
-  </Sidebar>
-)
+      
+    </Sidebar>
+  )
+
+}
+
+
 
 function exampleReducer(state, action) {
   switch (action.type) {
@@ -54,9 +68,9 @@ function exampleReducer(state, action) {
 
 
 
-function SidebarExampleTransitions({ loggedUser, handleLogout, allSkills, handleAddSkill  }) {
+function MainSideBar({ loggedUser, handleLogout, allSkills, handleAddSkill  }) {
   const [state, dispatch] = React.useReducer(exampleReducer, {
-    animation: 'overlay',
+    animation: 'push',
     direction: 'left',
     dimmed: false,
     visible: true,
@@ -65,6 +79,7 @@ function SidebarExampleTransitions({ loggedUser, handleLogout, allSkills, handle
   const { animation, dimmed, direction, visible } = state
   const vertical = direction === 'bottom' || direction === 'top'
 
+  
  
 
   return (
@@ -100,4 +115,4 @@ function SidebarExampleTransitions({ loggedUser, handleLogout, allSkills, handle
   )
 }
 
-export default SidebarExampleTransitions
+export default MainSideBar
