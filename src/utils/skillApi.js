@@ -35,3 +35,19 @@ export function getAll() {
         }
     }).then(console.log(" +++++++ AFTER FETCH IN GET ALL ++++++")).then(res => res.json());
 }
+
+export function deleteSkill(skillId){
+	return fetch(`${BASE_URL}/${skillId}`, {
+		method: 'DELETE',
+		headers: {
+			Authorization: "Bearer " + tokenService.getToken() 
+			//this is how we grab the token from local storage
+		}	
+	}).then(res => {
+		// res is the response from the server
+		// This gets called when we get a response from the 
+		// express server deleteLike controller function
+		if(res.ok) return res.json() // taking json and turning into and js object
+		throw new Error('Error deleting a skill check the server terminal')
+	})
+}

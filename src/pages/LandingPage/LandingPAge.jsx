@@ -3,9 +3,9 @@ import { Grid } from "semantic-ui-react";
 
 import MainSideBar from "../../components/MainSideBar/MainSideBar";
 
-function LandingPage({loggedUser, handleLogout, allSkills, handleAddSkill }) {
+function LandingPage({loggedUser, handleLogout, allSkills, handleAddSkill, handleDeleteSkill}) {
     console.log(loggedUser)
-    console.log(allSkills, " ALL FUCKING SKILLS") 
+    console.log(allSkills, " ALL SKILLS - landing page") 
     return (
 
             <Grid.Row>

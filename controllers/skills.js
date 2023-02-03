@@ -4,7 +4,22 @@ import Skill from '../models/skill.js';
 export default {
   create,
   index,
+  delete: deleteSkill,
 };
+
+async function deleteSkill(req, res) {
+  try {
+    const skillDoc = await Skill.findOne({'skills._id': req.params.id})
+    console.log(skillDoc, "<--- SkillDoC on Delete")
+    skillDoc.remove(req.params.id)
+    
+
+    res.status(201).json({skillDoc})
+  } catch (err) {
+    console.log(err, '<-- Error in deleteSkill.Ctrl')
+    res.status(400).json({err})
+  }
+}
 
 async function create(req, res) {
     try {

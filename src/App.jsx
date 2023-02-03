@@ -24,6 +24,19 @@ export default function App() {
   const [error, setError] = useState('');
 
 
+  async function handleDeleteSkill(skillId) {
+    try {
+      
+      const response = await skillsApi.deleteSkill(skillId);
+      console.log(response, "<--- DELETE SKILL RESPONSE")
+      getSkills();
+    } catch (err) {
+      console.log(err, "<-------handleDelete skill Error")
+    }
+  }
+
+
+
   async function handleAddSkill(skill) {
       try {
           console.log(skill, "<<<<< skill data IN handleAddSKill")
@@ -87,15 +100,15 @@ export default function App() {
       <Routes>
         <Route
           path="/"
-          element={<Layout handleAddSkill={handleAddSkill} allSkills = {skills} loggedUser={user} handleLogout={handleLogout} />}
+          element={<Layout handleAddSkill={handleAddSkill} allSkills = {skills} loggedUser={user} handleLogout={handleLogout} handleDeleteSkill={handleDeleteSkill} />}
         >
           <Route
           index
-          element={<LandingPage loggedUser={user} handleLogout={handleLogout} handleAddSkill={handleAddSkill} allSkills = {skills}/>}
+          element={<LandingPage loggedUser={user} handleLogout={handleLogout} handleAddSkill={handleAddSkill} allSkills = {skills} handleDeleteSkill={handleDeleteSkill}/>}
           />
           <Route
           path="/:username"
-          element={<Dashboard loggedUser={user} handleLogout={handleLogout} handleAddSkill={handleAddSkill} allSkills = {skills}/>}
+          element={<Dashboard loggedUser={user} handleLogout={handleLogout} handleAddSkill={handleAddSkill} allSkills = {skills} handleDeleteSkill={handleDeleteSkill}/>}
           />
         </Route>
 

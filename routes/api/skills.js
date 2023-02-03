@@ -8,5 +8,6 @@ const upload = multer();
 
 router.post('/', skillsCtrl.create)
 router.get('/', skillsCtrl.index)
+router.delete('/:id', skillsCtrl.delete)
 
 export default router;

@@ -19,7 +19,7 @@ import FixedMenuHeader from '../../components/FixedMenuHeader/FixedMenuHeader';
 import MainSideBar from '../../components/MainSideBar/MainSideBar';
 
 
-function Layout({loggedUser, handleLogout, allSkills, handleAddSkill }) {
+function Layout({loggedUser, handleLogout, allSkills, handleAddSkill, handleDeleteSkill}) {
     
     
 
@@ -28,7 +28,7 @@ function Layout({loggedUser, handleLogout, allSkills, handleAddSkill }) {
         <Container  style={{ margin: 0, padding: 0, "height": "90vh" }}>
             <FixedMenuHeader loggedUser={loggedUser} handleLogout={handleLogout} />
 
-            <MainSideBar loggedUser={loggedUser} handleLogout={handleLogout} allSkills={allSkills} handleAddSkill={handleAddSkill}/>
+            <MainSideBar loggedUser={loggedUser} handleLogout={handleLogout} allSkills={allSkills} handleAddSkill={handleAddSkill} handleDeleteSkill={handleDeleteSkill}/>
 
                     <Segment id='main-seg' inverted fixed='bottom' vertical style={{ "margin": '0', padding: '0em 0em', "height": "2em" }}>
                         <Container textAlign='center'>

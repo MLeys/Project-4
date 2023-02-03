@@ -21,7 +21,7 @@ import SkillList from '../SkillList/SkillList';
 
 
 
-function VerticalSidebar({ animation, direction, visible, loggedUser, allSkills }) {
+function VerticalSidebar({ animation, direction, visible, loggedUser, allSkills, handleDeleteSkill}) {
   console.log(allSkills, "ALL SKIDSFJASDJFS AJSD:DJS:FA:DS:ALSD")
 
   return (
@@ -39,7 +39,7 @@ function VerticalSidebar({ animation, direction, visible, loggedUser, allSkills 
       {
         allSkills.map((skill) => {
           return (
-            <SkillList skill={skill}/>
+            <SkillList skill={skill} handleDeleteSkill={handleDeleteSkill} allSkills={allSkills}/>
           )
   
         })
@@ -68,7 +68,7 @@ function exampleReducer(state, action) {
 
 
 
-function MainSideBar({ loggedUser, handleLogout, allSkills, handleAddSkill  }) {
+function MainSideBar({ loggedUser, handleLogout, allSkills, handleAddSkill, handleDeleteSkill  }) {
   const [state, dispatch] = React.useReducer(exampleReducer, {
     animation: 'push',
     direction: 'left',
@@ -98,6 +98,8 @@ function MainSideBar({ loggedUser, handleLogout, allSkills, handleAddSkill  }) {
             animation={animation}
             direction={direction}
             visible={visible}
+            handleDeleteSkill={handleDeleteSkill}
+            
           />
         )}
 
@@ -107,7 +109,7 @@ function MainSideBar({ loggedUser, handleLogout, allSkills, handleAddSkill  }) {
               dispatch({ type: 'CHANGE_ANIMATION', animation: 'push' })
             }>
             
-              <Outlet allSkills={allSkills} loggedUser={loggedUser} handleLogout={handleLogout} handleAddSkill={handleAddSkill}/>
+              <Outlet allSkills={allSkills} loggedUser={loggedUser} handleLogout={handleLogout} handleAddSkill={handleAddSkill} handleDeleteSkill={handleDeleteSkill}/>
           </Segment>
         </Sidebar.Pusher>
       </Sidebar.Pushable>
