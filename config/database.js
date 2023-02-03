@@ -1,7 +1,12 @@
 import mongoose from 'mongoose'
 
+// mongoose.connect(
+//   'mongodb://127.0.0.1:27017/skillmap'// < replace with your database name!
+
+// );
+
 mongoose.connect(
-  'mongodb://127.0.0.1:27017/skillmap'// < replace with your database name!
+  process.env.DATABASE_URL// < replace with your database name!
 
 );
 
