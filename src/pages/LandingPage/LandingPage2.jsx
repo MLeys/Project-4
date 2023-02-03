@@ -18,12 +18,6 @@ function LandingPage({loggedUser, handleLogout, allSkills, handleAddSkill, handl
 
             </Grid.Row>
 
-
-
-    
-    
-    
-    
     );
 }
 

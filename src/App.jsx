@@ -8,7 +8,7 @@ import "./App.css";
 // import './index.css';
 
 import Layout from "./pages/Layout/Layout";
-import LandingPage from "./pages/LandingPage/LandingPage";
+import LandingPage from "./pages/LandingPage/LandingPage2";
 import SignUpPage from "./pages/SignupPage/SignupPage";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import LoginPage from "./pages/LoginPage/LoginPage";
