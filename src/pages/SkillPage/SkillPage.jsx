@@ -29,6 +29,9 @@ function SkillPage({currentSkill, allSkills}) {
         setSubFormPop(false)
     }
 
+    
+
+
     console.log(allSkills, 'AAAAAALLLL SKILLLLLS')
     const { skillName } = useParams();
     let skill = allSkills.filter((s) =>{

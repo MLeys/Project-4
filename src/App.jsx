@@ -18,10 +18,12 @@ import ProfilePage from "./pages/ProfilePage/ProfilePage";
 
 import userService from "./utils/userService";
 import * as skillsApi from "/src/utils/skillApi.js"
+import * as subSkillsApi from "./utils/subSkillApi.js"
 
 export default function App() {
 
   const [user, setUser] = useState(userService.getUser());
+  const [subSkills, setSubSkills] = useState([])
   const [skills, setSkills] = useState([]);
   const [error, setError] = useState('');
   const [skill, setSkill] = useState('')
@@ -54,6 +56,19 @@ export default function App() {
       }
       console.log(skills, " <--- Skills State after ADDskill ")
   } // END handleAddSkill Function
+
+  async function handleAddSubSkill(sub) {
+    try {
+        // console.log(skill, "<<<<< skill data IN handleAddSUBSKill")
+  
+        const response = await subSkillsApi.create(sub);
+        // console.log(response, "++++ handleAddSUBskill RESPONSE")
+        setSubSkills([response.skill, ...subSkills])
+    } catch(err){
+        console.log(err, " Error IN THE HANDLEADDsubskill")
+    }
+    console.log(skills, " <--- Skills State after ADDsubskill ")
+  } // END handleAddSubSkill Function
 
   async function getSkills() {
     try {
