@@ -19,7 +19,7 @@ function SkillPage({handleAddSubSkill, allSkills}) {
     const [subFormPop, setSubFormPop] = useState(false)
 
     const open = subFormPop;
-    console.log(open, "< ---Open State")
+    // console.log(open, "< ---Open State")
 
     function handleOpen() {
         setSubFormPop(true)
@@ -29,15 +29,18 @@ function SkillPage({handleAddSubSkill, allSkills}) {
         setSubFormPop(false)
     }
 
-
-
-
-    console.log(allSkills, 'AAAAAALLLL SKILLLLLS')
+    // console.log(allSkills, "<<<<<< ALLLA")
     const { skillName } = useParams();
-    let skill = allSkills.filter((s) =>{
+    const preSkill = allSkills.filter((s) =>{
         return s.name === skillName
     } )
-    console.log(skillName, "<-- skillName from useParams") 
+    const skill = preSkill;
+    
+    // console.log(skill[0], "<<SKILL>><<<<<<>><<<")
+
+    const result = allSkills.find(({ name }) => name === skillName);
+
+    console.log(result, "^^^ Find RESULT skillpage"); 
 
 
 
@@ -63,7 +66,7 @@ function SkillPage({handleAddSubSkill, allSkills}) {
                         
                 }}
                 >
-                    <AddSubSkillForm handleAddSubSkill={handleAddSubSkill} />
+                    <AddSubSkillForm skill={result} handleAddSubSkill={handleAddSubSkill} />
                     <Button
                         content='Close Portal'
                         negative
@@ -71,7 +74,7 @@ function SkillPage({handleAddSubSkill, allSkills}) {
                     />
                 </Segment>
             </Portal>
-            <h1>Skill Page - {skill[0]?.name} </h1>
+            <h1>Skill Page - {result.name} </h1>
 
             <Button icon labelpostition='right' >
                 <Link to={`subskill`}>

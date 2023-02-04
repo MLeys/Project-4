@@ -34,10 +34,12 @@ app.use(auth);
 // api routes must be before the "catch all" route
 import userRoutes from './routes/api/users.js';
 import skillRoutes from './routes/api/skills.js';
+import subSkillRoutes from './routes/api/subSkills.js'
 
 
 app.use('/api/users', userRoutes);
 app.use('/api/skills', skillRoutes);
+app.use('/api', subSkillRoutes)
 
 // "catch all" route
 app.use(express.static(path.join(__dirname, "dist")));

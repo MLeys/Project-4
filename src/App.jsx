@@ -57,12 +57,12 @@ export default function App() {
       console.log(skills, " <--- Skills State after ADDskill ")
   } // END handleAddSkill Function
 
-  async function handleAddSubSkill(sub) {
+  async function handleAddSubSkill(skill) {
     try {
         // console.log(skill, "<<<<< skill data IN handleAddSUBSKill")
   
-        const response = await subSkillsApi.create(sub);
-        // console.log(response, "++++ handleAddSUBskill RESPONSE")
+        const response = await subSkillsApi.create(skill);
+        console.log(response, "++++ handleAddSUBskill RESPONSE")
         setSubSkills([response.skill, ...subSkills])
     } catch(err){
         console.log(err, " Error IN THE HANDLEADDsubskill")
