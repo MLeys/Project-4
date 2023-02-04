@@ -16,7 +16,7 @@ import AddSkillForm from "../../components/AddSkillForm/AddSkillForm";
 function Dashboard({loggedUser, handleLogout, allSkills, handleAddSkill}) {
     const [skills, setSkills] = useState([]);
     const [error, setError] = useState('');
-    console.log(allSkills, "ALL SKILLS DASHBOARD")
+    
 
     // async function handleAddSkill(skill) {
     //     try {

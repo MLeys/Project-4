@@ -22,7 +22,7 @@ import SkillList from '../SkillList/SkillList';
 
 
 function VerticalSidebar({ animation, direction, visible, loggedUser, allSkills, handleDeleteSkill}) {
-  console.log(allSkills, "ALL SKID")
+  // console.log(allSkills, "<--- allSkills in Sidebar")
 
   return (
     <Sidebar 
@@ -30,7 +30,6 @@ function VerticalSidebar({ animation, direction, visible, loggedUser, allSkills,
       as={Menu}
       animation={animation}
       direction={direction}
-      
       inverted
       vertical
       visible={visible}

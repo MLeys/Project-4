@@ -42,42 +42,35 @@ export default function App() {
 
   async function handleAddSkill(skill) {
       try {
-          console.log(skill, "<<<<< skill data IN handleAddSKill")
+          // console.log(skill, "<<<<< skill data IN handleAddSKill")
     
           const response = await skillsApi.create(skill);
-          console.log(response, "++++ handleAddskill RESPONSE")
-  
+          // console.log(response, "++++ handleAddskill RESPONSE")
           setSkills([response.skill, ...skills])
       } catch(err){
           console.log(err, " Error IN THE HANDLEADD")
       }
-
+      console.log(skills, " <--- Skills State after ADDskill ")
   } // END handleAddSkill Function
 
   async function getSkills() {
-    let qty = 0;
     try {
-      
       const response = await skillsApi.getAll();
-      console.log(response, "++++ getSkills ++++++");
+      // console.log(response, " <----- getAllSkills Response from Api");
       setSkills(response.data)
-      console.log(skills)
-      
 
     } catch(err) {
       setError(console.log('^^^^ getSkills Error!!! ^^^^'));
       console.log(err, '<--- getSkills ERROR');
     }
+    console.log(skills, " <--- Skills State AFTER getSkills() ")
   } // END getSkills Function
 
   useEffect(() => {
     //Getting posts, C(R)UD
     getSkills();
-    console.log(skills, " SKILLS HERE!!!!!!!")
     
   }, []); 
-
-
 
   function handleSignUpOrLogin() {
     setUser(userService.getUser());
@@ -109,7 +102,11 @@ export default function App() {
           element={<Dashboard loggedUser={user} handleLogout={handleLogout} handleAddSkill={handleAddSkill} allSkills = {skills} handleDeleteSkill={handleDeleteSkill}/>}
           />
           <Route
-          path="/:skill/subSkill"
+          path="/:skillName"
+          element={<SubSkillPage loggedUser={user}/>} 
+          />
+          <Route
+          path="/:skillName/subSkill"
           element={<SubSkillPage loggedUser={user}/>} 
           />
         </Route>

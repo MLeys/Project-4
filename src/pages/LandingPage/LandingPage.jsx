@@ -6,12 +6,12 @@ import SkillDisplay from "../../components/SkillDisplay/SkillDisplay";
 
 
 function LandingPage({loggedUser, handleLogout, allSkills, handleAddSkill, handleDeleteSkill}) {
-    console.log(loggedUser)
-    console.log(allSkills, " ALL SKILLS - landing page") 
+    // console.log(loggedUser)
+    // console.log(allSkills, " ALL SKILLS - landing page") 
     return (
         <Grid>
             <Grid.Row>
-            
+
             </Grid.Row>
             <Grid.Row>
                

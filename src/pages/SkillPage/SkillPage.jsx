@@ -10,15 +10,16 @@ import {
 import * as skillsApi from '../../utils/skillApi'
 
 
-export default function SubSkillPage({ loggedUser }) {
-    console.log(loggedUser, "<--- Logged USer in SubSkillPage")
+
+function SkillPage({ loggedUser }) {
+    const { skillName } = useParams();
 
 
-
-
-    return (
+    return (  
         <>
-            <h1>Subskill page</h1>
+            <h1>Skill Page</h1>
         </>
-    )
+    );
 }
+
+export default SkillPage;
