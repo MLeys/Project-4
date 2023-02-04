@@ -39,7 +39,7 @@ function SkillPage({handleAddSubSkill, allSkills}) {
     // console.log(skill[0], "<<SKILL>><<<<<<>><<<")
 
     const result = allSkills.find(({ name }) => name === skillName);
-    console.log(result, "^^^ Find RESULT skillpage"); 
+    // console.log(result, "^^^ Find RESULT skillpage"); 
     useEffect(() => {
         
       }, []); 

@@ -5,7 +5,8 @@ import { Form, Segment, Button } from "semantic-ui-react";
 export default function AddSubSkillForm({ handleAddSubSkill, skill }) {
     const [state, setState] = useState({
         name: "",
-        details: ""
+        details: "",
+		parentSkill: ""
     });
 
     function handleChange(e) {
@@ -17,9 +18,15 @@ export default function AddSubSkillForm({ handleAddSubSkill, skill }) {
     }
 	function handleSubmit(e) {
 		e.preventDefault()
+
+		setState(
+			state.parentSkill = skill
+		)
+		
 		skill.subSkill.push(state)
-		console.log(skill, " NEW SKILL WITH SUB")
-		handleAddSubSkill({skill})
+		console.log(state, " STATE HERE STATE ASTATE")
+		// console.log(skill, " NEW SKILL WITH SUB")
+		handleAddSubSkill(skill)
 	}
 	
 	return (
