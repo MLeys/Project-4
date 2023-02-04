@@ -19,8 +19,8 @@ export default function SkillDisplay({ allSkills }) {
             allSkills?.map((skill) => {
                 return (
                     <Segment.Group>
-                        <Segment textAlign='center'>{skill.name}</Segment>
-                            <Segment.Group textAlign='center' horizontal>
+                        <Segment text-align='center'>{skill.name}</Segment>
+                            <Segment.Group text-align='center' horizontal>
                             <Segment.Group>
                                 <Segment.Group horizontal>
                                     <Segment>SubSkills</Segment>

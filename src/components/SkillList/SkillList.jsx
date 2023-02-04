@@ -12,23 +12,8 @@ import {
 } from 'semantic-ui-react'
 
 
-function SkillList({skill, key, handleDeleteSkill , allSkills}) {
-  // console.log(skill, "<<<<<EACH SKILL")
-  // console.log(allSkills, '<<<<< ALl Skills')
+function SkillList({skill, handleDeleteSkill , allSkills}) {
 
-  // const skillIndex = allSkills.findIndex(skil => skil._id == skill._id )
-  // console.log(skillIndex, "SKILL INDEXXXXX")
-  
-  // async function handleDelete(e) {
-  //   e.preventDefault();
-  //   try {
-  //     await handleDeleteSkill(allSkills[skillIndex]._id)
-      
-  //   } catch (err) {
-  //     console.log(err, "clickDelete ------")
-  //   }
-  // }
- 
   const clickHandler = () => handleDeleteSkill(skill._id)
 
 
@@ -48,10 +33,3 @@ function SkillList({skill, key, handleDeleteSkill , allSkills}) {
 
 export default SkillList;
 
-// const SkillList = () => (
-//   <List divided Link verticalAlign='middle'>
-
-//   </List>
-// )
-
-// export default SkillList
