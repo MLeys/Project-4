@@ -124,7 +124,7 @@ export default function App() {
       <Routes>
         <Route
           path="/"
-          element={<Layout getSkill={getSkill} skill={skill} handleAddSkill={handleAddSkill} allSkills={skills} loggedUser={user} handleLogout={handleLogout} handleDeleteSkill={handleDeleteSkill} />}
+          element={<Layout  getSkill={getSkill} skill={skill} handleAddSkill={handleAddSkill} allSkills={skills} loggedUser={user} handleLogout={handleLogout} handleDeleteSkill={handleDeleteSkill} />}
         >
           <Route
           index
@@ -136,7 +136,7 @@ export default function App() {
           />
           <Route
           path="skills/:skillName"
-          element={<SkillPage currentSkill={skill} allSkills={skills} getSkill={getSkill} loggedUser={user}/>} 
+          element={<SkillPage handleAddSubSkill={handleAddSubSkill} currentSkill={skill} allSkills={skills} getSkill={getSkill} loggedUser={user}/>} 
           />
           <Route
           path="skills/:skillName/subSkill"

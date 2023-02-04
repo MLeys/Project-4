@@ -15,7 +15,7 @@ import * as skillsApi from '../../utils/skillApi'
 
 import AddSubSkillForm from "../../components/AddSubSkillForm/AddSubSkillForm.jsx";
 
-function SkillPage({currentSkill, allSkills}) {
+function SkillPage({handleAddSubSkill, allSkills}) {
     const [subFormPop, setSubFormPop] = useState(false)
 
     const open = subFormPop;
@@ -29,7 +29,7 @@ function SkillPage({currentSkill, allSkills}) {
         setSubFormPop(false)
     }
 
-    
+
 
 
     console.log(allSkills, 'AAAAAALLLL SKILLLLLS')
@@ -63,7 +63,7 @@ function SkillPage({currentSkill, allSkills}) {
                         
                 }}
                 >
-                    <AddSubSkillForm />
+                    <AddSubSkillForm handleAddSubSkill={handleAddSubSkill} />
                     <Button
                         content='Close Portal'
                         negative
