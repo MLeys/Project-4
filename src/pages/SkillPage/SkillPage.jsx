@@ -54,9 +54,9 @@ function SkillPage({currentSkill, allSkills}) {
             <Portal onClose={handleClose} open={open}>
                 <Segment
                     style={{
-                        left: '40%',
+                        left: '35%',
                         position: 'fixed',
-                        top: '50%',
+                        top: '25%',
                         
                 }}
                 >

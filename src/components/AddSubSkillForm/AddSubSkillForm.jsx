@@ -39,7 +39,7 @@ export default function AddSubSkillForm({ handleAddSkill }) {
 		/>
 		<Form.Input
 			className="form-control"
-			name="type"
+			name="details"
 			value={state.details}
 			placeholder="Details"
 			onChange={handleChange}
