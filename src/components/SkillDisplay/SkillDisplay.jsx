@@ -13,6 +13,7 @@ import {
 import SubSkillPage from '../../pages/SubSkillPage/SubSkillPage';
 import SkillPage from '../../pages/SkillPage/SkillPage';
 import SubSkillCard from '../SubSkillCard/SubSkillCard';
+import SubSkillDisplay from '../SubSkillDisplay/SubSkillDisplay';
 
 export default function SkillDisplay({ allSkills, getSkill }) {
 
@@ -38,22 +39,27 @@ export default function SkillDisplay({ allSkills, getSkill }) {
                                         </Button>
                             {skill.name}</Segment>
                             <Segment.Group text-align='center' horizontal>
-                            <Segment.Group>
-                                <Segment.Group horizontal>
-                                    <Segment>SubSkills</Segment>
-                                    <Segment>
-                                        <Button icon labelpostition='right' >
-                                            <Link to={`skills/${skill.name}/subskill`}>
-                                                <Icon name='plus' />
-                                                
-                                            </Link>
-                                        </Button>
-                                    </Segment>
-                                    <Segment> Edit Subskill</Segment>
+                                <Segment.Group>
+                                <SubSkillDisplay skill={skill}/>
+                                                {/* <Segment.Group>
+                                                    <Segment.Group horizontal>
+                                                        <Segment>SubSkills</Segment>
+                                                        <Segment>
+                                                            <Button icon labelpostition='right' >
+                                                                <Link to={`skills/${skill.name}/subskill`}>
+                                                                    <Icon name='plus' />
+                                                                    
+                                                                </Link>
+                                                            </Button>
+                                                        </Segment>
+                                                        <Segment> Edit Subskill</Segment>
+                                                    </Segment.Group>
+                                                    <SubSkillCard skill={skill}/>
+                                                </Segment.Group> */}
+
                                 </Segment.Group>
-                                <SubSkillCard skill={skill}/>
-                            </Segment.Group>
-                            <Segment.Group> Resourcs
+ 
+                            <Segment.Group> Resources
                                 <Card>
                 
                                 </Card>

@@ -2,10 +2,11 @@ import { Card, Icon, Image, Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 export default function SubSkillCard({ skill }) {
+    
 
     return (
         <Card fluid key={skill._id}>
-            <Card.Content>
+            <Card.Content> {skill.name}
 
                 <Card.Header>Steve Sanders</Card.Header>
                 <Card.Meta>Friends of Elliot</Card.Meta>
