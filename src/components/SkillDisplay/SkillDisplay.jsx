@@ -17,7 +17,7 @@ export default function SkillDisplay({ allSkills }) {
                     <Segment.Group>
                         <Segment textAlign='center'>{skill.name}</Segment>
                             <Segment.Group textAlign='center' horizontal>
-                            <Segment.Group>SubSkills
+                            <Segment.Group><Segment.Group horizontal>ff </Segment.Group>SubSkills
                                 <SubSkillCard skill={skill}/>
                             </Segment.Group>
                             <Segment.Group> Resourcs

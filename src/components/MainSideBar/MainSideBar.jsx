@@ -71,7 +71,7 @@ function MainSideBar({ loggedUser, handleLogout, allSkills, handleAddSkill, hand
     animation: 'overlay',
     direction: 'left',
     dimmed: false,
-    visible: true,
+    visible: false,
   })
 
   const { animation, dimmed, direction, visible } = state
@@ -103,14 +103,14 @@ function MainSideBar({ loggedUser, handleLogout, allSkills, handleAddSkill, hand
 
         <Sidebar.Pusher dimmed={dimmed && visible}>
           <Segment.Group>
-            <Segment>
+            <Segment inverted>
               <Button onClick={() =>
                 dispatch({ type: 'CHANGE_ANIMATION', animation: 'overlay' })
                 }>
                 ToggleSidebar
               </Button>
             </Segment>
-            <Segment>
+            <Segment >
               <Outlet allSkills={allSkills} loggedUser={loggedUser} handleLogout={handleLogout} handleAddSkill={handleAddSkill} handleDeleteSkill={handleDeleteSkill}/>
 
             </Segment>
