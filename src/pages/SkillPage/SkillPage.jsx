@@ -13,7 +13,7 @@ import {
 
 import * as skillsApi from '../../utils/skillApi'
 
-import AddSubSkillForm from "../../components/AddSubSkillForm/AddSubSkillForm2.jsx";
+import AddSubSkillForm from "../../components/AddSubSkillForm/AddSubSkillForm.jsx";
 
 function SkillPage({currentSkill, allSkills}) {
     const [subFormPop, setSubFormPop] = useState(false)
@@ -60,10 +60,7 @@ function SkillPage({currentSkill, allSkills}) {
                         
                 }}
                 >
-                    <Header>This is a controlled portal</Header>
-                    <p>Portals have tons of great callback functions to hook into.</p>
-                    <p>To close, simply click the close button or click away</p>
-
+                    <AddSubSkillForm />
                     <Button
                         content='Close Portal'
                         negative
