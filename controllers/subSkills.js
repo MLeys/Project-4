@@ -1,5 +1,6 @@
 import Skill from '../models/skill.js'
 
+
 export default {
     create,
     deleteSkill
