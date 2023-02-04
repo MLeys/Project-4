@@ -17,11 +17,14 @@ export default function AddSubSkillForm({ handleAddSubSkill, skill }) {
     }
 	function handleSubmit(e) {
 		e.preventDefault()
+		skill.subSkill.push(state)
+		console.log(skill, " NEW SKILL WITH SUB")
+		handleAddSubSkill({skill})
 	}
 	
 	return (
 		<Segment>
-			<Form>
+			<Form onSubmit={handleSubmit}>
 				<Form.Input
 					className="form-control"
 					name="name"
