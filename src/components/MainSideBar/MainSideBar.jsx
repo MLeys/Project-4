@@ -22,7 +22,7 @@ import SkillList from '../SkillList/SkillList';
 
 
 function VerticalSidebar({ animation, direction, visible, loggedUser, allSkills, handleDeleteSkill}) {
-  console.log(allSkills, "ALL SKIDSFJASDJFS AJSD:DJS:FA:DS:ALSD")
+  console.log(allSkills, "ALL SKID")
 
   return (
     <Sidebar
@@ -37,15 +37,13 @@ function VerticalSidebar({ animation, direction, visible, loggedUser, allSkills,
       width='thin'
     >
       {
-        allSkills?.map((skill, index) => {
+        allSkills?.map((skill) => {
           return (
-            <SkillList key={skill._id} index={index} skill={skill} handleDeleteSkill={handleDeleteSkill} allSkills={allSkills}/>
+            <SkillList key={skill._id} skill={skill} handleDeleteSkill={handleDeleteSkill} allSkills={allSkills}/>
           )
   
         })
       }
-
-      
     </Sidebar>
   )
 
@@ -104,11 +102,10 @@ function MainSideBar({ loggedUser, handleLogout, allSkills, handleAddSkill, hand
         )}
 
         <Sidebar.Pusher dimmed={dimmed && visible}>
-          <Segment basic 
-            onClick={() =>
+          <Segment basic>
+            <Button onClick={() =>
               dispatch({ type: 'CHANGE_ANIMATION', animation: 'push' })
-            }>
-            
+            }>ToggleSidebar</Button>
               <Outlet allSkills={allSkills} loggedUser={loggedUser} handleLogout={handleLogout} handleAddSkill={handleAddSkill} handleDeleteSkill={handleDeleteSkill}/>
           </Segment>
         </Sidebar.Pusher>

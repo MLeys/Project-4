@@ -26,7 +26,7 @@ async function create(req, res) {
       const skill = await Skill.create({
         name: req.body.name,
         type: req.body.type,
-        // usersAssigned: req.user._id,
+        usersAssigned: req.user._id,
         
       })
 
@@ -40,7 +40,7 @@ async function create(req, res) {
 async function index(req, res) {
   try {
     // this populates the user when you find the skills
-    const skills = await Skill.find({}).populate("user").exec(); // populating on the model
+    const skills = await Skill.find({}).populate("usersAssigned").exec(); // populating on the model
     res.status(200).json({ data: skills });
   } catch (err) {
     res.status(400).json({ err });
