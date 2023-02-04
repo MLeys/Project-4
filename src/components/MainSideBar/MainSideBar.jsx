@@ -102,12 +102,20 @@ function MainSideBar({ loggedUser, handleLogout, allSkills, handleAddSkill, hand
         )}
 
         <Sidebar.Pusher dimmed={dimmed && visible}>
-          <Segment basic>
-            <Button onClick={() =>
-              dispatch({ type: 'CHANGE_ANIMATION', animation: 'overlay' })
-            }>ToggleSidebar</Button>
+          <Segment.Group>
+            <Segment>
+              <Button onClick={() =>
+                dispatch({ type: 'CHANGE_ANIMATION', animation: 'overlay' })
+                }>
+                ToggleSidebar
+              </Button>
+            </Segment>
+            <Segment>
               <Outlet allSkills={allSkills} loggedUser={loggedUser} handleLogout={handleLogout} handleAddSkill={handleAddSkill} handleDeleteSkill={handleDeleteSkill}/>
-          </Segment>
+
+            </Segment>
+
+          </Segment.Group>
         </Sidebar.Pusher>
       </Sidebar.Pushable>
     
