@@ -25,7 +25,7 @@ function Layout({loggedUser, handleLogout, allSkills, handleAddSkill, handleDele
 
     return (
   
-        <Container  style={{ margin: 0, padding: 0, "height": "90vh" }}>
+        <Container  style={{ margin: 0, padding: 0, "min-height": "90vh" }}>
             <FixedMenuHeader loggedUser={loggedUser} handleLogout={handleLogout} />
 
             <MainSideBar loggedUser={loggedUser} handleLogout={handleLogout} allSkills={allSkills} handleAddSkill={handleAddSkill} handleDeleteSkill={handleDeleteSkill}/>
