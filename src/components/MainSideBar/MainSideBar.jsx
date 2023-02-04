@@ -68,7 +68,7 @@ function exampleReducer(state, action) {
 
 function MainSideBar({ loggedUser, handleLogout, allSkills, handleAddSkill, handleDeleteSkill  }) {
   const [state, dispatch] = React.useReducer(exampleReducer, {
-    animation: 'push',
+    animation: 'overlay',
     direction: 'left',
     dimmed: false,
     visible: true,
@@ -104,7 +104,7 @@ function MainSideBar({ loggedUser, handleLogout, allSkills, handleAddSkill, hand
         <Sidebar.Pusher dimmed={dimmed && visible}>
           <Segment basic>
             <Button onClick={() =>
-              dispatch({ type: 'CHANGE_ANIMATION', animation: 'push' })
+              dispatch({ type: 'CHANGE_ANIMATION', animation: 'overlay' })
             }>ToggleSidebar</Button>
               <Outlet allSkills={allSkills} loggedUser={loggedUser} handleLogout={handleLogout} handleAddSkill={handleAddSkill} handleDeleteSkill={handleDeleteSkill}/>
           </Segment>
