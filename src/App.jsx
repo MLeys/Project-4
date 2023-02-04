@@ -24,7 +24,7 @@ export default function App() {
   const [user, setUser] = useState(userService.getUser());
   const [skills, setSkills] = useState([]);
   const [error, setError] = useState('');
-  const [skill, setSkill] = useState({})
+  const [skill, setSkill] = useState('')
 
 
   async function handleDeleteSkill(skillId) {
@@ -89,7 +89,7 @@ export default function App() {
     try {
         const response = await skillsApi.getSkill(skillName);
         // console.log(response.skillDoc, "<--- getSkill REsponse")
-        const skillData = response.skillDoc
+        const skillData = await response.skillDoc
         setSkill({skillData})
         console.log(skill, "<--- Skill State")
         
@@ -98,7 +98,7 @@ export default function App() {
         console.log(err, "<--- getSkill SINGLE error")
     }
     
-}
+  }
 
 
 
@@ -121,11 +121,11 @@ export default function App() {
           />
           <Route
           path="skills/:skillName"
-          element={<SkillPage skill={skill} getSkill={getSkill} loggedUser={user}/>} 
+          element={<SkillPage currentSkill={skill} allSkills={skills} getSkill={getSkill} loggedUser={user}/>} 
           />
           <Route
           path="skills/:skillName/subSkill"
-          element={<SubSkillPage getSkill={getSkill} loggedUser={user}/>} 
+          element={<SubSkillPage allSkills={skills} getSkill={getSkill} loggedUser={user}/>} 
           />
         </Route>
 

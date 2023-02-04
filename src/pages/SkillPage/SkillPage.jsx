@@ -12,25 +12,52 @@ import * as skillsApi from '../../utils/skillApi'
 
 
 
-function SkillPage({skill, getSkill}) {
-    
+function SkillPage({currentSkill, allSkills}) {
+    console.log(allSkills, 'AAAAAALLLL SKILLLLLS')
+    console.log(currentSkill, '<<<<< CURRENT SKILLLLLL')
     const { skillName } = useParams();
-    console.log(skill.skillData)
-    const currentSkill = skill.skillData;
+
+    let skill = allSkills.filter((s) =>{
+        return s.name === skillName
+    } )
+    console.log(skill[0]?.name, '<---- SKILL HERE AND NOW')
+   
+
+
+
+
+    // async function getSkill(allSkills) {
+    //     try {
+    //         const response = await skillsApi.getSkill(skillName);
+    //         // console.log(response.skillDoc, "<--- getSkill REsponse")
+    //         const skillData = await response.skillDoc
+            
+    //         console.log(skillData, "<--- SkillDATA")
+            
     
-    // console.log(skillName, "<-- skillName from useParams") 
+    //     } catch(err) {
+    //         console.log(err, "<--- getSkill SINGLE error")
+    //     }
+        
+    //   }
+    
+    
+    
+    
+
+    console.log(skillName, "<-- skillName from useParams") 
 
 
 
     useEffect(() => {
-        getSkill(skillName)
+        
       }, []); 
 
 
     return (  
         <>
-
-            <h1>Skill Page </h1>
+            
+            <h1>Skill Page - {skill[0]?.name} </h1>
         </>
     );
 }
