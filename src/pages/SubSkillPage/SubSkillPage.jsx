@@ -11,7 +11,7 @@ import * as skillsApi from '../../utils/skillApi'
 
 
 export default function SubSkillPage({ loggedUser }) {
-    console.log(loggedUser, "<--- Logged USer in SubSkillPage")
+    
 
 
 

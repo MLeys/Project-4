@@ -13,6 +13,7 @@ import * as skillsApi from '../../utils/skillApi'
 
 function SkillPage({ loggedUser }) {
     const { skillName } = useParams();
+    console.log(skillName, "<-- skillName from useParams") 
 
 
     return (  

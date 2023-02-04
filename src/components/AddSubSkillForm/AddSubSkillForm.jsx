@@ -5,7 +5,7 @@ import { Form, Segment, Button } from "semantic-ui-react";
 export default function AddSubSkillForm({ handleAddSkill }) {
     const [state, setState] = useState({
         name: "",
-        type: "",
+        details: "",
     })
 
     function handleChange(e) {

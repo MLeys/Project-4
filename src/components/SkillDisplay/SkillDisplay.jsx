@@ -1,5 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Route, Routes, Navigate} from 'react-router-dom';
+
+
 import { 
     Segment,
     Card,
@@ -18,18 +20,24 @@ export default function SkillDisplay({ allSkills }) {
                 {
             allSkills?.map((skill) => {
                 return (
-                    <Segment.Group>
-                        <Segment text-align='center'>{skill.name}</Segment>
+                    <Segment.Group key={skill._id}>
+                        <Segment textAlign='center'>
+                        <Button icon labelpostition='right'>
+                                            <Link to={`skills/${skill.name}`}>
+                                                <Icon name='plus' />
+                                            </Link>
+                                        </Button>
+                            {skill.name}</Segment>
                             <Segment.Group text-align='center' horizontal>
                             <Segment.Group>
                                 <Segment.Group horizontal>
                                     <Segment>SubSkills</Segment>
                                     <Segment>
-                                        <Button icon labelpostition='right'>
-                                            <Link to={`/${skill.name}/subskill`}>
+                                        <Button icon labelpostition='right' >
+                                            <Link to={`skills/${skill.name}/subskill`}>
                                                 <Icon name='plus' />
+                                                
                                             </Link>
-
                                         </Button>
                                     </Segment>
                                     <Segment> Edit Subskill</Segment>

@@ -7,7 +7,8 @@ import "./App.css";
 
 // import './index.css';
 
-import SubSkillPage from "./pages/SubSkillPage/SubSkillPage"
+import SkillPage from "./pages/SkillPage/SkillPage";
+import SubSkillPage from "./pages/SubSkillPage/SubSkillPage";
 import Layout from "./pages/Layout/Layout";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import SignUpPage from "./pages/SignupPage/SignupPage";
@@ -102,11 +103,11 @@ export default function App() {
           element={<Dashboard loggedUser={user} handleLogout={handleLogout} handleAddSkill={handleAddSkill} allSkills = {skills} handleDeleteSkill={handleDeleteSkill}/>}
           />
           <Route
-          path="/:skillName"
-          element={<SubSkillPage loggedUser={user}/>} 
+          path="skills/:skillName"
+          element={<SkillPage loggedUser={user}/>} 
           />
           <Route
-          path="/:skillName/subSkill"
+          path="skills/:skillName/subSkill"
           element={<SubSkillPage loggedUser={user}/>} 
           />
         </Route>
