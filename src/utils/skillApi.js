@@ -28,12 +28,15 @@ export function create(data) {
 }
 
 export function getAll() {
-    console.log(" &&&&&&&&&&&&&&&&&&&&&&&&&&&&&& YES YOU ARE HITTING RIGHT HERE !!!! =========")
+    // console.log(" &&&&&&&&&&&&&&&&&&&&&&&&&&&&&& YES YOU ARE HITTING RIGHT HERE !!!! =========")
     return fetch(BASE_URL, {
         headers: {
             Authorization: "Bearer " + tokenService.getToken(),
         }
-    }).then(console.log(" +++++++ AFTER FETCH IN GET ALL ++++++")).then(res => res.json());
+    }).then(res => {
+		if(res.ok) return res.json()
+		throw new Error('Error from getALLSkill request, check the server terminal')
+	  })
 }
 
 export function deleteSkill(skillId){
@@ -46,8 +49,8 @@ export function deleteSkill(skillId){
 	}).then(res => {
 		// res is the response from the server
 		// This gets called when we get a response from the 
-		// express server deleteLike controller function
-		if(res.ok) return res.json() // taking json and turning into and js object
+		// express server delete controller function
+		if(res.ok) return res.json() 
 		throw new Error('Error deleting a skill check the server terminal')
 	})
 }

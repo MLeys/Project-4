@@ -19,7 +19,7 @@ import { Link } from "react-router-dom";
     return (  
         <Menu  inverted style={{padding: '0em', margin: '0'}}>
             <Container>
-                <Menu.Item as='a' header>
+                <Menu.Item header>
                     <Link to={`/${loggedUser?.username}`}>
                         <Image
                             style={{ marginRight: '1.5em' }} 

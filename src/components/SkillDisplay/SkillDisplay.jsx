@@ -10,21 +10,30 @@ import {
 
 } from 'semantic-ui-react';
 
+import SubSkillPage from '../../pages/SubSkillPage/SubSkillPage';
+import SkillPage from '../../pages/SkillPage/SkillPage';
 import SubSkillCard from '../SubSkillCard/SubSkillCard';
 
-export default function SkillDisplay({ allSkills }) {
+export default function SkillDisplay({ allSkills, getSkill }) {
 
+    // function skillHandler(skillId) {
+    //     getSkill(skillId)
+    // }
     
+
     return (
         <>
-                {
+        {
             allSkills?.map((skill) => {
                 return (
                     <Segment.Group key={skill._id}>
                         <Segment textAlign='center'>
                         <Button icon labelpostition='right'>
-                                            <Link to={`skills/${skill.name}`}>
-                                                <Icon name='plus' />
+                                            <Link to={`skills/${skill.name}`} onClick={() =>
+                                            getSkill(skill._id)
+                                            } >
+                                                
+                                                <Icon name='plus' > </Icon>
                                             </Link>
                                         </Button>
                             {skill.name}</Segment>
@@ -55,6 +64,7 @@ export default function SkillDisplay({ allSkills }) {
                 )
             })
         }
+
         </>
 
 

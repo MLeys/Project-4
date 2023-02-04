@@ -24,6 +24,7 @@ export default function App() {
   const [user, setUser] = useState(userService.getUser());
   const [skills, setSkills] = useState([]);
   const [error, setError] = useState('');
+  const [skill, setSkill] = useState({})
 
 
   async function handleDeleteSkill(skillId) {
@@ -64,7 +65,7 @@ export default function App() {
       setError(console.log('^^^^ getSkills Error!!! ^^^^'));
       console.log(err, '<--- getSkills ERROR');
     }
-    console.log(skills, " <--- Skills State AFTER getSkills() ")
+    // console.log(skills, " <--- Skills State AFTER getSkills() ")
   } // END getSkills Function
 
   useEffect(() => {
@@ -83,6 +84,22 @@ export default function App() {
     setUser(null);
   }
 
+  async function getSkill(skillId) {
+    const skillName = skillId.name;
+    try {
+        const response = await skillsApi.getSkill(skillName);
+        // console.log(response.skillDoc, "<--- getSkill REsponse")
+        const skillData = response.skillDoc
+        setSkill({skillData})
+        console.log(skill, "<--- Skill State")
+        
+
+    } catch(err) {
+        console.log(err, "<--- getSkill SINGLE error")
+    }
+    
+}
+
 
 
   if (user) {
@@ -92,23 +109,23 @@ export default function App() {
       <Routes>
         <Route
           path="/"
-          element={<Layout handleAddSkill={handleAddSkill} allSkills = {skills} loggedUser={user} handleLogout={handleLogout} handleDeleteSkill={handleDeleteSkill} />}
+          element={<Layout getSkill={getSkill} skill={skill} handleAddSkill={handleAddSkill} allSkills={skills} loggedUser={user} handleLogout={handleLogout} handleDeleteSkill={handleDeleteSkill} />}
         >
           <Route
           index
-          element={<LandingPage loggedUser={user} handleLogout={handleLogout} handleAddSkill={handleAddSkill} allSkills = {skills} handleDeleteSkill={handleDeleteSkill}/>}
+          element={<LandingPage getSkill={getSkill} loggedUser={user} handleLogout={handleLogout} handleAddSkill={handleAddSkill} allSkills = {skills} handleDeleteSkill={handleDeleteSkill}/>}
           />
           <Route
           path="/:username"
-          element={<Dashboard loggedUser={user} handleLogout={handleLogout} handleAddSkill={handleAddSkill} allSkills = {skills} handleDeleteSkill={handleDeleteSkill}/>}
+          element={<Dashboard getSkill={getSkill} loggedUser={user} handleLogout={handleLogout} handleAddSkill={handleAddSkill} allSkills = {skills} handleDeleteSkill={handleDeleteSkill}/>}
           />
           <Route
           path="skills/:skillName"
-          element={<SkillPage loggedUser={user}/>} 
+          element={<SkillPage skill={skill} getSkill={getSkill} loggedUser={user}/>} 
           />
           <Route
           path="skills/:skillName/subSkill"
-          element={<SubSkillPage loggedUser={user}/>} 
+          element={<SubSkillPage getSkill={getSkill} loggedUser={user}/>} 
           />
         </Route>
 

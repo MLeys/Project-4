@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import {
     Grid,
     Segment,
+    Header
 
 } from 'semantic-ui-react';
 
@@ -11,31 +12,25 @@ import * as skillsApi from '../../utils/skillApi'
 
 
 
-function SkillPage({ loggedUser }) {
-    const { skillName } = useParams();
+function SkillPage({skill, getSkill}) {
     
-    console.log(skillName, "<-- skillName from useParams") 
-
-    async function getSkill() {
-
-        
-
-        try {
+    const { skillName } = useParams();
+    console.log(skill.skillData)
+    const currentSkill = skill.skillData;
+    
+    // console.log(skillName, "<-- skillName from useParams") 
 
 
-
-        } catch(err) {
-            console.log(err, "<--- getSkill SINGLE error")
-        }
-    }
 
     useEffect(() => {
-        // getSkill();
+        getSkill(skillName)
       }, []); 
+
 
     return (  
         <>
-            <h1>Skill Page</h1>
+
+            <h1>Skill Page </h1>
         </>
     );
 }

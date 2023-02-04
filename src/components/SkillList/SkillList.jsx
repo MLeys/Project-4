@@ -18,16 +18,15 @@ function SkillList({skill, handleDeleteSkill , allSkills}) {
 
 
   return ( 
-    <Menu.Item  >
+    <Menu.Item>
       <Label color='red' >
         
-          <Icon centered name='delete' key={skill.id} onClick={clickHandler}/>
+          <Icon name='delete' key={skill.id} onClick={clickHandler}/>
         
      </Label>
       {skill.name}
     </Menu.Item>
    );
-   <Label color='red' horizontal onClick={clickDeleteHandler} key={skill._id} ></Label>
    
 }
 
