@@ -39,7 +39,7 @@ export default function SkillDisplay({ allSkills, getSkill }) {
                                         </Button>
                             {skill.name}</Segment>
                             <Segment.Group text-align='center' horizontal>
-                                <Segment.Group>
+                                
                                 <SubSkillDisplay skill={skill}/>
                                                 {/* <Segment.Group>
                                                     <Segment.Group horizontal>
@@ -57,7 +57,7 @@ export default function SkillDisplay({ allSkills, getSkill }) {
                                                     <SubSkillCard skill={skill}/>
                                                 </Segment.Group> */}
 
-                                </Segment.Group>
+                                
  
                             <Segment.Group> Resources
                                 <Card>
