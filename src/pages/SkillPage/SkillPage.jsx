@@ -15,8 +15,6 @@ import * as skillsApi from '../../utils/skillApi'
 
 import AddSubSkillForm from "../../components/AddSubSkillForm/AddSubSkillForm2.jsx";
 
-
-
 function SkillPage({currentSkill, allSkills}) {
     const [subFormPop, setSubFormPop] = useState(false)
 
