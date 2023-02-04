@@ -25,7 +25,7 @@ function VerticalSidebar({ animation, direction, visible, loggedUser, allSkills,
   console.log(allSkills, "ALL SKID")
 
   return (
-    <Sidebar
+    <Sidebar 
       style={{"text-color": 'white'}}
       as={Menu}
       animation={animation}
@@ -36,6 +36,7 @@ function VerticalSidebar({ animation, direction, visible, loggedUser, allSkills,
       visible={visible}
       width='thin'
     >
+      
       {
         allSkills?.map((skill) => {
           return (
@@ -82,14 +83,8 @@ function MainSideBar({ loggedUser, handleLogout, allSkills, handleAddSkill, hand
 
   return (
     
-      <Sidebar.Pushable as={Segment} style={{ overflow: 'hidden' }}>
-        {vertical && (
-          <HorizontalSidebar
-            animation={animation}
-            direction={direction}
-            visible={visible}
-          />
-        )}
+      <Sidebar.Pushable as={Segment} style={{ overflow: 'hidden', margin: 0, padding: 0, "min-height": '89vh'  }}>
+
         {!vertical && (
           <VerticalSidebar
             allSkills={allSkills}
@@ -97,11 +92,10 @@ function MainSideBar({ loggedUser, handleLogout, allSkills, handleAddSkill, hand
             direction={direction}
             visible={visible}
             handleDeleteSkill={handleDeleteSkill}
-            
           />
         )}
 
-        <Sidebar.Pusher dimmed={dimmed && visible}>
+        <Sidebar.Pusher  dimmed={dimmed && visible}>
           <Segment.Group>
             <Segment inverted>
               <Button onClick={() =>
@@ -118,7 +112,7 @@ function MainSideBar({ loggedUser, handleLogout, allSkills, handleAddSkill, hand
           </Segment.Group>
         </Sidebar.Pusher>
       </Sidebar.Pushable>
-    
+
   )
 }
 

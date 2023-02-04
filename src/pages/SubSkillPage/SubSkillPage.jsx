@@ -8,7 +8,8 @@ import {
 } from 'semantic-ui-react';
 
 import * as skillsApi from '../../utils/skillApi'
-export default function SubSkillPage() {
+export default function SubSkillPage({ loggedUser }) {
+    console.log(loggedUser, "<--- Logged USer in SubSkillPage")
 
 
 
