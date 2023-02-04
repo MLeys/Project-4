@@ -64,23 +64,24 @@ export default function App() {
         const response = await subSkillsApi.create(skill);
         console.log(response, "++++ handleAddSUBskill RESPONSE")
         setSubSkills([response.skill, ...subSkills])
+        
     } catch(err){
         console.log(err, " Error IN THE HANDLEADDsubskill")
     }
-    console.log(skills, " <--- Skills State after ADDsubskill ")
+    // console.log(skills, " <--- Skills State after ADDsubskill ")
   } // END handleAddSubSkill Function
 
   async function getSkills() {
     try {
       const response = await skillsApi.getAll();
-      // console.log(response, " <----- getAllSkills Response from Api");
+      console.log(response, " <----- getAllSkills response FIRST");
       setSkills(response.data)
 
     } catch(err) {
       setError(console.log('^^^^ getSkills Error!!! ^^^^'));
       console.log(err, '<--- getSkills ERROR');
     }
-    // console.log(skills, " <--- Skills State AFTER getSkills() ")
+    console.log(skills, " <--- Skills State AFTER getSkills() ")
   } // END getSkills Function
 
   useEffect(() => {
@@ -103,7 +104,7 @@ export default function App() {
     const skillName = skillId.name;
     try {
         const response = await skillsApi.getSkill(skillName);
-        // console.log(response.skillDoc, "<--- getSkill REsponse")
+        console.log(response.skillDoc, "<--- getSkill REsponse")
         const skillData = await response.skillDoc
         setSkill({skillData})
         console.log(skill, "<--- Skill State")
@@ -112,7 +113,6 @@ export default function App() {
     } catch(err) {
         console.log(err, "<--- getSkill SINGLE error")
     }
-    
   }
 
 

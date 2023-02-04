@@ -17,7 +17,7 @@ const skillSchema = new Schema({
     name: {type: String, required: true, unique: true},
     type: String,
     usersAssigned: [{type: Schema.Types.ObjectId, ref: 'User', autopopulate: true}],
-    subSkill: [subSkillSchema],
+    subSkill: [{subSkillSchema}],
 
 }, {
     timestamps: true

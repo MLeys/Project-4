@@ -5,12 +5,10 @@ const BASE_URL= '/api/'
 export function create(skillId){
     console.log(skillId, "<--- create subskillAPI param")
 
-	return fetch(`${BASE_URL}skills/${skillId.name}/subSkills`, {
+	return fetch(`${BASE_URL}skills/${skillId._id}/subSkills`, {
         method: 'POST',
-        body: JSON.stringify(skillId),
         headers: {
             Authorization: "Bearer " + tokenService.getToken(),
-           'Content-Type': 'application/json', // MUST HAVE OR req.body in Ctrl remains emppty!!!!
         }
 	}).then(res => {
 		// This gets called when we get a response from the 

@@ -6,10 +6,15 @@ export default {
 }
 
 async function create(req, res){
-    console.log(req.params.id, "<-- skillCtrl req.params.id")
+    console.log('============================================')
+    console.log('============================================')
+    console.log('============================================')
+    console.log(req.params.id)
     try {
-        const skill = await Skill.findById(req.params.id);
-        console.log(req.params.id)
+        const skill = await Skill.subSkill.create({
+
+        });
+       
         // skill.subSkills.push({username: req.user.username, userId: req.user._id}); //mutating a document
         // await post.save()// save it
         res.status(201).json({data: 'like added'})

@@ -29,7 +29,7 @@ function SkillPage({handleAddSubSkill, allSkills}) {
         setSubFormPop(false)
     }
 
-    // console.log(allSkills, "<<<<<< ALLLA")
+    console.log(allSkills, "<<<<<< ALLLA")
     const { skillName } = useParams();
     const preSkill = allSkills.filter((s) =>{
         return s.name === skillName
@@ -39,15 +39,10 @@ function SkillPage({handleAddSubSkill, allSkills}) {
     // console.log(skill[0], "<<SKILL>><<<<<<>><<<")
 
     const result = allSkills.find(({ name }) => name === skillName);
-
     console.log(result, "^^^ Find RESULT skillpage"); 
-
-
-
     useEffect(() => {
         
       }, []); 
-
 
     return (  
         <>
@@ -74,7 +69,7 @@ function SkillPage({handleAddSubSkill, allSkills}) {
                     />
                 </Segment>
             </Portal>
-            <h1>Skill Page - {result.name} </h1>
+            <h1>Skill Page - {result?.name} </h1>
 
             <Button icon labelpostition='right' >
                 <Link to={`subskill`}>

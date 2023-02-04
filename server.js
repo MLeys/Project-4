@@ -37,9 +37,10 @@ import skillRoutes from './routes/api/skills.js';
 import subSkillRoutes from './routes/api/subSkills.js'
 
 
-app.use('/api/users', userRoutes);
 app.use('/api/skills', skillRoutes);
+app.use('/api/users', userRoutes);
 app.use('/api', subSkillRoutes)
+
 
 // "catch all" route
 app.use(express.static(path.join(__dirname, "dist")));

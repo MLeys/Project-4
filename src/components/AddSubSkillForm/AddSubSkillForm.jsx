@@ -9,7 +9,7 @@ export default function AddSubSkillForm({ handleAddSubSkill, skill }) {
     })
 
     function handleChange(e) {
-		console.log(e.target.name, "e.target.name in handleChange in AddSubSkillform")
+		// console.log(e.target.name, "e.target.name in handleChange in AddSubSkillform")
         setState({
           ...state,
           [e.target.name]: e.target.value,
@@ -19,8 +19,8 @@ export default function AddSubSkillForm({ handleAddSubSkill, skill }) {
 
     function handleSubmit(e) {
 		e.preventDefault()
-	
-		console.log(state, "<___<<<<<<<< state in handleSubmit Subskillform")
+		
+		// console.log(state, "<___<<<<<<<< state in handleSubmit Subskillform")
 		handleAddSubSkill(skill);
 	}
     
