@@ -37,9 +37,9 @@ function VerticalSidebar({ animation, direction, visible, loggedUser, allSkills,
       width='thin'
     >
       {
-        allSkills.map((skill) => {
+        allSkills?.map((skill, index) => {
           return (
-            <SkillList skill={skill} handleDeleteSkill={handleDeleteSkill} allSkills={allSkills}/>
+            <SkillList key={skill._id} index={index} skill={skill} handleDeleteSkill={handleDeleteSkill} allSkills={allSkills}/>
           )
   
         })

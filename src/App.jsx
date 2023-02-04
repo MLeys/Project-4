@@ -29,12 +29,14 @@ export default function App() {
       
       const response = await skillsApi.deleteSkill(skillId);
       console.log(response, "<--- DELETE SKILL RESPONSE")
-      getSkills();
+      setSkills(skills.filter((skill) => {
+        return skill._id !== skillId
+      }))
+      
     } catch (err) {
       console.log(err, "<-------handleDelete skill Error")
     }
   }
-
 
 
   async function handleAddSkill(skill) {
@@ -60,11 +62,6 @@ export default function App() {
       setSkills(response.data)
       console.log(skills)
       
-      // console.log(skills, "%%%%%%%%%%%")
-      // skills.map((skill) => {
-      //   qty = qty + 1
-      //   console.log(`Name: ${skill.name} Type: ${skill.type} Q: ${qty}`)
-      // })
 
     } catch(err) {
       setError(console.log('^^^^ getSkills Error!!! ^^^^'));
@@ -72,12 +69,12 @@ export default function App() {
     }
   } // END getSkills Function
 
-  // useEffect(() => {
-  //   //Getting posts, C(R)UD
-  //   getSkills();
-  //   console.log(skills, " SKILLS HERE!!!!!!!")
+  useEffect(() => {
+    //Getting posts, C(R)UD
+    getSkills();
+    console.log(skills, " SKILLS HERE!!!!!!!")
     
-  // }, []); 
+  }, []); 
 
 
 
