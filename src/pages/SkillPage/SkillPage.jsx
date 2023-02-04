@@ -13,6 +13,8 @@ import {
 
 import * as skillsApi from '../../utils/skillApi'
 
+import AddSubSkillForm from "../../components/AddSubSkillForm/AddSubSkillForm2.jsx";
+
 
 
 function SkillPage({currentSkill, allSkills}) {
@@ -57,7 +59,7 @@ function SkillPage({currentSkill, allSkills}) {
                         left: '40%',
                         position: 'fixed',
                         top: '50%',
-                        zIndex: 1000,
+                        
                 }}
                 >
                     <Header>This is a controlled portal</Header>
