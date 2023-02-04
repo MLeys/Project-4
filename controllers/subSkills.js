@@ -3,7 +3,7 @@ import Skill from '../models/skill.js'
 
 export default {
     create,
-    deleteSkill
+    
 }
 
 async function create(req, res){
@@ -12,6 +12,10 @@ async function create(req, res){
     console.log('============================================')
     console.log(req.params.id)
     try {
+        console.log('============================================')
+        console.log('============================================')
+        console.log('============================================')
+        console.log(req.params)
         const skill = await Skill.subSkill.create({
 
         });
@@ -26,17 +30,3 @@ async function create(req, res){
     
 }
 
-async function deleteSkill(req, res){
-    try {
-        
-        const post = await Post.findOne({'likes._id': req.params.id, 'likes.username': req.user.username});
-        post.likes.remove(req.params.id) // mutating a document
-        // req.params.id is the like id 
-        await post.save() // after you mutate a document you must save
-        // res is an object that can respond to the client
-        
-        res.json({data: 'like removed'})
-    } catch(err){
-        res.status(400).json({err})
-    }
-}

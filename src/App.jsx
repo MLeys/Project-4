@@ -59,7 +59,7 @@ export default function App() {
 
   async function handleAddSubSkill(skill) {
     try {
-        // console.log(skill, "<<<<< skill data IN handleAddSUBSKill")
+        console.log(skill, "<<<<< skill data IN handleAddSUBSKill")
   
         const response = await subSkillsApi.create(skill);
         console.log(response, "++++ handleAddSUBskill RESPONSE")
@@ -74,14 +74,14 @@ export default function App() {
   async function getSkills() {
     try {
       const response = await skillsApi.getAll();
-      console.log(response, " <----- getAllSkills response FIRST");
+      // console.log(response, " <----- getAllSkills response FIRST");
       setSkills(response.data)
 
     } catch(err) {
       setError(console.log('^^^^ getSkills Error!!! ^^^^'));
       console.log(err, '<--- getSkills ERROR');
     }
-    console.log(skills, " <--- Skills State AFTER getSkills() ")
+    // console.log(skills, " <--- Skills State AFTER getSkills() ")
   } // END getSkills Function
 
   useEffect(() => {

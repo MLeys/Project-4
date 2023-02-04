@@ -13,6 +13,7 @@ export default function AddSubSkillForm({ handleAddSubSkill, skill }) {
         setState({
           ...state,
           [e.target.name]: e.target.value,
+		  
         });
 		// console.log(state, " <<<UPDATED STATE FROM HANDLE CHANGE")
       }
