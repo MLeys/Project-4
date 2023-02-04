@@ -10,13 +10,14 @@ async function create(req, res){
     console.log('============================================')
     console.log('============================================')
     console.log('============================================')
-    console.log(req.params.id)
+    console.log(req.body)
     try {
         console.log('============================================')
         console.log('============================================')
         console.log('============================================')
         console.log(req.params)
         const skill = await Skill.subSkill.create({
+
 
         });
        
