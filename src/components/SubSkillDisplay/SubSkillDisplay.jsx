@@ -23,15 +23,15 @@ export default function SubSkillDisplay({skill}) {
 
     return (
 
-                    <Segment.Group>fdf
+                    <Segment.Group>
                     <Segment.Group horizontal>
                         <Segment>SubSkills</Segment>
                         <Segment>
                             <Button icon labelpostition='right' >
-                                {/* <Link to={`skills/${skill.name}/subskill`}>
+                                <Link to={`skills/${skill.name}/subskill`}>
                                     <Icon name='plus' />
                                     
-                                </Link> */}
+                                </Link>
                             </Button>
                         </Segment>
                         <Segment> Edit Subskill</Segment>
