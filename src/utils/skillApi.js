@@ -51,3 +51,16 @@ export function deleteSkill(skillId){
 		throw new Error('Error deleting a skill check the server terminal')
 	})
 }
+
+export function getSkill(skillName) {
+	return fetch(BASE_URL + skillName, {
+		headers: {
+				Authorization: "Bearer " + tokenService.getToken() 
+				//this is how we grab the token from local storage
+			}
+	  }).then(res => {
+		if(res.ok) return res.json() // decoding the json from the server response
+		// so that we can interact with it like a regular javascript object
+		throw new Error('Error from getSkill request, check the server terminal')
+	  })
+	}

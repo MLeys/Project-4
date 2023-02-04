@@ -5,6 +5,7 @@ export default {
   create,
   index,
   delete: deleteSkill,
+  show,
 };
 
 async function deleteSkill(req, res) {
@@ -46,3 +47,20 @@ async function index(req, res) {
     res.status(400).json({ err });
   }
 }
+
+async function show(req, res) {
+  try {
+    console.log(req.params.id, "<<<------ Req.PARAMS.id in skillSHOW")
+    console.log(req.params, "<<<------ Req.PARAMS in skillSHOW")
+    const skillDoc = await Skill.findOne({'skills._id': req.params.id})
+    console.log(skillDoc, "<---skillDoc SHOW")
+    
+    
+
+    res.status(201).json({skillDoc})
+  } catch (err) {
+    console.log(err, '<-- Error in deleteSkill.Ctrl')
+    res.status(400).json({err})
+  }
+}
+  

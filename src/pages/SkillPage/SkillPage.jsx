@@ -13,8 +13,25 @@ import * as skillsApi from '../../utils/skillApi'
 
 function SkillPage({ loggedUser }) {
     const { skillName } = useParams();
+    
     console.log(skillName, "<-- skillName from useParams") 
 
+    async function getSkill() {
+
+        
+
+        try {
+
+
+
+        } catch(err) {
+            console.log(err, "<--- getSkill SINGLE error")
+        }
+    }
+
+    useEffect(() => {
+        // getSkill();
+      }, []); 
 
     return (  
         <>
