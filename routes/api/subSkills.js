@@ -3,6 +3,6 @@ const router = express.Router();
 import subSkillsCrtl from '../../controllers/subSkills.js'
 
 
-router.post('/skills/:name/subskills', subSkillsCrtl.create)
+router.post('/skills/:id/subskills', subSkillsCrtl.create)
 
 export default router;

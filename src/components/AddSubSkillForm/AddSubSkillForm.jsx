@@ -20,13 +20,13 @@ export default function AddSubSkillForm({ handleAddSubSkill, skill }) {
     }
 	function handleSubmit(e) {
 		e.preventDefault()
-		console.log(state, "BEFOPRE STATE")
+		// console.log(state, "BEFOPRE STATE")
 		// setState(
 		// 	parentSkill = skill
 		// )
 		state.parentSkill = skill
 		
-		console.log(state, " STATE HERE STATE ASTATE")
+		// console.log(state, " STATE HERE STATE ASTATE")
 		// console.log(skill, " NEW SKILL WITH SUB")
 		handleAddSubSkill(state)
 	}

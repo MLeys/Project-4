@@ -4,8 +4,9 @@ const BASE_URL= '/api/'
 
 export function create(skill){
     console.log(skill, "<--- create subskillAPI param")
+	console.log(skill.parentSkill._id)
 
-	return fetch(`${BASE_URL}skills/${skill}/subskills`, {
+	return fetch(`${BASE_URL}skills/${skill.parentSkill._id}/subskills`, {
         method: 'POST',
         headers: {
             Authorization: "Bearer " + tokenService.getToken(),
