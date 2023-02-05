@@ -187,12 +187,13 @@ export default function App() {
               />} 
           />
           <Route
-          path="skills/:skillName/subSkill"
-          element={<SubSkillPage 
-            allSkills={skills} 
-            getSkill={getSkill} 
-            loggedUser={user}
-            />} 
+            path="skills/:skillName/subSkill"
+            element={<SubSkillPage 
+              skill={skill}
+              allSkills={skills} 
+              getSkill={getSkill} 
+              loggedUser={user}
+              />} 
           />
         </Route>
 

@@ -11,10 +11,6 @@ import * as skillsApi from '../../utils/skillApi'
 
 
 export default function SubSkillPage({ loggedUser }) {
-    
-
-
-
 
     return (
         <>

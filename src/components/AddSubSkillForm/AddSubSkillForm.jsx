@@ -52,6 +52,5 @@ export default function AddSubSkillForm({ handleAddSubSkill, skill, handleClose}
 				<Button fluid color='green' type="submit" className="btn"> Add Subskill</Button>
 			</Form>
 		</Segment>
-
 	)
 }

@@ -8,15 +8,8 @@ export default {
 }
 
 async function create(req, res){
-    console.log('============================================')
-    console.log('============================================')
-    console.log(req.body, '============================================')
-    console.log(req.params.id)
     try {
-        console.log('============================================')
-        console.log('============================================')
-        console.log('============================================')
-        console.log(req.params)
+
         const skill = await Skill.findById(req.params.id);
         skill.subSkills.push(req.body)
        
