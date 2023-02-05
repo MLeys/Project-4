@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Form, Segment, Button } from "semantic-ui-react";
+import { Form, Segment, Button, Label } from "semantic-ui-react";
 
 
-export default function AddSubSkillForm({ handleAddSubSkill, skill }) {
+export default function AddSubSkillForm({ handleAddSubSkill, skill, handleClose}) {
     const [state, setState] = useState({
         title: "",
         details: "",
@@ -33,6 +33,7 @@ export default function AddSubSkillForm({ handleAddSubSkill, skill }) {
 	
 	return (
 		<Segment>
+
 			<Form onSubmit={handleSubmit}>
 				<Form.Input
 					className="form-control"
@@ -48,7 +49,7 @@ export default function AddSubSkillForm({ handleAddSubSkill, skill }) {
 					placeholder="Subskill details"
 					onChange={handleChange}
 					/>
-				<Button type="submit" className="btn"> Add Subskill</Button>
+				<Button fluid color='green' type="submit" className="btn"> Add Subskill</Button>
 			</Form>
 		</Segment>
 

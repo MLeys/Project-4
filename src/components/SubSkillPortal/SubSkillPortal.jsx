@@ -47,23 +47,18 @@ function SubSkillPortal({handleAddSubSkill, skill}) {
 
     return (  
         <div>
-            <Segment.Group fluid textAlign="left">
-            <Segment inverted id='subCardTitle' fluid textAlign="left">
-                <Link to={`skills/${skill.name}/subskill`}>
-                    Subskills
-                </Link>
-            </Segment>
-                    <Label
-                        color="green" 
-                        as='a' 
-                        icon='plus' 
-                        size="mini" 
-                        attached='top right'
-                        disabled={subFormPop}
-                        positive
-                        onClick={handleOpen} />
+            <Label
+                corner
+                color="green" 
+                as='a' 
+                icon='plus' 
+                size="mini" 
+                
+                disabled={subFormPop}
+                positive
+                onClick={handleOpen} />
 
-            </Segment.Group>
+            
                             {/* <Button
                     fluid
                     icon
@@ -76,7 +71,7 @@ function SubSkillPortal({handleAddSubSkill, skill}) {
 
             
             <Portal onClose={handleClose} open={open}>
-                <Segment
+                <Segment inverted
                     style={{
                         left: '35%',
                         position: 'fixed',
@@ -84,12 +79,22 @@ function SubSkillPortal({handleAddSubSkill, skill}) {
                         
                 }}
                 >
-                <AddSubSkillForm skill={skill} handleAddSubSkill={handleAddSubSkill} />
-                    <Button
-                        content='Close Portal'
-                        negative
-                        onClick={handleClose}
-                    />
+                    <Header>Add Subskill</Header>
+                <Label
+                    attached='top right'
+                    color="red" 
+                    as='a' 
+                    icon='close' 
+                    size="mini" 
+                    negative
+                    onClick={handleClose} 
+                />
+                    <AddSubSkillForm handleClose={handleClose} skill={skill} handleAddSubSkill={handleAddSubSkill} />
+                        {/* <Button
+                            content='Close Portal'
+                            negative
+                            onClick={handleClose}
+                        /> */}
                 </Segment>
             </Portal>
 

@@ -151,6 +151,7 @@ export default function App() {
           <Route
             index
             element={<LandingPage 
+              
               getSkills={getSkills}
               getSkill={getSkill} 
               loggedUser={user} 

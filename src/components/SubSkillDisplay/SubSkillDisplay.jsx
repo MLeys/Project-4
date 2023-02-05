@@ -27,7 +27,13 @@ export default function SubSkillDisplay({skill, handleAddSubSkill, getSkill }) {
         <div>
         
         <Segment.Group fluid raised>
-            <SubSkillPortal handleAddSubSkill={handleAddSubSkill} skill={skill} />
+        <Segment id='subCardTitle' fluid textAlign="left">
+                <Link to={`skills/${skill.name}/subskill`}>
+                    <Header fluid>  Subskills </Header>
+                    
+                </Link>
+            </Segment>
+            
             <SubSkillCard subSkills={subSkills} />
         </Segment.Group>
         </div>

@@ -6,10 +6,12 @@ import {
     Segment,
     Card,
     Button,
-    Icon
+    Icon,
+
 
 } from 'semantic-ui-react';
 
+import SubSkillPortal from '../SubSkillPortal/SubSkillPortal';
 import SubSkillPage from '../../pages/SubSkillPage/SubSkillPage';
 import SkillPage from '../../pages/SkillPage/SkillPage';
 import SubSkillCard from '../SubSkillCard/SubSkillCard';
@@ -18,7 +20,7 @@ import SubSkillDisplay from '../SubSkillDisplay/SubSkillDisplay';
 
 
 
-export default function SkillDisplay({ allSkills, getSkill, handleAddSubSkill }) {
+export default function SkillDisplay({ allSkills, getSkill, handleAddSubSkill}) {
 
     return (
         <>
@@ -32,7 +34,10 @@ export default function SkillDisplay({ allSkills, getSkill, handleAddSubSkill })
                             <Segment fluid raised inverted >
                                 {skill.name}
                             </Segment>
-                        </Link>
+                            </Link>
+                            <SubSkillPortal handleAddSubSkill={handleAddSubSkill} skill={skill} />
+                        
+                        
                         <Segment.Group text-align='center' horizontal>                 
                             <SubSkillDisplay getSkill={getSkill} skill={skill} handleAddSubSkill={handleAddSubSkill}/>
                             <Segment.Group> Resources
