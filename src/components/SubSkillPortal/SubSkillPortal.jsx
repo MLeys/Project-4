@@ -46,24 +46,35 @@ function SubSkillPortal({handleAddSubSkill, skill}) {
       }, []); 
 
     return (  
-        <>
-            <Button as='div' labelPosition='left' fluid>
-            <Link to={`skills/${skill.name}/subskill`}>
-                <Label as='a'>
+        <div>
+            <Segment.Group fluid textAlign="left">
+            <Segment inverted id='subCardTitle' fluid textAlign="left">
+                <Link to={`skills/${skill.name}/subskill`}>
                     Subskills
-                </Label>
                 </Link>
-                <Button
+            </Segment>
+                    <Label
+                        color="green" 
+                        as='a' 
+                        icon='plus' 
+                        size="mini" 
+                        attached='top right'
+                        disabled={subFormPop}
+                        positive
+                        onClick={handleOpen} />
+
+            </Segment.Group>
+                            {/* <Button
                     fluid
                     icon
-                    as='div'
                     disabled={subFormPop}
                     positive
                     onClick={handleOpen}
                 >
                     <Icon name="plus" />
-                </Button>
-            </Button>
+                </Button> */}
+
+            
             <Portal onClose={handleClose} open={open}>
                 <Segment
                     style={{
@@ -82,7 +93,7 @@ function SubSkillPortal({handleAddSubSkill, skill}) {
                 </Segment>
             </Portal>
 
-        </>
+        </div>
     );
 }
 
