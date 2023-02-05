@@ -35,11 +35,11 @@ export function getAllSubSkills(skillName) {
 }
 
 export function update(subskill){
-    console.log(subskill, "<--- create subsubskillAPI param")
-	console.log(subskill.parentSkill)
+    console.log(subskill, "<--- UPDATE subskill param")
+	
 
-	return fetch(`${BASE_URL}skills/${subskill.parentSkill._id}/subskills`, {
-        method: 'POST',
+	return fetch(`${BASE_URL}skills/${subskill.parentSkill}/subskills/update`, {
+        method: 'PUT',
 		body: JSON.stringify(subskill),
         headers: {
             Authorization: "Bearer " + tokenService.getToken(),

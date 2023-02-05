@@ -34,9 +34,10 @@ export default function SubSkillPage({ loggedUser, skill, allSkills, getSkills,h
     
     
     const [state, setState] = useState({
+        subId: subId,
         title: subSkill?.title,
         details: subSkill?.details,
-        // parentSkill: subSkill?.parentSkill,
+        parentSkill: subSkill?.parentSkill,
         // resources: subSkill?.resources,
 
     })

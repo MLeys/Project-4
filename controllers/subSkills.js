@@ -30,7 +30,6 @@ async function create(req, res){
 
 async function update(req, res){
     try {
-
         console.log(req.params, "<-- update subskill params")
 
         // const skill = await Skill.findById(req.params.id);
