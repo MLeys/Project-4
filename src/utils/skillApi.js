@@ -55,7 +55,7 @@ export function deleteSkill(skillId){
 	})
 }
 
-export function getSkill(skillName) {
+export function getOneSkill(skillName) {
 	return fetch(BASE_URL + skillName, {
 		headers: {
 				Authorization: "Bearer " + tokenService.getToken() 

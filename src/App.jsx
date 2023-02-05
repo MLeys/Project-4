@@ -86,6 +86,18 @@ export default function App() {
     // console.log(skills, " <--- Skills State AFTER getSkills() ")
   } // END getSkills Function
 
+  async function getSkill(skillName) {
+    try {
+      const response = await skillsApi.getOneSkill(skillName)
+      console.log(response, "<-- getSkillByNameResponse")
+      setSkill(response.skillDoc)
+      return response.skillDoc
+    } catch(err) {
+      console.log(err, "getSkill SINGLE error")
+    }
+    
+  }
+
   useEffect(() => {
     //Getting posts, C(R)UD
     getSkills();
@@ -102,20 +114,20 @@ export default function App() {
     setUser(null);
   }
 
-  async function getSkill(skillId) {
-    const skillName = skillId.name;
-    try {
-        const response = await skillsApi.getSkill(skillName);
-        console.log(response.skillDoc, "<--- getSkill REsponse")
-        const skillData = await response.skillDoc
-        setSkill({skillData})
-        console.log(skill, "<--- Skill State")
+  // async function getSkill(skillId) {
+  //   const skillName = skillId.name;
+  //   try {
+  //       const response = await skillsApi.getSkill(skillName);
+  //       console.log(response.skillDoc, "<--- getSkill REsponse")
+  //       const skillData = await response.skillDoc
+  //       setSkill({skillData})
+  //       console.log(skill, "<--- Skill State")
         
 
-    } catch(err) {
-        console.log(err, "<--- getSkill SINGLE error")
-    }
-  }
+  //   } catch(err) {
+  //       console.log(err, "<--- getSkill SINGLE error")
+  //   }
+  // }
 
 
 
@@ -164,9 +176,10 @@ export default function App() {
             path="skills/:skillName"
             element={<SkillPage 
               handleAddSubSkill={handleAddSubSkill} 
-              activeSkill={skill} 
+              skill={skill} 
               allSkills={skills} 
               getSkill={getSkill} 
+              getSkills={getSkills}
               loggedUser={user}
               handleAddSkill={handleAddSkill}
               
