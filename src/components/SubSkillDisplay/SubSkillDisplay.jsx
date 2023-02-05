@@ -34,7 +34,7 @@ export default function SubSkillDisplay({skill, handleAddSubSkill, getSkill }) {
                 </Link>
             </Segment>
             
-            <SubSkillCard subSkills={subSkills} />
+            <SubSkillCard skill={skill} subSkills={subSkills} />
         </Segment.Group>
         </div>
 

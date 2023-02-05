@@ -184,17 +184,18 @@ export default function App() {
               loggedUser={user}
               handleAddSkill={handleAddSkill}
               
-              />} 
+            />} 
           />
-          <Route
-            path="skills/:skillName/subSkill"
-            element={<SubSkillPage 
-              skill={skill}
-              allSkills={skills} 
-              getSkill={getSkill} 
-              loggedUser={user}
-              />} 
+            <Route
+              path="skills/:skillName/subskill/:id"
+              element={<SubSkillPage 
+                skill={skill}
+                allSkills={skills} 
+                getSkill={getSkill} 
+                loggedUser={user}
+                />} 
           />
+          
         </Route>
 
 

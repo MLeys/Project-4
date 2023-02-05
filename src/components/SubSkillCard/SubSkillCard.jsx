@@ -1,5 +1,6 @@
 import "./SubSkillCard.css"
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, Navigate } from "react-router-dom";
 import { 
     Card, 
     Icon, 
@@ -8,6 +9,8 @@ import {
     Accordion,
     Segment
 } from "semantic-ui-react";
+
+import SubSkillPage from "../../pages/SubSkillPage/SubSkillPage";
 
 // const level1Panels = [
 //     { key: 'panel-1a', title: 'Level 1A', content: 'Level 1A Contents' },// resources
@@ -29,7 +32,8 @@ import {
 //   )
 
 
-export default function SubSkillCard({ subSkills }) {
+
+export default function SubSkillCard({ subSkills, skill }) {
     // const subSkills = skill?.subSkills
     // console.log(subSkills, "subskills new array")
 
@@ -41,11 +45,15 @@ export default function SubSkillCard({ subSkills }) {
         subSkills?.map(sub => {
             return (
                 <div>
-                <Card fluid key={sub?._id}>
-                    <Card.Content> 
-                        {sub?.title}
-                    </Card.Content>
-                </Card>
+                    <Link to={`/skills/${skill?.name}/subskill/${sub?._id}`} >
+                    
+                        <Card link fluid key={sub?._id}>
+                            <Card.Content> 
+                                {sub?.title}
+                            </Card.Content>
+                        </Card>
+                    </Link>
+
                 </div>
 
             )
