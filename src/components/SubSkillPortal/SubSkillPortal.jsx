@@ -7,7 +7,8 @@ import {
     Header,
     Button,
     Icon,
-    Portal
+    Portal,
+    Label
 
 } from 'semantic-ui-react';
 
@@ -46,12 +47,21 @@ function SubSkillPortal({handleAddSubSkill, skill}) {
 
     return (  
         <>
-            <Button
-                content='Open Portal'
-                disabled={subFormPop}
-                positive
-                onClick={handleOpen}
-            />
+            <Button as='div' labelPosition='left' fluid>
+                <Label as='a' basic>
+                    Subskills
+                </Label>
+                <Button
+                    fluid
+                    icon
+                    as='div'
+                    disabled={subFormPop}
+                    positive
+                    onClick={handleOpen}
+                >
+                    <Icon name="plus" />
+                </Button>
+            </Button>
             <Portal onClose={handleClose} open={open}>
                 <Segment
                     style={{

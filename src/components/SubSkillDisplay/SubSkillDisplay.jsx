@@ -26,15 +26,15 @@ export default function SubSkillDisplay({skill, handleAddSubSkill, getSkill }) {
     return (
         <>
         
-        <Segment.Group>
-            <Segment.Group compact horizontal>
+        <Segment.Group raised>
+            <Segment raised>
                 <Link to={`skills/${skill.name}/subskill`}>
                     <Segment attached='top' size='big'>SubSkills</Segment>
                 </Link>
                 <Segment>
                     <SubSkillPortal handleAddSubSkill={handleAddSubSkill} skill={skill} />
                 </Segment>                
-            </Segment.Group>
+            </Segment>
         
             <SubSkillCard subSkills={subSkills} />
         </Segment.Group>
