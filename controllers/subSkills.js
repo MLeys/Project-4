@@ -18,7 +18,7 @@ async function create(req, res){
         console.log('============================================')
         console.log(req.params)
         const skill = await Skill.findById(req.params.id);
-        skill.subSkills.push({subSkill: "SUBSKILL GOES HERE"})
+        skill.subSkills.push(req.body)
        
         // skill.subSkills.push({username: req.user.username, userId: req.user._id}); //mutating a document
         await skill.save()// save it
