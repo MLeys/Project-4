@@ -29,6 +29,9 @@ export default function App() {
   const [skill, setSkill] = useState('')
 
 
+  
+
+
   async function handleDeleteSkill(skillId) {
     try {
       
@@ -95,14 +98,18 @@ export default function App() {
     } catch(err) {
       console.log(err, "getSkill SINGLE error")
     }
-    
   }
 
-  useEffect(() => {
-    //Getting posts, C(R)UD
-    getSkills();
-    
-  }, []); 
+  async function getSubSkill(skillName, subId) {
+    try {
+      const response = await skillsApi.getOneSkill(skillName)
+      console.log(response, "<-- getSkillByNameResponse")
+      setSkill(response.skillDoc)
+      return response.skillDoc
+    } catch(err) {
+      console.log(err, "getSkill SINGLE error")
+    }
+  }
 
   function handleSignUpOrLogin() {
     setUser(userService.getUser());
@@ -114,21 +121,9 @@ export default function App() {
     setUser(null);
   }
 
-  // async function getSkill(skillId) {
-  //   const skillName = skillId.name;
-  //   try {
-  //       const response = await skillsApi.getSkill(skillName);
-  //       console.log(response.skillDoc, "<--- getSkill REsponse")
-  //       const skillData = await response.skillDoc
-  //       setSkill({skillData})
-  //       console.log(skill, "<--- Skill State")
-        
-
-  //   } catch(err) {
-  //       console.log(err, "<--- getSkill SINGLE error")
-  //   }
-  // }
-
+  useEffect(() => {
+    getSkills();
+  }, []); 
 
 
   if (user) {

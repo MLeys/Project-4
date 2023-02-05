@@ -10,7 +10,7 @@ import {
 import * as skillsApi from '../../utils/skillApi'
 
 
-export default function SubSkillPage({ loggedUser, skill, getSkill }) {
+export default function SubSkillPage({ loggedUser, skill }) {
     const subParams = useParams();
    
     const parentName = subParams.skillName
