@@ -63,7 +63,9 @@ export default function App() {
         // setSkill(updatedSkill)
         const response = await subSkillsApi.create(subskill);
         console.log(response, "++++ handleAddSUBskill RESPONSE")
+        setSkill(response.skill)
         
+        getSkills();
         
     } catch(err){
         console.log(err, " Error IN THE HANDLEADDsubskill")
@@ -136,7 +138,7 @@ export default function App() {
           />
           <Route
           path="skills/:skillName"
-          element={<SkillPage handleAddSubSkill={handleAddSubSkill} currentSkill={skill} allSkills={skills} getSkill={getSkill} loggedUser={user}/>} 
+          element={<SkillPage handleAddSubSkill={handleAddSubSkill} activeSkill={skill} allSkills={skills} getSkill={getSkill} loggedUser={user}/>} 
           />
           <Route
           path="skills/:skillName/subSkill"
