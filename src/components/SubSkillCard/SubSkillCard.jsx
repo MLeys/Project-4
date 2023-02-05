@@ -28,20 +28,30 @@ import {
 //   )
 
 
-export default function SubSkillCard({ sub }) {
+export default function SubSkillCard({ subSkills }) {
     // const subSkills = skill?.subSkills
     // console.log(subSkills, "subskills new array")
 
 
 
     return (
-        <Card fluid key={sub?._id}>
-            <Card.Content> 
-                {sub?.title}
-            </Card.Content>
-        </Card>
+        <>
+        {
+        subSkills?.map(sub => {
+            return (
+                <div>
+                <Card fluid key={sub?._id}>
+                    <Card.Content> 
+                        {sub?.title}
+                    </Card.Content>
+                </Card>
+                </div>
 
-
+            )
+        })
+        }
+        
+        </>
     )
     
 }

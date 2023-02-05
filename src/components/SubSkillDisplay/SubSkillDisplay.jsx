@@ -37,16 +37,7 @@ export default function SubSkillDisplay({skill}) {
                 </Segment>                
             </Segment.Group>
         
-        {
-        skill?.subSkills?.map(sub => {
-            return (
-                <div>
-                        <SubSkillCard sub={sub} />
-                </div>
-
-            )
-        })
-        }
+        <SubSkillCard subSkills={subSkills} />
         </Segment.Group>
         </>
 
