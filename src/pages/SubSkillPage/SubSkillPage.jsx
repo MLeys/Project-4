@@ -8,16 +8,21 @@ import {
 } from 'semantic-ui-react';
 
 import * as skillsApi from '../../utils/skillApi'
+import subSkills from "../../../controllers/subSkills";
 
 
-export default function SubSkillPage({ loggedUser, skill }) {
-    const subParams = useParams();
-   
-    const parentName = subParams.skillName
-    const subId = subParams.id 
-    console.log(parentName, subId)
+export default function SubSkillPage({ loggedUser, skill, getSubSkills, subSkills, getSkill}) {
+    const subParams = useParams()
+    const parentName = useParams().skillName;
+    const subId = useParams().id 
+    console.log(parentName, subId, subParams)
+    console.log(subSkills, "<--subSkills on subSkillPage")
+    
+    
 
-
+    useEffect(() => {
+        getSkill(parentName);
+      }, []); 
 
     return (
         <>

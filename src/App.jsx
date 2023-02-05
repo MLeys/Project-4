@@ -21,7 +21,8 @@ import * as skillsApi from "/src/utils/skillApi.js"
 import * as subSkillsApi from "./utils/subSkillApi.js"
 
 export default function App() {
-
+  
+  const [subSkill, setSubSkill] = useState('');
   const [user, setUser] = useState(userService.getUser());
   const [subSkills, setSubSkills] = useState([])
   const [skills, setSkills] = useState([]);
@@ -100,12 +101,21 @@ export default function App() {
     }
   }
 
-  async function getSubSkill(skillName, subId) {
+  async function getSubSkills(skillName,subId) {
     try {
-      const response = await skillsApi.getOneSkill(skillName)
-      console.log(response, "<-- getSkillByNameResponse")
-      setSkill(response.skillDoc)
-      return response.skillDoc
+      console.log("******************* SHOULD NOT RUNN!!!! **************")
+      console.log("******************* SHOULD NOT RUNN!!!! **************")
+      console.log("******************* SHOULD NOT RUNN!!!! **************")
+      console.log("******************* SHOULD NOT RUNN!!!! **************")
+
+      console.log(skillName, "<SKILL NAME getsubskills")
+      const response = await subSkillsApi.getAllSubSkills(skillName,subId)
+      console.log(response, "<-- getSubSkill Response")
+      // setSubSkills(
+        
+      //   response.skillDoc.subSkills
+      // )
+      // return response.skillDoc.subSkills
     } catch(err) {
       console.log(err, "getSkill SINGLE error")
     }
@@ -184,6 +194,8 @@ export default function App() {
             <Route
               path="skills/:skillName/subskill/:id"
               element={<SubSkillPage 
+                subSkills={subSkills}
+                getSubSkills={getSubSkills}
                 skill={skill}
                 allSkills={skills} 
                 getSkill={getSkill} 

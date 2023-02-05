@@ -21,8 +21,8 @@ export function create(skill){
 	})
 }
 
-export function getSubSkill(skillName, subId) {
-	return fetch(BASE_URL + skillName, {
+export function getAllSubSkills(skillName, subId) {
+	return fetch(`${BASE_URL}/skills/${skillName}/subskill/${subId}`, {
 		headers: {
 				Authorization: "Bearer " + tokenService.getToken() 
 				//this is how we grab the token from local storage
