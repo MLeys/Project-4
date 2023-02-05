@@ -15,12 +15,7 @@ async function create(req, res){
         const skill = await Skill.findById(req.body.parentSkill._id);
         skill.subSkills.push(req.body)
        
-        // await skill.populate({
-        //     usersAssigned,
-        //     subSkills: {
-        //         parentSkill
-        //     }
-        // })
+       
 
         // skill.subSkills.push({username: req.user.username, userId: req.user._id}); //mutating a document
         await skill.save()// save it
