@@ -15,6 +15,9 @@ import SkillPage from '../../pages/SkillPage/SkillPage';
 import SubSkillCard from '../SubSkillCard/SubSkillCard';
 import SubSkillDisplay from '../SubSkillDisplay/SubSkillDisplay';
 
+
+
+
 export default function SkillDisplay({ allSkills, getSkill }) {
 
     // function skillHandler(skillId) {
@@ -28,19 +31,19 @@ export default function SkillDisplay({ allSkills, getSkill }) {
             allSkills?.map((skill) => {
                 return (
                     <Segment.Group key={skill._id}>
-                        <Segment textAlign='center'>
+                        <Segment textAlign='center'>fdf
                         <Button icon labelpostition='right'>
-                                            <Link to={`skills/${skill.name}`} onClick={() =>
-                                            getSkill(skill._id)
-                                            } >
-                                                
-                                                <Icon name='plus' > </Icon>
-                                            </Link>
-                                        </Button>
+                            <Link to={`skills/${skill.name}`} onClick={() =>
+                            getSkill(skill._id)
+                            } >
+                                
+                                <Icon name='plus' > </Icon>
+                            </Link>
+                        </Button>
                             {skill.name}</Segment>
                             <Segment.Group text-align='center' horizontal>
                                 
-                                <SubSkillDisplay skill={skill}/>
+                                <SubSkillDisplay getSkill={getSkill} skill={skill}/>
                                                 {/* <Segment.Group>
                                                     <Segment.Group horizontal>
                                                         <Segment>SubSkills</Segment>

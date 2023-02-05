@@ -13,9 +13,9 @@ import {
 
 import * as skillsApi from '../../utils/skillApi'
 
-import AddSubSkillForm from "../../components/AddSubSkillForm/AddSubSkillForm.jsx";
+import AddSubSkillForm from "../AddSubSkillForm/AddSubSkillForm.jsx";
 
-function SkillPage({handleAddSubSkill, allSkills}) {
+function SubSkillPortal({handleAddSubSkill, allSkills}) {
     const [subFormPop, setSubFormPop] = useState(false)
 
     const open = subFormPop;
@@ -39,10 +39,10 @@ function SkillPage({handleAddSubSkill, allSkills}) {
     // console.log(skill[0], "<<SKILL>><<<<<<>><<<")
 
     const result = allSkills.find(({ name }) => name === skillName);
-    // console.log(result, "^^^ Find RESULT skillpage"); 
+    // console.log(result, "^^^ Find RESULT SubSkillPortal"); 
     useEffect(() => {
         
-      }, [result]); 
+      }, []); 
 
     return (  
         <>
@@ -81,4 +81,4 @@ function SkillPage({handleAddSubSkill, allSkills}) {
     );
 }
 
-export default SkillPage;
+export default SubSkillPortal;
