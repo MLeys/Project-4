@@ -61,7 +61,7 @@ function SubSkillPortal({handleAddSubSkill, skill}) {
                         
                 }}
                 >
-                    <AddSubSkillForm skill={skill} handleAddSubSkill={handleAddSubSkill} />
+                <AddSubSkillForm skill={skill} handleAddSubSkill={handleAddSubSkill} />
                     <Button
                         content='Close Portal'
                         negative
@@ -69,12 +69,7 @@ function SubSkillPortal({handleAddSubSkill, skill}) {
                     />
                 </Segment>
             </Portal>
-            <Button icon labelpostition='right' >
-                <Link to={`subskill`}>
-                    <Icon name='plus' />
-                    
-                </Link>
-            </Button>
+
         </>
     );
 }

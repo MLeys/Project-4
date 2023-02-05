@@ -7,7 +7,8 @@ import {
     Card,
     Button,
     Icon,
-    Header
+    Header,
+    Grid
 
 } from 'semantic-ui-react';
 
@@ -19,29 +20,23 @@ import SubSkillCard from '../SubSkillCard/SubSkillCard';
 
 export default function SubSkillDisplay({skill, handleAddSubSkill, getSkill }) {
 
-    // function skillHandler(skillId) {
-    //     getSkill(skillId)
-    // }
+
     const subSkills = skill?.subSkills
 
     return (
         <>
-        <SubSkillPortal handleAddSubSkill={handleAddSubSkill} skill={skill} />
+        
         <Segment.Group>
-            <Segment.Group horizontal>
-                <Segment><Header>Subskills</Header></Segment>
+            <Segment.Group compact horizontal>
+                <Link to={`skills/${skill.name}/subskill`}>
+                    <Segment attached='top' size='big'>SubSkills</Segment>
+                </Link>
                 <Segment>
-
-                    <Button icon labelpostition='right' >
-                        <Link to={`skills/${skill.name}/subskill`}>
-                            <Icon name='plus' />
-                            
-                        </Link>
-                    </Button>
+                    <SubSkillPortal handleAddSubSkill={handleAddSubSkill} skill={skill} />
                 </Segment>                
             </Segment.Group>
         
-        <SubSkillCard subSkills={subSkills} />
+            <SubSkillCard subSkills={subSkills} />
         </Segment.Group>
         </>
 

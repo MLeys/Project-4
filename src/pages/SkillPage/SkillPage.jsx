@@ -46,5 +46,4 @@ function SkillPage({handleAddSubSkill, allSkills, activeSkill, getSkill, getSkil
         </>
     );
 }
-
 export default SkillPage;
