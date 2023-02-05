@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import {
     Grid,
     Segment,
+    Form,
+    Button
 
 } from 'semantic-ui-react';
 
@@ -13,7 +15,7 @@ import subSkills from "../../../controllers/subSkills";
 import SubSkillCard from "../../components/SubSkillCard/SubSkillCard";
 
 
-export default function SubSkillPage({ loggedUser, skill, allSkills, getSkills}) {
+export default function SubSkillPage({ loggedUser, skill, allSkills, getSkills,handleEditSubSkill, handleAddSubSkill}) {
     
     const subParams = useParams()
     const parentName = useParams().skillName;
@@ -24,7 +26,7 @@ export default function SubSkillPage({ loggedUser, skill, allSkills, getSkills})
     // console.log(parentSkill, "parentskill")
     const subSkills = parentSkill?.subSkills
     // console.log(subSkills, "subskills")
-    const subSkill = subSkills?.filter((sub) => sub._id === subId)
+    const subSkill = subSkills?.find((sub) => sub._id === subId)
 
     console.log(parentName, subId, subParams)
     console.log(subSkill, "<--subSkill on subSkillPage")
@@ -32,8 +34,11 @@ export default function SubSkillPage({ loggedUser, skill, allSkills, getSkills})
     
     
     const [state, setState] = useState({
-        name: "",
-        type: "",
+        title: subSkill?.title,
+        details: subSkill?.details,
+        // parentSkill: subSkill?.parentSkill,
+        // resources: subSkill?.resources,
+
     })
 
     function handleChange(e) {
@@ -42,42 +47,43 @@ export default function SubSkillPage({ loggedUser, skill, allSkills, getSkills})
           ...state,
           [e.target.name]: e.target.value,
         });
-		// console.log(state, " <<<UPDATED STATE FROM HANDLE CHANGE")
+		console.log(state, " <<<UPDATED STATE FROM HANDLE CHANGE")
       }
 
     function handleSubmit(e) {
 		e.preventDefault();
 	
 		console.log(state, "<___<<<<<<<< state in handleSubmit")
-		handleAddSkill(state);
+        console.log(subSkill, "SUCCK IT")
+		handleEditSubSkill(state);
 	}
     
   return (
-	
 	<Segment>
-		<h1> this is inside form segment</h1>
-		<Form onSubmit={handleSubmit}>
-		<Form.Input
-			className="form-control"
-			name="name"
-			value={state.name}
-			placeholder="Enter Skill Name"
-			onChange={handleChange}
-			
-		/>
-		<Form.Input
-			className="form-control"
-			name="type"
-			value={state.type}
-			placeholder="Enter Type of Skill"
-			onChange={handleChange}
-		/>
-		<Button type="submit" className="btn">
-			Add Skill
-		</Button>
+        
+        <Form onSubmit={handleSubmit}>
+            <Form.Input
+                className="form-control"
+                name="title"
+                value={state.title}
+                placeholder="Enter Skill Name"
+                onChange={handleChange}
+                
+            />
+            <Form.Input
+                className="form-control"
+                name="details"
+                value={state.details}
+                placeholder="about details"
+                onChange={handleChange}
+            />
+            <Button type="submit" className="btn">
+                Edit Subskill
+            </Button>
+        </Form>
+    </Segment>
 
-		</Form>
-	</Segment> 
+	 
 
   );
 }

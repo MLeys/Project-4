@@ -19,6 +19,7 @@ import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import userService from "./utils/userService";
 import * as skillsApi from "/src/utils/skillApi.js"
 import * as subSkillsApi from "./utils/subSkillApi.js"
+import { render } from "ejs";
 
 export default function App() {
   
@@ -68,14 +69,30 @@ export default function App() {
         const response = await subSkillsApi.create(subskill);
         console.log(response, "++++ handleAddSUBskill RESPONSE")
         setSkill(response.skill)
-        
         getSkills();
+        return skill
         
     } catch(err){
         console.log(err, " Error IN THE HANDLEADDsubskill")
     }
     // console.log(skills, " <--- Skills State after ADDsubskill ")
   } // END handleAddSubSkill Function
+
+  async function handleEditSubSkill(subskill) {
+    try {
+        console.log(subskill, "<<<<< subskill data IN handle EDIT SUBSKill")
+        // setSubSkill(updatedSkill)
+        const response = await subSkillsApi.update(subskill);
+        console.log(response, "++++ EDIT SUBSKILL RESPONSE")
+        setSkill(response.skill)
+        return skill
+        
+    } catch(err){
+        console.log(err, " Error IN THE HANDLEADDsubskill")
+    }
+    // console.log(skills, " <--- Skills State after ADDsubskill ")
+  } // END handleAddSubSkill Function
+
 
   async function getSkills() {
     try {
@@ -206,6 +223,8 @@ export default function App() {
                 getSkills={getSkills}
                 getSkill={getSkill} 
                 loggedUser={user}
+                handleAddSubSkill={handleAddSubSkill}
+                handleEditSubSkill={handleEditSubSkill}
                 />} 
           />
           

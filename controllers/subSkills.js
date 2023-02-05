@@ -10,10 +10,18 @@ export default {
 
 async function create(req, res){
     try {
-
-        const skill = await Skill.findById(req.params.id);
+        
+        console.log(req.body.parentSkill._id, "))))))) REQ PARAM")
+        const skill = await Skill.findById(req.body.parentSkill._id);
         skill.subSkills.push(req.body)
        
+        // await skill.populate({
+        //     usersAssigned,
+        //     subSkills: {
+        //         parentSkill
+        //     }
+        // })
+
         // skill.subSkills.push({username: req.user.username, userId: req.user._id}); //mutating a document
         await skill.save()// save it
 
@@ -27,6 +35,7 @@ async function create(req, res){
 
 async function update(req, res){
     try {
+
         console.log(req.params, "<-- update subskill params")
 
         // const skill = await Skill.findById(req.params.id);
