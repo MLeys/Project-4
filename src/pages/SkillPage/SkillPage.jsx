@@ -69,7 +69,7 @@ function SkillPage({handleAddSubSkill, allSkills}) {
                     />
                 </Segment>
             </Portal>
-            <h1>Skill Page - {result?.name} </h1>
+            <h1>Skill Page - {result?.name}</h1>
 
             <Button icon labelpostition='right' >
                 <Link to={`subskill`}>
