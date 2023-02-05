@@ -24,21 +24,13 @@ export default function SubSkillDisplay({skill, handleAddSubSkill, getSkill }) {
     const subSkills = skill?.subSkills
 
     return (
-        <>
+        <div>
         
-        <Segment.Group raised>
-            <Segment raised>
-                <Link to={`skills/${skill.name}/subskill`}>
-                    <Segment attached='top' size='big'>SubSkills</Segment>
-                </Link>
-                <Segment>
-                    <SubSkillPortal handleAddSubSkill={handleAddSubSkill} skill={skill} />
-                </Segment>                
-            </Segment>
-        
+        <Segment.Group fluid raised>
+            <SubSkillPortal handleAddSubSkill={handleAddSubSkill} skill={skill} />
             <SubSkillCard subSkills={subSkills} />
         </Segment.Group>
-        </>
+        </div>
 
 
 

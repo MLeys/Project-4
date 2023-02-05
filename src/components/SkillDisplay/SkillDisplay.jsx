@@ -25,22 +25,22 @@ export default function SkillDisplay({ allSkills, getSkill, handleAddSubSkill })
         {
             allSkills?.map((skill) => {
                 return (
-                    <Segment.Group key={skill._id}>
+                    <Segment.Group raised key={skill._id}>
                         <Link to={`skills/${skill.name}`} onClick={() =>
                             getSkill(skill._id)
-                            } >
-                            <Segment size='big' textAlign='center' >
+                        } > 
+                            <Segment fluid raised inverted >
                                 {skill.name}
                             </Segment>
                         </Link>
-                            <Segment.Group text-align='center' horizontal>                 
-                                <SubSkillDisplay getSkill={getSkill} skill={skill} handleAddSubSkill={handleAddSubSkill}/>
+                        <Segment.Group text-align='center' horizontal>                 
+                            <SubSkillDisplay getSkill={getSkill} skill={skill} handleAddSubSkill={handleAddSubSkill}/>
                             <Segment.Group> Resources
                                 <Card>
                 
                                 </Card>
                             </Segment.Group>
-                    
+                
                         </Segment.Group>
                     </Segment.Group>
                 )

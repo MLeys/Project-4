@@ -48,9 +48,11 @@ function SubSkillPortal({handleAddSubSkill, skill}) {
     return (  
         <>
             <Button as='div' labelPosition='left' fluid>
-                <Label as='a' basic>
+            <Link to={`skills/${skill.name}/subskill`}>
+                <Label as='a'>
                     Subskills
                 </Label>
+                </Link>
                 <Button
                     fluid
                     icon
