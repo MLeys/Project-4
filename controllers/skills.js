@@ -6,6 +6,7 @@ export default {
   index,
   delete: deleteSkill,
   show,
+  all: allSkills,
 };
 
 async function deleteSkill(req, res) {
@@ -47,12 +48,21 @@ async function index(req, res) {
     res.status(400).json({ err });
   }
 }
+async function allSkills(req, res) {
+  try {
+    // this populates the user when you find the skills
+    const skills = await Skill.find({}).populate("usersAssigned").exec(); // populating on the model
+    res.status(200).json({ data: skills });
+  } catch (err) {
+    res.status(400).json({ err });
+  }
+}
 
 async function show(req, res) {
   try {
     console.log(req.params.id, "<<<------ Req.PARAMS.id in skillSHOW")
     console.log(req.params, "<<<------ Req.PARAMS in skillSHOW")
-    const skillDoc = await Skill.findOne({'skills._id': req.params.id})
+    const skillDoc = await Skill.findById( req.params.id)
     console.log(skillDoc, "<---skillDoc SHOW")
     
     

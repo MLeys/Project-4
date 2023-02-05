@@ -29,7 +29,7 @@ export function create(data) {
 
 export function getAll() {
     // console.log(" &&&&&&&&&&&&&&&&&&&&&&&&&&&&&& YES YOU ARE HITTING RIGHT HERE !!!! =========")
-    return fetch(BASE_URL, {
+    return fetch(`${BASE_URL}/all`, {
         headers: {
             Authorization: "Bearer " + tokenService.getToken(),
         }
@@ -56,6 +56,7 @@ export function deleteSkill(skillId){
 }
 
 export function getOneSkill(skillName) {
+	
 	return fetch(BASE_URL + skillName, {
 		headers: {
 				Authorization: "Bearer " + tokenService.getToken() 

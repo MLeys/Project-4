@@ -18,26 +18,8 @@ import * as skillsApi from '../../utils/skillApi'
 function SkillPage({handleAddSubSkill, allSkills, activeSkill, getSkill, getSkills, skill }) {
 
     const { skillName } = useParams();
-
-    // async function findSkill(skillName) {
-    //     try {
-    //         console.log('find skill hitting')
-    //         const skillFind = await getSkill(skillName)
-    //         setPageSkill(skillFind)
-
-    //     } catch(err) {
-    //         console.log(err, "<-- findSkill Error on SkillPage")
-    //     }
-    // }
-    // findSkill(skillName)
+    console.log(skillName, "skillname")
     
-
-   
-
-    useEffect(() => {
-        getSkill(skillName)
-        
-      }, []); 
 
     return (  
         <>

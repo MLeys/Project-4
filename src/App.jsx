@@ -80,9 +80,11 @@ export default function App() {
   async function getSkills() {
     try {
       const response = await skillsApi.getAll();
+
       // console.log(response, " <----- getAllSkills response FIRST");
       setSkills(response.data)
-
+      // console.log(response.data, "data")
+      // console.log(skills, "skills")
     } catch(err) {
       setError(console.log('^^^^ getSkills Error!!! ^^^^'));
       console.log(err, '<--- getSkills ERROR');
@@ -92,10 +94,12 @@ export default function App() {
 
   async function getSkill(skillName) {
     try {
+      
+      // console.log(skills, " WHY NOT CHAINGING")
       const response = await skillsApi.getOneSkill(skillName)
-      console.log(response, "<-- getSkillByNameResponse")
+      // console.log(response, "<-- getSkillByNameResponse")
       setSkill(response.skillDoc)
-      return response.skillDoc
+      return skill
     } catch(err) {
       console.log(err, "getSkill SINGLE error")
     }
@@ -133,6 +137,7 @@ export default function App() {
 
   useEffect(() => {
     getSkills();
+    
   }, []); 
 
 
@@ -198,6 +203,7 @@ export default function App() {
                 getSubSkills={getSubSkills}
                 skill={skill}
                 allSkills={skills} 
+                getSkills={getSkills}
                 getSkill={getSkill} 
                 loggedUser={user}
                 />} 
