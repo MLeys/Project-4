@@ -1,13 +1,19 @@
 import React from "react";
+import { useEffect, useState } from "react";
 import { Grid, Segment} from "semantic-ui-react";
 
 import MainSideBar from "../../components/MainSideBar/MainSideBar";
 import SkillDisplay from "../../components/SkillDisplay/SkillDisplay";
 
 
-function LandingPage({loggedUser, handleLogout, allSkills, handleAddSkill, handleDeleteSkill, handleAddSubSkill}) {
+function LandingPage({getSkills, loggedUser, handleLogout, allSkills, handleAddSkill, handleDeleteSkill, handleAddSubSkill}) {
     // console.log(loggedUser)
     // console.log(allSkills, " ALL SKILLS - landing page") 
+    useEffect(() => {
+        //Getting posts, C(R)UD
+        getSkills();
+        
+      }, []); 
     return (
         <Grid>
             <Grid.Row>

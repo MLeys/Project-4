@@ -17,7 +17,7 @@ import SubSkillPage from '../../pages/SubSkillPage/SubSkillPage';
 import SkillPage from '../../pages/SkillPage/SkillPage';
 import SubSkillCard from '../SubSkillCard/SubSkillCard';
 
-export default function SubSkillDisplay({skill, handleAddSubSkill}) {
+export default function SubSkillDisplay({skill, handleAddSubSkill, getSkill }) {
 
     // function skillHandler(skillId) {
     //     getSkill(skillId)

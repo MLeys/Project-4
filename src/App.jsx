@@ -133,31 +133,52 @@ export default function App() {
             allSkills={skills} loggedUser={user} 
             handleLogout={handleLogout} 
             handleDeleteSkill={handleDeleteSkill} 
+            getSkills={getSkills}
           />}
         >
           <Route
-          index
-          element={<LandingPage 
-            getSkill={getSkill} 
-            loggedUser={user} 
-            handleLogout={handleLogout} 
-            handleAddSkill={handleAddSkill} 
-            allSkills = {skills} 
-            handleDeleteSkill={handleDeleteSkill}
-            handleAddSubSkill={handleAddSubSkill}
-          />}
+            index
+            element={<LandingPage 
+              getSkills={getSkills}
+              getSkill={getSkill} 
+              loggedUser={user} 
+              handleLogout={handleLogout} 
+              handleAddSkill={handleAddSkill} 
+              allSkills = {skills} 
+              handleDeleteSkill={handleDeleteSkill}
+              handleAddSubSkill={handleAddSubSkill}
+            />}
           />
           <Route
-          path="/:username"
-          element={<Dashboard getSkill={getSkill} loggedUser={user} handleLogout={handleLogout} handleAddSkill={handleAddSkill} allSkills = {skills} handleDeleteSkill={handleDeleteSkill}/>}
+            path="/:username"
+            element={<Dashboard 
+              getSkill={getSkill}
+              loggedUser={user} 
+              handleLogout={handleLogout} 
+              handleAddSkill={handleAddSkill}
+              allSkills = {skills} 
+              handleDeleteSkill={handleDeleteSkill}
+            />}
           />
           <Route
-          path="skills/:skillName"
-          element={<SkillPage handleAddSubSkill={handleAddSubSkill} activeSkill={skill} allSkills={skills} getSkill={getSkill} loggedUser={user}/>} 
+            path="skills/:skillName"
+            element={<SkillPage 
+              handleAddSubSkill={handleAddSubSkill} 
+              activeSkill={skill} 
+              allSkills={skills} 
+              getSkill={getSkill} 
+              loggedUser={user}
+              handleAddSkill={handleAddSkill}
+              
+              />} 
           />
           <Route
           path="skills/:skillName/subSkill"
-          element={<SubSkillPage allSkills={skills} getSkill={getSkill} loggedUser={user}/>} 
+          element={<SubSkillPage 
+            allSkills={skills} 
+            getSkill={getSkill} 
+            loggedUser={user}
+            />} 
           />
         </Route>
 
