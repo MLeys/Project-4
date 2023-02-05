@@ -18,7 +18,7 @@ import SubSkillDisplay from '../SubSkillDisplay/SubSkillDisplay';
 
 
 
-export default function SkillDisplay({ allSkills, getSkill }) {
+export default function SkillDisplay({ allSkills, getSkill, handleAddSubSkill }) {
 
     // function skillHandler(skillId) {
     //     getSkill(skillId)
@@ -43,7 +43,7 @@ export default function SkillDisplay({ allSkills, getSkill }) {
                             {skill.name}</Segment>
                             <Segment.Group text-align='center' horizontal>
                                 
-                                <SubSkillDisplay getSkill={getSkill} skill={skill}/>
+                                <SubSkillDisplay getSkill={getSkill} skill={skill} handleAddSubSkill={handleAddSubSkill}/>
                                                 {/* <Segment.Group>
                                                     <Segment.Group horizontal>
                                                         <Segment>SubSkills</Segment>

@@ -15,7 +15,7 @@ import * as skillsApi from '../../utils/skillApi'
 
 import AddSubSkillForm from "../AddSubSkillForm/AddSubSkillForm.jsx";
 
-function SubSkillPortal({handleAddSubSkill, allSkills}) {
+function SubSkillPortal({handleAddSubSkill, skill}) {
     const [subFormPop, setSubFormPop] = useState(false)
 
     const open = subFormPop;
@@ -31,14 +31,14 @@ function SubSkillPortal({handleAddSubSkill, allSkills}) {
 
     // console.log(allSkills, "<<<<<< ALLLA")
     const { skillName } = useParams();
-    const preSkill = allSkills.filter((s) =>{
-        return s.name === skillName
-    } )
-    const skill = preSkill;
+    // const preSkill = allSkills?.filter((s) =>{
+    //     return s.name === skillName
+    // } )
+    // const skill = preSkill;
     
     // console.log(skill[0], "<<SKILL>><<<<<<>><<<")
 
-    const result = allSkills.find(({ name }) => name === skillName);
+    // const result = allSkills?.find(({ name }) => name === skillName);
     // console.log(result, "^^^ Find RESULT SubSkillPortal"); 
     useEffect(() => {
         
@@ -61,7 +61,7 @@ function SubSkillPortal({handleAddSubSkill, allSkills}) {
                         
                 }}
                 >
-                    <AddSubSkillForm skill={result} handleAddSubSkill={handleAddSubSkill} />
+                    <AddSubSkillForm skill={skill} handleAddSubSkill={handleAddSubSkill} />
                     <Button
                         content='Close Portal'
                         negative
@@ -69,8 +69,6 @@ function SubSkillPortal({handleAddSubSkill, allSkills}) {
                     />
                 </Segment>
             </Portal>
-            <h1>Skill Page - {result?.name}</h1>
-
             <Button icon labelpostition='right' >
                 <Link to={`subskill`}>
                     <Icon name='plus' />
