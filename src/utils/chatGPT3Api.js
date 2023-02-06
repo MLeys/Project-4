@@ -1,7 +1,7 @@
 // import { fetch } from 'https://deno.land/x/http/m
 // NEED TO UPDATE openAI key. Was changed due to over activity
 
-const API_KEY = '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'
+const API_KEY = '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'
 import { Configuration, OpenAIApi } from 'openai'
 
 const getSkills = async () => {
@@ -22,8 +22,10 @@ const getSkills = async () => {
         presence_penalty: 0.0,
         
       });
-      console.log(response, "<______ RESPONSE")
-      console.log(response.data.choices[0].text)
+      const data = response.data.choices[0].text
+      return data
+      // console.log(response, "<______ RESPONSE")
+      // console.log(response.data.choices[0].text)
 //     const response = await fetch('https://api.openai.com/v1/engines/davinci', {
 //       method: 'GET',
 //       headers: {

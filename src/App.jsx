@@ -20,6 +20,7 @@ import userService from "./utils/userService";
 import * as skillsApi from "/src/utils/skillApi.js"
 import * as subSkillsApi from "./utils/subSkillApi.js"
 import * as youTubeApi from "./utils/youTubeApi.js"
+import * as chatGPT3Api from "./utils/chatGPT3Api.js"
 import { render } from "ejs";
 
 export default function App() {
@@ -36,10 +37,20 @@ export default function App() {
     try {
       const response = await youTubeApi.searchYouTube();
       console.log(response, " <------ response from YOUTUBE SEARCH");
-      // update the cards with likes array
-      
+
     } catch (err) {
       console.log(err.message, " <<<<<YouTube SEARCH ERROR>>>>>");
+    }
+  }
+  async function getSkillListFromOpenAi() {
+    
+    try {
+      const response = await chatGPT3Api.getSkills()
+      console.log(response, " <------ response from OPENAI SEARCH");
+
+      
+    } catch (err) {
+      console.log(err.message, " <<<<<OPENAI SEARCH ERROR>>>>>");
     }
   }
   
@@ -168,6 +179,7 @@ export default function App() {
   useEffect(() => {
     getSkills();
     searchYouTube();
+    getSkillListFromOpenAi();
     
     
   }, []); 
