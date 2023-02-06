@@ -21,11 +21,11 @@ import SkillPortal from '../SkillPortal/SkillPortal';
 
 
 
-export default function SkillGroup({ ifAssigned, handleAddSkill, skill, loggedUser, unAssignSkillUser, assignSkillUser, handleAddSubSkill, }) {
+export default function SkillGroup({ ifAssigned, handleAddSkill, skill, loggedUser, unAssignSkillUser, assignSkillUser, handleAddSubSkill }) {
     // console.log(loggedUser.username, "req.user")
     // skill.usersAssigned.findIndex(user => console.log(user.username))
     console.log(skill, "<--skill group skill")
-    const assignIndex = skill.usersAssigned.findIndex(user => user.username === loggedUser.username)
+    const assignIndex = skill?.usersAssigned?.findIndex(user => user.username === loggedUser.username)
     
     const assignColor = assignIndex > -1 ? 'red' : 'green';
     const assignIcon = assignIndex > -1 ? 'minus' : 'plus';

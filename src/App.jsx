@@ -112,12 +112,10 @@ export default function App() {
 
   async function getSkill(skillName) {
     try {
-      
-      // console.log(skills, " WHY NOT CHAINGING")
       const response = await skillsApi.getOneSkill(skillName)
       // console.log(response, "<-- getSkillByNameResponse")
       setSkill(response.skillDoc)
-      return skill
+      
     } catch(err) {
       console.log(err, "getSkill SINGLE error")
     }
