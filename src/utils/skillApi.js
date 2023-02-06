@@ -62,9 +62,27 @@ export function getOneSkill(skillName) {
 				Authorization: "Bearer " + tokenService.getToken() 
 				//this is how we grab the token from local storage
 			}
-	  }).then(res => {
+	}).then(res => {
 		if(res.ok) return res.json() // decoding the json from the server response
 		// so that we can interact with it like a regular javascript object
 		throw new Error('Error from getSkill request, check the server terminal')
-	  })
-	}
+	})
+}
+
+export function assignUser(user, skillId) {
+	console.log(skillId, "<- skill")
+	console.log(user, "<- user")
+	return fetch(`${BASE_URL}${skillId}`, {
+        method: 'PUT',
+		body: JSON.stringify(user),
+        headers: {
+            Authorization: "Bearer " + tokenService.getToken(),
+            'Content-Type': 'application/json', // MUST HAVE OR req.body in Ctrl remains emppty!!!!
+        }
+	}).then(res => {
+		// This gets called when we get a response from the 
+		// express server create like controller function
+		if(res.ok) return res.json()
+		throw new Error('Error creating a subSkill, check server terminal')
+	})
+}

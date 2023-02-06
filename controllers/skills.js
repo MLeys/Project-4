@@ -7,6 +7,7 @@ export default {
   delete: deleteSkill,
   show,
   all: allSkills,
+  assignUser
 };
 
 async function deleteSkill(req, res) {
@@ -73,4 +74,17 @@ async function show(req, res) {
     res.status(400).json({err})
   }
 }
-  
+
+async function assignUser(req, res) {
+  console.log(req.params, "HEY HEY")
+  console.log(req.body, "assign user body")
+  try {
+    const skill = await Skill.findById(req.params.id)
+    skill.assignUser.push(req.body)
+    skill.save()
+
+    console.log(skill, "<--Skill in controler")
+  } catch(err) {
+    console.log(err, "<-- assign user controller error")
+  }
+}

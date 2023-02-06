@@ -48,7 +48,7 @@ function SubSkillPortal({handleAddSubSkill, skill}) {
     return (  
         <div>
             <Label
-                corner
+                corner='left'
                 color="green" 
                 as='a' 
                 icon='plus' 

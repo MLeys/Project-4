@@ -152,6 +152,19 @@ export default function App() {
     setUser(null);
   }
 
+
+  async function assignSkillUser(skill) {
+    try {
+      const response = await skillsApi.assignUser(user, skill)
+
+
+    } catch(err) {
+      console.log(err, "<--assign Skill error")
+    }
+  }
+
+
+
   useEffect(() => {
     getSkills();
     
@@ -179,6 +192,7 @@ export default function App() {
             index
             element={<LandingPage 
               
+              assignSkillUser={assignSkillUser}
               getSkills={getSkills}
               getSkill={getSkill} 
               loggedUser={user} 

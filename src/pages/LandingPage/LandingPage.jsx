@@ -6,7 +6,7 @@ import MainSideBar from "../../components/MainSideBar/MainSideBar";
 import SkillDisplay from "../../components/SkillDisplay/SkillDisplay";
 
 
-function LandingPage({getSkills, loggedUser, handleLogout, allSkills, handleAddSkill, handleDeleteSkill, handleAddSubSkill}) {
+function LandingPage({getSkills, assignSkillUser, loggedUser, handleLogout, allSkills, handleAddSkill, handleDeleteSkill, handleAddSubSkill}) {
     // console.log(loggedUser)
     // console.log(allSkills, " ALL SKILLS - landing page") 
     useEffect(() => {
@@ -21,7 +21,7 @@ function LandingPage({getSkills, loggedUser, handleLogout, allSkills, handleAddS
             </Grid.Row>
             <Grid.Row>
                
-                <SkillDisplay handleAddSubSkill={handleAddSubSkill} allSkills={allSkills}  />
+                <SkillDisplay assignSkillUser={assignSkillUser} handleAddSubSkill={handleAddSubSkill} allSkills={allSkills}  />
                
             </Grid.Row>
   
