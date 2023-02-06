@@ -197,6 +197,19 @@ export default function App() {
               handleDeleteSkill={handleDeleteSkill}
               handleAddSubSkill={handleAddSubSkill}
             />}
+          />          
+          <Route
+            path="skills/:skillName"
+            element={<SkillPage 
+              handleAddSubSkill={handleAddSubSkill} 
+              skill={skill} 
+              allSkills={skills} 
+              getSkill={getSkill} 
+              getSkills={getSkills}
+              loggedUser={user}
+              handleAddSkill={handleAddSkill}
+              
+            />} 
           />
           <Route
             path="/:username"

@@ -24,7 +24,7 @@ import SkillPortal from '../SkillPortal/SkillPortal';
 
 export default function SkillGroup({ ifAssigned, handleAddSkill, skill, loggedUser, unAssignSkillUser, assignSkillUser, handleAddSubSkill }) {
     console.log(skill, "skill in skill group")
-    const assignIndex = skill?.usersAssigned.findIndex(user => user.username === loggedUser.username)
+    const assignIndex = skill?.usersAssigned?.findIndex(user => user.username === loggedUser.username)
     
     const assignColor = assignIndex > -1 ? 'red' : 'green';
     const assignIcon = assignIndex > -1 ? 'minus' : 'plus';
@@ -58,9 +58,8 @@ export default function SkillGroup({ ifAssigned, handleAddSkill, skill, loggedUs
                 {skill?.name}
             </Segment>
         </Link>
-            <Link to='' onClick={() => handleAssign()}>
                 <Label
-                        
+                        onClick={() => handleAssign()}
                         attached='top right'
                         color={assignColor}
                         as='a' 
@@ -68,7 +67,7 @@ export default function SkillGroup({ ifAssigned, handleAddSkill, skill, loggedUs
                         icon={assignIcon}
                         size="mini"         
                     />
-            </Link>
+    
 
         </Segment>
 
