@@ -57,7 +57,6 @@ As a new user, create a new account by entering your name, username, email and p
 ![Imgur](https://i.imgur.com/Plk65KYm.jpg)
 ![Imgur](https://i.imgur.com/yokw1Vpm.jpg)
 ![Imgur](https://i.imgur.com/OYqfsvHm.jpg)
-![Imgur](https://i.imgur.com/KOxESNHm.jpg)
 
 ## Next Steps
 In the future, we would like to users to be able to:
