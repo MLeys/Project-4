@@ -7,7 +7,8 @@ import SkillDisplay from "../../components/SkillDisplay/SkillDisplay";
 import { unAssignUser } from "../../utils/skillApi";
 
 
-function LandingPage({getSkills,unAssignSkillUser, assignSkillUser, loggedUser, handleLogout, allSkills, handleAddSkill, handleDeleteSkill, handleAddSubSkill}) {
+function LandingPage({getSkills,unAssignSkillUser, assignSkillUser, 
+    loggedUser, handleLogout, allSkills, handleAddSkill, handleDeleteSkill, handleAddSubSkill}) {
     // console.log(loggedUser)
     // console.log(allSkills, " ALL SKILLS - landing page") 
     useEffect(() => {

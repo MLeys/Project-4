@@ -5,11 +5,15 @@ import { useParams } from "react-router-dom";
 import SkillGroup from "../../components/SkillGroup/SkillGroup";
 
 
-function Dashboard({loggedUser, unAssignSkillUser, 
-  allSkills, getSkill, handleAddSubSkill, handleAddSkill, assignSkillUser }) {
+function Dashboard({loggedUser, unAssignSkillUser, handleDeleteSkill, 
+  allSkills, getSkills, handleAddSubSkill, handleAddSkill, assignSkillUser }) {
 
   const { username } = useParams(); 
-
+    useEffect(() => {
+        //Getting posts, C(R)UD
+        getSkills();
+        
+      }, []); 
   
   return (
     <>

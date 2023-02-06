@@ -188,11 +188,14 @@ export default function App() {
       <Routes>
         <Route
           path="/"
-          element={<Layout  
+          element={<Layout
+            unAssignSkillUser={unAssignSkillUser}
+            assignSkillUser={assignSkillUser}
             getSkill={getSkill} 
             skill={skill} 
             handleAddSkill={handleAddSkill} 
-            allSkills={skills} loggedUser={user} 
+            allSkills={skills} 
+            loggedUser={user} 
             handleLogout={handleLogout} 
             handleDeleteSkill={handleDeleteSkill} 
             getSkills={getSkills}
@@ -216,12 +219,16 @@ export default function App() {
           <Route
             path="/:username"
             element={<Dashboard 
-              getSkill={getSkill}
+              unAssignSkillUser={unAssignSkillUser}
+              assignSkillUser={assignSkillUser}
+              getSkills={getSkills}
+              getSkill={getSkill} 
               loggedUser={user} 
               handleLogout={handleLogout} 
-              handleAddSkill={handleAddSkill}
+              handleAddSkill={handleAddSkill} 
               allSkills = {skills} 
               handleDeleteSkill={handleDeleteSkill}
+              handleAddSubSkill={handleAddSubSkill}
               
             />}
           />

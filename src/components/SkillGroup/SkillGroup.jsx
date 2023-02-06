@@ -27,15 +27,17 @@ export default function SkillGroup({ ifAssigned, handleAddSkill, skill, loggedUs
     const assignIndex = skill.usersAssigned.findIndex(user => user.username === loggedUser.username)
     console.log(assignIndex, "<=== INDEX")
     
-    const assignColor = assignIndex > -1 ? 'green' : 'red';
-    const assignIcon = assignIndex > -1 ? 'plus' : 'minus';
-    const assignContent = assignIndex > -1 ? 'assign' : 'unassign'
+    const assignColor = assignIndex > -1 ? 'red' : 'green';
+    const assignIcon = assignIndex > -1 ? 'minus' : 'plus';
+    const assignContent = assignIndex > -1 ? 'unassign' : 'assign'
     
 
     const handleAssign = assignIndex > -1 ? () => unAssignSkillUser(skill) : () => assignSkillUser(skill)
 
     return (
         <>
+        
+        <Segment inverted >
             <Link to='' >
                 <Label
                     corner='left'
@@ -45,9 +47,15 @@ export default function SkillGroup({ ifAssigned, handleAddSkill, skill, loggedUs
                     size="mini" 
                 />
             </Link>
+        <Link to={`skills/${skill.name}`} > 
+            <Segment fluid raised inverted >
+                {skill.name}
+            </Segment>
+        </Link>
             <Link to='' onClick={() => handleAssign()}>
                 <Label
-                        corner='right'
+                        
+                        attached='top right'
                         color={assignColor}
                         as='a' 
                         content={assignContent}
@@ -56,16 +64,12 @@ export default function SkillGroup({ ifAssigned, handleAddSkill, skill, loggedUs
                         
                     />
             </Link>
-             
 
-            
+        </Segment>
 
-        <Link to={`skills/${skill.name}`} > 
-            <Segment fluid raised inverted >
-                {skill.name}
-            </Segment>
+
         
-        </Link>
+  
         <Segment.Group text-align='center' horizontal>       
         <SubSkillPortal handleAddSubSkill={handleAddSubSkill} skill={skill} />          
             <SubSkillDisplay skill={skill} handleAddSubSkill={handleAddSubSkill}/>
