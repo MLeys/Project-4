@@ -16,30 +16,31 @@ import skill from "../../../models/skill";
 
 
 
-function SkillPage({handleAddSubSkill, allSkills, getSkill, getSkills, loggedUser }) {
-    const [skill, setSkill] = useState({})
+function SkillPage({skill, handleAddSubSkill, allSkills, getSkill, getSkills, loggedUser }) {
+    console.log(skill, "skillpage skill")
     const skillName  = useParams().skillName;
-    console.log(useParams(), "< user params")
+    // console.log(useParams(), "< user params")
     console.log(skillName, "skillname")
+   
     
 
 
-    async function skillDetail(skillName) {
+    async function skillDetail() {
         try {
-            const response = await getSkill(skillName)
-            console.log(response, "response")
+            await getSkill(skillName)
+            
             
         }catch(err){
             console.log(err, "skill detail error")
         }
-    }skillDetail(skillName)
+    }
     
     
     useEffect(() => {
         //Getting posts, C(R)UD
+        skillDetail();
         
-        
-      }, [!skillName]); 
+      }, [(!skill)]); 
 
     return (  
         <>

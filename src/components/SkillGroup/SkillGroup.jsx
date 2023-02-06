@@ -32,6 +32,8 @@ export default function SkillGroup({ ifAssigned, handleAddSkill, skill, loggedUs
 
     const handleAssign = assignIndex > -1 ? () => unAssignSkillUser(skill) : () => assignSkillUser(skill)
 
+    
+
     return (
         <>
         
