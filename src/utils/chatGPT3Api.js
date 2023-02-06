@@ -14,7 +14,7 @@ const getSkills = async () => {
       
       const response = await openai.createCompletion({
         model: "text-davinci-003",
-        prompt: "List top 50 full-stack development skills",
+        prompt: "List top 5 full-stack development skills",
         temperature: 0,
         max_tokens: 300,
         top_p: 1,
