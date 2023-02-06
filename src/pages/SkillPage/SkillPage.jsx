@@ -12,15 +12,34 @@ import {
 } from 'semantic-ui-react';
 
 import SkillDisplay from "../../components/SkillDisplay/SkillDisplay";
+import skill from "../../../models/skill";
 
 
 
-function SkillPage({handleAddSubSkill, allSkills, getSkill, getSkills, skill, loggedUser }) {
-    console.log(skill, "<-skillpage skill")
-
-    const { skillName } = useParams();
+function SkillPage({handleAddSubSkill, allSkills, getSkill, getSkills, loggedUser }) {
+    const [skill, setSkill] = useState({})
+    const skillName  = useParams().skillName;
+    console.log(useParams(), "< user params")
     console.log(skillName, "skillname")
     
+
+
+    async function skillDetail(skillName) {
+        try {
+            const response = await getSkill(skillName)
+            console.log(response, "response")
+            
+        }catch(err){
+            console.log(err, "skill detail error")
+        }
+    }skillDetail(skillName)
+    
+    
+    useEffect(() => {
+        //Getting posts, C(R)UD
+        
+        
+      }, [!skillName]); 
 
     return (  
         <>

@@ -65,7 +65,7 @@ async function show(req, res) {
   try {
     console.log(req.params.id, "<<<------ Req.PARAMS.id in skillSHOW")
     console.log(req.params, "<<<------ Req.PARAMS in skillSHOW")
-    const skillDoc = await Skill.findById( req.params.id)
+    const skillDoc = await Skill.findOne({'skills._id': req.params.id})
     console.log(skillDoc, "<---skillDoc SHOW")
     
     

@@ -111,35 +111,18 @@ export default function App() {
   } // END getSkills Function
 
   async function getSkill(skillName) {
+    console.log(skillName, "<-getSkill SkillName")
     try {
       const response = await skillsApi.getOneSkill(skillName)
-      // console.log(response, "<-- getSkillByNameResponse")
+      console.log(response, "<-- getSkillByNameResponse")
       setSkill(response.skillDoc)
+      
       
     } catch(err) {
       console.log(err, "getSkill SINGLE error")
     }
   }
 
-  async function getSubSkills(skillName,subId) {
-    try {
-      console.log("******************* SHOULD NOT RUNN!!!! **************")
-      console.log("******************* SHOULD NOT RUNN!!!! **************")
-      console.log("******************* SHOULD NOT RUNN!!!! **************")
-      console.log("******************* SHOULD NOT RUNN!!!! **************")
-
-      console.log(skillName, "<SKILL NAME getsubskills")
-      const response = await subSkillsApi.getAllSubSkills(skillName,subId)
-      console.log(response, "<-- getSubSkill Response")
-      // setSubSkills(
-        
-      //   response.skillDoc.subSkills
-      // )
-      // return response.skillDoc.subSkills
-    } catch(err) {
-      console.log(err, "getSkill SINGLE error")
-    }
-  }
 
   function handleSignUpOrLogin() {
     setUser(userService.getUser());
@@ -175,6 +158,7 @@ export default function App() {
 
   useEffect(() => {
     getSkills();
+    
     
   }, []); 
 
@@ -248,7 +232,6 @@ export default function App() {
               path="skills/:skillName/subskill/:id"
               element={<SubSkillPage 
                 subSkills={subSkills}
-                getSubSkills={getSubSkills}
                 skill={skill}
                 allSkills={skills} 
                 getSkills={getSkills}

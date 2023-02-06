@@ -7,11 +7,13 @@ const upload = multer();
 // *================= PUBLIC ROUTES ================*
 
 router.post('/', skillsCtrl.create)
-router.get('/all', skillsCtrl.all)
-router.put('/:id', skillsCtrl.assignUser)
-router.delete('/:id', skillsCtrl.unAssignUser)
 router.get('/', skillsCtrl.index)
+router.get('/all', skillsCtrl.all)
 router.get('/:id', skillsCtrl.show)
+router.put('/:id', skillsCtrl.assignUser)
+router.put('/:id', skillsCtrl.unAssignUser)
+
+
 
 router.delete('/:id', skillsCtrl.delete)
 
