@@ -24,7 +24,8 @@ export default function AddSubSkillForm({ handleAddSubSkill, skill, handleClose}
 		// setState(
 		// 	parentSkill = skill
 		// )
-		state.parentSkill = skill
+		state.parentSkill = skill;
+		handleClose();
 		
 		// console.log(state, " STATE HERE STATE ASTATE")
 		// console.log(skill, " NEW SKILL WITH SUB")
@@ -32,9 +33,9 @@ export default function AddSubSkillForm({ handleAddSubSkill, skill, handleClose}
 	}
 	
 	return (
-		<Segment>
+		<Segment  >
 
-			<Form onSubmit={handleSubmit}>
+			<Form onSubmit={handleSubmit} >
 				<Form.Input
 					className="form-control"
 					name="title"

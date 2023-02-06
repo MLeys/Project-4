@@ -16,7 +16,7 @@ import * as skillsApi from '../../utils/skillApi'
 
 import AddSubSkillForm from "../AddSubSkillForm/AddSubSkillForm.jsx";
 
-function SubSkillPortal({handleAddSubSkill, skill}) {
+function SubSkillPortal({handleAddSubSkill, skill }) {
     const [subFormPop, setSubFormPop] = useState(false)
 
     const open = subFormPop;
@@ -59,15 +59,7 @@ function SubSkillPortal({handleAddSubSkill, skill}) {
                 onClick={handleOpen} />
 
             
-                            {/* <Button
-                    fluid
-                    icon
-                    disabled={subFormPop}
-                    positive
-                    onClick={handleOpen}
-                >
-                    <Icon name="plus" />
-                </Button> */}
+ 
 
             
             <Portal onClose={handleClose} open={open}>
