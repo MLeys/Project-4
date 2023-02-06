@@ -21,18 +21,13 @@ function FixedMenuHeader({ loggedUser, handleLogout }) {
 
 
     return (  
-        <div>
-        <Menu  inverted style={{padding: '0em', margin: '0'}}>
-            
-                <Menu.Item header >
-                    Skill.map
-                </Menu.Item>
-                <Menu.Item as='a'>
-                    <Link to="/">
-                        <Icon name="home"></Icon>
-                    </Link>
-                </Menu.Item>
-                <Menu.Menu position="right">
+        <>
+            <Menu.Item as='a'>
+                <Link to="/">
+                    <Icon name="home"></Icon>
+                </Link>
+            </Menu.Item>
+            <Menu.Menu position="right">
                 <Menu.Item>
                     <Link to={`/${loggedUser?.username}`}>
                         <Image
@@ -51,15 +46,8 @@ function FixedMenuHeader({ loggedUser, handleLogout }) {
                         Logout
                     </Link>
                 </Menu.Item>
-
-                </Menu.Menu>
-
-            
-        </Menu>
-
-
-
-        </div>
+            </Menu.Menu>
+        </>
 
     );
  }

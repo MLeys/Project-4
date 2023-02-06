@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from "react-router-dom";
 import { useState, useEffect} from "react";
 import {
   Button,
@@ -19,7 +20,7 @@ import { Outlet } from 'react-router-dom';
 
 import SkillPortal from '../SkillPortal/SkillPortal';
 import SkillList from '../SkillList/SkillList';
-
+import FixedMenuHeader from '../FixedMenuHeader/FixedMenuHeader';
 
 
 
@@ -29,7 +30,7 @@ function VerticalSidebar({ getSkill, activeSkill, animation, direction, visible,
   return (
     
     <Sidebar 
-      style={{"text-color": 'white'}}
+      style={{ textColor: 'white'}}
       as={Menu}
       animation={animation}
       direction={direction}
@@ -81,12 +82,17 @@ function MainSideBar({ handleClose, getSkill, activeSkill,skill, loggedUser, han
   const { animation, dimmed, direction, visible } = state
   const vertical = direction === 'bottom' || direction === 'top'
 
-  
- 
-
   return (
-    
-      <Sidebar.Pushable as={Segment} style={{ overflow: 'hidden', margin: 0, padding: 0, "min-height": '89vh'  }}>
+    <>
+      <Menu  inverted style={{padding: '0em', margin: '0'}}>
+        <Menu.Item as='a' header onClick={() =>
+                dispatch({ type: 'CHANGE_ANIMATION', animation: 'overlay' })
+                }>
+            Skill.map
+        </Menu.Item>
+        <FixedMenuHeader loggedUser={loggedUser} handleLogout={handleLogout} skill={skill}/>
+      </Menu>
+      <Sidebar.Pushable as={Segment} inverted style={{ overflow: 'hidden', margin: 0, padding: 1, minHeight: '89vh'  }}>
 
         {!vertical && (
           <VerticalSidebar
@@ -101,22 +107,17 @@ function MainSideBar({ handleClose, getSkill, activeSkill,skill, loggedUser, han
         <Sidebar.Pusher  dimmed={dimmed && visible}>
           <Segment.Group>
             <Segment inverted>
-            <SkillPortal handleAddSkill={handleAddSkill} skill={skill} handleClose={handleClose} />   
-
-              <Button onClick={() =>
-                dispatch({ type: 'CHANGE_ANIMATION', animation: 'overlay' })
-                }>
-                ToggleSidebar
-              </Button>
+              <SkillPortal handleAddSkill={handleAddSkill} skill={skill} handleClose={handleClose} />   
             </Segment>
             <Segment >
               <Outlet getSkill={getSkill}  activeSkill={activeSkill} allSkills={allSkills} loggedUser={loggedUser} handleLogout={handleLogout} handleAddSkill={handleAddSkill} handleDeleteSkill={handleDeleteSkill}/>
-
             </Segment>
-
           </Segment.Group>
         </Sidebar.Pusher>
       </Sidebar.Pushable>
+    
+    </>
+
 
   )
 }
