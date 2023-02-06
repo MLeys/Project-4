@@ -23,18 +23,18 @@ As a new user, create a new account by entering your name, username, email and p
 #### View all of your progress and skills you want to learn on your dashboard
 <img src="">
 
-[Add SKill]<img src="http://i.imgur.com/Fsg0WJbm.png)">
-[SkillPage]<img src="https://i.imgur.com/qmTNAKSm">
-[LandingPage]<img src="https://i.imgur.com/dm36aRym">
-[Wireframe]<img src="https://i.imgur.com/RjtfRr1m">
-[Imgur]<img src="https://i.imgur.com/8yl55Hjm">
-[Login]<img src="https://i.imgur.com/c0BFXCjm">
-[Signup]<img src="https://i.imgur.com/9wQIP5lm">
-[LandingPage]<img src="https://i.imgur.com/gSZOyzBm">
-[Sidebar]<img src="https://i.imgur.com/Dm8fbEBm">
-[Add Subskill]<img src="https://i.imgur.com/TjSIYbxm">
-[Userskills]<img src="https://i.imgur.com/PQn8VMjm">
-[Sidebar2]<img src="https://i.imgur.com/enkX2Epm">
+[Add SKill]<img scr="https://i.imgur.com/Fsg0WJbm.png">
+[SkillPage]<img scr="https://i.imgur.com/qmTNAKSm.png">
+[LandingPage]<img scr="https://i.imgur.com/dm36aRym.png">
+[Wireframe]<img scr="https://i.imgur.com/RjtfRr1m.png">
+[Imgur]<img scr="https://i.imgur.com/8yl55Hjm.png">
+[Login]<img scr="https://i.imgur.com/c0BFXCjm.png">
+[Signup]<img scr="https://i.imgur.com/9wQIP5lm.png">
+[LandingPage]<img scr="https://i.imgur.com/gSZOyzBm.png">
+[Sidebar]<img scr="https://i.imgur.com/Dm8fbEBm.png">
+[Add Subskill]<img scr="https://i.imgur.com/TjSIYbxm.png">
+[Userskills]<img scr="https://i.imgur.com/PQn8VMjm.png">
+[S]<img scr="https://i.imgur.com/enkX2Epm.png">
 
 ## Technologies Used
 - Mongoose
