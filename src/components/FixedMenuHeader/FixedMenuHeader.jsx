@@ -22,7 +22,7 @@ function FixedMenuHeader({ loggedUser, handleLogout }) {
 
     return (  
         <div>
-        <Menu  inverted fluid style={{padding: '0em', margin: '0'}}>
+        <Menu  inverted style={{padding: '0em', margin: '0'}}>
             
                 <Menu.Item header >
                     Skill.map

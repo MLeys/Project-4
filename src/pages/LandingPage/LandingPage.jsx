@@ -17,17 +17,11 @@ function LandingPage({getSkills,unAssignSkillUser, assignSkillUser,
         
       }, []); 
     return (
-        <Grid>
-            <Grid.Row>
 
-            </Grid.Row>
-            <Grid.Row>
                
-                <SkillDisplay  handleAddSkill={handleAddSkill} loggedUser={loggedUser} unAssignSkillUser={unAssignSkillUser} assignSkillUser={assignSkillUser} handleAddSubSkill={handleAddSubSkill} allSkills={allSkills}  />
+        <SkillDisplay  handleAddSkill={handleAddSkill} loggedUser={loggedUser} unAssignSkillUser={unAssignSkillUser} assignSkillUser={assignSkillUser} handleAddSubSkill={handleAddSubSkill} allSkills={allSkills}  />
                
-            </Grid.Row>
-  
-        </Grid>
+
 
     );
 }
