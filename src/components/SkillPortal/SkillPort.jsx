@@ -15,16 +15,16 @@ import {
 import AddSkillForm from "../AddSkillForm/AddSkillForm";
 
 function SkillPortal({handleAddSkill, skill}) {
-    const [subFormPop, setSubFormPop] = useState(false)
+    const [formPop, setFormPop] = useState(false)
 
-    const open = subFormPop;
+    const open = formPop;
 
     function handleOpen() {
-        setSubFormPop(true)
+        setFormPop(true)
     }
 
     function handleClose() {
-        setSubFormPop(false)
+        setFormPop(false)
     }
 
     const { skillName } = useParams();
@@ -42,7 +42,7 @@ function SkillPortal({handleAddSkill, skill}) {
                 icon='plus' 
                 size="mini" 
                 
-                disabled={subFormPop}
+                disabled={formPop}
                 positive
                 onClick={handleOpen} 
             />
