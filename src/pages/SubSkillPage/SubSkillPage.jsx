@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
     Grid,
@@ -31,7 +32,7 @@ export default function SubSkillPage({ loggedUser, skill, allSkills, getSkills,h
     console.log(parentName, subId, subParams)
     console.log(subSkill, "<--subSkill on subSkillPage")
     
-    
+    const navigate = useNavigate();
     
     const [state, setState] = useState({
         subId: subId,
@@ -57,6 +58,7 @@ export default function SubSkillPage({ loggedUser, skill, allSkills, getSkills,h
 		console.log(state, "<___<<<<<<<< state in handleSubmit")
         console.log(subSkill, "SUCCK IT")
 		handleEditSubSkill(state);
+    navigate('/');
 	}
     
   return (

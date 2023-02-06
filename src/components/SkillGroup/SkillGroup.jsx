@@ -58,9 +58,8 @@ export default function SkillGroup({ ifAssigned, handleAddSkill, skill, loggedUs
                 {skill?.name}
             </Segment>
         </Link>
-            <Link to='' onClick={() => handleAssign()}>
                 <Label
-                        
+                        onClick={() => handleAssign()}
                         attached='top right'
                         color={assignColor}
                         as='a' 
@@ -68,7 +67,7 @@ export default function SkillGroup({ ifAssigned, handleAddSkill, skill, loggedUs
                         icon={assignIcon}
                         size="mini"         
                     />
-            </Link>
+    
 
         </Segment>
 
