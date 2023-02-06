@@ -28,7 +28,6 @@ export default function AddSkillForm({ handleAddSkill, handleClose}) {
   return (
 	
 	<Segment>
-		<h1> this is inside form segment</h1>
 		<Form onSubmit={handleSubmit}>
 		<Form.Input
 			className="form-control"

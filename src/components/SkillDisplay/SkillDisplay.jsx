@@ -12,14 +12,7 @@ import {
 
 } from 'semantic-ui-react';
 
-import SubSkillPortal from '../SubSkillPortal/SubSkillPortal';
-import SubSkillPage from '../../pages/SubSkillPage/SubSkillPage';
-import SkillPage from '../../pages/SkillPage/SkillPage';
-import SubSkillCard from '../SubSkillCard/SubSkillCard';
-import SubSkillDisplay from '../SubSkillDisplay/SubSkillDisplay';
 import SkillGroup from '../SkillGroup/SkillGroup';
-
-
 
 
 export default function SkillDisplay({ loggedUser, unAssignSkillUser, allSkills, getSkill, handleAddSubSkill, handleAddSkill, assignSkillUser }) {

@@ -21,7 +21,7 @@ import SkillPortal from '../SkillPortal/SkillPortal';
 
 
 
-export default function SkillGroup({ handleAddSkill, skill, loggedUser, unAssignSkillUser, assignSkillUser, handleAddSubSkill, }) {
+export default function SkillGroup({ ifAssigned, handleAddSkill, skill, loggedUser, unAssignSkillUser, assignSkillUser, handleAddSubSkill, }) {
     // console.log(loggedUser.username, "req.user")
     // skill.usersAssigned.findIndex(user => console.log(user.username))
     const assignIndex = skill.usersAssigned.findIndex(user => user.username === loggedUser.username)

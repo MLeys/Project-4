@@ -1,64 +1,39 @@
 import { useState, useEffect } from "react";
-import { Grid } from 'semantic-ui-react';
+import { Segment } from 'semantic-ui-react';
 import { useParams } from "react-router-dom";
 
-import userService from "../../utils/userService";
-
-// import * as youTubeApi from "../src/utils/youTubeApi";
-// import * as youTubeApi from "../../utils/youTubeApi"
-import * as skillsApi from "../../utils/skillApi"
+import SkillGroup from "../../components/SkillGroup/SkillGroup";
 
 
-// import SidebarExampleTarget from "../../components/SideBar/SideBar";
-import AddSkillForm from "../../components/AddSkillForm/AddSkillForm";
+function Dashboard({loggedUser, unAssignSkillUser, 
+  allSkills, getSkill, handleAddSubSkill, handleAddSkill, assignSkillUser }) {
 
+  const { username } = useParams(); 
 
-function Dashboard({loggedUser, handleLogout, allSkills, handleAddSkill}) {
-    const [skills, setSkills] = useState([]);
-    const [error, setError] = useState('');
+  
+  return (
+    <>
+    {
+      allSkills?.map((skill) => {
+        const assignIndex = skill.usersAssigned.findIndex(user => user.username === loggedUser.username)
+        const ifAssigned = assignIndex > -1 ? true : false;
+        console.log(skill.name, "<--Dashboard Skill")
     
-
-    // async function handleAddSkill(skill) {
-    //     try {
-    //         console.log(skill, "<<<<< skill data IN handleAddSKill")
-      
-    //         const response = await skillsApi.create(skill);
-    //         console.log(response, "++++ handleAddskill RESPONSE")
+        if (ifAssigned) {
+          return (
+            <Segment.Group raised key={skill._id}>
+                <SkillGroup ifAssigned={ifAssigned} handleAddSkill={handleAddSkill} loggedUser={loggedUser} unAssignSkillUser={unAssignSkillUser} assignSkillUser={assignSkillUser} handleAddSubSkill={handleAddSubSkill} skill={skill} />
+            </Segment.Group>
+          ) 
+        } 
     
-    //         setSkills([response.skill, ...skills])
-    //     } catch(err){
-    //         console.log(err, " Error IN THE HANDLEADD")
-    //     }
+      })
 
-    // } // END handleAddSkill Function
-
-    // async function getSkills() {
-    //   try {
-    //     const response = await skillsApi.getAll();
-    //     console.log(response, "++++ getAll Skills RESPONSE *************========");
-    //     setSkills(response.data)
-
-    //   } catch(err) {
-    //     setError(console.log('^^^^ getSkills Error!!! ^^^^'));
-    //     console.log(err, '<--- getSkills ERROR');
-    //   }
-    // } // END getSkills Function
-
-
-
-    useEffect(() => {
-        //Getting posts, C(R)UD
-        // getSkills();
-        
-      }, []); 
-
-      return ( 
-        <>
-         <AddSkillForm handleAddSkill={handleAddSkill} />
-          <h1>HELLO is anything here - Dashboard Page</h1>
-        </>
+    }
     
-      );
+    </>
+  )
+  
 }
 
 export default Dashboard;
