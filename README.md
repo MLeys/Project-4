@@ -51,6 +51,14 @@ As a new user, create a new account by entering your name, username, email and p
 - View our ERD below:
 ![Wireframe](https://i.imgur.com/RjtfRr1m.png)
 
+![Imgur](https://i.imgur.com/WyqX82S.jpg)
+![Imgur](https://i.imgur.com/27IIncE.jpg)
+![Imgur](https://i.imgur.com/Ic0G1AI.jpg)
+![Imgur](https://i.imgur.com/Plk65KY.jpg)
+![Imgur](https://i.imgur.com/yokw1Vp.jpg)
+![Imgur](https://i.imgur.com/OYqfsvH.jpg)
+![Imgur](https://i.imgur.com/KOxESNH.jpg)
+
 ## Next Steps
 In the future, we would like to users to be able to:
 1. Track progress and see visual aids
