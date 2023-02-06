@@ -35,12 +35,13 @@ export function getAllSubSkills(skillName) {
 }
 
 export function update(subskill){
-    console.log(subskill, "<--- UPDATE subskill param")
+    console.log(subskill.subId, "<--- UPDATE subskill API")
 	
 
-	return fetch(`${BASE_URL}skills/${subskill.parentSkill}/subskills/update`, {
+	return fetch(`${BASE_URL}subskills/${subskill.subId}/update`, {
         method: 'PUT',
 		body: JSON.stringify(subskill),
+		// body: subskill,
         headers: {
             Authorization: "Bearer " + tokenService.getToken(),
             'Content-Type': 'application/json', // MUST HAVE OR req.body in Ctrl remains emppty!!!!
