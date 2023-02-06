@@ -229,6 +229,7 @@ export default function App() {
               allSkills = {skills} 
               handleDeleteSkill={handleDeleteSkill}
               handleAddSubSkill={handleAddSubSkill}
+              skill={skill}
               
             />}
           />

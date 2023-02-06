@@ -6,9 +6,10 @@ import SkillGroup from "../../components/SkillGroup/SkillGroup";
 
 
 function Dashboard({loggedUser, unAssignSkillUser, handleDeleteSkill, 
-  allSkills, getSkills, handleAddSubSkill, handleAddSkill, assignSkillUser }) {
+  allSkills, getSkills, handleAddSubSkill, handleAddSkill, assignSkillUser, skill, getSkill }) {
 
-  const { username } = useParams(); 
+  const { username } = useParams();
+  console.log(skill, "<--Dashboard Skill")
     useEffect(() => {
         //Getting posts, C(R)UD
         getSkills();
@@ -21,12 +22,13 @@ function Dashboard({loggedUser, unAssignSkillUser, handleDeleteSkill,
       allSkills?.map((skill) => {
         const assignIndex = skill.usersAssigned.findIndex(user => user.username === loggedUser.username)
         const ifAssigned = assignIndex > -1 ? true : false;
-        console.log(skill.name, "<--Dashboard Skill")
+        
     
         if (ifAssigned) {
           return (
             <Segment.Group raised key={skill._id}>
-                <SkillGroup ifAssigned={ifAssigned} handleAddSkill={handleAddSkill} loggedUser={loggedUser} unAssignSkillUser={unAssignSkillUser} assignSkillUser={assignSkillUser} handleAddSubSkill={handleAddSubSkill} skill={skill} />
+             
+                <SkillGroup skill={skill} ifAssigned={ifAssigned} handleAddSkill={handleAddSkill} loggedUser={loggedUser} unAssignSkillUser={unAssignSkillUser} assignSkillUser={assignSkillUser} handleAddSubSkill={handleAddSubSkill}  />
             </Segment.Group>
           ) 
         } 
