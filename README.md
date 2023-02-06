@@ -21,13 +21,13 @@ As a new user, create a new account by entering your name, username, email and p
 
 ## User Dashboard
 #### View all of your progress and skills you want to learn on your dashboard
-[Add SKill]<img src="https://i.imgur.com/Fsg0WJbm.png">
-[SkillPage]<img src="https://i.imgur.com/qmTNAKSm.png">
-[Imgur]<img src="https://i.imgur.com/8yl55Hjm.png">
-[Sidebar]<img src="https://i.imgur.com/Dm8fbEBm.png">
-[Add Subskill]<img src="https://i.imgur.com/TjSIYbxm.png">
-[Userskills]<img src="https://i.imgur.com/PQn8VMjm.png">
-[S]<img src="https://i.imgur.com/enkX2Epm.png">
+![Add SKill]<img src="https://i.imgur.com/Fsg0WJbm.png">
+![SkillPage]<img src="https://i.imgur.com/qmTNAKSm.png">
+![Imgur]<img src="https://i.imgur.com/8yl55Hjm.png">
+![Sidebar]<img src="https://i.imgur.com/Dm8fbEBm.png">
+![Add Subskill]<img src="https://i.imgur.com/TjSIYbxm.png">
+![Userskills]<img src="https://i.imgur.com/PQn8VMjm.png">
+![S]<img src="https://i.imgur.com/enkX2Epm.png">
 
 ## Technologies Used
 - Mongoose
