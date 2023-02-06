@@ -18,7 +18,6 @@ import SkillGroup from '../SkillGroup/SkillGroup';
 
 export default function SkillDisplay({ skill, loggedUser, unAssignSkillUser, allSkills, getSkill, handleAddSubSkill, handleAddSkill, assignSkillUser }) {
 
-    console.log(skill, "SkillDisplay")
 
 
     return (
