@@ -94,8 +94,12 @@ async function assignUser(req, res) {
 
 async function unAssignUser(req, res) {
   try {
-    const skill = await Skill.findByIdAndDelete(req.params.id)
-    
+    const skill = await Skill.findById(req.params.id);
+
+    const index = skill.usersAssigned.indexOf(req.user._id);
+
+    skill.usersAssigned.splice(index, 1);
+
     skill.save()
     
     console.log(skill.usersAssigned, "<--UNassigned user in controler")
