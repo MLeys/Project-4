@@ -4,9 +4,10 @@ import { Grid, Segment} from "semantic-ui-react";
 
 import MainSideBar from "../../components/MainSideBar/MainSideBar";
 import SkillDisplay from "../../components/SkillDisplay/SkillDisplay";
+import { unAssignUser } from "../../utils/skillApi";
 
 
-function LandingPage({getSkills, assignSkillUser, loggedUser, handleLogout, allSkills, handleAddSkill, handleDeleteSkill, handleAddSubSkill}) {
+function LandingPage({getSkills,unAssignSkillUser, assignSkillUser, loggedUser, handleLogout, allSkills, handleAddSkill, handleDeleteSkill, handleAddSubSkill}) {
     // console.log(loggedUser)
     // console.log(allSkills, " ALL SKILLS - landing page") 
     useEffect(() => {
@@ -21,7 +22,7 @@ function LandingPage({getSkills, assignSkillUser, loggedUser, handleLogout, allS
             </Grid.Row>
             <Grid.Row>
                
-                <SkillDisplay assignSkillUser={assignSkillUser} handleAddSubSkill={handleAddSubSkill} allSkills={allSkills}  />
+                <SkillDisplay loggedUser={loggedUser} unAssignSkillUser={unAssignSkillUser} assignSkillUser={assignSkillUser} handleAddSubSkill={handleAddSubSkill} allSkills={allSkills}  />
                
             </Grid.Row>
   

@@ -15,7 +15,7 @@ import * as skillsApi from '../../utils/skillApi'
 
 
 
-function SkillPage({handleAddSubSkill, allSkills, activeSkill, getSkill, getSkills, skill }) {
+function SkillPage({handleAddSubSkill, allSkills, activeSkill, getSkill, getSkills, skill, loggedUser }) {
 
     const { skillName } = useParams();
     console.log(skillName, "skillname")
