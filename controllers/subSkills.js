@@ -1,9 +1,6 @@
 import Skill from '../models/skill.js'
 
 
-
-
-
 export default {
     create,
     update
@@ -15,9 +12,7 @@ async function create(req, res){
         console.log(req.body.parentSkill._id, "))))))) REQ PARAM")
         const skill = await Skill.findById(req.body.parentSkill._id);
         skill.subSkills.push(req.body)
-       
-       
-
+    
         // skill.subSkills.push({username: req.user.username, userId: req.user._id}); //mutating a document
         await skill.save()// save it
 

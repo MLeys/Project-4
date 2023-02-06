@@ -1,5 +1,6 @@
 import User from "../models/user.js";
 import Skill from '../models/skill.js';
+import user from "../models/user.js";
 
 export default {
   create,
@@ -7,7 +8,8 @@ export default {
   delete: deleteSkill,
   show,
   all: allSkills,
-  assignUser
+  assignUser,
+  unAssignUser,
 };
 
 async function deleteSkill(req, res) {
@@ -76,15 +78,30 @@ async function show(req, res) {
 }
 
 async function assignUser(req, res) {
-  console.log(req.params, "HEY HEY")
-  console.log(req.body, "assign user body")
+
   try {
     const skill = await Skill.findById(req.params.id)
-    skill.assignUser.push(req.body)
+    
+    await skill.usersAssigned.push(req.body)
     skill.save()
-
-    console.log(skill, "<--Skill in controler")
+    
+    res.status(201).json({skill})
   } catch(err) {
     console.log(err, "<-- assign user controller error")
+    res.status(400).json({err})
+  }
+}
+
+async function unAssignUser(req, res) {
+  try {
+    const skill = await Skill.findByIdAndDelete(req.params.id)
+    
+    skill.save()
+    
+    console.log(skill.usersAssigned, "<--UNassigned user in controler")
+    res.status(201).json({skill})
+  } catch(err) {
+    console.log(err, "<-- assign user controller error")
+    res.status(400).json({err})
   }
 }

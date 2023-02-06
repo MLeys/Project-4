@@ -80,8 +80,22 @@ export function assignUser(user, skillId) {
             'Content-Type': 'application/json', // MUST HAVE OR req.body in Ctrl remains emppty!!!!
         }
 	}).then(res => {
-		// This gets called when we get a response from the 
-		// express server create like controller function
+		if(res.ok) return res.json()
+		throw new Error('Error creating a subSkill, check server terminal')
+	})
+}
+
+export function unAssignUser(user, skillId) {
+	console.log(skillId, "<- skill")
+	console.log(user, "<- user")
+	return fetch(`${BASE_URL}${skillId}`, {
+        method: 'DELETE',
+		body: JSON.stringify(user),
+        headers: {
+            Authorization: "Bearer " + tokenService.getToken(),
+            'Content-Type': 'application/json', // MUST HAVE OR req.body in Ctrl remains emppty!!!!
+        }
+	}).then(res => {
 		if(res.ok) return res.json()
 		throw new Error('Error creating a subSkill, check server terminal')
 	})

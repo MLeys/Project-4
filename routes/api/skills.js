@@ -9,6 +9,7 @@ const upload = multer();
 router.post('/', skillsCtrl.create)
 router.get('/all', skillsCtrl.all)
 router.put('/:id', skillsCtrl.assignUser)
+router.delete('/:id', skillsCtrl.unAssignUser)
 router.get('/', skillsCtrl.index)
 router.get('/:id', skillsCtrl.show)
 

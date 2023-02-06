@@ -163,6 +163,15 @@ export default function App() {
     }
   }
 
+  async function unAssignSkillUser(skill) {
+    try {
+      const response = await skillsApi.unAssignUser(user, skill)
+
+
+    } catch(err) {
+      console.log(err, "<--unassign Skill error")
+    }
+  }
 
 
   useEffect(() => {
