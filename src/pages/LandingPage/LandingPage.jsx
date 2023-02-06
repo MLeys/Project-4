@@ -22,7 +22,7 @@ function LandingPage({getSkills,unAssignSkillUser, assignSkillUser, loggedUser, 
             </Grid.Row>
             <Grid.Row>
                
-                <SkillDisplay loggedUser={loggedUser} unAssignSkillUser={unAssignSkillUser} assignSkillUser={assignSkillUser} handleAddSubSkill={handleAddSubSkill} allSkills={allSkills}  />
+                <SkillDisplay  handleAddSkill={handleAddSkill} loggedUser={loggedUser} unAssignSkillUser={unAssignSkillUser} assignSkillUser={assignSkillUser} handleAddSubSkill={handleAddSubSkill} allSkills={allSkills}  />
                
             </Grid.Row>
   

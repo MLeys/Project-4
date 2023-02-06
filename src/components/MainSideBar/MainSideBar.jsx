@@ -16,6 +16,8 @@ import {
   List
 } from 'semantic-ui-react'
 import { Outlet } from 'react-router-dom';
+
+import SkillPortal from '../SkillPortal/SkillPortal';
 import SkillList from '../SkillList/SkillList';
 
 
@@ -25,6 +27,7 @@ function VerticalSidebar({ getSkill, activeSkill, animation, direction, visible,
   // console.log(allSkills, "<--- allSkills in Sidebar")
 
   return (
+    
     <Sidebar 
       style={{"text-color": 'white'}}
       as={Menu}
@@ -35,10 +38,11 @@ function VerticalSidebar({ getSkill, activeSkill, animation, direction, visible,
       visible={visible}
       width='thin'
     >
-      
+    
       {
         allSkills?.map((skill) => {
           return (
+
             <SkillList getSkill={getSkill} activeSkill={activeSkill} key={skill._id} skill={skill} handleDeleteSkill={handleDeleteSkill} allSkills={allSkills}/>
           )
   
@@ -66,7 +70,7 @@ function exampleReducer(state, action) {
 
 
 
-function MainSideBar({ getSkill, activeSkill, loggedUser, handleLogout, allSkills, handleAddSkill, handleDeleteSkill  }) {
+function MainSideBar({ getSkill, activeSkill,skill, loggedUser, handleLogout, allSkills, handleAddSkill, handleDeleteSkill  }) {
   const [state, dispatch] = React.useReducer(exampleReducer, {
     animation: 'overlay',
     direction: 'left',
@@ -97,6 +101,8 @@ function MainSideBar({ getSkill, activeSkill, loggedUser, handleLogout, allSkill
         <Sidebar.Pusher  dimmed={dimmed && visible}>
           <Segment.Group>
             <Segment inverted>
+            <SkillPortal handleAddSkill={handleAddSkill} skill={skill} />   
+
               <Button onClick={() =>
                 dispatch({ type: 'CHANGE_ANIMATION', animation: 'overlay' })
                 }>

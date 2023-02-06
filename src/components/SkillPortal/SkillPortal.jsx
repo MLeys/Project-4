@@ -36,7 +36,8 @@ function SkillPortal({handleAddSkill, skill}) {
     return (  
         <div>
             <Label
-                corner='left'
+                attached="top right"
+                content='Add Skill'
                 color="green" 
                 as='a' 
                 icon='plus' 

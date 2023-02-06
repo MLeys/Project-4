@@ -22,7 +22,7 @@ import SkillGroup from '../SkillGroup/SkillGroup';
 
 
 
-export default function SkillDisplay({ loggedUser, unAssignSkillUser, allSkills, getSkill, handleAddSubSkill, assignSkillUser }) {
+export default function SkillDisplay({ loggedUser, unAssignSkillUser, allSkills, getSkill, handleAddSubSkill, handleAddSkill, assignSkillUser }) {
 
 
     return (
@@ -31,7 +31,7 @@ export default function SkillDisplay({ loggedUser, unAssignSkillUser, allSkills,
             allSkills?.map((skill) => {
                 return (
                     <Segment.Group raised key={skill._id}>
-                        <SkillGroup  loggedUser={loggedUser} unAssignSkillUser={unAssignSkillUser} assignSkillUser={assignSkillUser} handleAddSubSkill={handleAddSubSkill} skill={skill} />
+                        <SkillGroup handleAddSkill={handleAddSkill} loggedUser={loggedUser} unAssignSkillUser={unAssignSkillUser} assignSkillUser={assignSkillUser} handleAddSubSkill={handleAddSubSkill} skill={skill} />
                     </Segment.Group>
                 )
             })

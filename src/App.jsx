@@ -56,6 +56,7 @@ export default function App() {
           const response = await skillsApi.create(skill);
           // console.log(response, "++++ handleAddskill RESPONSE")
           setSkills([response.skill, ...skills])
+          getSkills();
       } catch(err){
           console.log(err, " Error IN THE HANDLEADD")
       }
@@ -221,6 +222,7 @@ export default function App() {
               handleAddSkill={handleAddSkill}
               allSkills = {skills} 
               handleDeleteSkill={handleDeleteSkill}
+              
             />}
           />
           <Route

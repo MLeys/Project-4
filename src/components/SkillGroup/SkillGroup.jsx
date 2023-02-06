@@ -17,30 +17,22 @@ import SubSkillPage from '../../pages/SubSkillPage/SubSkillPage';
 import SkillPage from '../../pages/SkillPage/SkillPage';
 import SubSkillCard from '../SubSkillCard/SubSkillCard';
 import SubSkillDisplay from '../SubSkillDisplay/SubSkillDisplay';
+import SkillPortal from '../SkillPortal/SkillPortal';
 
 
 
-
-export default function SkillGroup({ skill, loggedUser, unAssignSkillUser, assignSkillUser, handleAddSubSkill, }) {
+export default function SkillGroup({ handleAddSkill, skill, loggedUser, unAssignSkillUser, assignSkillUser, handleAddSubSkill, }) {
     // console.log(loggedUser.username, "req.user")
     // skill.usersAssigned.findIndex(user => console.log(user.username))
     const assignIndex = skill.usersAssigned.findIndex(user => user.username === loggedUser.username)
     console.log(assignIndex, "<=== INDEX")
     
-    const assignColor = assignIndex > -1 ? 'green' : 'red'
-    const assignIcon = assignIndex > -1 ? 'plus' : 'minus'
+    const assignColor = assignIndex > -1 ? 'green' : 'red';
+    const assignIcon = assignIndex > -1 ? 'plus' : 'minus';
+    const assignContent = assignIndex > -1 ? 'assign' : 'unassign'
     
 
     const handleAssign = assignIndex > -1 ? () => unAssignSkillUser(skill) : () => assignSkillUser(skill)
-    // function handleAssign(skill) {
-    //     console.log(skill,"<<<<<<<<<<")
-    //     const assignIndex = skill.usersAssigned.findIndex(user => user.username === loggedUser.username)
-    //     console.log(assignIndex), "ASSIGN INDEX"
-
-    //     // assignSkillUser(skill)
-    // }
-    // const { color } = 'red'
-    // const { icon } = 'plus'
 
     return (
         <>
@@ -58,11 +50,13 @@ export default function SkillGroup({ skill, loggedUser, unAssignSkillUser, assig
                         corner='right'
                         color={assignColor}
                         as='a' 
+                        content={assignContent}
                         icon={assignIcon}
                         size="mini" 
                         
                     />
             </Link>
+             
 
             
 

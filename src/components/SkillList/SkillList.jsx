@@ -10,14 +10,16 @@ import {
   
 
 } from 'semantic-ui-react'
+import SkillPortal from '../SkillPortal/SkillPortal';
 
-
-function SkillList({skill, handleDeleteSkill , allSkills}) {
+function SkillList({skill, handleDeleteSkill, handleAddSkill}) {
 
   const clickHandler = () => handleDeleteSkill(skill._id)
 
 
   return ( 
+    <div>
+    <SkillPortal handleAddSkill={handleAddSkill} skill={skill} />   
     <Menu.Item>
       <Label color='red' >
         
@@ -26,6 +28,10 @@ function SkillList({skill, handleDeleteSkill , allSkills}) {
      </Label>
       {skill.name}
     </Menu.Item>
+
+
+    </div>
+
    );
    
 }
