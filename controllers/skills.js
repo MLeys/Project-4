@@ -63,12 +63,9 @@ async function allSkills(req, res) {
 
 async function show(req, res) {
   try {
-    console.log(req.params.id, "<<<------ Req.PARAMS.id in skillSHOW")
-    console.log(req.params, "<<<------ Req.PARAMS in skillSHOW")
     const skillDoc = await Skill.findOne({'name': req.params.id}).exec()
-    console.log(skillDoc, "<---skillDoc SHOW")
-    
-    
+
+  
 
     res.status(201).json({skillDoc})
   } catch (err) {
@@ -95,7 +92,6 @@ async function assignUser(req, res) {
 async function unAssignUser(req, res) {
   try {
     const skill = await Skill.findById(req.params.id);
-
     const index = skill.usersAssigned.indexOf(req.user._id);
 
     skill.usersAssigned.splice(index, 1);

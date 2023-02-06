@@ -39,7 +39,6 @@ export default function SubSkillPage({ loggedUser, skill, allSkills, getSkills,h
         title: subSkill?.title,
         details: subSkill?.details,
         parentSkill: subSkill?.parentSkill,
-        // resources: subSkill?.resources,
 
     })
 
@@ -85,8 +84,6 @@ export default function SubSkillPage({ loggedUser, skill, allSkills, getSkills,h
             </Button>
         </Form>
     </Segment>
-
-	 
 
   );
 }

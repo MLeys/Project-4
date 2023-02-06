@@ -20,11 +20,6 @@ function SkillPage({ skill, handleAddSubSkill, allSkills, getSkill, getSkills, l
     
     
     const skillName  = useParams().skillName;
-    // console.log(useParams(), "< user params")
- 
-
-    // (skill?.name !== skillName) ? '' : skillDetail();
-
 
     async function skillDetail() {
         try {

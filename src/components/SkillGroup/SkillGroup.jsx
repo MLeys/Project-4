@@ -39,7 +39,6 @@ export default function SkillGroup({ ifAssigned, handleAddSkill, skill, loggedUs
         
       }, []); 
 
-
     return (
         <>
         
@@ -67,13 +66,8 @@ export default function SkillGroup({ ifAssigned, handleAddSkill, skill, loggedUs
                         icon={assignIcon}
                         size="mini"         
                     />
-    
-
         </Segment>
 
-
-        
-  
         <Segment.Group text-align='center' horizontal>       
         <SubSkillPortal handleAddSubSkill={handleAddSubSkill} skill={skill} />          
             <SubSkillDisplay skill={skill} handleAddSubSkill={handleAddSubSkill}/>
@@ -82,7 +76,6 @@ export default function SkillGroup({ ifAssigned, handleAddSkill, skill, loggedUs
 
                 </Card>
             </Segment.Group>
-
         </Segment.Group>
         </>
 

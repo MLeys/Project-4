@@ -76,7 +76,6 @@ export default function App() {
     } catch(err){
         console.log(err, " Error IN THE HANDLEADDsubskill")
     }
-    // console.log(skills, " <--- Skills State after ADDsubskill ")
   } // END handleAddSubSkill Function
 
   async function handleEditSubSkill(subskill) {
@@ -91,7 +90,7 @@ export default function App() {
     } catch(err){
         console.log(err, " Error IN THE HANDLEADDsubskill")
     }
-    // console.log(skills, " <--- Skills State after ADDsubskill ")
+
   } // END handleAddSubSkill Function
 
 
@@ -99,10 +98,7 @@ export default function App() {
     try {
       const response = await skillsApi.getAll();
 
-      // console.log(response, " <----- getAllSkills response FIRST");
       setSkills(response.data)
-      // console.log(response.data, "data")
-      // console.log(skills, "skills")
     } catch(err) {
       setError(console.log('^^^^ getSkills Error!!! ^^^^'));
       console.log(err, '<--- getSkills ERROR');
