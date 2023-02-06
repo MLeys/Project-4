@@ -5,14 +5,11 @@ import multer from 'multer'
 const upload = multer();
 
 // *================= PUBLIC ROUTES ================*
-
+router.get('/', skillsCtrl.index)
 router.post('/', skillsCtrl.create)
 
-router.get('/', skillsCtrl.index)
-
-
 router.delete('/:id', skillsCtrl.delete)
-router.put('/:id', skillsCtrl.assignUser)
+router.post('/:id', skillsCtrl.assignUser)
 router.put('/:id', skillsCtrl.unAssignUser)
 router.get('/all', skillsCtrl.all)
 router.get('/:id', skillsCtrl.show)

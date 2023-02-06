@@ -73,7 +73,7 @@ export function assignUser(user, skillId) {
 	console.log(skillId, "<- skill")
 	console.log(user, "<- user")
 	return fetch(`${BASE_URL}${skillId}`, {
-        method: 'PUT',
+        method: 'POST',
 		body: JSON.stringify(user),
         headers: {
             Authorization: "Bearer " + tokenService.getToken(),
