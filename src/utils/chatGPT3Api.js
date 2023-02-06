@@ -1,7 +1,9 @@
 // import { fetch } from 'https://deno.land/x/http/m
 // NEED TO UPDATE openAI key. Was changed due to over activity
+import * as env from 'dotenv'
 
-const API_KEY = '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'
+
+const API_KEY = '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'
 import { Configuration, OpenAIApi } from 'openai'
 
 const getSkills = async () => {
