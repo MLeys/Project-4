@@ -65,14 +65,14 @@ async function show(req, res) {
   try {
     console.log(req.params.id, "<<<------ Req.PARAMS.id in skillSHOW")
     console.log(req.params, "<<<------ Req.PARAMS in skillSHOW")
-    const skillDoc = await Skill.findOne({'skills._id': req.params.id})
+    const skillDoc = await Skill.findOne({'name': req.params.id}).exec()
     console.log(skillDoc, "<---skillDoc SHOW")
     
     
 
     res.status(201).json({skillDoc})
   } catch (err) {
-    console.log(err, '<-- Error in deleteSkill.Ctrl')
+    console.log(err, '<-- Error in SHOW Ctrl')
     res.status(400).json({err})
   }
 }

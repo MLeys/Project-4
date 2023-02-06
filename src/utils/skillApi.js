@@ -89,7 +89,7 @@ export function unAssignUser(user, skillId) {
 	console.log(skillId, "<- skill")
 	console.log(user, "<- user")
 	return fetch(`${BASE_URL}${skillId}`, {
-        method: 'DELETE',
+        method: 'PUT',
 		body: JSON.stringify(user),
         headers: {
             Authorization: "Bearer " + tokenService.getToken(),

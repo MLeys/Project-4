@@ -45,9 +45,10 @@ export default function SubSkillCard({ subSkills, skill }) {
         subSkills?.map(sub => {
             return (
                 <div>
-                    <Link to={`/skills/${skill?.name}/subskill/${sub?._id}`} >
+                    <Link to={`subskill/${sub?._id}`} >
                     
                         <Card link fluid key={sub?._id}>
+                            
                             <Card.Content> 
                                 {sub?.title}
                             </Card.Content>

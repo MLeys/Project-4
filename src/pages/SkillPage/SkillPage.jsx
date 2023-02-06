@@ -16,19 +16,19 @@ import skill from "../../../models/skill";
 
 
 
-function SkillPage({skill, handleAddSubSkill, allSkills, getSkill, getSkills, loggedUser, handleAddSkill, unAssignSkillUser, assignSkillUser}) {
-    console.log(skill, "skillpage skill")
+function SkillPage({ skill, handleAddSubSkill, allSkills, getSkill, getSkills, loggedUser, handleAddSkill, unAssignSkillUser, assignSkillUser}) {
+    
+    
     const skillName  = useParams().skillName;
     // console.log(useParams(), "< user params")
-    console.log(skillName, "skillname")
-    console.log(loggedUser, "<logged user")
-    
+ 
+
+    // (skill?.name !== skillName) ? '' : skillDetail();
 
 
     async function skillDetail() {
         try {
-            await getSkill(skillName)
-            
+            getSkill(skillName)
             
         }catch(err){
             console.log(err, "skill detail error")
@@ -40,7 +40,7 @@ function SkillPage({skill, handleAddSubSkill, allSkills, getSkill, getSkills, lo
         //Getting posts, C(R)UD
         skillDetail();
         
-      }, [(!skill)]); 
+      }, [(skill.name !== skillName)]); 
 
     return (  
         <>
