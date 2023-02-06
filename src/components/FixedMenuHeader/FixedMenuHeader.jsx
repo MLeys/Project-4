@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 
@@ -15,11 +15,25 @@ import { Link } from "react-router-dom";
     Icon
   } from 'semantic-ui-react'
 
- function FixedMenuHeader({ loggedUser, handleLogout }) {
+  
+
+function FixedMenuHeader({ loggedUser, handleLogout }) {
+
+
     return (  
-        <Menu  inverted style={{padding: '0em', margin: '0'}}>
-            <Container>
-                <Menu.Item header>
+        <div>
+        <Menu  inverted fluid style={{padding: '0em', margin: '0'}}>
+            
+                <Menu.Item header >
+                    Skill.map
+                </Menu.Item>
+                <Menu.Item as='a'>
+                    <Link to="/">
+                        <Icon name="home"></Icon>
+                    </Link>
+                </Menu.Item>
+                <Menu.Menu position="right">
+                <Menu.Item>
                     <Link to={`/${loggedUser?.username}`}>
                         <Image
                             style={{ marginRight: '1.5em' }} 
@@ -32,39 +46,21 @@ import { Link } from "react-router-dom";
                         />
                     </Link>
                 </Menu.Item>
-                <Menu.Item as='a'>
-                    Skill.map
-                </Menu.Item>
-                <Menu.Item as='a'>
-                    <Link to="/">
-                        <Icon name="home"></Icon>
-                    </Link>
-                </Menu.Item>
-
-                <Dropdown item simple text='Options'>
-                    <Dropdown.Menu>
-                        <Dropdown.Item>List Item</Dropdown.Item>
-                        <Dropdown.Item>List Item</Dropdown.Item>
-                        <Dropdown.Divider />
-                        <Dropdown.Header>Header Item</Dropdown.Header>
-                        <Dropdown.Item>
-                        <i className='dropdown icon' />
-                        <span className='text'>Submenu</span>
-                        <Dropdown.Menu>
-                            <Dropdown.Item>List Item</Dropdown.Item>
-                            <Dropdown.Item>List Item</Dropdown.Item>
-                        </Dropdown.Menu>
-                        </Dropdown.Item>
-                        <Dropdown.Item>List Item</Dropdown.Item>
-                    </Dropdown.Menu>
-                </Dropdown>
                 <Menu.Item as="a" floated="right">
                     <Link to="" onClick={handleLogout}>
                         Logout
                     </Link>
                 </Menu.Item>
-            </Container>
+
+                </Menu.Menu>
+
+            
         </Menu>
+
+
+
+        </div>
+
     );
  }
  
