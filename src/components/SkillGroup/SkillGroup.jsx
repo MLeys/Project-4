@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState, useEffect } from "react";
 import { Link, Route, Routes, Navigate, useParams} from 'react-router-dom';
 
 
@@ -22,7 +23,7 @@ import SkillPortal from '../SkillPortal/SkillPortal';
 
 
 export default function SkillGroup({ ifAssigned, handleAddSkill, skill, loggedUser, unAssignSkillUser, assignSkillUser, handleAddSubSkill }) {
-
+    
     const assignIndex = skill?.usersAssigned?.findIndex(user => user.username === loggedUser.username)
     
     const assignColor = assignIndex > -1 ? 'red' : 'green';
@@ -32,7 +33,12 @@ export default function SkillGroup({ ifAssigned, handleAddSkill, skill, loggedUs
 
     const handleAssign = assignIndex > -1 ? () => unAssignSkillUser(skill) : () => assignSkillUser(skill)
 
-    
+    useEffect(() => {
+        //Getting posts, C(R)UD
+        
+        
+      }, [(!skill)]); 
+
 
     return (
         <>

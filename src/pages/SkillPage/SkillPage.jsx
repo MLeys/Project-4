@@ -16,12 +16,12 @@ import skill from "../../../models/skill";
 
 
 
-function SkillPage({skill, handleAddSubSkill, allSkills, getSkill, getSkills, loggedUser }) {
+function SkillPage({skill, handleAddSubSkill, allSkills, getSkill, getSkills, loggedUser, handleAddSkill, unAssignSkillUser, assignSkillUser}) {
     console.log(skill, "skillpage skill")
     const skillName  = useParams().skillName;
     // console.log(useParams(), "< user params")
     console.log(skillName, "skillname")
-   
+    console.log(loggedUser, "<logged user")
     
 
 
@@ -45,7 +45,7 @@ function SkillPage({skill, handleAddSubSkill, allSkills, getSkill, getSkills, lo
     return (  
         <>
             <h1>Skill Page - {skill?.name} </h1>
-            <SkillDisplay skill={skill}/>
+            <SkillDisplay skill={skill} loggedUser={loggedUser} unAssignSkillUser={unAssignSkillUser} handleAddSubSkill={handleAddSubSkill} handleAddSkill={handleAddSkill} />
 
         </>
     );
