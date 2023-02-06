@@ -17,6 +17,7 @@ function SkillList({skill, handleDeleteSkill, handleAddSkill}) {
   const clickHandler = () => handleDeleteSkill(skill._id)
 
 
+  
   return ( 
     <div>
         

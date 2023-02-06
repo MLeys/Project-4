@@ -37,7 +37,7 @@ export default function SkillGroup({ ifAssigned, handleAddSkill, skill, loggedUs
         //Getting posts, C(R)UD
         
         
-      }, [(skill )]); 
+      }, []); 
 
 
     return (

@@ -31,11 +31,11 @@ async function create(req, res) {
       const skill = await Skill.create({
         name: req.body.name,
         type: req.body.type,
-        usersAssigned: req.user._id,
+        // usersAssigned: req.user._id,
         
       })
 
-      await skill.populate('usersAssigned')// populating on a document "skill"
+      // await skill.populate('usersAssigned')// populating on a document "skill"
       res.status(201).json({skill})
     } catch(err){
       res.status(400).json({err})
