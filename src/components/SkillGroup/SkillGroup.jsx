@@ -23,7 +23,7 @@ import SkillPortal from '../SkillPortal/SkillPortal';
 
 
 export default function SkillGroup({ ifAssigned, handleAddSkill, skill, loggedUser, unAssignSkillUser, assignSkillUser, handleAddSubSkill }) {
-    console.log(skill, "skill in skill group")
+
     const assignIndex = skill?.usersAssigned?.findIndex(user => user.username === loggedUser.username)
     
     const assignColor = assignIndex > -1 ? 'red' : 'green';

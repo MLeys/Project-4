@@ -2,7 +2,7 @@
 ### Organize and track your development skills
 Created by:  Mike Leys
 
-[Launch PoH Here](https://skills-map.cyclic.app)
+[Launch Skill.map on Cyclic!](https://skills-map.cyclic.app)
 
 ## About
 Skill.map is meant to be a tool used to track all of the resources, progress, and what skills you want to learn as a full-stack developer

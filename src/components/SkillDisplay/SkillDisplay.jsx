@@ -18,9 +18,7 @@ import SkillGroup from '../SkillGroup/SkillGroup';
 
 export default function SkillDisplay({ skill, loggedUser, unAssignSkillUser, allSkills, getSkill, handleAddSubSkill, handleAddSkill, assignSkillUser }) {
 
-    console.log(skill, "SkillDisplay")
-
-
+    
     return (
         <Segment.Group raised key={skill._id}>
             <SkillGroup skill={skill} handleAddSkill={handleAddSkill} loggedUser={loggedUser} unAssignSkillUser={unAssignSkillUser} assignSkillUser={assignSkillUser} handleAddSubSkill={handleAddSubSkill} />

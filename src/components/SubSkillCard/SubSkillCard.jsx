@@ -34,10 +34,6 @@ import SubSkillPage from "../../pages/SubSkillPage/SubSkillPage";
 
 
 export default function SubSkillCard({ subSkills, skill }) {
-    // const subSkills = skill?.subSkills
-    // console.log(subSkills, "subskills new array")
-
-
 
     return (
         <>
