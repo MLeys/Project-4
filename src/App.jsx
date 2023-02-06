@@ -155,9 +155,9 @@ export default function App() {
 
   async function assignSkillUser(skill) {
     try {
-      const response = await skillsApi.assignUser(user, skill)
+      const response = await skillsApi.assignUser(user, skill._id)
 
-
+      getSkills();
     } catch(err) {
       console.log(err, "<--assign Skill error")
     }
@@ -165,8 +165,8 @@ export default function App() {
 
   async function unAssignSkillUser(skill) {
     try {
-      const response = await skillsApi.unAssignUser(user, skill)
-
+      const response = await skillsApi.unAssignUser(user, skill._id)
+      getSkills();
 
     } catch(err) {
       console.log(err, "<--unassign Skill error")

@@ -22,8 +22,16 @@ import SubSkillDisplay from '../SubSkillDisplay/SubSkillDisplay';
 
 
 export default function SkillGroup({ skill, loggedUser, unAssignSkillUser, assignSkillUser, handleAddSubSkill, }) {
+    // console.log(loggedUser.username, "req.user")
+    // skill.usersAssigned.findIndex(user => console.log(user.username))
+    const assignIndex = skill.usersAssigned.findIndex(user => user.username === loggedUser.username)
+    console.log(assignIndex, "<=== INDEX")
+    
+    const assignColor = assignIndex > -1 ? 'green' : 'red'
+    const assignIcon = assignIndex > -1 ? 'plus' : 'minus'
+    
 
-    const handleAssign = ''
+    const handleAssign = assignIndex > -1 ? () => unAssignSkillUser(skill) : () => assignSkillUser(skill)
     // function handleAssign(skill) {
     //     console.log(skill,"<<<<<<<<<<")
     //     const assignIndex = skill.usersAssigned.findIndex(user => user.username === loggedUser.username)
@@ -48,9 +56,9 @@ export default function SkillGroup({ skill, loggedUser, unAssignSkillUser, assig
             <Link to='' onClick={() => handleAssign()}>
                 <Label
                         corner='right'
-                        color='red'
+                        color={assignColor}
                         as='a' 
-                        icon='minus'
+                        icon={assignIcon}
                         size="mini" 
                         
                     />

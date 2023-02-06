@@ -24,15 +24,6 @@ import SkillGroup from '../SkillGroup/SkillGroup';
 
 export default function SkillDisplay({ loggedUser, unAssignSkillUser, allSkills, getSkill, handleAddSubSkill, assignSkillUser }) {
 
-    function handleAssign(skill) {
-        console.log(skill,"<<<<<<<<<<")
-        const assignIndex = skill.usersAssigned.findIndex(user => user.username === loggedUser.username)
-        console.log(assignIndex), "ASSIGN INDEX"
-
-        // assignSkillUser(skill)
-    }
-    const { color } = 'red'
-    const { icon } = 'plus'
 
     return (
         <>
