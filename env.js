@@ -1,0 +1,8 @@
+window.TIKTOK_CLIENT_SECRET='778441d9bb9cbf79654d1f8f53742577'
+window.TIKTOK_CLIENT_KEY='awg2zzu224moilxk'
+window.TIKTOK_APP_ID='7194334861174491141'
+window.GOOGLE_API_KEY='963720206177-kjou8usufdkj8femp4kq3lhmdm31i102.apps.googleusercontent.com'
+window.GOOGLE_CLIENT_SECRET='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'
+window.GOOGLE_API_KEY='AIzaSyAWWv9fl6un_cNgTplFYQnBlCZ_MNMJUzg'
+window.BUCKET_NAME='projects-leysmike'
+window.OPENAI_API_KEY='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'

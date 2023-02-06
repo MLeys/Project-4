@@ -1,12 +1,19 @@
 // import { fetch } from 'https://deno.land/x/http/m
 // NEED TO UPDATE openAI key. Was changed due to over activity
-import * as env from 'dotenv'
+// if (process.env.NODE_ENV !== 'production') {
+//   analytics.disable();
+// }
+// import dotenv from '../../dotenv';
+// dotenv.config();
+// import env from '../../env.js';
+
+const API_KEY = window.OPENAI_API_KEY
 
 
-const API_KEY = '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'
+// const API_KEY = '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'
 import { Configuration, OpenAIApi } from 'openai'
 
-const getSkills = async () => {
+const getSkills = async (question) => {
   try {
 
     const configuration = new Configuration({
@@ -16,7 +23,7 @@ const getSkills = async () => {
       
       const response = await openai.createCompletion({
         model: "text-davinci-003",
-        prompt: "List top 5 full-stack development skills",
+        prompt: question,
         temperature: 0,
         max_tokens: 300,
         top_p: 1,
