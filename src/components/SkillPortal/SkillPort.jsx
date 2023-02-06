@@ -12,15 +12,12 @@ import {
 
 } from 'semantic-ui-react';
 
-import * as skillsApi from '../../utils/skillApi'
+import AddSkillForm from "../AddSkillForm/AddSkillForm";
 
-import AddSubSkillForm from "../AddSubSkillForm/AddSubSkillForm.jsx";
-
-function SkillPortal({handleAddSubSkill, skill}) {
+function SkillPortal({handleAddSkill, skill}) {
     const [subFormPop, setSubFormPop] = useState(false)
 
     const open = subFormPop;
-    // console.log(open, "< ---Open State")
 
     function handleOpen() {
         setSubFormPop(true)
@@ -53,13 +50,13 @@ function SkillPortal({handleAddSubSkill, skill}) {
             <Portal onClose={handleClose} open={open}>
                 <Segment inverted
                     style={{
-                        left: '35%',
+                        left: '30%',
                         position: 'fixed',
                         top: '25%',
                         
                 }}
                 >
-                    <Header>Add Subskill</Header>
+                    <Header>Add Skill</Header>
                 <Label
                     attached='top right'
                     color="red" 
@@ -69,12 +66,8 @@ function SkillPortal({handleAddSubSkill, skill}) {
                     negative
                     onClick={handleClose} 
                 />
-                    <AddSubSkillForm handleClose={handleClose} skill={skill} handleAddSubSkill={handleAddSubSkill} />
-                        {/* <Button
-                            content='Close Portal'
-                            negative
-                            onClick={handleClose}
-                        /> */}
+                    <AddSkillForm handleClose={handleClose} skill={skill} handleAddSkill={handleAddSkill} />
+
                 </Segment>
             </Portal>
 
