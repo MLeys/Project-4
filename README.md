@@ -51,13 +51,13 @@ As a new user, create a new account by entering your name, username, email and p
 - View our ERD below:
 ![Wireframe](https://i.imgur.com/RjtfRr1m.png)
 
-![Imgur](https://i.imgur.com/WyqX82S.jpg)
-![Imgur](https://i.imgur.com/27IIncE.jpg)
-![Imgur](https://i.imgur.com/Ic0G1AI.jpg)
-![Imgur](https://i.imgur.com/Plk65KY.jpg)
-![Imgur](https://i.imgur.com/yokw1Vp.jpg)
-![Imgur](https://i.imgur.com/OYqfsvH.jpg)
-![Imgur](https://i.imgur.com/KOxESNH.jpg)
+![Imgur](https://i.imgur.com/WyqX82Sl.jpg)
+![Imgur](https://i.imgur.com/27IIncEl.jpg)
+![Imgur](https://i.imgur.com/Ic0G1AIl.jpg)
+![Imgur](https://i.imgur.com/Plk65KYl.jpg)
+![Imgur](https://i.imgur.com/yokw1Vpl.jpg)
+![Imgur](https://i.imgur.com/OYqfsvHl.jpg)
+![Imgur](https://i.imgur.com/KOxESNHl.jpg)
 
 ## Next Steps
 In the future, we would like to users to be able to:
