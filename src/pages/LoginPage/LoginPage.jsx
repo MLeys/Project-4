@@ -53,8 +53,8 @@ export default function LoginPage({handleSignUpOrLogin}) {
       verticalAlign="middle"
     >
       <Grid.Column style={{ maxWidth: 450 }}>
-        <Header as="h2" color="purple" textAlign="center">
-          <Image src="https://i.imgur.com/TM4eA5g.jpg" /> Log-in to your account
+        <Header as="h2" color="black" textAlign="center">
+          Log-in to your account
         </Header>
         <Form onSubmit={handleSubmit}>
           <Segment stacked>
@@ -75,7 +75,7 @@ export default function LoginPage({handleSignUpOrLogin}) {
               required
             />
             <Button
-              color="purple"
+              color="gray"
               fluid
               size="large"
               type="submit"

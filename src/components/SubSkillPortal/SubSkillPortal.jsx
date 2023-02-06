@@ -56,8 +56,10 @@ function SubSkillPortal({handleAddSubSkill, skill }) {
             
             <Portal onClose={handleClose} open={open}>
                 <Segment inverted
+                
                     style={{
-                        left: '35%',
+                        height: "30vh", width: "70vw" ,
+                        left: '15%',
                         position: 'fixed',
                         top: '25%',
                         
