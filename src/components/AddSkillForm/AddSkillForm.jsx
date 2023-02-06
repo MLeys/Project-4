@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Form, Segment, Button } from "semantic-ui-react";
 
 
-export default function AddSkillForm({ handleAddSkill }) {
+export default function AddSkillForm({ handleAddSkill, handleClose}) {
     const [state, setState] = useState({
         name: "",
         type: "",
@@ -22,6 +22,7 @@ export default function AddSkillForm({ handleAddSkill }) {
 	
 		console.log(state, "<___<<<<<<<< state in handleSubmit")
 		handleAddSkill(state);
+		handleClose();
 	}
     
   return (

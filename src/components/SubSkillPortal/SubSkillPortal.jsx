@@ -32,15 +32,7 @@ function SubSkillPortal({handleAddSubSkill, skill }) {
 
     // console.log(allSkills, "<<<<<< ALLLA")
     const { skillName } = useParams();
-    // const preSkill = allSkills?.filter((s) =>{
-    //     return s.name === skillName
-    // } )
-    // const skill = preSkill;
-    
-    // console.log(skill[0], "<<SKILL>><<<<<<>><<<")
 
-    // const result = allSkills?.find(({ name }) => name === skillName);
-    // console.log(result, "^^^ Find RESULT SubSkillPortal"); 
     useEffect(() => {
         
       }, []); 
