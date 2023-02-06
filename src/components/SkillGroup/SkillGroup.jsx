@@ -60,8 +60,7 @@ export default function SkillGroup({ ifAssigned, handleAddSkill, skill, loggedUs
                         as='a' 
                         content={assignContent}
                         icon={assignIcon}
-                        size="mini" 
-                        
+                        size="mini"         
                     />
             </Link>
 

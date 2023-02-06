@@ -19,15 +19,13 @@ function SkillList({skill, handleDeleteSkill, handleAddSkill}) {
 
   return ( 
     <div>
-    <SkillPortal handleAddSkill={handleAddSkill} skill={skill} />   
-    <Menu.Item>
-      <Label color='red' >
         
+      <Menu.Item>
+        <Label color='red' as='a'>
           <Icon name='delete' key={skill.id} onClick={clickHandler}/>
-        
-     </Label>
-      {skill.name}
-    </Menu.Item>
+      </Label>
+        {skill.name}
+      </Menu.Item>
 
 
     </div>
