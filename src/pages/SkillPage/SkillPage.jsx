@@ -28,8 +28,8 @@ function SkillPage({ skill, handleAddSubSkill, allSkills, getSkill, getSkills, l
 
     async function skillDetail() {
         try {
-            getSkill(skillName)
-            
+            await getSkill(skillName)
+            console.log(skill);
         }catch(err){
             console.log(err, "skill detail error")
         }
@@ -39,7 +39,7 @@ function SkillPage({ skill, handleAddSubSkill, allSkills, getSkill, getSkills, l
     useEffect(() => {
         //Getting posts, C(R)UD
         skillDetail();
-        
+
       }, [(skill.name !== skillName)]); 
 
     return (  
