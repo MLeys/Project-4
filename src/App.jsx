@@ -42,10 +42,10 @@ export default function App() {
       console.log(err.message, " <<<<<YouTube SEARCH ERROR>>>>>");
     }
   }
-  async function getSkillListFromOpenAi() {
+  async function searchOpenAi(question) {
     
     try {
-      const response = await chatGPT3Api.getSkills()
+      const response = await chatGPT3Api.searchOpenAi(question)
       console.log(response, " <------ response from OPENAI SEARCH");
 
       
@@ -178,8 +178,8 @@ export default function App() {
 
   useEffect(() => {
     getSkills();
-    searchYouTube();
-    getSkillListFromOpenAi();
+    // searchYouTube();
+    searchOpenAi("top 5 most important software engineering skills");
     
     
   }, []); 

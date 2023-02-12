@@ -13,7 +13,7 @@ function LandingPage({getSkills,unAssignSkillUser, assignSkillUser,
     // console.log(allSkills, " ALL SKILLS - landing page") 
     useEffect(() => {
         //Getting posts, C(R)UD
-        getSkills();
+        // getSkills();
         
       }, []); 
     return (

@@ -21,7 +21,7 @@ export default function SkillDisplay({ skill, loggedUser, unAssignSkillUser, all
 
 
     return (
-        <Segment.Group raised key={skill._id}>
+        <Segment.Group raised key={`skilldisplay${skill._id}`}>
             <SkillGroup skill={skill} handleAddSkill={handleAddSkill} loggedUser={loggedUser} unAssignSkillUser={unAssignSkillUser} assignSkillUser={assignSkillUser} handleAddSubSkill={handleAddSubSkill} />
         </Segment.Group>
     )
