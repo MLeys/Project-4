@@ -38,21 +38,21 @@ function ResourceDisplay({skill}) {
 
   const [videoId, setVideoId] = useState('')
 
-  function handleChange(e) {
-    console.log(e.target.name, "e.target.name in handleChange in Addskillform")
-    setState({
-      ...state,
-      [e.target.search]: e.target.value,
-    });
-    console.log(state, " <<<UPDATED STATE resource")
-  }
+  // function handleChange(e) {
+  //   console.log(e.target.name, "e.target.name in handleChange in Addskillform")
+  //   setState({
+  //     ...state,
+  //     [e.target.search]: e.target.value,
+  //   });
+  //   console.log(state, " <<<UPDATED STATE resource")
+  // }
   
   async function handleSubmit(e) {
     let videoInfo = '';
     e.preventDefault();
     try {
       console.log(state, "<___<<<<<<<< state in handleSubmit")
-      videoInfo =  await searchYouTube(state);
+      videoInfo =  await searchYouTube(skill.name);
       await setVideoId(videoInfo.items[0].id.videoId)
       console.log(videoId, "<-VID ID")
     } catch(err) {
@@ -74,10 +74,9 @@ function ResourceDisplay({skill}) {
         <Form onSubmit={handleSubmit}>
         <Form.Input
           className="form-control"
-          name="name"
-          value={state.name}
-          placeholder="Enter Skill Name"
-          onChange={handleChange}
+          name="search"
+          value={skill.name}
+          placeholder={skill.name}
           
         />
         <Button type="submit" className="btn">
