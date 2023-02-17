@@ -8,12 +8,13 @@ const API_KEY = 'AIzaSyAWWv9fl6un_cNgTplFYQnBlCZ_MNMJUzg'
 
 
 export function searchYouTube(search) {
+    const searchTerms = `${search}%20tutorial|guide`
     const part = 'snippet'
     const type = 'video'
     const videoEmbeddable = true
     const max = '1'
     const BASE_URL = 
-        `https://youtube.googleapis.com/youtube/v3/search?part=${part}&type=${type}&maxResults=${max}&q=${search}&videoEmbeddable=${videoEmbeddable}&key=${API_KEY}`
+        `https://youtube.googleapis.com/youtube/v3/search?part=${part}&type=${type}&maxResults=${max}&q=${searchTerms}&videoEmbeddable=${videoEmbeddable}&key=${API_KEY}`
 
     
     return fetch(`${BASE_URL}`)
