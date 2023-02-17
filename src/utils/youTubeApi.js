@@ -4,14 +4,16 @@ import tokenService from './tokenService'
 
 const API_KEY = 'AIzaSyAWWv9fl6un_cNgTplFYQnBlCZ_MNMJUzg'
 
-const part = 'snippet'
-const max = '2'
-const search = 'surfing'
-const BASE_URL = 
-    `https://youtube.googleapis.com/youtube/v3/search?part=${part}&maxResults=${max}&q=${search}&key=${API_KEY}`
 
 
-export function searchYouTube(keywords) {
+
+export function searchYouTube(search) {
+    const part = 'snippet'
+    const max = '1'
+    const BASE_URL = 
+        `https://youtube.googleapis.com/youtube/v3/search?part=${part}&maxResults=${max}&q=${search}&key=${API_KEY}`
+
+    
     return fetch(`${BASE_URL}`)
 
     .then(res => {

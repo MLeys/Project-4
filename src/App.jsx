@@ -32,10 +32,10 @@ export default function App() {
   const [error, setError] = useState('');
   const [skill, setSkill] = useState('')
 
-  async function searchYouTube() {
+  async function searchYouTube(search) {
     
     try {
-      const response = await youTubeApi.searchYouTube();
+      const response = await youTubeApi.searchYouTube(search);
       console.log(response, " <------ response from YOUTUBE SEARCH");
 
     } catch (err) {
@@ -179,7 +179,7 @@ export default function App() {
   useEffect(() => {
     getSkills();
     // searchYouTube();
-    searchOpenAi("top 5 most important software engineering skills");
+    // searchOpenAi("top 5 most important software engineering skills");
     
     
   }, []); 
