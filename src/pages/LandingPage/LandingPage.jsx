@@ -21,7 +21,7 @@ function LandingPage({getSkills,unAssignSkillUser, assignSkillUser,
         {
             allSkills?.map((skill) => {
                 return (
-                    <SkillDisplay skill={skill} handleAddSkill={handleAddSkill} loggedUser={loggedUser} unAssignSkillUser={unAssignSkillUser} assignSkillUser={assignSkillUser} handleAddSubSkill={handleAddSubSkill} allSkills={allSkills}  />
+                    <SkillDisplay key={skill._id} skill={skill} handleAddSkill={handleAddSkill} loggedUser={loggedUser} unAssignSkillUser={unAssignSkillUser} assignSkillUser={assignSkillUser} handleAddSubSkill={handleAddSubSkill} allSkills={allSkills}  />
                 )
             })
         }

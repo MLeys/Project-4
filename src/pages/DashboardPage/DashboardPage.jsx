@@ -9,11 +9,7 @@ function Dashboard({loggedUser, unAssignSkillUser, handleDeleteSkill,
   allSkills, getSkills, handleAddSubSkill, handleAddSkill, assignSkillUser, skill, getSkill }) {
 
   const { username } = useParams();
-  console.log(skill, "<--Dashboard Skill")
-
-
-
-
+  
     useEffect(() => {
         //Getting posts, C(R)UD
         getSkills();
