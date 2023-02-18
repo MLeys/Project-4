@@ -19,9 +19,9 @@ import {
 } from 'semantic-ui-react'
 import { Outlet } from 'react-router-dom';
 
-import SkillPortal from '../SkillPortal/SkillPortal';
-import SkillList from '../SkillList/SkillList';
-import FixedMenuHeader from '../FixedMenuHeader/FixedMenuHeader';
+import SkillPortal from '../../components/SkillPortal/SkillPortal';
+import SkillList from '../../components/SkillList/SkillList';
+import FixedMenuHeader from '../../components/FixedMenuHeader/FixedMenuHeader';
 
 
 

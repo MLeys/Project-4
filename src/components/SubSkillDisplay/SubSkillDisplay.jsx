@@ -30,7 +30,7 @@ export default function SubSkillDisplay({skill, handleAddSubSkill, getSkill }) {
         <Segment id='subCardTitle' fluid textAlign="left">
                 {/* <Link to={`skills/${skill.name}/subskill`}> */}
                 
-                    <Header fluid>  Subskills </Header>
+                    <Header fluid="true">  Subskills </Header>
                     
                 {/* </Link> */}
             </Segment>

@@ -55,7 +55,7 @@ export default function SkillGroup({ ifAssigned, handleAddSkill, skill, loggedUs
                 />
             </Link>
         <Link to={`/skills/${skill?.name}`} > 
-            <Segment fluid raised inverted >
+            <Segment fluid="true" raised inverted >
                 {skill?.name}
             </Segment>
         </Link>

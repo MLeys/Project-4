@@ -23,6 +23,7 @@ import SkillPortal from '../../components/SkillPortal/SkillPortal';
 import VerticalSidebar from '../../components/VerticalSidebar/VerticalSidebar';
 import FixedMenuHeader from '../../components/FixedMenuHeader/FixedMenuHeader';
 import SidebarReducer from '../../components/Reducers/SidebarReducer';
+import MainFooter from '../../components/MainFooter/MainFooter';
 
 function Layout({ handleClose, getSkill, activeSkill,skill, loggedUser, handleLogout, allSkills, handleAddSkill, handleDeleteSkill  }) {
   const [sidebarState, dispatch] = React.useReducer(SidebarReducer, {
@@ -32,20 +33,20 @@ function Layout({ handleClose, getSkill, activeSkill,skill, loggedUser, handleLo
     visible: false,
   })
 
-  const { animation, dimmed, direction, visible } = sidebarState
-  const vertical = direction === 'bottom' || direction === 'top'
+  const { animation, dimmed, direction, visible } = sidebarState;
 
   return (
     <Container  style={{ margin: 0, padding: 0, minHeight: '98vh', width: '98vw' }}>
-        <FixedMenuHeader loggedUser={loggedUser} handleLogout={handleLogout} skill={skill} dispatch={dispatch}/>
-        <Sidebar.Pushable as={Segment} inverted style={{ overflow: 'hidden', margin: 0, padding: 1, minHeight: '89vh'  }}>
-            <VerticalSidebar
-                allSkills={allSkills}
-                animation={animation}
-                direction={direction}
-                visible={visible}
-                handleDeleteSkill={handleDeleteSkill}
-            />      
+      <FixedMenuHeader loggedUser={loggedUser} handleLogout={handleLogout} skill={skill} dispatch={dispatch}/>
+
+      <Sidebar.Pushable as={Segment} inverted style={{ overflow: 'hidden', margin: 0, padding: 1, minHeight: '89vh'  }}>
+        <VerticalSidebar
+            allSkills={allSkills}
+            animation={animation}
+            direction={direction}
+            visible={visible}
+            handleDeleteSkill={handleDeleteSkill}
+        />      
         <Sidebar.Pusher  dimmed={dimmed && visible}>
           <Segment.Group>
             <Segment inverted>
@@ -57,20 +58,9 @@ function Layout({ handleClose, getSkill, activeSkill,skill, loggedUser, handleLo
           </Segment.Group>
         </Sidebar.Pusher>
       </Sidebar.Pushable>
-      <Segment id='main-seg' inverted fixed='bottom' vertical style={{ margin: '0', padding: '0em 0em', height: "2em", }}>
-        <Container textAlign='center' style={{ innerWidth:'100vw' }}>
-            <List horizontal inverted divided link size='small'>
-                <List.Item >
-                    Created by: Mike Leys
-                </List.Item>
-            </List>
-        </Container>
-      </Segment>
+      <MainFooter />
     
     </Container>
-
-
-
   )
 }
 

@@ -21,7 +21,7 @@ function FixedMenuHeader({ loggedUser, handleLogout, dispatch }) {
 
 
     return (  
-        <Menu  inverted style={{padding: '0em', margin: '0'}}>
+        <Menu inverted style={{padding: '0em', margin: '0'}}>
             <Menu.Item as='a' header onClick={() =>
                     dispatch({ type: 'CHANGE_ANIMATION', animation: 'overlay' })
                     }>

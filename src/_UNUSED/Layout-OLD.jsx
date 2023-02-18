@@ -13,7 +13,7 @@ import {
   } from 'semantic-ui-react';
 
 
-import MainSideBar from '../../components/MainSideBar/MainSideBar';
+import MainSideBar from './MainSideBar/MainSideBar';
 
 
 function Layout({ getSkill, skill, loggedUser, handleLogout, allSkills, handleAddSkill, handleDeleteSkill}) {
