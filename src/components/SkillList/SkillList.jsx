@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import { 
   Button, 
   Image, 
@@ -13,28 +13,16 @@ import {
 import SkillPortal from '../SkillPortal/SkillPortal';
 
 function SkillList({skill, handleDeleteSkill, handleAddSkill}) {
-
-  const clickHandler = () => handleDeleteSkill(skill._id)
-  // const clickHandler = () => console.log(skill.name)
-  function skillNameLog() {
-    console.log(skill.name, 'why triggering?')
-  }
-
-
+  const navigate = useNavigate();
+  const clickHandler = () =>  handleDeleteSkill(skill._id)
   
   return ( 
-    <div>
-        
-      <Menu.Item>
-        <Label color='red' as='a'>
-          <Icon name='delete' key={skill._id} onClick={() => clickHandler() }/>
+    <Menu.Item>
+      <Label color='red' as='a'>
+        <Icon name='delete' key={skill._id} onClick={() => clickHandler() }/>
       </Label>
-        {skill.name}
-      </Menu.Item>
-
-
-    </div>
-
+      {skill.name}
+    </Menu.Item>
    );
    
 }
