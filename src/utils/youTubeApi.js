@@ -20,8 +20,14 @@ export function searchYouTube(search) {
     return fetch(`${BASE_URL}`)
 
     .then(res => {
-        if(res.ok) return res.json()
-        throw new Error('Error grabbing Youtube Search, check server terminal')
+        if(res.ok) {
+            console.log(res.json(), "JSON FILE youtubeapi")
+            return res.json()
+        } else {
+            throw new Error('Error grabbing Youtube Search, check server terminal')
+        }
+        
+        
     })
 }
 
