@@ -26,8 +26,8 @@ export default function SubSkillDisplay({skill, handleAddSubSkill, getSkill }) {
     return (
         <div>
         
-        <Segment.Group fluid raised>
-        <Segment id='subCardTitle' fluid textAlign="left">
+        <Segment.Group fluid="true" raised>
+        <Segment id='subCardTitle' fluid="true" textAlign="left">
                 {/* <Link to={`skills/${skill.name}/subskill`}> */}
                 
                     <Header fluid="true">  Subskills </Header>

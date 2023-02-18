@@ -49,25 +49,25 @@ export default function SkillGroup({ ifAssigned, handleAddSkill, skill, loggedUs
                 <Label
                     corner='left'
                     color="grey" 
-                    as='a' 
+                    
                     icon='edit' 
                     size="mini" 
                 />
             </Link>
-        <Link to={`/skills/${skill?.name}`} > 
-            <Segment fluid="true" raised inverted >
-                {skill?.name}
-            </Segment>
-        </Link>
-                <Label
-                        onClick={() => handleAssign()}
-                        attached='top right'
-                        color={assignColor}
-                        as='a' 
-                        content={assignContent}
-                        icon={assignIcon}
-                        size="mini"         
-                    />
+            <Link to={`/skills/${skill?.name}`} > 
+                <Segment fluid="true" raised inverted >
+                    {skill?.name}
+                </Segment>
+            </Link>
+            <Label
+                onClick={() => handleAssign()}
+                attached='top right'
+                color={assignColor}
+                as='a' 
+                content={assignContent}
+                icon={assignIcon}
+                size="mini"         
+            />
         </Segment>
 
         <Segment.Group text-align='center' horizontal>       

@@ -47,7 +47,7 @@ function SubSkillPortal({handleAddSubSkill, skill }) {
                 size="mini" 
                 
                 disabled={subFormPop}
-                positive
+                positive="true"
                 onClick={handleOpen} />
 
             
