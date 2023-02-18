@@ -15,13 +15,18 @@ import { Link } from "react-router-dom";
     Icon
   } from 'semantic-ui-react'
 
-  
+import SidebarReducer from "../Reducers/SidebarReducer";
 
-function FixedMenuHeader({ loggedUser, handleLogout }) {
+function FixedMenuHeader({ loggedUser, handleLogout, dispatch }) {
 
 
     return (  
-        <>
+        <Menu  inverted style={{padding: '0em', margin: '0'}}>
+            <Menu.Item as='a' header onClick={() =>
+                    dispatch({ type: 'CHANGE_ANIMATION', animation: 'overlay' })
+                    }>
+                Skill.map
+            </Menu.Item>
             <Menu.Item as='a'>
                 <Link to="/">
                     <Icon name="home"></Icon>
@@ -47,7 +52,7 @@ function FixedMenuHeader({ loggedUser, handleLogout }) {
                     </Link>
                 </Menu.Item>
             </Menu.Menu>
-        </>
+        </Menu>
 
     );
  }

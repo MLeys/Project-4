@@ -14,7 +14,8 @@ import {
   Item,
   Input,
   Label,
-  List
+  List,
+  Container
 } from 'semantic-ui-react'
 import { Outlet } from 'react-router-dom';
 
@@ -81,7 +82,7 @@ function MainSideBar({ handleClose, getSkill, activeSkill,skill, loggedUser, han
   const vertical = direction === 'bottom' || direction === 'top'
 
   return (
-    <>
+    <Container  style={{ margin: 0, padding: 0, minHeight: '98vh', width: '98vw' }}>
       <Menu  inverted style={{padding: '0em', margin: '0'}}>
         <Menu.Item as='a' header onClick={() =>
                 dispatch({ type: 'CHANGE_ANIMATION', animation: 'overlay' })
@@ -113,8 +114,18 @@ function MainSideBar({ handleClose, getSkill, activeSkill,skill, loggedUser, han
           </Segment.Group>
         </Sidebar.Pusher>
       </Sidebar.Pushable>
+      <Segment id='main-seg' inverted fixed='bottom' vertical style={{ margin: '0', padding: '0em 0em', height: "2em", }}>
+        <Container textAlign='center' style={{ innerWidth:'100vw' }}>
+            <List horizontal inverted divided link size='small'>
+                <List.Item >
+                    Created by: Mike Leys
+                </List.Item>
+            </List>
+        </Container>
+      </Segment>
     
-    </>
+    </Container>
+
 
 
   )

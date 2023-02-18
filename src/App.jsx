@@ -8,7 +8,7 @@ import SubSkillPage from "./pages/SubSkillPage/SubSkillPage";
 import Layout from "./pages/Layout/Layout";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import SignUpPage from "./pages/SignupPage/SignupPage";
-import Dashboard from "./pages/Dashboard/Dashboard";
+import Dashboard from "./pages/DashboardPage/DashboardPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 
@@ -193,14 +193,21 @@ export default function App() {
           element={<Layout
             unAssignSkillUser={unAssignSkillUser}
             assignSkillUser={assignSkillUser}
+
             getSkill={getSkill} 
             skill={skill} 
-            handleAddSkill={handleAddSkill} 
+
+            getSkills={getSkills}
             allSkills={skills} 
+            
+            handleAddSkill={handleAddSkill} 
+            handleDeleteSkill={handleDeleteSkill} 
+
+            handleAddSubSkill={handleAddSubSkill}
+            
             loggedUser={user} 
             handleLogout={handleLogout} 
-            handleDeleteSkill={handleDeleteSkill} 
-            getSkills={getSkills}
+            
           />}
         >
           <Route
