@@ -17,7 +17,6 @@ import * as skillsApi from "/src/utils/skillApi.js"
 import * as subSkillsApi from "./utils/subSkillApi.js"
 import * as youTubeApi from "./utils/youTubeApi.js"
 import * as chatGPT3Api from "./utils/chatGPT3Api.js"
-import { render } from "ejs";
 
 export default function App() {
   
