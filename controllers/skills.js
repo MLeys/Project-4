@@ -14,7 +14,8 @@ export default {
 
 async function deleteSkill(req, res) {
   try {
-    const skillDoc = await Skill.findOne({'skills._id': req.params.id})
+    console.log(req.params, "Skill doc params for delete")
+    const skillDoc = await Skill.findById(req.params.id)
     console.log(skillDoc, "<--- SkillDoC on Delete")
     skillDoc.remove(req.params.id)
     

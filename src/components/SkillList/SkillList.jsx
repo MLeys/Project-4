@@ -15,6 +15,10 @@ import SkillPortal from '../SkillPortal/SkillPortal';
 function SkillList({skill, handleDeleteSkill, handleAddSkill}) {
 
   const clickHandler = () => handleDeleteSkill(skill._id)
+  // const clickHandler = () => console.log(skill.name)
+  function skillNameLog() {
+    console.log(skill.name, 'why triggering?')
+  }
 
 
   
@@ -23,7 +27,7 @@ function SkillList({skill, handleDeleteSkill, handleAddSkill}) {
         
       <Menu.Item>
         <Label color='red' as='a'>
-          <Icon name='delete' key={skill.id} onClick={clickHandler}/>
+          <Icon name='delete' key={skill._id} onClick={() => clickHandler() }/>
       </Label>
         {skill.name}
       </Menu.Item>
