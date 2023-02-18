@@ -1,24 +1,35 @@
-// import * as dotenv from 'dotenv'
+import * as dotenv from 'dotenv'
 
-// import tokenService from './tokenService'
+import tokenService from './tokenService'
 
-// const API_KEY = 'AIzaSyAWWv9fl6un_cNgTplFYQnBlCZ_MNMJUzg'
-
-// const part = 'snippet'
-// const max = '2'
-// const search = 'surfing'
-// const BASE_URL = 
-//     `https://youtube.googleapis.com/youtube/v3/search?part=${part}&maxResults=${max}&q=${search}&key=${API_KEY}`
+const API_KEY = 'AIzaSyAWWv9fl6un_cNgTplFYQnBlCZ_MNMJUzg'
 
 
-// export function searchYouTube(keywords) {
-//     return fetch(`${BASE_URL}`)
 
-//     .then(res => {
-//         if(res.ok) return res.json()
-//         throw new Error('Error grabbing Youtube Search, check server terminal')
-//     })
-// }
+
+export function searchYouTube(search) {
+    const searchTerms = `${search}%20tutorial|guide`
+    const part = 'snippet'
+    const type = 'video'
+    const videoEmbeddable = true
+    const max = '1'
+    const BASE_URL = 
+        `https://youtube.googleapis.com/youtube/v3/search?part=${part}&type=${type}&maxResults=${max}&q=${searchTerms}&videoEmbeddable=${videoEmbeddable}&key=${API_KEY}`
+
+    
+    return fetch(`${BASE_URL}`)
+
+    .then(res => {
+        if(res.ok) {
+            console.log(res.json(), "JSON FILE youtubeapi")
+            return res.json()
+        } else {
+            throw new Error('Error grabbing Youtube Search, check server terminal')
+        }
+        
+        
+    })
+}
 
 
 // Authorization: Bearer [YOUR_ACCESS_TOKEN]
@@ -28,9 +39,9 @@
 // https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&id=Ks-_Mh1QhMc%2Cc0KYU2j0TM4%2CeIho2S0ZahI&key=[YOUR_API_KEY] HTTP/1.1
 
 
-// //GET https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cid&chart=mostPopular&id=Ks-_Mh1QhMc%2Cc0KYU2j0TM4%2CeIho2S0ZahI&key=[YOUR_API_KEY] HTTP/1.1
+//GET https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cid&chart=mostPopular&id=Ks-_Mh1QhMc%2Cc0KYU2j0TM4%2CeIho2S0ZahI&key=[YOUR_API_KEY] HTTP/1.1
 
-// //Accept: application/json
+//Accept: application/json
 
 
 // GET https://youtube.googleapis.com/youtube/v3/search

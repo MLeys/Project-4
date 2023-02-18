@@ -19,6 +19,8 @@ import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import userService from "./utils/userService";
 import * as skillsApi from "/src/utils/skillApi.js"
 import * as subSkillsApi from "./utils/subSkillApi.js"
+import * as youTubeApi from "./utils/youTubeApi.js"
+import * as chatGPT3Api from "./utils/chatGPT3Api.js"
 import { render } from "ejs";
 
 export default function App() {
@@ -30,7 +32,29 @@ export default function App() {
   const [error, setError] = useState('');
   const [skill, setSkill] = useState('')
 
+  async function searchYouTube(search) {
+    
+    try {
+      const response = await youTubeApi.searchYouTube(search);
+      console.log(response, " <------ response from YOUTUBE SEARCH");
 
+    } catch (err) {
+      console.log(err.message, " <<<<<YouTube SEARCH ERROR>>>>>");
+    }
+  }
+  async function searchOpenAi(question) {
+    
+    try {
+      const response = await chatGPT3Api.searchOpenAi(question)
+      console.log(response, " <------ response from OPENAI SEARCH");
+
+      
+    } catch (err) {
+      console.log(err.message, " <<<<<OPENAI SEARCH ERROR>>>>>");
+    }
+  }
+  
+    
   
 
 
@@ -154,6 +178,8 @@ export default function App() {
 
   useEffect(() => {
     getSkills();
+    // searchYouTube();
+    // searchOpenAi("top 5 most important software engineering skills");
     
     
   }, []); 

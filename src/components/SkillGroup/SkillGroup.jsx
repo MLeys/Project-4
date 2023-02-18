@@ -19,6 +19,8 @@ import SkillPage from '../../pages/SkillPage/SkillPage';
 import SubSkillCard from '../SubSkillCard/SubSkillCard';
 import SubSkillDisplay from '../SubSkillDisplay/SubSkillDisplay';
 import SkillPortal from '../SkillPortal/SkillPortal';
+import ResourceDisplay from '../ResourceDisplay/ResourceDisplay';
+
 
 
 
@@ -69,13 +71,16 @@ export default function SkillGroup({ ifAssigned, handleAddSkill, skill, loggedUs
         </Segment>
 
         <Segment.Group text-align='center' horizontal>       
-        <SubSkillPortal handleAddSubSkill={handleAddSubSkill} skill={skill} />          
+            <SubSkillPortal handleAddSubSkill={handleAddSubSkill} skill={skill} />          
             <SubSkillDisplay skill={skill} handleAddSubSkill={handleAddSubSkill}/>
-            <Segment.Group> Resources
+            <ResourceDisplay skill={skill} />
+
+
+            {/* <Segment.Group> Resources
                 <Card>
 
                 </Card>
-            </Segment.Group>
+            </Segment.Group> */}
         </Segment.Group>
         </>
 
