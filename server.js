@@ -11,6 +11,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 import logger from 'morgan';
 import favicon  from 'serve-favicon';
+import serveFavicon from 'serve-favicon'
 
 import './config/database.js'
 

@@ -44,7 +44,7 @@ function SkillPortal({handleAddSkill, skill}) {
                 size="mini" 
                 
                 disabled={formPop}
-                positive
+                positive="true"
                 onClick={handleOpen} 
             />
             
