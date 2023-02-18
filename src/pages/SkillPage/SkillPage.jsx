@@ -16,7 +16,7 @@ import skill from "../../../models/skill";
 
 
 
-function SkillPage({ skill, handleAddSubSkill, allSkills, getSkill, getSkills, loggedUser, handleAddSkill, unAssignSkillUser, assignSkillUser}) {
+function SkillPage({isSkillPage, skill, handleAddSubSkill, getSkill, loggedUser, handleAddSkill, unAssignSkillUser, assignSkillUser}) {
     
     
     const skillName  = useParams().skillName;
@@ -24,7 +24,8 @@ function SkillPage({ skill, handleAddSubSkill, allSkills, getSkill, getSkills, l
     async function skillDetail() {
         try {
             await getSkill(skillName)
-            console.log(skill);
+            isSkillPage = true
+            console.log(skill, '=== SKILL on skillpage');
         }catch(err){
             console.log(err, "skill detail error")
         }
@@ -34,13 +35,15 @@ function SkillPage({ skill, handleAddSubSkill, allSkills, getSkill, getSkills, l
     useEffect(() => {
         //Getting posts, C(R)UD
         skillDetail();
+        isSkillPage(true);
 
       }, [(skill.name !== skillName)]); 
 
     return (  
         <>
             <h1>Skill Page - {skill?.name} </h1>
-            <SkillDisplay skill={skill} loggedUser={loggedUser} unAssignSkillUser={unAssignSkillUser} handleAddSubSkill={handleAddSubSkill} handleAddSkill={handleAddSkill} />
+            {/* <SkillDisplay skill={skill} loggedUser={loggedUser} assignSkillUser={assignSkillUser} unAssignSkillUser={unAssignSkillUser} handleAddSubSkill={handleAddSubSkill} handleAddSkill={handleAddSkill} /> */}
+            <SkillDisplay skill={skill} loggedUser={loggedUser} assignSkillUser={assignSkillUser} unAssignSkillUser={unAssignSkillUser} handleAddSkill={handleAddSkill} handleAddSubSkill={handleAddSubSkill}  />
 
         </>
     );

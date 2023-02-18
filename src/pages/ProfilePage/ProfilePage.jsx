@@ -55,7 +55,7 @@ function ProfilePage() {
       return ( 
         <>
          <AddSkillForm handleAddSkill={handleAddSkill} />
-        <h1>HELLO is anything here</h1>
+        <h1>HELLO is anything hefdfre</h1>fdffdfd
         </>
     
       );

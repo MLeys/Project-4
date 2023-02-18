@@ -31,6 +31,12 @@ export default function App() {
   const [skills, setSkills] = useState([]);
   const [error, setError] = useState('');
   const [skill, setSkill] = useState('')
+  const [ifSkillPage, setIfSkillPage] = useState(false)
+
+  function isSkillPage(bool) {
+    setIfSkillPage(bool)
+  }
+
 
   async function searchYouTube(search) {
     
@@ -53,10 +59,6 @@ export default function App() {
       console.log(err.message, " <<<<<OPENAI SEARCH ERROR>>>>>");
     }
   }
-  
-    
-  
-
 
   async function handleDeleteSkill(skillId) {
     try {
@@ -116,6 +118,7 @@ export default function App() {
     }
 
   } // END handleAddSubSkill Function
+
 
 
   async function getSkills() {
@@ -178,6 +181,7 @@ export default function App() {
 
   useEffect(() => {
     getSkills();
+    setIfSkillPage(false);
     // searchYouTube();
     // searchOpenAi("top 5 most important software engineering skills");
     
@@ -223,6 +227,9 @@ export default function App() {
           <Route
             path="skills/:skillName"
             element={<SkillPage 
+              isSkillPage={isSkillPage}
+              unAssignSkillUser={unAssignSkillUser}
+              assignSkillUser={assignSkillUser}
               handleAddSubSkill={handleAddSubSkill} 
               skill={skill} 
               allSkills={skills} 
@@ -250,19 +257,7 @@ export default function App() {
               
             />}
           />
-          <Route
-            path="skills/:skillName"
-            element={<SkillPage 
-              handleAddSubSkill={handleAddSubSkill} 
-              skill={skill} 
-              allSkills={skills} 
-              getSkill={getSkill} 
-              getSkills={getSkills}
-              loggedUser={user}
-              handleAddSkill={handleAddSkill}
-              
-            />} 
-          />
+
             <Route
               path="skills/:skillName/subskill/:id"
               element={<SubSkillPage 
@@ -278,8 +273,6 @@ export default function App() {
           />
           
         </Route>
-
-
 
         <Route
           path="/login"
