@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
  import {
@@ -17,7 +17,10 @@ import { Link } from "react-router-dom";
 
 import SidebarReducer from "../Reducers/SidebarReducer";
 
+
+
 function FixedMenuHeader({ loggedUser, handleLogout, dispatch }) {
+    const navigate = useNavigate();
 
 
     return (  
@@ -27,30 +30,21 @@ function FixedMenuHeader({ loggedUser, handleLogout, dispatch }) {
                     }>
                 Skill.map
             </Menu.Item>
-            <Menu.Item as='a'>
-                <Link to="/">
-                    <Icon name="home"></Icon>
-                </Link>
+            <Menu.Item onClick={() => navigate("/")}>
+                <Icon name="home"></Icon>
             </Menu.Item>
             <Menu.Menu position="right">
-                <Menu.Item>
-                    <Link to={`/${loggedUser?.username}`}>
-                        <Image
-                            style={{ marginRight: '1.5em' }} 
-                            src={
+                <Menu.Item onClick={() => navigate(`/${loggedUser?.username}`)}>
+                    <Image
+                        src={
                             loggedUser?.photoUrl
-                                ? loggedUser?.photoUrl
-                                : "https://react.semantic-ui.com/images/wireframe/square-image.png"
-                            }
-                            avatar 
-                        />
-                    </Link>
+                            ? loggedUser?.photoUrl
+                            : "https://react.semantic-ui.com/images/wireframe/square-image.png"
+                        }
+                        avatar 
+                    />
                 </Menu.Item>
-                <Menu.Item as="a" floated="right">
-                    <Link to="" onClick={handleLogout}>
-                        Logout
-                    </Link>
-                </Menu.Item>
+                <Menu.Item onClick={handleLogout} floated="right">Logout</Menu.Item>
             </Menu.Menu>
         </Menu>
 

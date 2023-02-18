@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
 
 import "./App.css";
 
@@ -19,6 +19,7 @@ import * as youTubeApi from "./utils/youTubeApi.js"
 import * as chatGPT3Api from "./utils/chatGPT3Api.js"
 
 export default function App() {
+  const navigate = useNavigate();
   
   const [subSkill, setSubSkill] = useState('');
   const [user, setUser] = useState(userService.getUser());
@@ -147,6 +148,7 @@ export default function App() {
 
   function handleLogout() {
     console.log("+++++ SIGNOUT USER +++++")
+    navigate('/');
     userService.logout();
     setUser(null);
   }
