@@ -2,10 +2,6 @@ import { useEffect, useState } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 
 import "./App.css";
-// import React from 'react';
-// import ReactDOM from 'react-dom';
-
-// import './index.css';
 
 import SkillPage from "./pages/SkillPage/SkillPage";
 import SubSkillPage from "./pages/SubSkillPage/SubSkillPage";
@@ -145,7 +141,6 @@ export default function App() {
       console.log(err, "getSkill SINGLE error")
     }
   }
-
 
   function handleSignUpOrLogin() {
     setUser(userService.getUser());
