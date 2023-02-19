@@ -1,0 +1,41 @@
+.vSidebar {
+    text-align: left;
+    align-content: left ;
+    color: rgb(0, 255, 102);
+    background-color: rgb(0, 184, 246);
+   
+}
+.ui.menu {
+    background-color: red;
+}
+.title, .active  {
+    background-color: red;
+}
+/* .title  {
+    background-color: inherit;
+} */
+/* Accordion whole */
+.ui.styled.accordion .accordion .title, .ui.styled.accordion .title {
+    background-color: #1b1c1d;
+    color: white;
+}
+
+/* .ui.accordion {
+    color: violet;
+    background-color: rgb(255, 0, 0);
+} */
+/* Entire Accordion */
+/* .ui.styled.accordion .accordion {
+    background-color: gray;
+} */
+
+/* Skills(inactive) */
+/* .ui.accordion .title:not(.ui) {
+    background-color: rgb(63, 57, 57);
+    color: red
+} */
+
+/* SubSkills  */
+/* .ui.accordion .accordion .title, .ui.accordion .title {
+    color: pink
+} */
