@@ -1,24 +1,71 @@
-.vSidebar {
+/* .vSidebar {
     text-align: left;
     align-content: left ;
     color: rgb(0, 255, 102);
-    background-color: rgb(0, 184, 246);
+    background-color: rgb(227, 100, 246);
    
-}
-.ui.menu {
-    background-color: red;
-}
-.title, .active  {
-    background-color: red;
-}
-/* .title  {
-    background-color: inherit;
 } */
-/* Accordion whole */
-.ui.styled.accordion .accordion .title, .ui.styled.accordion .title {
-    background-color: #1b1c1d;
-    color: white;
+/* .ui.menu {
+    background-color: rgb(59, 203, 48);
+} */
+
+/* Whole Accordian */
+.ui.styled.accordion {
+
+    text-align: left;
+    align-content: left ;
+    background-color: inherit;
 }
+
+.content.active {
+    background-color: blue;
+    padding: 0;
+}
+
+/* Accordion Subskills Active */
+.ui.styled.accordion .accordion .title, .ui.styled.accordion .title{
+    background-color: #0d3762;
+    color: rgb(0, 255, 102);
+}
+/* Selected Whole Skill Area */
+.ui.styled.accordion, .ui.styled.accordion .accordion {
+    box-shadow: 0;
+    
+}
+/* Skills(inactive) */
+.ui.accordion .title:not(.ui) {
+    background-color: #0d3762;
+    color: rgb(0, 255, 102);
+    border-radius: .8em;
+    border: .2em;
+}
+.ui.styled.accordion .title .active {
+    background-color: red;
+}
+
+.ui.styled.accordion .content {
+    margin:  .25em;
+    padding: 0;
+    background-color: green
+}
+
+/* Subclass on Hover */
+.ui.styled.accordion .accordion .title:hover {
+    background-color: rgb(4, 204, 249);
+    color: rgb(0, 255, 102);
+}
+
+
+.ui.styled.accordion .accordion .content, .ui.styled.accordion .content {
+    margin:  .25em;
+    padding: 0;
+    background-color: green
+}
+
+.title .active {
+    padding-bottom: 0;
+}
+
 
 /* .ui.accordion {
     color: violet;
@@ -29,11 +76,7 @@
     background-color: gray;
 } */
 
-/* Skills(inactive) */
-/* .ui.accordion .title:not(.ui) {
-    background-color: rgb(63, 57, 57);
-    color: red
-} */
+
 
 /* SubSkills  */
 /* .ui.accordion .accordion .title, .ui.accordion .title {
