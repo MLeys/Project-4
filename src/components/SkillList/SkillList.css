@@ -16,16 +16,25 @@
     align-content: left ;
     background-color: inherit;
 }
+.ui.styled.accordion .active {
 
-.content.active {
-    background-color: blue;
-    padding: 0;
+    background-color: paleturquoise;
 }
+/* Skill -- hover */
+.ui.styled.accordion .title:hover {
+    background-color: rgb(130, 209, 243);
+    color: black
+}
+.ui.accordion .accordion {
+    margin: 0;
+    padding: 0;
+  }
+
 
 /* Accordion Subskills Active */
 .ui.styled.accordion .accordion .title, .ui.styled.accordion .title{
-    background-color: #0d3762;
-    color: rgb(0, 255, 102);
+    background-color: #0e345b;
+    color: rgb(255, 255, 255);
 }
 /* Selected Whole Skill Area */
 .ui.styled.accordion, .ui.styled.accordion .accordion {
@@ -35,16 +44,16 @@
 /* Skills(inactive) */
 .ui.accordion .title:not(.ui) {
     background-color: #0d3762;
-    color: rgb(0, 255, 102);
-    border-radius: .8em;
-    border: .2em;
+    color: rgb(255, 255, 255);
+    /* border-radius: .8em; */
+    /* border: .2em; */
 }
 .ui.styled.accordion .title .active {
     background-color: red;
 }
 
 .ui.styled.accordion .content {
-    margin:  .25em;
+    margin:  0em;
     padding: 0;
     background-color: green
 }
@@ -54,6 +63,18 @@
     background-color: rgb(4, 204, 249);
     color: rgb(0, 255, 102);
 }
+
+.ui.styled.accordion .accordion {
+    border-radius: .28571429rem;
+    background: #fff;
+    box-shadow: 0 ;
+  }
+
+  /* Selected title */
+  .ui.styled.accordion .active.title {
+    background-color: #1c5792;
+    color: white
+  }
 
 
 .ui.styled.accordion .accordion .content, .ui.styled.accordion .content {
