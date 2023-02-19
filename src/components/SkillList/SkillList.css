@@ -20,12 +20,13 @@
 
     background-color: paleturquoise;
 }
-/* Skill -- hover */
-.ui.styled.accordion .title:hover {
+/* Skill and Subskill -- hover */
+.ui.styled.accordion .title:hover, .ui.styled.accordion .accordion .title:hover {
     background-color: rgb(130, 209, 243);
     color: black
 }
-.ui.accordion .accordion {
+.ui.accordion .accordion, .accordion, .ui.accordion, .ui.styled.accordion,
+.ui.accordion .accordion .content, .ui.accordion .accordion .title{
     margin: 0;
     padding: 0;
   }
@@ -33,7 +34,7 @@
 
 /* Accordion Subskills Active */
 .ui.styled.accordion .accordion .title, .ui.styled.accordion .title{
-    background-color: #0e345b;
+    background-color: #3e556c;
     color: rgb(255, 255, 255);
 }
 /* Selected Whole Skill Area */
@@ -58,11 +59,7 @@
     background-color: green
 }
 
-/* Subclass on Hover */
-.ui.styled.accordion .accordion .title:hover {
-    background-color: rgb(4, 204, 249);
-    color: rgb(0, 255, 102);
-}
+
 
 .ui.styled.accordion .accordion {
     border-radius: .28571429rem;
