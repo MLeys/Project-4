@@ -15,45 +15,70 @@ function VerticalSidebar({
     handleClose
 }) {
     console.log(allSkills, "<= allSkills ( vSidebar )")
-    const [activeIndex, setActiveIndex] = useState(null);
+//     const [activeIndex, setActiveIndex] = useState(null);
+
+
+//     function handleClick(index)  {
+//         setActiveIndex(activeIndex === index ? null : index)
+//     };
+
+//     const subSkillPanels = [
+//         allSkills.subSkills.map((subSkill) => {
+
+//         })
+//     ]
+    
+//     function renderSubSkills(subSkills) {
+//         return subSkills.map((subSkill) => {
+//             <div key={subSkill.id}>
+//                 <p>{subSkill.name}</p>
+//                 <ul>
+//                     {subSkill.resources.map((resources) => {
+//                         <li key={resources.id}>{resource.name}</li>
+//                     })}
+//                 </ul>
+//             </div>
+//         });
+//     };
+//     function renderSkills(allSkills) {
+//         return allSkills.map((skill) => {
+//           <div key={skill.id}>
+//             <Accordion.Title
+//               active={activeIndex === skill.id}
+//               index={skill.id}
+//               onClick={() => handleClick(skill.id)}
+//             >
+//               <Icon name='dropdown' />
+//               {skill.name}
+//             </Accordion.Title>
+//             <Accordion.Content active={activeIndex === skill.id}>
+//               {/* {renderSubSkills(skill.subSkills)} */}
+//             </Accordion.Content>
+//           </div>
+//         });
+//     };
+    
+//     return (
+//         <Sidebar 
+//             style={{ textColor: 'white'}}
+//             as={Menu}
+//             animation={animation}
+//             direction={direction}
+//             inverted
+//             vertical
+//             visible={visible}
+//             width='thin'
+//         >
+//         <Accordion styled>{renderSkills(allSkills)}</Accordion>
+//         </Sidebar>
+//     ) 
+// };
     
 
-    function handleClick(index)  {
-        setActiveIndex(activeIndex === index ? null : index)
-    };
 
-    
-    function renderSubSkills(subSkills) {
-        return subSkills.map((subSkill) => {
-            <div key={subSkill.id}>
-                <p>{subSkill.name}</p>
-                <ul>
-                    {subSkill.resources.map((resources) => {
-                        <li key={resources.id}>{resource.name}</li>
-                    })}
-                </ul>
-            </div>
-        });
-    };
-    function renderSkills(allSkills) {
-        return allSkills.map((skill) => {
-          <div key={skill.id}>
-            <Accordion.Title
-              active={activeIndex === skill.id}
-              index={skill.id}
-              onClick={() => handleClick(skill.id)}
-            >
-              <Icon name='dropdown' />
-              {skill.name}
-            </Accordion.Title>
-            <Accordion.Content active={activeIndex === skill.id}>
-              {/* {renderSubSkills(skill.subSkills)} */}
-            </Accordion.Content>
-          </div>
-        });
-    };
-    
+
     return (
+      
         <Sidebar 
             style={{ textColor: 'white'}}
             as={Menu}
@@ -64,46 +89,31 @@ function VerticalSidebar({
             visible={visible}
             width='thin'
         >
-        <Accordion styled>{renderSkills(allSkills)}</Accordion>
-        </Sidebar>
-    ) 
-};
-    
-
-
-
-//     return (
-      
-//       <Sidebar 
-//         style={{ textColor: 'white'}}
-//         as={Menu}
-//         animation={animation}
-//         direction={direction}
-//         inverted
-//         vertical
-//         visible={visible}
-//         width='thin'
-//       >
-//       Available Skills
-//         {
-//           allSkills?.map((skill) => {
-//             return (
-
-
-
-//               <SkillList 
-//                 key={skill._id} 
-//                 skill={skill} 
-//                 handleAddSkill={handleAddSkill}
-//                 handleDeleteSkill={handleDeleteSkill} 
-//               />
-//             )
-//           })
-//         }
+        Available Skills
+        <SkillList 
+            allSkills={allSkills}
         
-//       </Sidebar>
-//     )
+        />
+        
+      </Sidebar>
+    )
   
-//   }
+  }
 
 export default VerticalSidebar;
+
+        {/* {
+          allSkills?.map((skill) => {
+            return (
+
+
+
+              <SkillList 
+                key={skill._id} 
+                skill={skill} 
+                handleAddSkill={handleAddSkill}
+                handleDeleteSkill={handleDeleteSkill} 
+              />
+            )
+          })
+        } */}
