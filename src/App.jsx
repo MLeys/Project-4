@@ -29,6 +29,8 @@ export default function App() {
   const [skill, setSkill] = useState('')
   const [ifSkillPage, setIfSkillPage] = useState(false)
 
+  console.log(skills, "<== skills ( app )")
+
   function isSkillPage(bool) {
     setIfSkillPage(bool)
   }
@@ -120,8 +122,9 @@ export default function App() {
   async function getSkills() {
     try {
       const response = await skillsApi.getAll();
-
+      console.log(response.data, "<< response.data ( getSkills )")
       setSkills(response.data)
+      console.log(skills, "<<== SKILLS ( getSkills() )")
     } catch(err) {
       setError(console.log('^^^^ getSkills Error!!! ^^^^'));
       console.log(err, '<--- getSkills ERROR');
