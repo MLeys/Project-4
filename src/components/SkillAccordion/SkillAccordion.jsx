@@ -4,12 +4,12 @@ import { Accordion, Button, Icon } from 'semantic-ui-react';
 function SkillAccordion({ allSkills, currentUser }) {
   const [activeIndex, setActiveIndex] = useState(-1);
   const [skills, setSkills] = useState([]);
-
+	console.log(skills, "<- users skills")
   useEffect(() => {
     setSkills(allSkills);
   }, [allSkills]);
 
-  const handleSubSkillClick = (e, subSkill) => {
+  function handleSubSkillClick(e, subSkill) {
     e.stopPropagation();
     e.preventDefault();
     // check if the current user is already assigned to this subskill
@@ -31,6 +31,7 @@ function SkillAccordion({ allSkills, currentUser }) {
     <Accordion styled>
       {skills.map((skill, index) => (
         <div key={skill._id}>
+
           <Accordion.Title
             active={activeIndex === index}
             index={index}
@@ -54,6 +55,7 @@ function SkillAccordion({ allSkills, currentUser }) {
               </Button>
             )}
           </Accordion.Title>
+					
           <Accordion.Content active={activeIndex === index}>
             <Accordion styled>
               {skill.subSkills.map((subSkill) => (

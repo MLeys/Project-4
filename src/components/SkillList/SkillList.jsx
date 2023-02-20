@@ -9,9 +9,8 @@ import {
 
 import "./SkillList.css"
 
-
-
 function SkillList({ allSkills }) {
+
   const AccordionPanel = ({ title, content }) => (
     <Accordion.AccordionPanel key={title} title={title}>
       {content}
@@ -19,7 +18,6 @@ function SkillList({ allSkills }) {
       <button>Button 2</button>
     </Accordion.AccordionPanel>
   )
-
   
 
 
@@ -53,38 +51,12 @@ function SkillList({ allSkills }) {
 
   return (
     <Accordion
-    className='vSidebar' 
-    defaultActiveIndex={0} 
-    // panels={rootPanels}
-    fluid="true"
-    styled
-  >
-  {allSkills.map(skill => (
-    <AccordionPanel
-      key={skill._id}
-      title={skill.name}
-      content={(
-        <div>
-          <p>Type: {skill.type}</p>
-          <ul>
-            {skill.subSkills.map(subSkill => (
-              <li key={subSkill._id}>
-                <p>{subSkill.title}</p>
-                <ul>
-                  {subSkill.resources.map(resource => (
-                    <li key={resource._id}>
-                      <a href={resource.url}>{resource.title}</a>
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-    />
-  ))}
-  </Accordion>
+      className='vSidebar' 
+      defaultActiveIndex={0} 
+      panels={rootPanels}
+      fluid="true"
+      styled>
+      </Accordion>
   )
 };
 

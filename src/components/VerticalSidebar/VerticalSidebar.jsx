@@ -7,7 +7,8 @@ import {
     Icon
 } from "semantic-ui-react";
 
-import SkillList from "../SkillList/SkillList";
+// import SkillList from "../SkillList/SkillList";
+import SkillAccordion from "../SkillAccordion/SkillAccordion";
 
 function VerticalSidebar({
     animation, direction, visible, loggedUser,
@@ -87,15 +88,12 @@ function VerticalSidebar({
             inverted
             vertical
             visible={visible}
-            width='thin'
+            width='wider'
         >
         Available Skills
-        <SkillList 
-            allSkills={allSkills}
-        
-        />
-        
-      </Sidebar>
+        {/* <SkillList allSkills={allSkills}/> */}
+        <SkillAccordion allSkills={allSkills} currentUser={loggedUser}/>
+        </Sidebar>
     )
   
   }
