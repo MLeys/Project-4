@@ -154,7 +154,6 @@ export default function App() {
   async function assignSkillUser(skill) {
     try {
       const response = await skillsApi.assignUser(user, skill._id)
-
       getSkills();
     } catch(err) {
       console.log(err, "<--assign Skill error")
@@ -165,11 +164,29 @@ export default function App() {
     try {
       const response = await skillsApi.unAssignUser(user, skill._id)
       getSkills();
-
     } catch(err) {
       console.log(err, "<--unassign Skill error")
     }
   }
+
+  async function assignSubUser(subskill) {
+    try {
+      const response = await skillsApi.assignUser(user, subskill._id)
+      getSkills();
+    } catch(err) {
+      console.log(err, "<--assign Skill error")
+    }
+  }
+
+  async function unAssignSubUser(subskill) {
+    try {
+      const response = await skillsApi.unAssignUser(user, subskill._id)
+      getSkills();
+    } catch(err) {
+      console.log(err, "<--unassign Skill error")
+    }
+  }
+
 
 
   useEffect(() => {
@@ -192,6 +209,8 @@ export default function App() {
           element={<Layout
             unAssignSkillUser={unAssignSkillUser}
             assignSkillUser={assignSkillUser}
+            unAssignSubUser={unAssignSkillUser}
+            assignSubUser={assignSkillUser}
 
             getSkill={getSkill} 
             skill={skill} 

@@ -28,6 +28,7 @@ import MainFooter from '../../components/MainFooter/MainFooter';
 function Layout({ 
   loggedUser, handleLogout,
   assignSkillUser, unAssignSkillUser,
+  assignSubUser, unAssignSubUser,
   getSkill, getSkills, skill, allSkills,
   handleAddSkill, handleDeleteSkill,
   handleClose,    

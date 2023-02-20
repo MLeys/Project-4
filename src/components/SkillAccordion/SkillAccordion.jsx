@@ -4,7 +4,26 @@ import { Accordion, Button, Icon } from 'semantic-ui-react';
 function SkillAccordion({ allSkills, currentUser }) {
   const [activeIndex, setActiveIndex] = useState(-1);
   const [skills, setSkills] = useState([]);
+	const [assignSkillIndex, setAssignSkillIndex] = useState(-1);
+	const [assignSkillColor, setAssignSkillColor] = useState(null);
+	const [assignSkillIcon, setAssignSkillIcon] = useState(null);
 	// console.log(skills, "<- users skills")
+	
+	const colorIfAssigned = 'red';
+	const colorIfNotAssigned = 'green'
+	// setAssignSkillIndex(skill.usersAssigned.some(user => user._id === currentUser._id));
+	// setAssignSkillColor(assignSkillIndex ? 'red' : 'green');
+	// setAssignSkillIcon(assignSkillIndex ? 'minus' : 'plus');
+
+
+	function assignSkillAttrs(skill) {
+		setAssignSkillIndex(skill.usersAssigned.some(user => user._id === currentUser._id));
+
+		setAssignSkillColor(assignSkillIndex ? 'red' : 'green');
+		setAssignSkillIcon(assignSkillIndex ? 'minus' : 'plus');
+		// const assignSkillContent = assignSkillIndex ? 'unassign' : 'assign'
+	}
+
   useEffect(() => {
     setSkills(allSkills);
   }, [allSkills]);
@@ -15,6 +34,7 @@ function SkillAccordion({ allSkills, currentUser }) {
     // check if the current user is already assigned to this subskill
     const isAssigned = subSkill.usersAssigned.some(user => user._id === currentUser._id);
     // if the user is already assigned, unassign them, otherwise assign them
+
     if (isAssigned) {
       subSkill.usersAssigned = subSkill.usersAssigned.filter(user => user._id !== currentUser._id);
     } else {
@@ -27,10 +47,16 @@ function SkillAccordion({ allSkills, currentUser }) {
     setActiveIndex(activeIndex === index ? -1 : index);
   };
 
+	
+	
+
+
   return (
     <Accordion styled>
       {skills.map((skill, index) => (
         <div key={skill._id}>
+					{assignSkillAttrs(skill)}
+				
 
           <Accordion.Title
             active={activeIndex === index}
@@ -39,6 +65,7 @@ function SkillAccordion({ allSkills, currentUser }) {
           >
             <Icon name="dropdown" />
             {skill.name}
+						<Icon name={assignSkillIcon} size='mini' color={assignSkillColor}></Icon>
             {skill.usersAssigned.some(user => user._id === currentUser._id) ? (
               <Button compact size="mini" color="red" floated="right" onClick={() => {
                 skill.usersAssigned = skill.usersAssigned.filter(user => user._id !== currentUser._id);
