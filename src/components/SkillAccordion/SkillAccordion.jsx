@@ -4,7 +4,7 @@ import { Accordion, Button, Icon } from 'semantic-ui-react';
 function SkillAccordion({ allSkills, currentUser }) {
   const [activeIndex, setActiveIndex] = useState(-1);
   const [skills, setSkills] = useState([]);
-	console.log(skills, "<- users skills")
+	// console.log(skills, "<- users skills")
   useEffect(() => {
     setSkills(allSkills);
   }, [allSkills]);

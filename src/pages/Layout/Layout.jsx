@@ -26,9 +26,11 @@ import SidebarReducer from '../../components/Reducers/SidebarReducer';
 import MainFooter from '../../components/MainFooter/MainFooter';
 
 function Layout({ 
-  handleClose, loggedUser, handleLogout,
+  loggedUser, handleLogout,
+  assignSkillUser, unAssignSkillUser,
   getSkill, getSkills, skill, allSkills,
-  handleAddSkill, handleDeleteSkill,   
+  handleAddSkill, handleDeleteSkill,
+  handleClose,    
 
 }) {
   // console.log(allSkills, "<-- all skills (layout)")

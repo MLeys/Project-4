@@ -29,12 +29,6 @@ export default function App() {
   const [skill, setSkill] = useState('')
   const [ifSkillPage, setIfSkillPage] = useState(false)
 
-  console.log(skills, "<== skills ( app )")
-
-  function isSkillPage(bool) {
-    setIfSkillPage(bool)
-  }
-
 
   async function searchYouTube(search) {
     
@@ -233,7 +227,7 @@ export default function App() {
           <Route
             path="skills/:skillName"
             element={<SkillPage 
-              isSkillPage={isSkillPage}
+              
               unAssignSkillUser={unAssignSkillUser}
               assignSkillUser={assignSkillUser}
               handleAddSubSkill={handleAddSubSkill} 
