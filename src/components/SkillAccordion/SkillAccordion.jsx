@@ -11,7 +11,7 @@ import {
 import SubSkillAccordion from '../SubSkillAccordion/SubSkillAccordion';
 
 
-function SkillAccordion({ allSkills, currentUser, skill }) {
+function SkillAccordion({ allSkills, currentUser, skill, assignSkillUser, unAssignSkillUser }) {
 	// console.log(skill, "<-SkillAccordion skill")
 	console.log("Hitting SkillAccordion")
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -40,6 +40,7 @@ function SkillAccordion({ allSkills, currentUser, skill }) {
     setSkills(allSkills);
   }, [allSkills]);
 
+	
 
 
   const handleSkillClick = (e, index) => {
@@ -51,17 +52,30 @@ function SkillAccordion({ allSkills, currentUser, skill }) {
 		const assignSkillColor = assignSkillIndex ? 'red' : 'green';
 		const assignSkillIcon =  assignSkillIndex ? 'minus' : 'plus';
 		const assignSkillContent = assignSkillIndex ? 'unassign' : 'assign';
+		function handleAssignSkillUser(skill) {
+			return assignSkillIndex ? () => unAssignSkillUser(skill) : assignSkillUser(skill);
+		} 
+
+
 		return (
 			<>
-				<Segment padded>
 
-					<Icon name="dropdown" />
-					{skill.name}
-					<Label as='a' size='mini' attached='top right' color={assignSkillColor}> 
-						<Icon name={assignSkillIcon} size='small'  />
-							{assignSkillContent}
-					</Label>
-				</Segment>
+				
+
+				<Icon name="dropdown" />
+				{skill.name}
+				<Label 
+					as='a' 
+					size='mini' 
+					attached='top right' 
+					color={assignSkillColor}
+					onClick={(e) => handleAssignSkillUser}
+
+					
+				> 
+					<Icon name={assignSkillIcon} size='small'  />
+						{assignSkillContent}
+				</Label>
 				
 			</>
 		)
@@ -79,9 +93,12 @@ function SkillAccordion({ allSkills, currentUser, skill }) {
 					
 	
 						<Accordion.Title
+							as={Segment}
 							active={activeIndex === index}
 							index={index}
 							onClick={(e) => handleSkillClick(e, index)}
+							
+
 						>
 							{skillAssignComp(skill)}
 							
@@ -89,7 +106,7 @@ function SkillAccordion({ allSkills, currentUser, skill }) {
 
 
 
-							{skill.usersAssigned.some(user => user._id === currentUser._id) ? (
+							{/* {skill.usersAssigned.some(user => user._id === currentUser._id) ? (
 								<Button compact size="mini" color="red" floated="right" onClick={() => {
 									skill.usersAssigned = skill.usersAssigned.filter(user => user._id !== currentUser._id);
 									setSkills([...skills]);
@@ -103,7 +120,7 @@ function SkillAccordion({ allSkills, currentUser, skill }) {
 								}}>
 									Assign
 								</Button>
-							)}
+							)}  */}
 						</Accordion.Title>
 						
 						<Accordion.Content active={activeIndex === index}>

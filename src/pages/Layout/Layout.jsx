@@ -73,6 +73,8 @@ function Layout({
           handleDeleteSkill={handleDeleteSkill}
           handleAddSkill={handleAddSkill}
           handleClose={handleClose}
+          assignSkillUser={assignSkillUser}
+          unAssignSkillUser={unAssignSkillUser}
         />      
         <Sidebar.Pusher  dimmed={dimmed && visible}>
           <Segment.Group>
