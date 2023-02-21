@@ -10,12 +10,13 @@ import {
 // import SkillList from "../SkillList/SkillList";
 import SkillAccordion from "../SkillAccordion/SkillAccordion";
 
+
 function VerticalSidebar({
     animation, direction, visible, loggedUser,
     allSkills, handleAddSkill, handleDeleteSkill,
     handleClose
 }) {
-    console.log(allSkills, "<= allSkills ( vSidebar )")
+    // console.log(allSkills, "<= allSkills ( vSidebar )")
 //     const [activeIndex, setActiveIndex] = useState(null);
 
 
@@ -88,11 +89,12 @@ function VerticalSidebar({
             inverted
             vertical
             visible={visible}
-            width='wider'
+            
         >
         Available Skills
-        {/* <SkillList allSkills={allSkills}/> */}
-        <SkillAccordion allSkills={allSkills} currentUser={loggedUser}/>
+
+        <SkillAccordion allSkills={allSkills} currentUser={loggedUser} />
+
         </Sidebar>
     )
   

@@ -41,7 +41,7 @@ function Layout({
     dimmed: false,
     visible: false,
   })
-  console.log(allSkills, "<-- all skills (layout)")
+  // console.log(allSkills, "<-- all skills (layout)")
   
   const { animation, dimmed, direction, visible } = sidebarState;
 
