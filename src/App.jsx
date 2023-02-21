@@ -153,6 +153,7 @@ export default function App() {
 
   async function assignSkillUser(skill) {
     try {
+      console.log("ASSIGN SKILL USER")
       const response = await skillsApi.assignUser(user, skill._id)
       getSkills();
     } catch(err) {

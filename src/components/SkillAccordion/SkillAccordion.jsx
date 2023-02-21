@@ -16,25 +16,6 @@ function SkillAccordion({ allSkills, currentUser, skill, assignSkillUser, unAssi
 	console.log("Hitting SkillAccordion")
   const [activeIndex, setActiveIndex] = useState(-1);
   const [skills, setSkills] = useState([]);
-	// const [assignSkillIndex, setAssignSkillIndex] = useState(-1);
-	// const [assignSkillColor, setAssignSkillColor] = useState(null);
-	// const [assignSkillIcon, setAssignSkillIcon] = useState(null);
-	// console.log(skills, "<- users skills")
-	
-	// const colorIfAssigned = 'red';
-	// const colorIfNotAssigned = 'green'
-	// setAssignSkillIndex(skill.usersAssigned.some(user => user._id === currentUser._id));
-	// setAssignSkillColor(assignSkillIndex ? 'red' : 'green');
-	// setAssignSkillIcon(assignSkillIndex ? 'minus' : 'plus');
-
-
-	// function assignSkillAttrs(skill) {
-	// 	setAssignSkillIndex(skill.usersAssigned.some(user => user._id === currentUser._id));
-
-	// 	setAssignSkillColor(assignSkillIndex ? 'red' : 'green');
-	// 	setAssignSkillIcon(assignSkillIndex ? 'minus' : 'plus');
-	// 	// const assignSkillContent = assignSkillIndex ? 'unassign' : 'assign'
-	// }
 
   useEffect(() => {
     setSkills(allSkills);
@@ -47,35 +28,46 @@ function SkillAccordion({ allSkills, currentUser, skill, assignSkillUser, unAssi
     setActiveIndex(activeIndex === index ? -1 : index);
   };
 
-	const skillAssignComp = (skill) => {
+
+	function handleAssignSkillUser(skill) {
+		const assignSkillIndex = skill.usersAssigned.some(user => user._id === currentUser._id);
+		if (assignSkillIndex) {
+			unAssignSkillUser(skill);
+		} else {
+			assignSkillUser(skill);
+		}
+	};
+
+	const skillAssignComp = (skill, index) => {
 		const assignSkillIndex = skill.usersAssigned.some(user => user._id === currentUser._id);
 		const assignSkillColor = assignSkillIndex ? 'red' : 'green';
 		const assignSkillIcon =  assignSkillIndex ? 'minus' : 'plus';
 		const assignSkillContent = assignSkillIndex ? 'unassign' : 'assign';
-		function handleAssignSkillUser(skill) {
-			return assignSkillIndex ? () => unAssignSkillUser(skill) : assignSkillUser(skill);
-		} 
+
+		
 
 
 		return (
 			<>
-
-				
-
+			
 				<Icon name="dropdown" />
 				{skill.name}
-				<Label 
+				
+				<Label
 					as='a' 
 					size='mini' 
 					attached='top right' 
 					color={assignSkillColor}
-					onClick={(e) => handleAssignSkillUser}
-
-					
+					onClick={(e) => {
+						e.stopPropagation();
+						e.preventDefault();
+						handleAssignSkillUser(skill);
+					}}
 				> 
 					<Icon name={assignSkillIcon} size='small'  />
 						{assignSkillContent}
 				</Label>
+			
 				
 			</>
 		)
@@ -85,26 +77,31 @@ function SkillAccordion({ allSkills, currentUser, skill, assignSkillUser, unAssi
 		<>
 		{
 			skills.map((skill, index) => (
-				
 				<Accordion styled>
-				{/* {skills.map((skill, index) => ( */}
 					<div key={skill._id}>
-						{/* {assignSkillAttrs(skill)} */}
-					
-	
 						<Accordion.Title
 							as={Segment}
 							active={activeIndex === index}
 							index={index}
 							onClick={(e) => handleSkillClick(e, index)}
-							
-
-						>
-							{skillAssignComp(skill)}
-							
-		
-
-
+							children={skillAssignComp(skill, index)}
+						/>
+						<Accordion.Content active={activeIndex === index}>
+								<SubSkillAccordion
+									skill={skill}
+								/>
+						</Accordion.Content>
+					</div>
+			</Accordion>
+			))
+		}
+		</>
+  
+	)
+}
+export default SkillAccordion;
+					
+                        
 
 							{/* {skill.usersAssigned.some(user => user._id === currentUser._id) ? (
 								<Button compact size="mini" color="red" floated="right" onClick={() => {
@@ -121,25 +118,3 @@ function SkillAccordion({ allSkills, currentUser, skill, assignSkillUser, unAssi
 									Assign
 								</Button>
 							)}  */}
-						</Accordion.Title>
-						
-						<Accordion.Content active={activeIndex === index}>
-								<SubSkillAccordion
-									skill={skill}
-	
-								/>
-						</Accordion.Content>
-					</div>
-				{/* ))} */}
-			</Accordion>
-				
-			))
-		}
-		</>
-  
-	)
-}
-export default SkillAccordion;
-					
-                        
-

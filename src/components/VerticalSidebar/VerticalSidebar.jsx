@@ -12,6 +12,7 @@ import SkillAccordion from "../SkillAccordion/SkillAccordion";
 
 
 function VerticalSidebar({
+    assignSkillUser, unAssignSkillUser,
     animation, direction, visible, loggedUser,
     allSkills, handleAddSkill, handleDeleteSkill,
     handleClose
@@ -93,7 +94,12 @@ function VerticalSidebar({
         >
         Available Skills
 
-        <SkillAccordion allSkills={allSkills} currentUser={loggedUser} />
+        <SkillAccordion 
+            allSkills={allSkills} 
+            currentUser={loggedUser} 
+            assignSkillUser={assignSkillUser}
+            unAssignSkillUser={unAssignSkillUser}
+        />
 
         </Sidebar>
     )
