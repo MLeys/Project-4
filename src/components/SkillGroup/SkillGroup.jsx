@@ -70,9 +70,10 @@ export default function SkillGroup({ ifAssigned, handleAddSkill, skill, loggedUs
             />
         </Segment>
 
-        <Segment.Group text-align='center' horizontal>       
-            <SubSkillPortal handleAddSubSkill={handleAddSubSkill} skill={skill} />          
-            <SubSkillDisplay skill={skill} handleAddSubSkill={handleAddSubSkill}/>
+        <Segment.Group text-align='center' horizontal >       
+            <SubSkillPortal handleAddSubSkill={handleAddSubSkill} skill={skill} />       
+            <SubSkillCard skill={skill} handleAddSubSkill={handleAddSubSkill}/>  
+            {/* <SubSkillDisplay skill={skill} handleAddSubSkill={handleAddSubSkill}/> */}
             <ResourceDisplay skill={skill} />
 
 

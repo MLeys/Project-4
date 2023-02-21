@@ -54,6 +54,7 @@ function SkillAccordion({ allSkills, currentUser, skill, assignSkillUser, unAssi
 				{skill.name}
 				
 				<Label
+					key={`sidebar-title-label-${skill._id}`}
 					as='a' 
 					size='mini' 
 					attached='top right' 
@@ -77,9 +78,10 @@ function SkillAccordion({ allSkills, currentUser, skill, assignSkillUser, unAssi
 		<>
 		{
 			skills.map((skill, index) => (
-				<Accordion styled>
-					<div key={skill._id}>
+				<Accordion styled key={`${skill._id}-accordion`}>
+					
 						<Accordion.Title
+							key={`sidebar-title-${skill._id}`}
 							as={Segment}
 							active={activeIndex === index}
 							index={index}
@@ -89,9 +91,10 @@ function SkillAccordion({ allSkills, currentUser, skill, assignSkillUser, unAssi
 						<Accordion.Content active={activeIndex === index}>
 								<SubSkillAccordion
 									skill={skill}
+									key={`${skill._id}-subskills`}
 								/>
 						</Accordion.Content>
-					</div>
+					
 			</Accordion>
 			))
 		}
