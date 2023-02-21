@@ -154,8 +154,14 @@ export default function App() {
   async function assignSkillUser(skill) {
     try {
       console.log("ASSIGN SKILL USER")
-      const response = await skillsApi.assignUser(user, skill._id)
-      getSkills();
+      const isAssigned = skill.usersAssigned.some(user => user._id === loggedUser._id);
+      if (!isAssigned) {
+        const response = await skillsApi.assignUser(user, skill._id)
+        getSkills();
+      } else {
+        console.log("*** User Already Assigned ***")
+      }
+
     } catch(err) {
       console.log(err, "<--assign Skill error")
     }
