@@ -44,9 +44,6 @@ function SkillAccordion({ allSkills, currentUser, skill, assignSkillUser, unAssi
 		const assignSkillIcon =  assignSkillIndex ? 'minus' : 'plus';
 		const assignSkillContent = assignSkillIndex ? 'unassign' : 'assign';
 
-		
-
-
 		return (
 			<>
 			
@@ -69,7 +66,6 @@ function SkillAccordion({ allSkills, currentUser, skill, assignSkillUser, unAssi
 						{assignSkillContent}
 				</Label>
 			
-				
 			</>
 		)
 	}

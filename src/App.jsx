@@ -87,9 +87,9 @@ export default function App() {
         // setSkill(updatedSkill)
         const response = await subSkillsApi.create(subskill);
         console.log(response, "++++ handleAddSUBskill RESPONSE")
-        setSkill(response.skill)
+        setSkill(response.skill);
         getSkills();
-        return skill
+        // return skill;
         
     } catch(err){
         console.log(err, " Error IN THE HANDLEADDsubskill")
@@ -102,9 +102,9 @@ export default function App() {
         // setSubSkill(updatedSkill)
         const response = await subSkillsApi.update(subskill);
         console.log(response, "++++ EDIT SUBSKILL RESPONSE")
-        setSkill(response.skill)
+        setSkill(response.skill);
         getSkills();
-        return skill;
+        // return skill;
         
         
     } catch(err){
@@ -118,9 +118,9 @@ export default function App() {
   async function getSkills() {
     try {
       const response = await skillsApi.getAll();
-      console.log(response.data, "<< response.data ( getSkills )")
+      // console.log(response.data, "<< response.data ( getSkills )")
       setSkills(response.data)
-      console.log(skills, "<<== SKILLS ( getSkills() )")
+      // console.log(skills, "<<== SKILLS ( getSkills() )")
     } catch(err) {
       setError(console.log('^^^^ getSkills Error!!! ^^^^'));
       console.log(err, '<--- getSkills ERROR');

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Grid, Segment} from "semantic-ui-react";
 
 import MainSideBar from "../../_UNUSED/MainSideBar/MainSideBar";
-import SkillDisplay from "../../components/SkillDisplay/SkillDisplay";
+import SkillDisplay from "../../_UNUSED/SkillDisplay/SkillDisplay";
 import { unAssignUser } from "../../utils/skillApi";
 
 
