@@ -16,9 +16,9 @@ import subSkills from "../../../controllers/subSkills";
 import SubSkillCard from "../../components/SubSkillCard/SubSkillCard";
 
 
-export default function SubSkillPage({ loggedUser, skill, allSkills, getSkills,handleEditSubSkill, handleAddSubSkill}) {
+export default function SubSkillPage({ loggedUser, skill, allSkills, getSkills, handleEditSubSkill, handleAddSubSkill}) {
     
-    const subParams = useParams()
+    const subParams = useParams();
     const parentName = useParams().skillName;
     const subId = useParams().id 
     // console.log(allSkills, "all skills here")
@@ -29,16 +29,17 @@ export default function SubSkillPage({ loggedUser, skill, allSkills, getSkills,h
     // console.log(subSkills, "subskills")
     const subSkill = subSkills?.find((sub) => sub._id === subId)
 
-    console.log(parentName, subId, subParams)
-    console.log(subSkill, "<--subSkill on subSkillPage")
+    console.log(`parent: ${parentName} \n subSkillID: ${subId} \n subParams: ${subParams} \n subSkill: ${subSkill}\nparentSkill: ${parentSkill}\n`)
+    // console.log(parentName, subId, subParams, "Three things from subskillpage")
+    // console.log(subSkill, "<--subSkill on subSkillPage")
     
     const navigate = useNavigate();
     
     const [state, setState] = useState({
         subId: subId,
-        title: subSkill?.title,
-        details: subSkill?.details,
-        parentSkill: subSkill?.parentSkill,
+        title: subSkill.title,
+        details: subSkill.details,
+        parentSkill: subSkill.parentSkill,
 
     })
 
@@ -55,20 +56,18 @@ export default function SubSkillPage({ loggedUser, skill, allSkills, getSkills,h
 		e.preventDefault();
 	
 		console.log(state, "<___<<<<<<<< state in handleSubmit")
-        console.log(subSkill, "SUCCK IT")
 		handleEditSubSkill(state);
     navigate('/');
 	}
     
   return (
 	<Segment>
-        
         <Form onSubmit={handleSubmit}>
             <Form.Input
                 className="form-control"
                 name="title"
                 value={state.title}
-                placeholder="Enter Skill Name"
+                placeholder="{state.title}"
                 onChange={handleChange}
                 
             />

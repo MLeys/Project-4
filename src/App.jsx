@@ -103,7 +103,9 @@ export default function App() {
         const response = await subSkillsApi.update(subskill);
         console.log(response, "++++ EDIT SUBSKILL RESPONSE")
         setSkill(response.skill)
-        return skill
+        getSkills();
+        return skill;
+        
         
     } catch(err){
         console.log(err, " Error IN THE HANDLEADDsubskill")
@@ -130,7 +132,7 @@ export default function App() {
     console.log(skillName, "<-getSkill SkillName")
     try {
       const response = await skillsApi.getOneSkill(skillName)
-      console.log(response, "<-- getSkillByNameResponse")
+      // console.log(response, "<-- getSkillByNameResponse")
       setSkill(response.skillDoc)
       
       

@@ -3,12 +3,13 @@ const Schema = mongoose.Schema;
 
 
 const resourceSchema = new Schema({
-    userCreated:  {type: Schema.Types.ObjectId, ref: 'User', autopopulate: true},
+    // userCreated:  {type: Schema.Types.ObjectId, ref: 'User', autopopulate: true},
     title: String,
-    skill:  {type: Schema.Types.ObjectId, ref: 'Skill', autopopulate: true},
+    parentSkillId:  {type: Schema.Types.ObjectId, ref: 'Skill', autopopulate: true},
+    parentSubSkillName, String,
     source: String,
     usersAssigned: [{type: Schema.Types.ObjectId, ref: 'User', autopopulate: true}],
-    keywords: [String]
+    // 
 }, {
     timestamps: true
 })

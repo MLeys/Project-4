@@ -35,7 +35,8 @@ export function getAllSubSkills(skillName) {
 }
 
 export function update(subskill){
-    console.log(subskill.subId, "<--- UPDATE subskill API")
+	console.log(`\n\nSubskillAPI Params passed: ${subskill}\n\n`)
+    // console.log(subskill.subId, "<--- UPDATE subskill API")
 
 	return fetch(`${BASE_URL}subskills/${subskill.subId}/update`, {
         method: 'PUT',

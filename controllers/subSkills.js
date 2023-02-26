@@ -30,10 +30,10 @@ async function update(req, res){
         console.log(req.body, "req.body update")
         
         const skill = await Skill.findOne({'subSkills._id': req.params.id})
-        console.log(skill, "<--Update Subskill")
-        const subskills = skill.subSkills
-        console.log(subskills, "<- subskills")
-        const subIndex = subskills.findIndex(s =>  s.id === req.params.id)
+        // console.log(skill, "<--Update Subskill")
+        // const subskills = skill.subSkills
+        // console.log(subskills, "<- subskills")
+        const subIndex = skill.subSkills.findIndex(s =>  s.id === req.params.id)
         
         skill.subSkills[subIndex].title = req.body.title
         skill.subSkills[subIndex].details = req.body.details
