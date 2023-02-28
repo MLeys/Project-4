@@ -44,6 +44,7 @@ function Dashboard({
       <Tab.Pane>
         <SkillDisplay key={skill.id} skill={skill} handleAddSkill={handleAddSkill} loggedUser={loggedUser} unAssignSkillUser={unAssignSkillUser} assignSkillUser={assignSkillUser} handleAddSubSkill={handleAddSubSkill} allSkills={allSkills}  />
       </Tab.Pane>
+      
     )
 	}));
 
