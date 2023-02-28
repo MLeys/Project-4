@@ -63,7 +63,7 @@ function SkillAccordion({ allSkills, currentUser, skill, assignSkillUser, unAssi
 					}}
 				> 
 					<Icon name={assignSkillIcon} size='small'  />
-						{assignSkillContent}
+					{assignSkillContent}
 				</Label>
 			
 			</>
@@ -74,23 +74,22 @@ function SkillAccordion({ allSkills, currentUser, skill, assignSkillUser, unAssi
 		<>
 		{
 			skills.map((skill, index) => (
-				<Accordion styled key={`${skill._id}-accordion`}>
-					
-						<Accordion.Title
-							key={`sidebar-title-${skill._id}`}
-							as={Segment}
-							active={activeIndex === index}
-							index={index}
-							onClick={(e) => handleSkillClick(e, index)}
-							children={skillAssignComp(skill, index)}
+			<Accordion styled key={`${skill._id}-accordion`}>
+				
+				<Accordion.Title
+					key={`sidebar-title-${skill._id}`}
+					as={Segment}
+					active={activeIndex === index}
+					index={index}
+					onClick={(e) => handleSkillClick(e, index)}
+					children={skillAssignComp(skill, index)}
+				/>
+				<Accordion.Content active={activeIndex === index}>
+						<SubSkillAccordion
+							skill={skill}
+							key={`${skill._id}-subskills`}
 						/>
-						<Accordion.Content active={activeIndex === index}>
-								<SubSkillAccordion
-									skill={skill}
-									key={`${skill._id}-subskills`}
-								/>
-						</Accordion.Content>
-					
+				</Accordion.Content>	
 			</Accordion>
 			))
 		}
