@@ -4,9 +4,9 @@ import {
 
 
 function SkillProgressBar({skill}) {
-    console.log(`Skill(pbar):  ${skill}`)
+    console.log(`Skill(pbar):  ${skill.name}`)
     return ( 
-        <Progress value='4' total='5' progress='percent' label={skill.name} />
+        <Progress value='4' total='8' progress='percent' label={skill.name} key={`pBar-${skill._id}`} />
      );
 }
 
