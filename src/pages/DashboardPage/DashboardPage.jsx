@@ -57,16 +57,25 @@ function Dashboard({
   return (
     <>
     <Grid>
-      <Grid.Row> 
-        <Grid.Column width={3} />
-        <Grid.Column width={8}>
-          <UserSkillsBarGraph userSkills={userSkills} />
+      <Grid.Row>
+        <Grid.Column>
+          <Segment color='blue' inverted size='huge'>
+            Skills Dashboard
+          </Segment>
         </Grid.Column>
-        <Grid.Column width={5} />
+      </Grid.Row>
+      <Grid.Row> 
+        <Grid.Column width={2} />
+        <Grid.Column width={12}>
+          <Segment  raised>
+            <UserSkillsBarGraph userSkills={userSkills} />
+          </Segment>
+        </Grid.Column>
+        <Grid.Column width={2} />
       </Grid.Row>
       <Grid.Row>
         <Grid.Column>
-        <Tab menu={{ renderActiveOnly: false, attached: false, tabular: false, vertical: false, borderless: true }} panes={skillPanes} />
+        <Tab menu={{ widths: userSkills.length ,color: 'purple', inverted: true, attached: false, tabular: false, vertical: false, borderless: true }} panes={skillPanes} />
         </Grid.Column>
       </Grid.Row>
     </Grid>
@@ -101,4 +110,4 @@ export default Dashboard;
 
 //   })
 
-// }
+// }2
