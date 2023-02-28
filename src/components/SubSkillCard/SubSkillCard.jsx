@@ -25,7 +25,7 @@ const navigate = useNavigate();
 				})
 
 				return (
-					<Card fluid onClick={() => navigate(`/skills/${skill?.name}/subskill/${sub._id}`)}>
+					<Card key={`subCard-${sub._id}`} fluid onClick={() => navigate(`/skills/${skill?.name}/subskill/${sub._id}`)}>
 						<Card.Content>
 							{sub?.title}
 							{resources}

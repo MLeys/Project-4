@@ -13,7 +13,7 @@ import SubSkillAccordion from '../SubSkillAccordion/SubSkillAccordion';
 
 function SkillAccordion({ allSkills, currentUser, skill, assignSkillUser, unAssignSkillUser }) {
 	// console.log(skill, "<-SkillAccordion skill")
-	console.log("Hitting SkillAccordion")
+	// console.log("Hitting SkillAccordion")
   const [activeIndex, setActiveIndex] = useState(-1);
   const [skills, setSkills] = useState([]);
 
@@ -24,9 +24,9 @@ function SkillAccordion({ allSkills, currentUser, skill, assignSkillUser, unAssi
 	
 
 
-  const handleSkillClick = (e, index) => {
-    setActiveIndex(activeIndex === index ? -1 : index);
-  };
+	const handleSkillClick = (e, index) => {
+		setActiveIndex(activeIndex === index ? -1 : index);
+	};
 
 
 	function handleAssignSkillUser(skill) {
