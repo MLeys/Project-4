@@ -31,22 +31,7 @@ function UserSkillsBarGraph({ userSkills }) {
 	// 		}
 	// 	})
 	// ]
-	const skillPanes = userSkills.map((skill) => ({
-		menuItem: (
-			
-				<Progress  value='4' total='8' progress='percent' label={skill.name} key={`pBar-${skill._id}`} />
-			
-		),
-		pane: 
-			<Tab.Pane key={skill.id} attached={false}>
-				{skill.name} hand
-			</Tab.Pane>,
-	}));
 
-	const TabExampleTabularFalse = () => (
-		<Tab menu={{ attached: false, tabular: false, vertical: true, borderless: true }} panes={skillPanes} />
-	)
-	
 
 	return (<>
 

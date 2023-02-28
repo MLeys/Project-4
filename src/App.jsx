@@ -21,37 +21,23 @@ import * as chatGPT3Api from "./utils/chatGPT3Api.js"
 export default function App() {
   const navigate = useNavigate();
   
-  const [subSkill, setSubSkill] = useState('');
   const [user, setUser] = useState(userService.getUser());
-  const [subSkills, setSubSkills] = useState([])
   const [skills, setSkills] = useState([]);
   const [error, setError] = useState('');
-  const [skill, setSkill] = useState('')
-  const [ifSkillPage, setIfSkillPage] = useState(false)
 
+  // const [userSkills, setUserSkills] = useState([]);
 
-  async function searchYouTube(search) {
+  
+  // function getUserSkills() {
+
+  //   const userSkillsList = skills.filter(skill => skill.usersAssigned.some(assigned => assigned._id === user._id))
+
+  //   // console.log(`userSkillsList: ${userSkillsList}`)
+  //   setUserSkills([...userSkillsList])
+  //   console.log(`userSkills: ${userSkills}`)
+
+  // }
     
-    try {
-      const response = await youTubeApi.searchYouTube(search);
-      console.log(response, " <------ response from YOUTUBE SEARCH");
-
-    } catch (err) {
-      console.log(err.message, " <<<<<YouTube SEARCH ERROR>>>>>");
-    }
-  }
-  async function searchOpenAi(question) {
-    
-    try {
-      const response = await chatGPT3Api.searchOpenAi(question)
-      console.log(response, " <------ response from OPENAI SEARCH");
-
-      
-    } catch (err) {
-      console.log(err.message, " <<<<<OPENAI SEARCH ERROR>>>>>");
-    }
-  }
-
   async function handleDeleteSkill(skillId) {
     try {
       
@@ -65,7 +51,6 @@ export default function App() {
       console.log(err, "<-------handleDelete skill Error")
     }
   }
-
 
   async function handleAddSkill(skill) {
       try {
@@ -113,19 +98,17 @@ export default function App() {
 
   } // END handleAddSubSkill Function
 
-
-
   async function getSkills() {
     try {
       const response = await skillsApi.getAll();
-      // console.log(response.data, "<< response.data ( getSkills )")
       setSkills(response.data)
-      // console.log(skills, "<<== SKILLS ( getSkills() )")
+      // getUserSkills();
+
     } catch(err) {
       setError(console.log('^^^^ getSkills Error!!! ^^^^'));
       console.log(err, '<--- getSkills ERROR');
     }
-    // console.log(skills, " <--- Skills State AFTER getSkills() ")
+
   } // END getSkills Function
 
   async function getSkill(skillName) {
@@ -160,10 +143,11 @@ export default function App() {
       if (!isAssigned) {
         const response = await skillsApi.assignUser(user, skill._id)
         getSkills();
+        
       } else {
         console.log("*** User Already Assigned ***")
       }
-
+      
     } catch(err) {
       console.log(err, "<--assign Skill error")
     }
@@ -173,9 +157,11 @@ export default function App() {
     try {
       const response = await skillsApi.unAssignUser(user, skill._id)
       getSkills();
+      
     } catch(err) {
       console.log(err, "<--unassign Skill error")
     }
+    
   }
 
   async function assignSubUser(subskill) {
@@ -200,7 +186,8 @@ export default function App() {
 
   useEffect(() => {
     getSkills();
-    setIfSkillPage(false);
+    // getUserSkills();
+    
     // searchYouTube();
     // searchOpenAi("top 5 most important software engineering skills");
     
@@ -222,7 +209,7 @@ export default function App() {
             assignSubUser={assignSkillUser}
 
             getSkill={getSkill} 
-            skill={skill} 
+
 
             getSkills={getSkills}
             allSkills={skills} 
@@ -259,7 +246,7 @@ export default function App() {
               unAssignSkillUser={unAssignSkillUser}
               assignSkillUser={assignSkillUser}
               handleAddSubSkill={handleAddSubSkill} 
-              skill={skill} 
+
               allSkills={skills} 
               getSkill={getSkill} 
               getSkills={getSkills}
@@ -281,7 +268,10 @@ export default function App() {
               allSkills = {skills} 
               handleDeleteSkill={handleDeleteSkill}
               handleAddSubSkill={handleAddSubSkill}
-              skill={skill}
+
+              // getUserSkills={getUserSkills}
+              // userSkills={userSkills}
+
               
             />}
           />
@@ -289,8 +279,7 @@ export default function App() {
             <Route
               path="skills/:skillName/subskill/:id"
               element={<SubSkillPage 
-                subSkills={subSkills}
-                skill={skill}
+
                 allSkills={skills} 
                 getSkills={getSkills}
                 getSkill={getSkill} 
@@ -340,4 +329,25 @@ export default function App() {
   // );
 }
 
+// async function searchYouTube(search) {
+    
+//   try {
+//     const response = await youTubeApi.searchYouTube(search);
+//     console.log(response, " <------ response from YOUTUBE SEARCH");
+
+//   } catch (err) {
+//     console.log(err.message, " <<<<<YouTube SEARCH ERROR>>>>>");
+//   }
+// }
+// async function searchOpenAi(question) {
+  
+//   try {
+//     const response = await chatGPT3Api.searchOpenAi(question)
+//     console.log(response, " <------ response from OPENAI SEARCH");
+
+    
+//   } catch (err) {
+//     console.log(err.message, " <<<<<OPENAI SEARCH ERROR>>>>>");
+//   }
+// }
 
