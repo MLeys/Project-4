@@ -40,20 +40,17 @@ function SubSkillPortal({handleAddSubSkill, skill }) {
     return (  
         <div>
             <Label
-                corner='left'
+                attached="top left"
                 color="green" 
                 as='a' 
                 icon='plus' 
                 size="mini" 
-                
+                content='add subskill'
                 disabled={subFormPop}
-                positive="true"
-                onClick={handleOpen} />
+                
+                onClick={handleOpen} 
+            />
 
-            
- 
-
-            
             <Portal onClose={handleClose} open={open}>
                 <Segment inverted
                 

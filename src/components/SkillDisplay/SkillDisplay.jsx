@@ -49,18 +49,19 @@ export default function SkillDisplay({ handleAddSkill, skill, loggedUser, unAssi
 				<Header as={Segment} size="huge" attached="top" to={`/skills/${skill?.name}`} inverted="true" color='teal' >
 					{skill?.name}
 				</Header>
-			<Label
+				<SubSkillPortal handleAddSubSkill={handleAddSubSkill} skill={skill} />
+			{/* <Label
 					corner='left'
 					color="grey" 
 					
 					icon='edit' 
 					size="mini" 
-				/>
-			<Link to={`/skills/${skill?.name}`} > 
-				{/* <Segment fluid="true" raised inverted >
+				/> */}
+			{/* <Link to={`/skills/${skill?.name}`} > 
+				<Header as={Segment} size="huge" attached="top" to={`/skills/${skill?.name}`} inverted="true" color='teal' >
 					{skill?.name}
-				</Segment> */}
-			</Link>
+				</Header>
+			</Link> */}
 			<Label
 				onClick={() => handleAssign()}
 				attached='top right'
@@ -71,7 +72,10 @@ export default function SkillDisplay({ handleAddSkill, skill, loggedUser, unAssi
 				size="mini"         
 			/>
 			</Grid.Row>
-		
+			<Grid.Row>
+
+
+			</Grid.Row>
  
 
 		<Segment.Group text-align='center' horizontal >       
