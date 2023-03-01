@@ -7,18 +7,15 @@ import {
     Icon,
     Label,
     Form,
-    Embed
+    Embed,
+    SegmentGroup
 
 
 } from 'semantic-ui-react';
 
 import SearchResources from '../SearchResources/SearchResources.jsx';
 import * as youTubeApi from "../../utils/youTubeApi.js"
-
-
-
-
-
+import ResourceCard from '../ResourceCard/ResourceCard.jsx';
 
 
 
@@ -43,15 +40,7 @@ function ResourceDisplay({skill}) {
       console.log(err.message, " <<<<<YouTube SEARCH ERROR>>>>>");
     }
   }
-  // function handleChange(e) {
-  //   console.log(e.target.name, "e.target.name in handleChange in Addskillform")
-  //   setState({
-  //     ...state,
-  //     [e.target.search]: e.target.value,
-  //   });
-  //   console.log(state, " <<<UPDATED STATE resource")
-  // }
-  
+
   function handleChange(e){
     setSearchYT(e.target.value)
   }
@@ -64,42 +53,16 @@ function ResourceDisplay({skill}) {
       const videoInfo = await searchYouTube(searchYT);
       setResultSearchYT([...videoInfo])
      
-      
-        // .then(videoInfo => {
-        //   const videos = videoInfo.items.map(item => {
-        //     const video = {
-        //         videoId: item.id.videoId,
-        //         title: item.snippet.title,
-        //         description: item.snippet.description,
-        //         thumbnails: item.snippet.thumbnails.default.url,
-        //         publishTime: item.snippet.publishTime
-        //     }
-        //     return video
-        // })
-        // console.log(`Videos Result(API): ${videos}`)
-        // return videos
-    
-        // }).catch(err => {
-        //   console.error(err)
-        // })
-        
-
     } catch(err) {
       console.log(err, "<<!! ERROR submitting resource search")
     }
 
   }
-  async function consolelogResult() {
-    try {
-      console.log(`LOG RESULT: ${resultSearchYT}`)
-    } catch (err) {
-      console.log(err)
-    }
-  }
+
 
   useEffect(() => {
-   
-  }, []);  
+
+  }, [resultSearchYT]);  
 
 
 
@@ -122,18 +85,12 @@ function ResourceDisplay({skill}) {
         </Button>
 
         </Form>
-      </Segment> 
-        
-      <Embed
-        id={videoId}
-        
-        source='youtube'
-      />
-      <Segment>
-        <SearchResources />
       </Segment>
-
-        
+      <Segment>
+        <Card.Group>
+          <ResourceCard resultSearchYT={resultSearchYT} skill={skill} />
+        </Card.Group>
+      </Segment>
     </Segment.Group>
 
   );
