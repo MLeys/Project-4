@@ -25,13 +25,14 @@ function ResourceCard({liftYouTubeSearchResults, youTubeSearchResults, skill}) {
 		
 
 	}
+	
 
-	function getResources() {
+	function getSearchResults() {
 		(youTubeSearchResults) ? setResources([...youTubeSearchResults]) : '';
 	}
 
 	useEffect(() => {
-		getResources();
+		getSearchResults();
 	}, [youTubeSearchResults]);
 	
 	return (

@@ -10,7 +10,8 @@ import {
 	Icon,
 	Label,
 	Grid,
-	Header
+	Header,
+	Container
 
 
 } from 'semantic-ui-react';
@@ -76,21 +77,21 @@ export default function SkillDisplay({ handleAddSkill, skill, loggedUser, unAssi
 				size="mini"         
 			/>
 			</Grid.Row>
-			<Grid.Row  > 
-				<Header 
-					as={Segment} 
-					size="large" 
-					attached="top" 
-					inverted={true} 
-					secondary={false}
-					color='blue' 
-					content={
-						<SearchYouTube
-							skill={skill}
-							youTubeSearchResults={youTubeSearchResults}
-							liftYouTubeSearchResults={liftYouTubeSearchResults}
-						/>} 
-				/>
+			<Grid.Row stretched={true} color='blue'> 
+				<Grid.Column floated='left' width={12}>
+					
+				</Grid.Column>
+				<Grid.Column floated='right' width={4}>
+					<SearchYouTube
+								skill={skill}
+								youTubeSearchResults={youTubeSearchResults}
+								liftYouTubeSearchResults={liftYouTubeSearchResults}
+							/>
+				</Grid.Column>
+			</Grid.Row>
+			<Grid.Row>
+
+			
 				<Grid.Column width={4}>
 					<SubSkillDisplay 
 						skill={skill} 
