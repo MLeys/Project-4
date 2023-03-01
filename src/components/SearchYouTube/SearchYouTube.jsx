@@ -64,9 +64,8 @@ function SearchYouTube({skill, liftYouTubeSearchResults}) {
 
 
   return (
-    <Segment.Group>
-      {/* <Segment>Resource Display</Segment>
-      <Segment>VideoID {videoId}</Segment> */}
+    
+
       <Segment>
         <Form onSubmit={handleSubmit}>
         <Form.Input
@@ -83,12 +82,7 @@ function SearchYouTube({skill, liftYouTubeSearchResults}) {
 
         </Form>
       </Segment>
-      <Segment>
-        <Card.Group>
-          <ResourceCard resultSearchYT={resultSearchYT} skill={skill} />
-        </Card.Group>
-      </Segment>
-    </Segment.Group>
+
 
   );
 }

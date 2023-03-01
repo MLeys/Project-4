@@ -15,6 +15,16 @@ import {
 
 function ResourceCard({liftYouTubeSearchResults, youTubeSearchResults, skill}) {
 	const [resources, setResources] = useState([]);
+	const [selected, setSelected] = useState();
+
+	function handleSelect(e, resource) {
+		e.stopPropagation();
+		e.preventDefault();
+		console.log(`Data (resourceCard): ${resource}`)
+		setSelected(resource)
+		
+
+	}
 
 	function getResources() {
 		(youTubeSearchResults) ? setResources([...youTubeSearchResults]) : '';
@@ -26,30 +36,34 @@ function ResourceCard({liftYouTubeSearchResults, youTubeSearchResults, skill}) {
 	
 	return (
 	<>{
-		resources.map((res) => {
-			console.log(res.title)
+		resources.map((resource) => {
 			return (
 				
-				<Card key={`search-${skill.name}-${res.videoId}`}>
+				<Card 
+					key={`search-${skill.name}-${resource.videoId}`}
+					onClick={(e) =>{
+						
+						handleSelect(e, resource)} }
+				>
 					<Embed
 						autoplay={false}
 						color='white'
 						hd={false}
-						id={res.videoId}
+						id={resource.videoId}
 						iframe={{
 							allowFullScreen: true,
 							style: {
-								padding: 10,
+								padding: 5,
 							},
 						}}
-						placeholder={res.thumbnail}
+						placeholder={resource.thumbnail}
 						source='youtube'
 					/>
 
 					<Card.Content>
-					<Card.Header content={res.title}/>
-					<Card.Meta content={res.publishTime} />
-					<Card.Description content={res.description} />
+					<Card.Header content={resource.title}/>
+					<Card.Meta content={resource.publishTime} />
+					<Card.Description content={resource.description} />
 					</Card.Content>
 					<Card.Content extra={true}>
 					<div className='ui two buttons'>
