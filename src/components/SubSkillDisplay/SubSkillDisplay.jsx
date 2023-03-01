@@ -21,27 +21,31 @@ import SubSkillCard from '../SubSkillCard/SubSkillCard';
 export default function SubSkillDisplay({skill, handleAddSubSkill, getSkill }) {
 
 
-    const subSkills = skill?.subSkills
+	const subSkills = skill?.subSkills
 
-    return (
-        <div>
-        
-        <Segment.Group fluid="true" raised>
-        <Segment id='subCardTitle' fluid="true" textAlign="left">
-                {/* <Link to={`skills/${skill.name}/subskill`}> */}
-                
-                    <Header fluid="true">  Subskills </Header>
-                    
-                {/* </Link> */}
-            </Segment>
-            
-            <SubSkillCard skill={skill} subSkills={subSkills} />
-        </Segment.Group>
-        </div>
+	return (
+		<>
+		<Grid.Column width={4}>
+			<Segment.Group>
+			<Header fluid="true" attached='top'>  Subskills </Header>
+			<SubSkillCard skill={skill} subSkills={subSkills} />
+			
+			</Segment.Group>		
+		</Grid.Column>				
+		<Grid.Column width={4}>
+	
+		</Grid.Column>				
+		<Grid.Column width={4}>
 
+		</Grid.Column>				
+		<Grid.Column width={4}>
 
+		</Grid.Column>
 
-    )
+		</>
+
+		
+	)
 }
     
 

@@ -26,15 +26,18 @@ import ResourceDisplay from '../ResourceDisplay/ResourceDisplay';
 
 
 export default function SkillDisplay({ handleAddSkill, skill, loggedUser, unAssignSkillUser, assignSkillUser, handleAddSubSkill }) {
+	const [youTubeSearchResults, setYouTubeSearchResults] = useState([]);
 
 	const assignIndex = skill?.usersAssigned?.findIndex(user => user.username === loggedUser.username)
-	
 	const assignColor = assignIndex > -1 ? 'red' : 'green';
 	const assignIcon = assignIndex > -1 ? 'minus' : 'plus';
 	const assignContent = assignIndex > -1 ? 'unassign' : 'assign'
-	
 
 	const handleAssign = assignIndex > -1 ? () => unAssignSkillUser(skill) : () => assignSkillUser(skill)
+
+	function searchYTResults(results) {
+		setYouTubeSearchResults([...results])
+	}
 
 	useEffect(() => {
 		//Getting posts, C(R)UD
@@ -45,7 +48,7 @@ export default function SkillDisplay({ handleAddSkill, skill, loggedUser, unAssi
 	return (
 		<Grid as={Segment} >
 			<Grid.Row>
-				<Header as={Segment} size="huge" attached="top" to={`/skills/${skill?.name}`} inverted={true} color='blue' >
+				<Header as={Segment} size="huge" attached="top" to={`/skills/${skill?.name}`} inverted={true} color='black' >
 					{skill?.name}
 				</Header>
 				<SubSkillPortal handleAddSubSkill={handleAddSubSkill} skill={skill} />
@@ -71,27 +74,29 @@ export default function SkillDisplay({ handleAddSkill, skill, loggedUser, unAssi
 				size="mini"         
 			/>
 			</Grid.Row>
-			<Grid.Row divided>
-				<SubSkillCard skill={skill} handleAddSubSkill={handleAddSubSkill}/>  
+			<Grid.Row  > 
+				<Header 
+					as={Segment} 
+					size="large" 
+					attached="top" 
+					inverted={true} 
+					color='blue secondary' 
+					content={<ResourceDisplay skill={skill}/>} />
+				<SubSkillDisplay skill={skill} handleAddSubSkill={handleAddSubSkill}/> 
 
 			</Grid.Row>
  
 
-		<Segment.Group text-align='center' horizontal >       
-	
-			
-			{/* <SubSkillDisplay skill={skill} handleAddSubSkill={handleAddSubSkill}/> */}
-			
 
-
-			{/* <Segment.Group> Resources
-				<Card>
-
-				</Card>
-			</Segment.Group> */}
-		</Segment.Group>
-		<ResourceDisplay skill={skill} />
 	</Grid>
 
 	)
 }
+// 		{/* <Segment.Group text-align='center' horizontal > Subskills     */}
+// 		<Segment.Group> Resources
+// 		 <Card>
+
+// 		 </Card>
+// 	 </Segment.Group>
+//  {/* </Segment.Group> */}
+//  <ResourceDisplay skill={skill} />

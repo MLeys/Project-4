@@ -33,8 +33,9 @@ function ResourceCard({resultSearchYT, skill}) {
 				  
 					<Card key={`search-${skill.name}-${res.videoId}`}>
 					  	<iframe
-						  width="280"
-						  height="157.5"
+						
+						//   width="280"
+						//   height="157.5"
 						  src={`https://www.youtube.com/embed/${res.videoId}`}
 						  title={res.title}
 						  allowFullScreen

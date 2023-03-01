@@ -68,8 +68,8 @@ function ResourceDisplay({skill}) {
 
   return (
     <Segment.Group>
-      <Segment>Resource Display</Segment>
-      <Segment>VideoID {videoId}</Segment>
+      {/* <Segment>Resource Display</Segment>
+      <Segment>VideoID {videoId}</Segment> */}
       <Segment>
         <Form onSubmit={handleSubmit}>
         <Form.Input
