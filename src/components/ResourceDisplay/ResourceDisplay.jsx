@@ -18,8 +18,15 @@ import ResourceCard from '../ResourceCard/ResourceCard.jsx';
 
 
 
-function ResourceDisplay({skill, loggedUser, youTubeSearchResults, liftYouTubeSearchResults, handleAddResource}) {
+function ResourceDisplay({skill, loggedUser, 
+  youTubeSearchResults, liftYouTubeSearchResults, 
+  handleAddResource
+}) {
 
+
+  useEffect(() => {
+    
+  }, []); 
 
   return (
     <Segment.Group>

@@ -14,7 +14,7 @@ import SkillDisplay from "../../components/SkillDisplay/SkillDisplay";
 import UserSkillsBarGraph from "../../components/UserSkillsBarGraph/UserSkillsBarGraph";
 
 
-function Dashboard({
+function DashboardPage({
   loggedUser, unAssignSkillUser,  assignSkillUser, 
   handleDeleteSkill, handleAddSkill,
   handleAddSubSkill,
@@ -70,7 +70,7 @@ function Dashboard({
       <Grid.Row>
         <Grid.Column>
           <Segment color='blue' inverted size='huge'>
-            Skills Dashboard
+            Skills DashboardPage
           </Segment>
         </Grid.Column>
       </Grid.Row>
@@ -95,7 +95,7 @@ function Dashboard({
   
 }
 
-export default Dashboard;
+export default DashboardPage;
 
     
 

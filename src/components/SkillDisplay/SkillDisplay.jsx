@@ -17,11 +17,9 @@ import {
 } from 'semantic-ui-react';
 
 import SubSkillPortal from '../SubSkillPortal/SubSkillPortal';
-import SubSkillPage from '../../pages/SubSkillPage/SubSkillPage';
-import SkillPage from '../../pages/SkillPage/SkillPage';
-import SubSkillCard from '../SubSkillCard/SubSkillCard';
+
 import SubSkillDisplay from '../SubSkillDisplay/SubSkillDisplay';
-import SkillPortal from '../SkillPortal/SkillPortal';
+
 import ResourceDisplay from '../ResourceDisplay/ResourceDisplay';
 import SearchYouTube from '../SearchYouTube/SearchYouTube';
 
@@ -32,7 +30,7 @@ export default function SkillDisplay({
 	unAssignSkillUser, assignSkillUser,
 	handleAddSkill, 
 	handleAddSubSkill,
-	handleAddResource 
+	handleAddResource
 }) {
 	const [currentSkill, setCurrentSkill] = useState({});
 	const [youTubeSearchResults, setYouTubeSearchResults] = useState([]);
@@ -47,7 +45,6 @@ export default function SkillDisplay({
 
 	function liftYouTubeSearchResults(results) {
 		(results) ? setYouTubeSearchResults([...results]) : '';
-		console.log(`YT Results(skilldisp): ${youTubeSearchResults}`)
 	}
 	
 	function liftSubSkills(subskills) {
@@ -57,14 +54,10 @@ export default function SkillDisplay({
 	function getCurrentSkill() {
 			(skill) ? setCurrentSkill({skill}) : '';
 	}
-	console.log(`\nskill: ${skill.name} \n currentSkill: ${currentSkill}`)
 	useEffect(() => {
-		//Getting posts, C(R)UD
+	
 		
-
-		getCurrentSkill();
-		
-	}, [!currentSkill]); 
+	}, []); 
 
 	return (
 		<Grid as={Segment} >
@@ -123,15 +116,9 @@ export default function SkillDisplay({
 
 				</Grid.Column>				
 				<Grid.Column width={1}>
-
 				</Grid.Column>
-
-
 			</Grid.Row>
- 
-
-
-	</Grid>
+ 	</Grid>
 
 	)
 }

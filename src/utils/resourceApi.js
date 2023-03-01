@@ -4,24 +4,29 @@ import tokenService from "./tokenService";
 const BASE_URL = '/api/resource/';
 
 
-export function create(data) {
-    console.log(data, 'THS IS DATA')
-    console.log(JSON.stringify(data), " <<< <STRINGIFIED DATA")
-    return fetch(BASE_URL, {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            Authorization: "Bearer " + tokenService.getToken(),
-           'Content-Type': 'application/json', 
-        }
-        
-	}).then((res) =>{
-		if(res.ok) return res.json() 
-		return res.json().then(res => {
-			console.log(`Create Resource Response(api): ${res}`)
-			throw new Error('Something went wrong in create Post'); 
+export async function create(resourceData, skillData, userData) {
+	try {
+		console.log(resourceData, skillData, userData, 'THS IS DATA')
+		console.log(JSON.stringify(resourceData, skillData, userData), " <<< <STRINGIFIED DATA")
+		return fetch(BASE_URL, {
+			method: 'POST',
+			body: JSON.stringify(resourceData, skillData, userData),
+			headers: {
+				Authorization: "Bearer " + tokenService.getToken(),
+			   'Content-Type': 'application/json', 
+			}
+			
+		}).then((res) =>{
+			if(res.ok) return res.json() 
+			return res.json().then(res => {
+				console.log(`Create Resource Response(api): ${res}`)
+				throw new Error('Something went wrong in create Post'); 
+			})
 		})
-	})
+	} catch (err){
+		console.log(`Error creating resource in API: ${err}`)
+	}
+
 }
 
 export function getAll() {

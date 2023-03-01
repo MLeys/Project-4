@@ -18,14 +18,15 @@ function ResourceCard({liftYouTubeSearchResults, youTubeSearchResults,
 	loggedUser
 }) {
 	const [resources, setResources] = useState([]);
-	const [selected, setSelected] = useState();
+	const [selected, setSelected] = useState({});
 
 	function handleSelect(e, resource) {
 		e.stopPropagation();
 		e.preventDefault();
-		console.log(`Data (resourceCard): ${resource}`)
-		setSelected(resource)
-		(selected === resource)? handleAddResource(resource, skill, loggedUser) : '';
+		console.log(`Data (resourceCard): ${resource.title}`)
+
+		handleAddResource(resource, skill, loggedUser);
+		
 	}
 	
 
@@ -37,6 +38,8 @@ function ResourceCard({liftYouTubeSearchResults, youTubeSearchResults,
 		getSearchResults();
 	}, [youTubeSearchResults]);
 	
+
+
 	return (
 	<>{
 		resources.map((resource) => {

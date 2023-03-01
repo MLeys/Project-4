@@ -8,7 +8,7 @@ import SubSkillPage from "./pages/SubSkillPage/SubSkillPage";
 import Layout from "./pages/Layout/Layout";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import SignUpPage from "./pages/SignupPage/SignupPage";
-import Dashboard from "./pages/DashboardPage/DashboardPage";
+import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 
@@ -257,7 +257,7 @@ export default function App() {
           />
           <Route
             path="/:username"
-            element={<Dashboard 
+            element={<DashboardPage 
               unAssignSkillUser={unAssignSkillUser}
               assignSkillUser={assignSkillUser}
               getSkills={getSkills}
