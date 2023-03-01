@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { 
     Segment,
@@ -12,18 +12,10 @@ import {
 
 } from 'semantic-ui-react';
 
+import SearchResources from '../SearchResources/SearchResources.jsx';
 import * as youTubeApi from "../../utils/youTubeApi.js"
 
-async function searchYouTube(search) {
-    
-    try {
-      const response = await youTubeApi.searchYouTube(search);
-      console.log(response, " <------ response from YOUTUBE SEARCH");
-      return await response
-    } catch (err) {
-      console.log(err.message, " <<<<<YouTube SEARCH ERROR>>>>>");
-    }
-}
+
 
 
 
@@ -35,9 +27,22 @@ function ResourceDisplay({skill}) {
   const [state, setState] = useState({
     search: "",
   })
+  const [searchYT, setSearchYT] = useState('');
+  const [videoId, setVideoId] = useState('');
+  const [resultSearchYT, setResultSearchYT] = useState([]);
 
-  const [videoId, setVideoId] = useState('')
 
+
+  async function searchYouTube(search) {
+    console.log('start search funct')
+    try {
+      const response = await youTubeApi.searchYouTube(search);
+      console.log(response, " <------ response from YOUTUBE SEARCH");
+      return await response
+    } catch (err) {
+      console.log(err.message, " <<<<<YouTube SEARCH ERROR>>>>>");
+    }
+  }
   // function handleChange(e) {
   //   console.log(e.target.name, "e.target.name in handleChange in Addskillform")
   //   setState({
@@ -47,22 +52,54 @@ function ResourceDisplay({skill}) {
   //   console.log(state, " <<<UPDATED STATE resource")
   // }
   
+  function handleChange(e){
+    setSearchYT(e.target.value)
+  }
+
+
   async function handleSubmit(e) {
-    let videoInfo = '';
+    
     e.preventDefault();
     try {
-      console.log(state, "<___<<<<<<<< state in handleSubmit")
-      videoInfo =  await searchYouTube(skill.name);
-      await setVideoId(videoInfo.items[0].id.videoId)
-      console.log(videoId, "<-VID ID")
+      const videoInfo = await searchYouTube(searchYT);
+      setResultSearchYT([...videoInfo])
+     
+      
+        // .then(videoInfo => {
+        //   const videos = videoInfo.items.map(item => {
+        //     const video = {
+        //         videoId: item.id.videoId,
+        //         title: item.snippet.title,
+        //         description: item.snippet.description,
+        //         thumbnails: item.snippet.thumbnails.default.url,
+        //         publishTime: item.snippet.publishTime
+        //     }
+        //     return video
+        // })
+        // console.log(`Videos Result(API): ${videos}`)
+        // return videos
+    
+        // }).catch(err => {
+        //   console.error(err)
+        // })
+        
+
     } catch(err) {
       console.log(err, "<<!! ERROR submitting resource search")
     }
-  
 
-      
+  }
+  async function consolelogResult() {
+    try {
+      console.log(`LOG RESULT: ${resultSearchYT}`)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
+  useEffect(() => {
+   
+  }, []);  
 
 
 
@@ -75,7 +112,8 @@ function ResourceDisplay({skill}) {
         <Form.Input
           className="form-control"
           name="search"
-          value={skill.name}
+          value={searchYT}
+          onChange={handleChange}
           placeholder={skill.name}
           
         />
@@ -91,7 +129,9 @@ function ResourceDisplay({skill}) {
         
         source='youtube'
       />
-        
+      <Segment>
+        <SearchResources />
+      </Segment>
 
         
     </Segment.Group>

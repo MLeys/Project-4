@@ -7,29 +7,84 @@ const API_KEY = 'AIzaSyAWWv9fl6un_cNgTplFYQnBlCZ_MNMJUzg'
 
 
 
-export function searchYouTube(search) {
-    const searchTerms = `${search}%20tutorial|guide`
+export async function searchYouTube(search) {
+    try {
+    // const searchTerms = `${search}%20tutorial|guide`
+    console.log(`Search Terms: ${search}`)
+    const sSearch = search.replaceAll(' ', '%20')
+    console.log(`New Search Terms: ${sSearch}`)
+    const searchTerms = `${sSearch}`
     const part = 'snippet'
     const type = 'video'
     const videoEmbeddable = true
-    const max = '1'
+    const max = '3'
     const BASE_URL = 
         `https://youtube.googleapis.com/youtube/v3/search?part=${part}&type=${type}&maxResults=${max}&q=${searchTerms}&videoEmbeddable=${videoEmbeddable}&key=${API_KEY}`
 
-    
-    return fetch(`${BASE_URL}`)
 
-    .then(res => {
-        if(res.ok) {
-            console.log(res.json(), "JSON FILE youtubeapi")
-            return res.json()
-        } else {
-            throw new Error('Error grabbing Youtube Search, check server terminal')
-        }
-        
-        
-    })
+    const response = await fetch(`${BASE_URL}`)
+    const data = await response.json();
+    const videos = data.items.map(item => ({
+        videoId: item.id.videoId,
+        title: item.snippet.title,
+        description: item.snippet.description,
+        thumbnail: item.snippet.thumbnails.default.url,
+        publishTime: item.snippet.publishTime
+    }));
+    return videos
+
+    } catch(err) {
+        console.log(err)
+        res.status(500).send('Error getting YouTube videos');
+        throw new Error('Error grabbing Youtube Search, check server terminal')
+    }
+
 }
+
+
+    // .then(res => {
+    //     if(res.ok) {
+    //         console.log(res.json(), "JSON FILE youtubeapi")
+    //         return res.json()
+    //     } else {
+    //         throw new Error('Error grabbing Youtube Search, check server terminal')
+    //     }
+        
+        
+    // })
+    // .then(data => {
+    //     const results = data.items.map(item => {
+    //       return {
+    //         videoId: item.id.videoId,
+    //         title: item.snippet.title,
+    //         description: item.snippet.description,
+    //         thumbnail: item.snippet.thumbnails.default.url,
+    //         publishTime: item.snippet.publishTime
+    //       }
+    //     })
+    //     return results
+    //   })
+    //   .catch(err => {
+    //     console.error(err)
+    //   })
+  
+//     .then(data => {
+//         const videos = data.items.map(item => {
+//             const video = {
+//                 videoId: item.id.videoId,
+//                 title: item.snippet.title,
+//                 description: item.snippet.description,
+//                 thumbnails: item.snippet.thumbnails.default.url,
+//                 publishTime: item.snippet.publishTime
+//             }
+//             return video
+//         })
+//         console.log(`Videos Result(API): ${videos}`)
+//         return videos
+//     })
+//     .catch(err => console.error(err))
+
+// }
 
 
 // Authorization: Bearer [YOUR_ACCESS_TOKEN]

@@ -21,7 +21,6 @@ export default function SubSkillCard({ skill }) {
 	const subSkills = skill?.subSkills
 	const subSkillsLength = Math.floor(16 / subSkills.length) ;
 
-	console.log(subSkillsLength);
 	return (
 		<>
 		{
@@ -30,10 +29,10 @@ export default function SubSkillCard({ skill }) {
 				const resources = sub.resources.map((resource) => {
 					{resource.title}
 				})
-				console.log(subSkillsLength, )
+				
 				return (
-					<Grid.Column width={subSkillsLength} verticalAlign="center">
-						<Segment vertical key={`subCard-${sub._id}`} fluid >
+					<Grid.Column  width={subSkillsLength} verticalAlign='middle' key={`subCard-${sub._id}`}>
+						<Segment size='large' inverted={true} color='teal' vertical={true} key={`subCard-${sub._id}`} fluid='true' >
 							<Label
 								corner='left'
 								color="grey" 

@@ -25,7 +25,6 @@ import ResourceDisplay from '../ResourceDisplay/ResourceDisplay';
 
 
 
-
 export default function SkillDisplay({ handleAddSkill, skill, loggedUser, unAssignSkillUser, assignSkillUser, handleAddSubSkill }) {
 
 	const assignIndex = skill?.usersAssigned?.findIndex(user => user.username === loggedUser.username)
@@ -46,7 +45,7 @@ export default function SkillDisplay({ handleAddSkill, skill, loggedUser, unAssi
 	return (
 		<Grid as={Segment} >
 			<Grid.Row>
-				<Header as={Segment} size="huge" attached="top" to={`/skills/${skill?.name}`} inverted="true" color='teal' >
+				<Header as={Segment} size="huge" attached="top" to={`/skills/${skill?.name}`} inverted={true} color='blue' >
 					{skill?.name}
 				</Header>
 				<SubSkillPortal handleAddSubSkill={handleAddSubSkill} skill={skill} />

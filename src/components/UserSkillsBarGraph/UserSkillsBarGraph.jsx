@@ -37,7 +37,7 @@ function UserSkillsBarGraph({ userSkills }) {
 
 		<Segment.Group>
 		{userSkills.map((skill, index) => {
-			{console.log(`Skill(pbar):  ${skill.name}`)}
+			// {console.log(`Skill(pbar):  ${skill.name}`)}
 			
 			return (
 				<Segment inverted>

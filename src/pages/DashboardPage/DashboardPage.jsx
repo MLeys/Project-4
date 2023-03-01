@@ -52,7 +52,7 @@ function Dashboard({
     getSkills();
     filterUserSkills();
     
-  }, [(userSkills === '')]); 
+  }, []); 
   
   
   return (

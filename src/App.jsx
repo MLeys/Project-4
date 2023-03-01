@@ -101,7 +101,7 @@ export default function App() {
   async function getSkills() {
     try {
       const response = await skillsApi.getAll();
-      setSkills(response.data)
+      setSkills( await response.data)
       // getUserSkills();
 
     } catch(err) {
