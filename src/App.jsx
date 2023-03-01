@@ -17,27 +17,29 @@ import * as skillsApi from "/src/utils/skillApi.js"
 import * as subSkillsApi from "./utils/subSkillApi.js"
 import * as youTubeApi from "./utils/youTubeApi.js"
 import * as chatGPT3Api from "./utils/chatGPT3Api.js"
+import * as resourcesApi from "./utils/resourceApi.js"
 
 export default function App() {
   const navigate = useNavigate();
   
   const [user, setUser] = useState(userService.getUser());
   const [skills, setSkills] = useState([]);
+  const [resources, setResources] = useState([]);
   const [error, setError] = useState('');
 
-  // const [userSkills, setUserSkills] = useState([]);
-
   
-  // function getUserSkills() {
 
-  //   const userSkillsList = skills.filter(skill => skill.usersAssigned.some(assigned => assigned._id === user._id))
+  async function handleAddResource(resource, skill, loggedUser) {
+    try {
+    const response = await resourcesApi.create(resource, skill, loggedUser);
+    console.log(`Response(resource-add in app): ${r}`)
+      return await response;
 
-  //   // console.log(`userSkillsList: ${userSkillsList}`)
-  //   setUserSkills([...userSkillsList])
-  //   console.log(`userSkills: ${userSkills}`)
+    } catch (err) {
+      setError(console.log(`***Error in handleAddResource(message): ${err}`))
+    }
+  }
 
-  // }
-    
   async function handleDeleteSkill(skillId) {
     try {
       
@@ -54,27 +56,22 @@ export default function App() {
 
   async function handleAddSkill(skill) {
       try {
-          // console.log(skill, "<<<<< skill data IN handleAddSKill")
-    
           const response = await skillsApi.create(skill);
-          // console.log(response, "++++ handleAddskill RESPONSE")
           setSkills([response.skill, ...skills])
           getSkills();
       } catch(err){
-          console.log(err, " Error IN THE HANDLEADD")
+        setError(console.log(`***Error in handle Skill message: ${err}`))
       }
-      console.log(skills, " <--- Skills State after ADDskill ")
-  } // END handleAddSkill Function
+  } 
 
   async function handleAddSubSkill(subskill) {
     try {
         console.log(subskill, "<<<<< subskill data IN handleAddSUBSKill")
-        // setSkill(updatedSkill)
+
         const response = await subSkillsApi.create(subskill);
         console.log(response, "++++ handleAddSUBskill RESPONSE")
-        setSkill(response.skill);
         getSkills();
-        // return skill;
+
         
     } catch(err){
         console.log(err, " Error IN THE HANDLEADDsubskill")
@@ -218,6 +215,8 @@ export default function App() {
             handleDeleteSkill={handleDeleteSkill} 
 
             handleAddSubSkill={handleAddSubSkill}
+
+            handleAddResource={handleAddResource}
             
             loggedUser={user} 
             handleLogout={handleLogout} 
@@ -237,6 +236,7 @@ export default function App() {
               allSkills = {skills} 
               handleDeleteSkill={handleDeleteSkill}
               handleAddSubSkill={handleAddSubSkill}
+              handleAddResource={handleAddResource}
             />}
           />          
           <Route
@@ -268,6 +268,8 @@ export default function App() {
               allSkills = {skills} 
               handleDeleteSkill={handleDeleteSkill}
               handleAddSubSkill={handleAddSubSkill}
+
+              handleAddResource={handleAddResource}
 
               // getUserSkills={getUserSkills}
               // userSkills={userSkills}

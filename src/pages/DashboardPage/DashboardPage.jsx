@@ -19,6 +19,7 @@ function Dashboard({
   handleDeleteSkill, handleAddSkill,
   handleAddSubSkill,
   allSkills, getSkill, getSkills, getUserSkills,
+  handleAddResource
   
 }) {
 
@@ -42,7 +43,15 @@ function Dashboard({
 		menuItem: (`${skill.name} - ${index}` ),
     render: () => (
       <Tab.Pane>
-        <SkillDisplay key={skill.id} skill={skill} handleAddSkill={handleAddSkill} loggedUser={loggedUser} unAssignSkillUser={unAssignSkillUser} assignSkillUser={assignSkillUser} handleAddSubSkill={handleAddSubSkill} allSkills={allSkills}  />
+        <SkillDisplay key={`skillDisplay-${skill.id}`} 
+          skill={skill} handleAddSkill={handleAddSkill} 
+          loggedUser={loggedUser} 
+          unAssignSkillUser={unAssignSkillUser} 
+          assignSkillUser={assignSkillUser} 
+          handleAddSubSkill={handleAddSubSkill} 
+          allSkills={allSkills}  
+          handleAddResource={handleAddResource}
+        />
       </Tab.Pane>
       
     )

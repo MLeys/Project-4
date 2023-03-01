@@ -8,7 +8,10 @@ import { unAssignUser } from "../../utils/skillApi";
 
 
 function LandingPage({getSkills,unAssignSkillUser, assignSkillUser, 
-    loggedUser, handleLogout, allSkills, handleAddSkill, handleDeleteSkill, handleAddSubSkill}) {
+    loggedUser, handleLogout, allSkills, 
+    handleAddSkill, handleDeleteSkill, handleAddSubSkill,
+    handleAddResource
+}) {
     // console.log(loggedUser)
     // console.log(allSkills, " ALL SKILLS - landing page") 
     useEffect(() => {
@@ -21,7 +24,16 @@ function LandingPage({getSkills,unAssignSkillUser, assignSkillUser,
         {
             allSkills?.map((skill) => {
                 return (
-                    <SkillDisplay key={skill._id} skill={skill} handleAddSkill={handleAddSkill} loggedUser={loggedUser} unAssignSkillUser={unAssignSkillUser} assignSkillUser={assignSkillUser} handleAddSubSkill={handleAddSubSkill} allSkills={allSkills}  />
+                    <SkillDisplay 
+                        key={`skillDisplay-${skill.id}`} 
+                        skill={skill} handleAddSkill={handleAddSkill} 
+                        loggedUser={loggedUser} 
+                        unAssignSkillUser={unAssignSkillUser} 
+                        assignSkillUser={assignSkillUser} 
+                        handleAddSubSkill={handleAddSubSkill} 
+                        allSkills={allSkills}  
+                        handleAddResource={handleAddResource}
+                    />
                 )
             })
         }

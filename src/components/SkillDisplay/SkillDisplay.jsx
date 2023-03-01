@@ -27,7 +27,13 @@ import SearchYouTube from '../SearchYouTube/SearchYouTube';
 
 
 
-export default function SkillDisplay({ handleAddSkill, skill, loggedUser, unAssignSkillUser, assignSkillUser, handleAddSubSkill }) {
+export default function SkillDisplay({ 
+	skill, loggedUser,
+	unAssignSkillUser, assignSkillUser,
+	handleAddSkill, 
+	handleAddSubSkill,
+	handleAddResource 
+}) {
 	const [currentSkill, setCurrentSkill] = useState({});
 	const [youTubeSearchResults, setYouTubeSearchResults] = useState([]);
 	const [subSkills, setSubSkills] = useState([]);
@@ -86,6 +92,8 @@ export default function SkillDisplay({ handleAddSkill, skill, loggedUser, unAssi
 								skill={skill}
 								youTubeSearchResults={youTubeSearchResults}
 								liftYouTubeSearchResults={liftYouTubeSearchResults}
+								handleAddResource={handleAddResource}
+								
 							/>
 				</Grid.Column>
 			</Grid.Row>
@@ -104,8 +112,10 @@ export default function SkillDisplay({ handleAddSkill, skill, loggedUser, unAssi
 				<Grid.Column width={12}>
 					<ResourceDisplay
 						skill={skill}
+						loggedUser={loggedUser}
 						youTubeSearchResults={youTubeSearchResults}
 						liftYouTubeSearchResults={liftYouTubeSearchResults}
+						handleAddResource={handleAddResource}
 					/>
 			
 				</Grid.Column>				

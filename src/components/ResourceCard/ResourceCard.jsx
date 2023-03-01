@@ -13,7 +13,10 @@ import {
 
 } from 'semantic-ui-react';
 
-function ResourceCard({liftYouTubeSearchResults, youTubeSearchResults, skill}) {
+function ResourceCard({liftYouTubeSearchResults, youTubeSearchResults, 
+	skill, handleAddResource,
+	loggedUser
+}) {
 	const [resources, setResources] = useState([]);
 	const [selected, setSelected] = useState();
 
@@ -22,8 +25,7 @@ function ResourceCard({liftYouTubeSearchResults, youTubeSearchResults, skill}) {
 		e.preventDefault();
 		console.log(`Data (resourceCard): ${resource}`)
 		setSelected(resource)
-		
-
+		(selected === resource)? handleAddResource(resource, skill, loggedUser) : '';
 	}
 	
 
