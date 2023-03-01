@@ -18,29 +18,23 @@ import SubSkillPage from '../../pages/SubSkillPage/SubSkillPage';
 import SkillPage from '../../pages/SkillPage/SkillPage';
 import SubSkillCard from '../SubSkillCard/SubSkillCard';
 
-export default function SubSkillDisplay({skill, liftSubSkills }) {
+
+export default function SubSkillDisplay({skill, liftSubSkills, 
+	youTubeSearchResults,	liftYouTubeSearchResults
+ }) {
 
 
 	const subSkills = skill?.subSkills
 
 	return (
 		<>
-		<Grid.Column width={4}>
-			<Segment.Group>
-			<Header fluid="true" attached='top'>  Subskills </Header>
-			<SubSkillCard skill={skill} subSkills={subSkills} />
-			
-			</Segment.Group>		
-		</Grid.Column>				
-		<Grid.Column width={4}>
 	
-		</Grid.Column>				
-		<Grid.Column width={4}>
-
-		</Grid.Column>				
-		<Grid.Column width={4}>
-
-		</Grid.Column>
+			<Segment.Group>
+				<Header fluid="true" attached='top'>  Subskills </Header>
+				<SubSkillCard skill={skill} subSkills={subSkills} />
+			</Segment.Group>		
+	
+	
 
 		</>
 

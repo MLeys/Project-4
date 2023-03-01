@@ -22,6 +22,7 @@ import SubSkillCard from '../SubSkillCard/SubSkillCard';
 import SubSkillDisplay from '../SubSkillDisplay/SubSkillDisplay';
 import SkillPortal from '../SkillPortal/SkillPortal';
 import ResourceDisplay from '../ResourceDisplay/ResourceDisplay';
+import SearchYouTube from '../SearchYouTube/SearchYouTube';
 
 
 
@@ -65,18 +66,6 @@ export default function SkillDisplay({ handleAddSkill, skill, loggedUser, unAssi
 					{skill?.name}
 				</Header>
 				<SubSkillPortal handleAddSubSkill={handleAddSubSkill} skill={skill} />
-			{/* <Label
-					corner='left'
-					color="grey" 
-					
-					icon='edit' 
-					size="mini" 
-				/> */}
-			{/* <Link to={`/skills/${skill?.name}`} > 
-				<Header as={Segment} size="huge" attached="top" to={`/skills/${skill?.name}`} inverted="true" color='teal' >
-					{skill?.name}
-				</Header>
-			</Link> */}
 			<Label
 				onClick={() => handleAssign()}
 				attached='top right'
@@ -96,16 +85,36 @@ export default function SkillDisplay({ handleAddSkill, skill, loggedUser, unAssi
 					secondary={false}
 					color='blue' 
 					content={
-						<ResourceDisplay 
+						<SearchYouTube
 							skill={skill}
-							liftYouTubeSearchResults={liftYouTubeSearchResults()}
+							youTubeSearchResults={youTubeSearchResults}
+							liftYouTubeSearchResults={liftYouTubeSearchResults}
 						/>} 
 				/>
-				<SubSkillDisplay 
-					skill={skill} 
-					handleAddSubSkill={handleAddSubSkill}
-					liftSubSkills={liftSubSkills()}
-				/> 
+				<Grid.Column width={4}>
+					<SubSkillDisplay 
+						skill={skill} 
+						handleAddSubSkill={handleAddSubSkill}
+						liftSubSkills={liftSubSkills}
+						youTubeSearchResults={youTubeSearchResults}
+						liftYouTubeSearchResults={liftYouTubeSearchResults}
+					/> 
+				</Grid.Column>				
+				<Grid.Column width={12}>
+					<ResourceDisplay
+						skill={skill}
+						youTubeSearchResults={youTubeSearchResults}
+						liftYouTubeSearchResults={liftYouTubeSearchResults}
+					/>
+			
+				</Grid.Column>				
+				<Grid.Column width={1}>
+
+				</Grid.Column>				
+				<Grid.Column width={1}>
+
+				</Grid.Column>
+
 
 			</Grid.Row>
  

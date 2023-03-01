@@ -13,11 +13,11 @@ import {
 
 } from 'semantic-ui-react';
 
-function ResourceCard({resultSearchYT, skill}) {
+function ResourceCard({liftYouTubeSearchResults, youTubeSearchResults, skill}) {
 	const [resources, setResources] = useState([]);
 
 	function getResources() {
-		setResources([...resultSearchYT])
+		(youTubeSearchResults) ? setResources([...youTubeSearchResults]) : '';
 	}
 
 	useEffect(() => {
@@ -27,15 +27,15 @@ function ResourceCard({resultSearchYT, skill}) {
 	return (
 		<>
 		{
-			resultSearchYT.map((res) => {
+			resources.map((res) => {
 				console.log(res.title)
 				return (
 				  
 					<Card key={`search-${skill.name}-${res.videoId}`}>
 					  	<iframe
 						
-						//   width="280"
-						//   height="157.5"
+						  width="280"
+						  height="157.5"
 						  src={`https://www.youtube.com/embed/${res.videoId}`}
 						  title={res.title}
 						  allowFullScreen
