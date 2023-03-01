@@ -72,15 +72,15 @@ export default function SkillDisplay({ handleAddSkill, skill, loggedUser, unAssi
 				size="mini"         
 			/>
 			</Grid.Row>
-			<Grid.Row>
-
+			<Grid.Row divided>
+				<SubSkillCard skill={skill} handleAddSubSkill={handleAddSubSkill}/>  
 
 			</Grid.Row>
  
 
 		<Segment.Group text-align='center' horizontal >       
-			<SubSkillPortal handleAddSubSkill={handleAddSubSkill} skill={skill} />       
-			<SubSkillCard skill={skill} handleAddSubSkill={handleAddSubSkill}/>  
+	
+			
 			{/* <SubSkillDisplay skill={skill} handleAddSubSkill={handleAddSubSkill}/> */}
 			
 
