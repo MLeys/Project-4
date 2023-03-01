@@ -26,7 +26,9 @@ import ResourceDisplay from '../ResourceDisplay/ResourceDisplay';
 
 
 export default function SkillDisplay({ handleAddSkill, skill, loggedUser, unAssignSkillUser, assignSkillUser, handleAddSubSkill }) {
+	const [currentSkill, setCurrentSkill] = useState({});
 	const [youTubeSearchResults, setYouTubeSearchResults] = useState([]);
+	const [subSkills, setSubSkills] = useState([]);
 
 	const assignIndex = skill?.usersAssigned?.findIndex(user => user.username === loggedUser.username)
 	const assignColor = assignIndex > -1 ? 'red' : 'green';
@@ -35,15 +37,26 @@ export default function SkillDisplay({ handleAddSkill, skill, loggedUser, unAssi
 
 	const handleAssign = assignIndex > -1 ? () => unAssignSkillUser(skill) : () => assignSkillUser(skill)
 
-	function searchYTResults(results) {
-		setYouTubeSearchResults([...results])
+	function liftYouTubeSearchResults(results) {
+		(results) ? setYouTubeSearchResults([...results]) : '';
+		console.log(`YT Results(skilldisp): ${youTubeSearchResults}`)
+	}
+	
+	function liftSubSkills(subskills) {
+		(subskills) ? setSubSkills([...subskills]) : '';
 	}
 
+	function getCurrentSkill() {
+			(skill) ? setCurrentSkill({skill}) : '';
+	}
+	console.log(`\nskill: ${skill.name} \n currentSkill: ${currentSkill}`)
 	useEffect(() => {
 		//Getting posts, C(R)UD
 		
+
+		getCurrentSkill();
 		
-	  }, []); 
+	}, [!currentSkill]); 
 
 	return (
 		<Grid as={Segment} >
@@ -80,9 +93,19 @@ export default function SkillDisplay({ handleAddSkill, skill, loggedUser, unAssi
 					size="large" 
 					attached="top" 
 					inverted={true} 
-					color='blue secondary' 
-					content={<ResourceDisplay skill={skill}/>} />
-				<SubSkillDisplay skill={skill} handleAddSubSkill={handleAddSubSkill}/> 
+					secondary={false}
+					color='blue' 
+					content={
+						<ResourceDisplay 
+							skill={skill}
+							liftYouTubeSearchResults={liftYouTubeSearchResults()}
+						/>} 
+				/>
+				<SubSkillDisplay 
+					skill={skill} 
+					handleAddSubSkill={handleAddSubSkill}
+					liftSubSkills={liftSubSkills()}
+				/> 
 
 			</Grid.Row>
  
