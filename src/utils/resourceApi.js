@@ -34,8 +34,16 @@ export async function create(data) {
 
 }
 
-
-
+export function getAll() {
+    return fetch(`${BASE_URL}all`, {
+        headers: {
+            Authorization: "Bearer " + tokenService.getToken(),
+        }
+    }).then(res => {
+		if(res.ok) return res.json()
+		throw new Error('Error from getALLResources request, check the server terminal')
+	  })
+}
 
 
 
@@ -49,17 +57,7 @@ export async function create(data) {
 // ========================== ALL OLD (from skillapi) NEED TO REFACTOR======================================
 // =========================================================================================================
 // =========================================================================================================
-// export function getAll() {
-//     // console.log(" &&&&&&&&&&&&&&&&&&&&&&&&&&&&&& YES YOU ARE HITTING RIGHT HERE !!!! =========")
-//     return fetch(`${BASE_URL}all`, {
-//         headers: {
-//             Authorization: "Bearer " + tokenService.getToken(),
-//         }
-//     }).then(res => {
-// 		if(res.ok) return res.json()
-// 		throw new Error('Error from getALLSkill request, check the server terminal')
-// 	  })
-// }
+
 
 // export function deleteSkill(skillId){
 // 	return fetch(`${BASE_URL}/${skillId}`, {

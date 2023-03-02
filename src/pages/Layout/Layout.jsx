@@ -32,6 +32,7 @@ function Layout({
   getSkill, getSkills, skill, allSkills,
   handleAddSkill, handleDeleteSkill,
   handleClose,    
+  allResources, handleAddResource
 
 }) {
   // console.log(allSkills, "<-- all skills (layout)")
@@ -75,6 +76,8 @@ function Layout({
           handleClose={handleClose}
           assignSkillUser={assignSkillUser}
           unAssignSkillUser={unAssignSkillUser}
+
+          
         />      
         <Sidebar.Pusher  dimmed={dimmed && visible}>
           <Segment.Group>
@@ -82,7 +85,17 @@ function Layout({
               <SkillPortal handleAddSkill={handleAddSkill} skill={skill} handleClose={handleClose} />   
             </Segment>
             <Segment >
-              <Outlet getSkill={getSkill} allSkills={allSkills} loggedUser={loggedUser} handleLogout={handleLogout} handleAddSkill={handleAddSkill} handleDeleteSkill={handleDeleteSkill}/>
+              <Outlet 
+                getSkill={getSkill} 
+                allSkills={allSkills} 
+                loggedUser={loggedUser} 
+                handleLogout={handleLogout} 
+                handleAddSkill={handleAddSkill} 
+                handleDeleteSkill={handleDeleteSkill}
+                handleAddResource={handleAddResource}
+                allResources={allResources}
+
+              />
             </Segment>
           </Segment.Group>
         </Sidebar.Pusher>

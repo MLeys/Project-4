@@ -10,7 +10,7 @@ import { unAssignUser } from "../../utils/skillApi";
 function LandingPage({getSkills,unAssignSkillUser, assignSkillUser, 
     loggedUser, handleLogout, allSkills, 
     handleAddSkill, handleDeleteSkill, handleAddSubSkill,
-    handleAddResource
+    allResources, handleAddResource
 }) {
     // console.log(loggedUser)
     // console.log(allSkills, " ALL SKILLS - landing page") 
@@ -32,6 +32,7 @@ function LandingPage({getSkills,unAssignSkillUser, assignSkillUser,
                         assignSkillUser={assignSkillUser} 
                         handleAddSubSkill={handleAddSubSkill} 
                         allSkills={allSkills}  
+                        allResources={allResources}
                         handleAddResource={handleAddResource}
                     />
                 )

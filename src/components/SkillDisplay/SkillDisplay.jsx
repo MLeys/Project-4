@@ -31,7 +31,7 @@ export default function SkillDisplay({
 	unAssignSkillUser, assignSkillUser,
 	handleAddSkill, 
 	handleAddSubSkill,
-	handleAddResource
+	allResources, handleAddResource
 }) {
 	const [currentSkill, setCurrentSkill] = useState({});
 	const [youTubeSearchResults, setYouTubeSearchResults] = useState([]);
@@ -59,15 +59,58 @@ export default function SkillDisplay({
 	}
 
 	function getSkillResources() {
-		setSkillResources({...currentSkill.resources})
+		// console.log(allResources, "ALL RESOURCES")
+		const resources = allResources.filter((r) => r.skillId === skill._id )
+		// console.log(`resources-${skill.name}: ${resources}`)
+		setSkillResources(resources)
 	}
+
+	// function displaySkillResources() {
+	// 	return (
+	// 		<>
+	// 		{
+	// 			skillResources?.map((r) => {
+	// 				return (
+	// 					<>
+	// 					<Segment key={`resourceSeg-${r._id}`} content={r.title} />
+	// 					</>
+	// 				)
+	// 			})
+	// 		}
+	// 		</>
+	// 	)
+			
+	// }
+	const displaySkillResources= () => {
+		console.log(skillResources, " SKILL RES")
+		return (
+			<>
+			<Segment.Group>
+			{
+				skillResources?.map((r) => {
+					console.log(r, "<<-- resource")
+					return (
+						<>
+						<Segment key={`resourceSeg-${r._id}`} content={r.title} />
+						</>
+					)
+				})
+			}
+			</Segment.Group>
+			</>
+		)
+			
+	}
+
 
 	useEffect(() => {
 		getCurrentSkill();
+		getSkillResources();
 		
-	}, [skill]); 
+	}, []); 
 
 	return (
+		
 		<Grid as={Segment} >
 			<Grid.Row>
 				<Header as={Segment} size="huge" attached="top" to={`/skills/${skill?.name}`} inverted={true} color='black' >
@@ -109,14 +152,30 @@ export default function SkillDisplay({
 						youTubeSearchResults={youTubeSearchResults}
 						liftYouTubeSearchResults={liftYouTubeSearchResults}
 					/> 
-				</Grid.Column>				
-				<Grid.Column width={12}>
+				</Grid.Column>			
+				<Grid.Column width={4}>
+				<Segment.Group>
+					{
+						skillResources?.map((r) => {
+							console.log(r, "<<-- resource")
+							return (
+								<>
+								<Segment key={`resourceSeg-${r._id}`} content={r.title} />
+								</>
+							)
+						})
+					}
+			</Segment.Group>
+
+				</Grid.Column>	
+				<Grid.Column width={8}>
 					<ResourceDisplay
 						skill={skill}
 						loggedUser={loggedUser}
 						youTubeSearchResults={youTubeSearchResults}
 						liftYouTubeSearchResults={liftYouTubeSearchResults}
 						handleAddResource={handleAddResource}
+						skillResources={skillResources}
 					/>
 			
 				</Grid.Column>				

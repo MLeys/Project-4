@@ -27,32 +27,32 @@ export function create(data) {
 	})
 }
 
-export function getAll() {
+export async function getAll() {
     // console.log(" &&&&&&&&&&&&&&&&&&&&&&&&&&&&&& YES YOU ARE HITTING RIGHT HERE !!!! =========")
-    return fetch(`${BASE_URL}all`, {
-        headers: {
-            Authorization: "Bearer " + tokenService.getToken(),
-        }
-    }).then(res => {
-		if(res.ok) return res.json()
-		throw new Error('Error from getALLSkill request, check the server terminal')
-	  })
+    const res = await fetch(`${BASE_URL}all`, {
+		headers: {
+			Authorization: "Bearer " + tokenService.getToken(),
+		}
+	});
+	if (res.ok)
+		return res.json();
+	throw new Error('Error from getALLSkill request, check the server terminal');
 }
 
-export function deleteSkill(skillId){
-	return fetch(`${BASE_URL}/${skillId}`, {
+export async function deleteSkill(skillId){
+	const res = await fetch(`${BASE_URL}/${skillId}`, {
 		method: 'DELETE',
 		headers: {
-			Authorization: "Bearer " + tokenService.getToken() 
+			Authorization: "Bearer " + tokenService.getToken()
 			//this is how we grab the token from local storage
-		}	
-	}).then(res => {
-		// res is the response from the server
-		// This gets called when we get a response from the 
-		// express server delete controller function
-		if(res.ok) return res.json() 
-		throw new Error('Error deleting a skill check the server terminal')
-	})
+		}
+	});
+	// res is the response from the server
+	// This gets called when we get a response from the 
+	// express server delete controller function
+	if (res.ok)
+		return res.json();
+	throw new Error('Error deleting a skill check the server terminal');
 }
 
 export function getOneSkill(skillName) {

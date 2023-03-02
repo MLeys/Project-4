@@ -19,7 +19,7 @@ function DashboardPage({
   handleDeleteSkill, handleAddSkill,
   handleAddSubSkill,
   allSkills, getSkill, getSkills, getUserSkills,
-  handleAddResource
+  allResources, handleAddResource
   
 }) {
 
@@ -50,6 +50,7 @@ function DashboardPage({
           assignSkillUser={assignSkillUser} 
           handleAddSubSkill={handleAddSubSkill} 
           allSkills={allSkills}  
+          allResources={allResources}
           handleAddResource={handleAddResource}
         />
       </Tab.Pane>

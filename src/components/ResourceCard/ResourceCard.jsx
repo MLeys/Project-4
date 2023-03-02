@@ -8,7 +8,8 @@ import {
 } from 'semantic-ui-react';
 
 function ResourceCard({liftYouTubeSearchResults, youTubeSearchResults, 
-	skill, handleAddResource,
+	skill,
+	skillResources, handleAddResource,
 	loggedUser
 }) {
 	const [resources, setResources] = useState([]);

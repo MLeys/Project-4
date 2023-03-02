@@ -24,7 +24,7 @@ export default function App() {
   
   const [user, setUser] = useState(userService.getUser());
   const [skills, setSkills] = useState([]);
-  const [skillResources, setSkillResources] = useState([]);
+  const [allResources, setAllResources] = useState([]);
   const [error, setError] = useState('');
   
 
@@ -36,8 +36,9 @@ export default function App() {
           
       const response = await resourcesApi.create(data);
       console.log("RESPONSE", response)
-      setSkillResources([response, ...skillResources])
-      getSkills();
+      getResources();
+      
+      getResources();
       // console.log(`Response(addResource (app)): ${response}`)
       // return await response;
 
@@ -70,6 +71,20 @@ export default function App() {
       setError(console.log(`***Error in handle Skill message: ${err}`))
     }
   } 
+
+  async function getResources() {
+    console.log("getting resources")
+    try {
+      const response = await resourcesApi.getAll();
+      setAllResources( await response.data)
+      
+
+    } catch(err) {
+      setError(console.log('^^^^ getSkills Error!!! ^^^^'));
+      console.log(err, '<--- getSkills ERROR');
+    }
+
+  } // END getSkills Function
 
   async function handleAddSubSkill(subskill) {
     try {
@@ -190,13 +205,14 @@ export default function App() {
 
   useEffect(() => {
     getSkills();
+    getResources();
     // getUserSkills();
     
     // searchYouTube();
     // searchOpenAi("top 5 most important software engineering skills");
     
     
-  }, []); 
+  }, [!skills, !allResources]); 
 
 
   if (user) {
@@ -223,6 +239,7 @@ export default function App() {
 
             handleAddSubSkill={handleAddSubSkill}
 
+            allResources={allResources}
             handleAddResource={handleAddResource}
             
             loggedUser={user} 
@@ -243,6 +260,8 @@ export default function App() {
               allSkills = {skills} 
               handleDeleteSkill={handleDeleteSkill}
               handleAddSubSkill={handleAddSubSkill}
+
+              allResources={allResources}
               handleAddResource={handleAddResource}
             />}
           />          
@@ -276,6 +295,7 @@ export default function App() {
               handleDeleteSkill={handleDeleteSkill}
               handleAddSubSkill={handleAddSubSkill}
 
+              allResources={allResources}
               handleAddResource={handleAddResource}
 
               // getUserSkills={getUserSkills}

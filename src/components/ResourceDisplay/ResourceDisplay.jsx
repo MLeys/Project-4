@@ -15,12 +15,9 @@ import {
 
 import ResourceCard from '../ResourceCard/ResourceCard.jsx';
 
-
-
-
 function ResourceDisplay({skill, loggedUser, 
   youTubeSearchResults, liftYouTubeSearchResults, 
-  handleAddResource
+  skillResources, handleAddResource
 }) {
 
 
@@ -38,10 +35,12 @@ function ResourceDisplay({skill, loggedUser,
             youTubeSearchResults={youTubeSearchResults}
             handleAddResource={handleAddResource}
             loggedUser={loggedUser}
+            skillResources={skillResources}
           />
         </Card.Group>
   
     </Segment.Group>
+    
 
   );
 }
