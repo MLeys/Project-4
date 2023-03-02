@@ -16,6 +16,8 @@ import * as skillsApi from "../../utils/skillApi.js";
 import SkillsReducer from '../../reducers/SkillsReducer.js';
 import SidebarReducer from '../../reducers/SidebarReducer.js';
 
+import { SkillsProvider } from '../../context/SkillsContext/SkillsContext.jsx';
+
 import { SkillsContext, SkillsDispatchContext } from '../../context/SkillsContext/SkillsContext.jsx';
 
 import SkillPortal from '../../components/SkillPortal/SkillPortal';
@@ -35,7 +37,7 @@ function Layout({
 
 }) {
   const [error, setError] = useState(null);
-  const [skills, dispatch] = useImmerReducer(SkillsReducer, null)
+
 
   const [sidebarState, sidebarDispatch] = useReducer(SidebarReducer, {
     animation: 'overlay',
