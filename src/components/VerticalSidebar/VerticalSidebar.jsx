@@ -12,14 +12,14 @@ import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 import SkillAccordion from "../SkillAccordion/SkillAccordion";
 
 
-function VerticalSidebar({
+function VerticalSidebar({ 
 	assignSkillUser, unAssignSkillUser,
 	animation, direction, visible, loggedUser,
 	allSkills, handleAddSkill, handleDeleteSkill,
 	handleClose
 }) {
-	const skills = useContext(SkillsContext)
-	console.log(skills, " <=== Skills in vert sidebar from context")
+	const skills = useContext(SkillsContext).skills
+	// console.log(skills, " <=== Skills in vert sidebar from context")
 
 	return (
 		<Sidebar 

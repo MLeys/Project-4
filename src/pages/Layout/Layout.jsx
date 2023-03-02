@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link, Outlet } from "react-router-dom";
 import { useState, useEffect, useReducer} from "react";
 import { useImmerReducer} from 'use-immer';
@@ -22,7 +22,7 @@ import SkillPortal from '../../components/SkillPortal/SkillPortal';
 import VerticalSidebar from '../../components/VerticalSidebar/VerticalSidebar';
 import FixedMenuHeader from '../../components/FixedMenuHeader/FixedMenuHeader';
 import MainFooter from '../../components/MainFooter/MainFooter';
-
+import SkillList from '../../components/SkillList/SkillList.jsx';
 
 function Layout({ 
   loggedUser, handleLogout,
@@ -34,6 +34,7 @@ function Layout({
   allResources, handleAddResource
 
 }) {
+  
   const [error, setError] = useState(null);
   const [skills, dispatch] = useImmerReducer(SkillsReducer, null)
 
@@ -57,6 +58,7 @@ function Layout({
     } catch(err){
       setError(console.log(`*** Error CREATE SKILL ****\n ${err}`))
     }
+    console.log(skills, "<<<<<< skills")
   } 
 
   async function handleGetAllSkills() {
@@ -71,7 +73,9 @@ function Layout({
     } catch (err) {
       setError(console.log(`*** Error READ SKILL ****\n ${err}`))
     }
+    console.log(skills, "<<<<<< skills")
   }
+  
   
   async function handleDeleteSkill(skillId) {
     try {
@@ -98,8 +102,12 @@ function Layout({
   }, []); 
 
   return (
-    <SkillsContext.Provider value={skills}>
+    <SkillsContext.Provider 
+      value={{
+        skills:skills
+      }}>
       <SkillsDispatchContext.Provider value={dispatch}>
+        <SkillList />
         <Container  style={{ margin: 0, padding: 0, minHeight: '98vh', width: '98vw' }}>
 
           <FixedMenuHeader loggedUser={loggedUser} handleLogout={handleLogout} skill={skill} sidebarDispatch={sidebarDispatch}/>

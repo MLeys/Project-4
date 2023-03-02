@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import {
 	 Accordion, 
 	 Button, 
@@ -8,20 +8,23 @@ import {
 	 Menu
 } from 'semantic-ui-react';
 
+import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
+
 import SubSkillAccordion from '../SubSkillAccordion/SubSkillAccordion';
 
 
-function SkillAccordion({ allSkills, currentUser, skill, assignSkillUser, unAssignSkillUser }) {
+function SkillAccordion({currentUser, assignSkillUser, unAssignSkillUser }) {
 	// console.log(skill, "<-SkillAccordion skill")
 	// console.log("Hitting SkillAccordion")
   const [activeIndex, setActiveIndex] = useState(-1);
-  const [skills, setSkills] = useState([]);
+  const skills = useContext(SkillsContext).skills
+
+
 
 
   // FIX ME: SO THAT I PASS PROPS FROM CONTEXT ************
   useEffect(() => {
-    setSkills(allSkills);
-  }, [allSkills]);
+  }, []);
 
 	
 
@@ -75,7 +78,7 @@ function SkillAccordion({ allSkills, currentUser, skill, assignSkillUser, unAssi
   return (
 		<>
 		{
-			skills.map((skill, index) => (
+			skills?.map((skill, index) => (
 			<Accordion styled key={`${skill._id}-accordion`}>
 				
 				<Accordion.Title
@@ -100,21 +103,4 @@ function SkillAccordion({ allSkills, currentUser, skill, assignSkillUser, unAssi
 	)
 }
 export default SkillAccordion;
-					
-                        
-
-							{/* {skill.usersAssigned.some(user => user._id === currentUser._id) ? (
-								<Button compact size="mini" color="red" floated="right" onClick={() => {
-									skill.usersAssigned = skill.usersAssigned.filter(user => user._id !== currentUser._id);
-									setSkills([...skills]);
-								}}>
-									Unassign
-								</Button>
-							) : (
-								<Button compact size="mini" color="green" floated="right" onClick={() => {
-									skill.usersAssigned.push(currentUser);
-									setSkills([...skills]);
-								}}>
-									Assign
-								</Button>
-							)}  */}
+				

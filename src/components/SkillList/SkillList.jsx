@@ -1,4 +1,4 @@
-import React from 'react';
+import { useContext, useState } from 'react';
 import { 
   Accordion,
   Menu,
@@ -9,77 +9,84 @@ import {
 
 import "./SkillList.css"
 
-function SkillList({ allSkills }) {
+import { SkillsContext, SkillsDispatchContext } from "../../context/SkillsContext/SkillsContext";
 
-  const AccordionPanel = ({ title, content }) => (
-    <Accordion.AccordionPanel key={title} title={title}>
-      {content}
-      <button>Button 1</button>
-      <button>Button 2</button>
-    </Accordion.AccordionPanel>
-  )
+function SkillList() {
+  const skills = useContext(SkillsContext).skills
+    return (
+      <ul>
+        {skills?.map(skill => (
+          <li key={skill.id}>
+            <Skill skill={skill} />
+          </li>
+        ))}
+      </ul>
+    );
   
-
-
-  // const rootPanels = allSkills.map((skill, index) => {
-  //   const skillButton = <Button> </Button>
-  //   const subSkillPanels = skill.subSkills.map((subSkill, subIndex) => {
-
-  //     return {
-
-  //       key: `subskill-${index}-${subIndex}`,
-  //       title: subSkill.title,
-  //       content: {
-  //         content: (
-  //           <div>
-  //             <p>{subSkill.details}</p>
-  //             {/* <Accordion.Accordion panels={resourcePanels} /> */}
-  //           </div>
-  //         )
-  //       }
-  //     };
-  //   });
-
-  //   return {
-  //     key: `skill-${index}`,
-  //     title: skill.name,
-  //     content: { content: <Accordion.Accordion inverted panels={subSkillPanels} /> }
-  //   }
-    
-
-  // });
-
-  return (
-    <Accordion
-      className='vSidebar' 
-      defaultActiveIndex={0} 
-      panels={rootPanels}
-      fluid="true"
-      styled>
-      </Accordion>
-  )
 };
 
 export default SkillList;
 
-
-
-      // const resourcePanels = subSkill.resources.map((resource, resourceIndex) => {
-      //   return {
-      //     key: `resource-${index}-${subIndex}-${resourceIndex}`,
-      //     title: resource.title,
-      //     content: (
-      //       <div>
-      //         <p>{resource.description}</p>
-      //         <a href={resource.link}>Link</a>
-      //       </div>
-      //     )
-      //   };
-      // });
-
-
-
-
+function Skill({ skill }) {
+  const [isEditing, setIsEditing] = useState(false);
+  const dispatch = useContext(SkillsDispatchContext);
+  let skillContent;
+  if (isEditing) {
+    skillContent = (
+      <>
+        <input
+          value={skill.name}
+          onChange={e => {
+            dispatch({
+              type: 'updateSkill',
+              skill: {
+                ...skill,
+                text: e.target.value
+              }
+            });
+          }} />
+        <button onClick={() => setIsEditing(false)}>
+          Save
+        </button>
+      </>
+    );
+  } else {
+    skillContent = (
+      <>
+        {skill.text}
+        <button onClick={() => setIsEditing(true)}>
+          Edit
+        </button>
+      </>
+    );
+  }
+  return (
+    <label>
+      <input
+        type="checkbox"
+        checked={skill.done}
+        onChange={e => {
+          dispatch({
+            type: 'updateSkill',
+            skill: {
+              ...skill,
+              done: e.target.checked
+            }
+          });
+        }}
+      />
+      {skillContent}
+      <button onClick={() => {
+        dispatch({
+          type: 'deleteSkill',
+          id: skill.id
+        });
+      }}>
+        Delete
+      </button>
+    </label>
+  );
+}
 
 
 
