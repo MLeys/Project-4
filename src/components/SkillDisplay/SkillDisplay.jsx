@@ -13,7 +13,7 @@ import {
 
 } from 'semantic-ui-react';
 
-import { SkillsContext } from '../../context/SkillsContext/SkillsContext';
+import { useSkills, useSkillsDispatch } from '../../context/SkillsContext/SkillsContext';
 
 import SubSkillPortal from '../SubSkillPortal/SubSkillPortal';
 
@@ -32,8 +32,8 @@ export default function SkillDisplay({
 	handleAddSubSkill,
 	allResources, handleAddResource
 }) {
-	const skillsContext = useContext(SkillsContext);
-	console.log(skillsContext, "<=== Skills Context (skillDisplay)")
+	// const skillsContext = useSkills();
+	// console.log(skillsContext, "<=== Skills Context (skillDisplay)")
 	const [currentSkill, setCurrentSkill] = useState({});
 	const [youTubeSearchResults, setYouTubeSearchResults] = useState([]);
 	const [subSkills, setSubSkills] = useState([]);

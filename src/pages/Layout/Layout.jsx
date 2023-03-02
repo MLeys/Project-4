@@ -13,17 +13,18 @@ import {
 
 import * as skillsApi from "../../utils/skillApi.js"; 
 
-import SkillsReducer from '../../reducers/SkillsReducer.js';
+// import SkillsReducer from '../../reducers/SkillsReducer.js';
 import SidebarReducer from '../../reducers/SidebarReducer.js';
 
-import { SkillsProvider } from '../../context/SkillsContext/SkillsContext.jsx';
+import { useSkills, useSkillsDispatch, SkillsProvider } from '../../context/SkillsContext/SkillsContext.jsx';
 
-import { SkillsContext, SkillsDispatchContext } from '../../context/SkillsContext/SkillsContext.jsx';
+// import { SkillsContext, SkillsDispatchContext } from '../../context/SkillsContext/SkillsContext.jsx';
 
 import SkillPortal from '../../components/SkillPortal/SkillPortal';
 import VerticalSidebar from '../../components/VerticalSidebar/VerticalSidebar';
 import FixedMenuHeader from '../../components/FixedMenuHeader/FixedMenuHeader';
 import MainFooter from '../../components/MainFooter/MainFooter';
+import SkillList from '../../components/SkillList/SkillList.jsx';
 
 
 function Layout({ 
@@ -37,7 +38,9 @@ function Layout({
 
 }) {
   const [error, setError] = useState(null);
-
+  const dispatch = useSkillsDispatch()
+  const skills = useSkills();
+  console.log(skills, "<===== Skills")
 
   const [sidebarState, sidebarDispatch] = useReducer(SidebarReducer, {
     animation: 'overlay',
@@ -62,14 +65,14 @@ function Layout({
   } 
 
   async function handleGetAllSkills() {
+    
     try {
       const response = await skillsApi.getAll();
+      console.log(response.data, "====== REsponse getallSkills")
       dispatch({
         type: 'readSkills',
         data: response.data //COULD BE .skills *****
       })
-      console.log(skills, "_<<< updated skills hook handleget")
-
     } catch (err) {
       setError(console.log(`*** Error READ SKILL ****\n ${err}`))
     }
@@ -96,12 +99,11 @@ function Layout({
   useEffect(() => {
     getSkills();
     handleGetAllSkills();
-    
   }, []); 
 
   return (
-    <SkillsContext.Provider value={skills}>
-      <SkillsDispatchContext.Provider value={dispatch}>
+      
+        
         <Container  style={{ margin: 0, padding: 0, minHeight: '98vh', width: '98vw' }}>
 
           <FixedMenuHeader loggedUser={loggedUser} handleLogout={handleLogout} skill={skill} sidebarDispatch={sidebarDispatch}/>
@@ -148,8 +150,7 @@ function Layout({
           </Sidebar.Pushable>
           <MainFooter />
         </Container>
-      </SkillsDispatchContext.Provider>
-    </SkillsContext.Provider>
+      
     
   )
 }

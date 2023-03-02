@@ -1,20 +1,29 @@
-import React, {useContext, createContext} from "react";
+import {useContext, createContext, useReducer} from "react";
 import { useImmerReducer} from 'use-immer';
 
-export const SkillsContext = createContext(null);
-export const SkillsDispatchContext = createContext(null);
+const SkillsContext = createContext(null);
+const SkillsDispatchContext = createContext(null);
 
 export function SkillsProvider({ children }) {
-	const [skills, dispatch] = useImmerReducer(skillsReducer, null);
+	const [skills, dispatch] = useReducer(skillsReducer, null);
 
 	return (
 		<SkillsContext.Provider value={skills}>
 			<SkillsDispatchContext.Provider value={dispatch}>
-				{ children }
+				{children}
 			</SkillsDispatchContext.Provider>
 		</SkillsContext.Provider>
 	);
 }
+
+export function useSkills() {
+	return useContext(SkillsContext);
+}
+
+export function useSkillsDispatch() {
+	return useContext(SkillsDispatchContext);
+}
+
 
 function skillsReducer(draft, action) {
     switch (action.type) {
@@ -23,6 +32,7 @@ function skillsReducer(draft, action) {
             break;
         }
         case 'readSkills': {
+					console.log("===== Hitting readSkills =====")
             return action.data;
         }
         case 'updateSkill': {
@@ -46,13 +56,5 @@ function skillsReducer(draft, action) {
             throw Error (`Error handling action: ${action.type}`)
         }
     }
-}
-
-export function useSkills() {
-	return useContext(SkillsContext);
-}
-
-export function useSkillsDispatch() {
-	return useContext(SkillsDispatchContext);
 }
 

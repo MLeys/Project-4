@@ -8,6 +8,8 @@ import {
 	 Menu
 } from 'semantic-ui-react';
 
+import { useSkills, useSkillsDispatch } from '../../context/SkillsContext/SkillsContext';
+
 import SubSkillAccordion from '../SubSkillAccordion/SubSkillAccordion';
 
 
@@ -15,13 +17,14 @@ function SkillAccordion({ allSkills, currentUser, skill, assignSkillUser, unAssi
 	// console.log(skill, "<-SkillAccordion skill")
 	// console.log("Hitting SkillAccordion")
   const [activeIndex, setActiveIndex] = useState(-1);
-  const [skills, setSkills] = useState([]);
+  const skills = useSkills()
+  
 
 
   // FIX ME: SO THAT I PASS PROPS FROM CONTEXT ************
   useEffect(() => {
-    setSkills(allSkills);
-  }, [allSkills]);
+    
+  }, []);
 
 	
 
@@ -75,7 +78,7 @@ function SkillAccordion({ allSkills, currentUser, skill, assignSkillUser, unAssi
   return (
 		<>
 		{
-			skills.map((skill, index) => (
+			skills?.map((skill, index) => (
 			<Accordion styled key={`${skill._id}-accordion`}>
 				
 				<Accordion.Title

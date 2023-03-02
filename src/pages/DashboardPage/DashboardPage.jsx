@@ -11,7 +11,7 @@ import {
 } from 'semantic-ui-react';
 
 
-import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
+import { useSkills, useSkillsDispatch} from "../../context/SkillsContext/SkillsContext";
 
 import SkillDisplay from "../../components/SkillDisplay/SkillDisplay";
 import UserSkillsBarGraph from "../../components/UserSkillsBarGraph/UserSkillsBarGraph";
@@ -25,7 +25,7 @@ function DashboardPage({
   allResources, handleAddResource
   
 }) {
-  const skillsContext = useContext(SkillsContext)
+  const skillsContext = useSkills()
   console.log(skillsContext, '<=== Skills from context (dash)')
 
 

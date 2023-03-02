@@ -7,7 +7,7 @@ import {
 		Icon
 } from "semantic-ui-react";
 
-import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
+import { useSkills, useSkillsDispatch } from "../../context/SkillsContext/SkillsContext";
 
 import SkillAccordion from "../SkillAccordion/SkillAccordion";
 
@@ -18,7 +18,7 @@ function VerticalSidebar({
 	allSkills, handleAddSkill, handleDeleteSkill,
 	handleClose
 }) {
-	const skills = useContext(SkillsContext)
+	const skills = useSkills()
 	console.log(skills, " <=== Skills in vert sidebar from context")
 
 	return (

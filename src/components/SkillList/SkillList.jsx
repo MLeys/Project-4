@@ -1,4 +1,5 @@
-import React from 'react';
+import { useState } from 'react';
+import { useSkills, useSkillsDispatch } from '../../context/SkillsContext/SkillsContext';
 import { 
   Accordion,
   Menu,
@@ -9,118 +10,76 @@ import {
 
 import "./SkillList.css"
 
-function SkillList({ allSkills }) {
-
-  const AccordionPanel = ({ title, content }) => (
-    <Accordion.AccordionPanel key={title} title={title}>
-      {content}
-      <button>Button 1</button>
-      <button>Button 2</button>
-    </Accordion.AccordionPanel>
-  )
-  
-
-
-  // const rootPanels = allSkills.map((skill, index) => {
-  //   const skillButton = <Button> </Button>
-  //   const subSkillPanels = skill.subSkills.map((subSkill, subIndex) => {
-
-  //     return {
-
-  //       key: `subskill-${index}-${subIndex}`,
-  //       title: subSkill.title,
-  //       content: {
-  //         content: (
-  //           <div>
-  //             <p>{subSkill.details}</p>
-  //             {/* <Accordion.Accordion panels={resourcePanels} /> */}
-  //           </div>
-  //         )
-  //       }
-  //     };
-  //   });
-
-  //   return {
-  //     key: `skill-${index}`,
-  //     title: skill.name,
-  //     content: { content: <Accordion.Accordion inverted panels={subSkillPanels} /> }
-  //   }
-    
-
-  // });
-
+export default function SkillList() {
+  const skills = useSkills();
   return (
-    <Accordion
-      className='vSidebar' 
-      defaultActiveIndex={0} 
-      panels={rootPanels}
-      fluid="true"
-      styled>
-      </Accordion>
-  )
+    <ul>
+      {skills?.map(skill => (
+        <li key={skill.id}>
+          <Skill skill={skill} />
+        </li>
+      ))}
+    </ul>
+  );
 };
 
-export default SkillList;
-
-
-
-      // const resourcePanels = subSkill.resources.map((resource, resourceIndex) => {
-      //   return {
-      //     key: `resource-${index}-${subIndex}-${resourceIndex}`,
-      //     title: resource.title,
-      //     content: (
-      //       <div>
-      //         <p>{resource.description}</p>
-      //         <a href={resource.link}>Link</a>
-      //       </div>
-      //     )
-      //   };
-      // });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// =================================================================================
-// import React from 'react'
-// import { Link, useNavigate} from "react-router-dom";
-// import { 
-//   Button, 
-//   Image, 
-//   List,
-//   Menu,
-//   Label,
-//   Icon,
-  
-
-// } from 'semantic-ui-react'
-// import SkillPortal from '../SkillPortal/SkillPortal';
-
-// function SkillList({skill, handleDeleteSkill, handleAddSkill}) {
-//   const navigate = useNavigate();
-//   const clickHandler = () =>  handleDeleteSkill(skill._id)
-  
-//   return ( 
-//     <Menu.Item>
-//       <Label color='red' as='a'>
-//         <Icon name='delete' key={skill._id} onClick={() => clickHandler() }/>
-//       </Label>
-//       {skill.name}
-//     </Menu.Item>
-//    );
-   
-// }
-
-// export default SkillList;
-
-// ===========================================================================
+function Skill({ skill }) {
+  const [isEditing, setIsEditing] = useState(false);
+  const dispatch = useSkillsDispatch();
+  let skillContent;
+  if (isEditing) {
+    skillContent = (
+      <>
+        <input
+          value={skill.text}
+          onChange={e => {
+            dispatch({
+              type: 'changed',
+              skill: {
+                ...skill,
+                text: e.target.value
+              }
+            });
+          }} />
+        <button onClick={() => setIsEditing(false)}>
+          Save
+        </button>
+      </>
+    );
+  } else {
+    skillContent = (
+      <>
+        {skill.text}
+        <button onClick={() => setIsEditing(true)}>
+          Edit
+        </button>
+      </>
+    );
+  }
+  return (
+    <label>
+      <input
+        type="checkbox"
+        checked={skill.done}
+        onChange={e => {
+          dispatch({
+            type: 'changed',
+            skill: {
+              ...skill,
+              done: e.target.checked
+            }
+          });
+        }}
+      />
+      {skillContent}
+      <button onClick={() => {
+        dispatch({
+          type: 'deleted',
+          id: skill.id
+        });
+      }}>
+        Delete
+      </button>
+    </label>
+  );
+}

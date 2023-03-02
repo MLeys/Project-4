@@ -3,6 +3,8 @@ import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
 
 import "./App.css";
 
+import { SkillsProvider } from "./context/SkillsContext/SkillsContext";
+
 import SkillPage from "./pages/SkillPage/SkillPage";
 import SubSkillPage from "./pages/SubSkillPage/SubSkillPage";
 import Layout from "./pages/Layout/Layout";
@@ -221,8 +223,9 @@ export default function App() {
   if (user) {
     // are we logged in?
     return (
-      
+      <SkillsProvider>
       <Routes>
+        
         <Route
           path="/"
           element={<Layout
@@ -322,6 +325,7 @@ export default function App() {
           />
           
         </Route>
+        
 
         <Route
           path="/login"
@@ -333,6 +337,7 @@ export default function App() {
         />
 
       </Routes>
+      </SkillsProvider>
     );
 }
 
