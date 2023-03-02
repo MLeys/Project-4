@@ -47,7 +47,17 @@ export default function App() {
     }
   }
 
-  
+  async function handleAddSkill(skill) {
+    try {
+      const response = await skillsApi.create(skill);
+      setSkills([response.skill, ...skills])
+      getSkills();
+    } catch(err){
+      setError(console.log(`***Error in handle Skill message: ${err}`))
+    }
+  } 
+
+  // RESERVE FOR UPDATE SKILL ================================
 
   async function handleDeleteSkill(skillId) {
     try {
@@ -63,16 +73,7 @@ export default function App() {
     }
   }
 
-  async function handleAddSkill(skill) {
-    console.log(`AddSkill(app): ${skill}`)
-    try {
-      const response = await skillsApi.create(skill);
-      setSkills([response.skill, ...skills])
-      getSkills();
-    } catch(err){
-      setError(console.log(`***Error in handle Skill message: ${err}`))
-    }
-  } 
+
 
   async function getResources() {
     console.log("getting resources")

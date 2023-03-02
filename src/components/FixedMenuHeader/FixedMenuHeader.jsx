@@ -15,7 +15,7 @@ import { Link, useNavigate } from "react-router-dom";
     Icon
   } from 'semantic-ui-react'
 
-import SidebarReducer from "../Reducers/SidebarReducer";
+import SidebarReducer from "../../reducers/SidebarReducer";
 
 
 

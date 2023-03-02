@@ -19,11 +19,14 @@ import {
 } from 'semantic-ui-react'
 import { Outlet } from 'react-router-dom';
 
+import * as skillsApi from "../../utils/skillApi.js"; 
+
 import SkillPortal from '../../components/SkillPortal/SkillPortal';
 import VerticalSidebar from '../../components/VerticalSidebar/VerticalSidebar';
 import FixedMenuHeader from '../../components/FixedMenuHeader/FixedMenuHeader';
-import SidebarReducer from '../../components/Reducers/SidebarReducer';
+import SidebarReducer from '../../reducers/SidebarReducer';
 import MainFooter from '../../components/MainFooter/MainFooter';
+
 
 function Layout({ 
   loggedUser, handleLogout,
@@ -35,6 +38,7 @@ function Layout({
   allResources, handleAddResource
 
 }) {
+  const [error, setError] = useState(null);
 
   const [sidebarState, dispatch] = React.useReducer(SidebarReducer, {
     animation: 'overlay',
@@ -42,13 +46,34 @@ function Layout({
     dimmed: false,
     visible: false,
   })
-
-  
   const { animation, dimmed, direction, visible } = sidebarState;
 
-  async function loadSkills() {
-    allSkills = await getSkills();
+  const [skills, setSkills] = useState(null);
+
+  async function handleCreateSkill(data) {
+    try {
+      const response = await skillsApi.create(data);
+      setSkills([
+        ...skills,
+        response.skill
+      ])
+      
+    } catch(err){
+      setError(console.log(`*** Error CREATE SKILL ****\n ${err}`))
+    }
+  } 
   
+  async function handleDeleteSkill(skillId) {
+    try {
+      
+      const response = await skillsApi.deleteSkill(skillId);
+      setSkills(skills.filter((skill) => skill._id !== skillId ))
+      // CHECK IF NEED TO USE ._id INSTEAD OF .id or vice-versa ************
+      // ELIMINATED RETURN (orig) ->> return skill._id !== skillId
+    } catch (err) {
+      setError(console.log(`*** Error DELETE SKILL ****\n ${err}`))
+
+    }
   }
 
   useEffect(() => {
