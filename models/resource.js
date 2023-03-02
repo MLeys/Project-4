@@ -9,11 +9,12 @@ const resourceSchema = new Schema({
     description: String,
     thumbnail: String,
     datePublished: String,
-    parentSkillId:  {type: Schema.Types.ObjectId, ref: 'Skill', autopopulate: true},
-    parentSubSkillName, String,
+    skillId: String,
+    subSkillId: String,
     source: {type: String, default: 'youtube'},
     usersAssigned: [{type: Schema.Types.ObjectId, ref: 'User', autopopulate: true}],
     // 
 }, {
     timestamps: true
 })
+export default mongoose.model('Resource', resourceSchema)

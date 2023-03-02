@@ -26,13 +26,16 @@ export default function App() {
   const [skills, setSkills] = useState([]);
   const [resources, setResources] = useState([]);
   const [error, setError] = useState('');
+  
 
   
 
-  async function handleAddResource(resource, skill, loggedUser) {
+  async function handleAddResource(data) {
+    console.log(`Data(before): ${data}`)
     try {
-    const response = await resourcesApi.create(resource, skill, loggedUser);
-    console.log(`Response(resource-add in app): ${r}`)
+          
+      const response = await resourcesApi.create(data);
+      // console.log(`Response(addResource (app)): ${response}`)
       return await response;
 
     } catch (err) {
@@ -55,13 +58,14 @@ export default function App() {
   }
 
   async function handleAddSkill(skill) {
-      try {
-          const response = await skillsApi.create(skill);
-          setSkills([response.skill, ...skills])
-          getSkills();
-      } catch(err){
-        setError(console.log(`***Error in handle Skill message: ${err}`))
-      }
+    console.log(`AddSkill(app): ${skill}`)
+    try {
+      const response = await skillsApi.create(skill);
+      setSkills([response.skill, ...skills])
+      getSkills();
+    } catch(err){
+      setError(console.log(`***Error in handle Skill message: ${err}`))
+    }
   } 
 
   async function handleAddSubSkill(subskill) {

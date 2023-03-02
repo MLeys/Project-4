@@ -36,11 +36,12 @@ app.use(auth);
 import userRoutes from './routes/api/users.js';
 import skillRoutes from './routes/api/skills.js';
 import subSkillRoutes from './routes/api/subSkills.js'
+import resourceRoutes from './routes/api/resources.js'
 
-
+app.use('/api/resources', resourceRoutes);
 app.use('/api/skills', skillRoutes);
 app.use('/api/users', userRoutes);
-app.use('/api', subSkillRoutes)
+app.use('/api', subSkillRoutes);
 
 
 // "catch all" route

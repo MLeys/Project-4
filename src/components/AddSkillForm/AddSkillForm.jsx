@@ -14,7 +14,7 @@ export default function AddSkillForm({ handleAddSkill, handleClose}) {
           ...state,
           [e.target.name]: e.target.value,
         });
-		// console.log(state, " <<<UPDATED STATE FROM HANDLE CHANGE")
+		console.log(state, " <<<UPDATED STATE FROM HANDLE CHANGE")
       }
 
     function handleSubmit(e) {

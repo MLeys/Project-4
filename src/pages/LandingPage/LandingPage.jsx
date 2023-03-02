@@ -12,7 +12,6 @@ function LandingPage({getSkills,unAssignSkillUser, assignSkillUser,
     handleAddSkill, handleDeleteSkill, handleAddSubSkill,
     handleAddResource
 }) {
-    console.log(handleAddResource.type)
     // console.log(loggedUser)
     // console.log(allSkills, " ALL SKILLS - landing page") 
     useEffect(() => {

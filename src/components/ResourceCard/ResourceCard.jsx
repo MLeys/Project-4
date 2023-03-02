@@ -1,15 +1,9 @@
 import { useState, useEffect } from 'react';
 
 import { 
-    Segment,
     Card,
     Button,
-    Icon,
-    Label,
-    Form,
     Embed,
-	Image
-
 
 } from 'semantic-ui-react';
 
@@ -19,14 +13,36 @@ function ResourceCard({liftYouTubeSearchResults, youTubeSearchResults,
 }) {
 	const [resources, setResources] = useState([]);
 	const [selected, setSelected] = useState({});
+	const [addResource, setAddResource] = useState({})
 
-	function handleSelect(e, resource) {
-		e.stopPropagation();
+	function handleSelect(e, resource, index) {
 		e.preventDefault();
-		console.log(`Data (resourceCard): ${resource.title}`)
+		// const newResource = {
+		// 	title: resource.title,
+		// 	videoId: resource.videoId,
+		// 	description: resource.description,
+		// 	thumbnail: resource.thumbnail,
+		// 	datePublished: resource.publishTime,
+		// 	skillId: skill._id,
+		// 	userId: loggedUser._id,
+		// 	source: 'youtube'
+		// }
+		setAddResource({
+			...addResource,
+			title: resources[index].title,
+			videoId: resources[index].videoId,
+			description: resources[index].description,
+			thumbnail: resources[index].thumbnail,
+			datePublished: resources[index].publishTime,
+			skillId: skill._id,
+			userId: loggedUser._id,
+			source: 'youtube'
+		})
 
-		handleAddResource(resource, skill, loggedUser);
 		
+		console.log(`addResource(resourceCard-handleSelect): ${addResource}`)
+		handleAddResource(addResource);
+
 	}
 	
 
@@ -42,14 +58,13 @@ function ResourceCard({liftYouTubeSearchResults, youTubeSearchResults,
 
 	return (
 	<>{
-		resources.map((resource) => {
+		resources.map((resource, index) => {
 			return (
 				
 				<Card 
-					key={`search-${skill.name}-${resource.videoId}`}
-					onClick={(e) =>{
+					key={`${resource.videoId}-${index}`}
+					onClick={(e, resource)=>{handleSelect(e, resource, index)}}
 						
-						handleSelect(e, resource)} }
 				>
 					<Embed
 						autoplay={false}

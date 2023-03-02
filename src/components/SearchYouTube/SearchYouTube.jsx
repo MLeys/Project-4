@@ -41,6 +41,7 @@ function SearchYouTube({skill, liftYouTubeSearchResults}) {
 	
 
 	function handleChange(e){
+		
 		setSearchYT(e.target.value)
 	}
 
