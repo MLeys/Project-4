@@ -35,28 +35,24 @@ function Layout({
   allResources, handleAddResource
 
 }) {
-  // console.log(allSkills, "<-- all skills (layout)")
+
   const [sidebarState, dispatch] = React.useReducer(SidebarReducer, {
     animation: 'overlay',
     direction: 'left',
     dimmed: false,
     visible: false,
   })
-  // console.log(allSkills, "<-- all skills (layout)")
+
   
   const { animation, dimmed, direction, visible } = sidebarState;
 
   async function loadSkills() {
     allSkills = await getSkills();
-    // console.log(allSkills, "<-- all skills (layout)")
+  
   }
 
   useEffect(() => {
-    
-    
-    // searchYouTube();
-    // searchOpenAi("top 5 most important software engineering skills");
-    
+    getSkills();
     
   }, []); 
 

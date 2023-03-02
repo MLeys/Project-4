@@ -47,6 +47,8 @@ export default function App() {
     }
   }
 
+  
+
   async function handleDeleteSkill(skillId) {
     try {
       
