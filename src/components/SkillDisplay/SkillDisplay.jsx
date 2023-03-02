@@ -22,6 +22,7 @@ import SubSkillDisplay from '../SubSkillDisplay/SubSkillDisplay';
 
 import ResourceDisplay from '../ResourceDisplay/ResourceDisplay';
 import SearchYouTube from '../SearchYouTube/SearchYouTube';
+import resources from '../../../controllers/resources';
 
 
 
@@ -35,6 +36,7 @@ export default function SkillDisplay({
 	const [currentSkill, setCurrentSkill] = useState({});
 	const [youTubeSearchResults, setYouTubeSearchResults] = useState([]);
 	const [subSkills, setSubSkills] = useState([]);
+	const [skillResources, setSkillResources] = useState([])
 
 	const assignIndex = skill?.usersAssigned?.findIndex(user => user.username === loggedUser.username)
 	const assignColor = assignIndex > -1 ? 'red' : 'green';
@@ -52,12 +54,18 @@ export default function SkillDisplay({
 	}
 
 	function getCurrentSkill() {
-			(skill) ? setCurrentSkill({skill}) : '';
+			setCurrentSkill(skill)
+			getSkillResources();
 	}
+
+	function getSkillResources() {
+		setSkillResources({...currentSkill.resources})
+	}
+
 	useEffect(() => {
-	
+		getCurrentSkill();
 		
-	}, []); 
+	}, [skill]); 
 
 	return (
 		<Grid as={Segment} >

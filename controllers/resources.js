@@ -16,14 +16,22 @@ async function create(req, res) {
 
     try {
         
-        const newResource = await Resource.create(req.body);
+        const newResource = await (await Resource.create(req.body))
         const skillDoc = await Skill.findById(req.body.skillId).populate("resources").exec();
             // .resources.push(newResource)
             // .populate("resources")
             // .exec()
             // .save()
+   
         skillDoc.resources.push(newResource);
+        console.log('===========================START========================')
+        console.log('===================================================')
+
+        console.log(newResource)
        
+        console.log('================================END===================')
+        console.log('===================================================')
+
         skillDoc.save();
 
         console.log("skillDoc: ",skillDoc)

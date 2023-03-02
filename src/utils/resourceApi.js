@@ -19,7 +19,7 @@ export async function create(data) {
 			
 		}).then((res) =>{
 			if(res.ok) {
-				console.log(`Returned Data: ${res.json()}`)
+				
 				return res.json() 
 			}
 			return res.json().then(res => {

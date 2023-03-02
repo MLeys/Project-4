@@ -24,7 +24,7 @@ export default function App() {
   
   const [user, setUser] = useState(userService.getUser());
   const [skills, setSkills] = useState([]);
-  const [resources, setResources] = useState([]);
+  const [skillResources, setSkillResources] = useState([]);
   const [error, setError] = useState('');
   
 
@@ -35,8 +35,11 @@ export default function App() {
     try {
           
       const response = await resourcesApi.create(data);
-      console.log(`Response(addResource (app)): ${response}`)
-      return await response;
+      console.log("RESPONSE", response)
+      setSkillResources([response, ...skillResources])
+      getSkills();
+      // console.log(`Response(addResource (app)): ${response}`)
+      // return await response;
 
     } catch (err) {
       setError(console.log(`***Error in handleAddResource(message): ${err}`))
