@@ -1,30 +1,23 @@
 import React from 'react'
-import { Link } from "react-router-dom";
-import { useState, useEffect} from "react";
+import { Link, Outlet } from "react-router-dom";
+import { useState, useEffect, useReducer} from "react";
+import { useImmerReducer} from 'use-immer';
+
 import {
-  Button,
-  Checkbox,
-  Grid,
-  Header,
-  Icon,
-  Image,
-  Menu,
   Segment,
   Sidebar,
-  Item,
-  Input,
-  Label,
-  List,
   Container
 } from 'semantic-ui-react'
-import { Outlet } from 'react-router-dom';
+
 
 import * as skillsApi from "../../utils/skillApi.js"; 
+
+import SkillsReducer from '../../reducers/SkillsReducer.js';
+import SidebarReducer from '../../reducers/SidebarReducer.js';
 
 import SkillPortal from '../../components/SkillPortal/SkillPortal';
 import VerticalSidebar from '../../components/VerticalSidebar/VerticalSidebar';
 import FixedMenuHeader from '../../components/FixedMenuHeader/FixedMenuHeader';
-import SidebarReducer from '../../reducers/SidebarReducer';
 import MainFooter from '../../components/MainFooter/MainFooter';
 
 
@@ -39,8 +32,9 @@ function Layout({
 
 }) {
   const [error, setError] = useState(null);
+  const [skills, dispatch] = useImmerReducer(SkillsReducer, null)
 
-  const [sidebarState, dispatch] = React.useReducer(SidebarReducer, {
+  const [sidebarState, sidebarDispatch] = useReducer(SidebarReducer, {
     animation: 'overlay',
     direction: 'left',
     dimmed: false,
@@ -48,7 +42,7 @@ function Layout({
   })
   const { animation, dimmed, direction, visible } = sidebarState;
 
-  const [skills, setSkills] = useState(null);
+  
 
   async function handleCreateSkill(data) {
     try {
@@ -88,7 +82,7 @@ function Layout({
 
   return (
     <Container  style={{ margin: 0, padding: 0, minHeight: '98vh', width: '98vw' }}>
-      <FixedMenuHeader loggedUser={loggedUser} handleLogout={handleLogout} skill={skill} dispatch={dispatch}/>
+      <FixedMenuHeader loggedUser={loggedUser} handleLogout={handleLogout} skill={skill} sidebarDispatch={sidebarDispatch}/>
 
       <Sidebar.Pushable as={Segment} inverted style={{ overflow: 'hidden', margin: 0, padding: 1, minHeight: '89vh'  }}>
         <VerticalSidebar

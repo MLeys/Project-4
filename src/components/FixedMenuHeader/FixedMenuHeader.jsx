@@ -19,14 +19,14 @@ import SidebarReducer from "../../reducers/SidebarReducer";
 
 
 
-function FixedMenuHeader({ loggedUser, handleLogout, dispatch }) {
+function FixedMenuHeader({ loggedUser, handleLogout, sidebarDispatch }) {
     const navigate = useNavigate();
 
 
     return (  
         <Menu inverted style={{padding: '0em', margin: '0'}}>
             <Menu.Item as='a' header onClick={() =>
-                    dispatch({ type: 'CHANGE_ANIMATION', animation: 'overlay' })
+                    sidebarDispatch({ type: 'CHANGE_ANIMATION', animation: 'overlay' })
                     }>
                 Skill.map
             </Menu.Item>
