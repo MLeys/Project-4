@@ -1,4 +1,5 @@
 import Resource from '../models/resource.js';
+import Skill from '../models/skill.js';
 
 export default {
   create
@@ -11,10 +12,25 @@ export default {
 };
 
 async function create(req, res) {
-    console.log(req.body)
+    console.log(req.body, "<<<< REQ BODY")
+
     try {
-        console.log("*$)%(*$#)%#$#)%($#(%(#$)%(##$)$)")
+        
         const newResource = await Resource.create(req.body);
+        const skillDoc = await Skill.findById(req.body.skillId).populate("resources").exec();
+            // .resources.push(newResource)
+            // .populate("resources")
+            // .exec()
+            // .save()
+        skillDoc.resources.push(newResource);
+       
+        skillDoc.save();
+
+        console.log("skillDoc: ",skillDoc)
+        // const subSkills = skillDoc.resources.push(newResource)
+        // console.log(`subSkills: ${subSkills}`)
+        
+
         console.log(`NewResource(ctrl): \n${newResource}`)
         res.status(201).json(newResource.toJSON());
     } catch (error) {

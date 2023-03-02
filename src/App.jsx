@@ -35,7 +35,7 @@ export default function App() {
     try {
           
       const response = await resourcesApi.create(data);
-      // console.log(`Response(addResource (app)): ${response}`)
+      console.log(`Response(addResource (app)): ${response}`)
       return await response;
 
     } catch (err) {
