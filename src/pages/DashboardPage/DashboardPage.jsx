@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { useParams} from "react-router-dom";
 import { 
   Segment,
   Grid,
@@ -8,7 +9,9 @@ import {
   Tab,
   Progress
 } from 'semantic-ui-react';
-import { useParams } from "react-router-dom";
+
+
+import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 import SkillDisplay from "../../components/SkillDisplay/SkillDisplay";
 import UserSkillsBarGraph from "../../components/UserSkillsBarGraph/UserSkillsBarGraph";
@@ -22,7 +25,8 @@ function DashboardPage({
   allResources, handleAddResource
   
 }) {
-
+  const skillsContext = useContext(SkillsContext)
+  console.log(skillsContext, '<=== Skills from context (dash)')
 
 
   const { username } = useParams();
@@ -59,7 +63,7 @@ function DashboardPage({
 	}));
 
   useEffect(() => {
-    getSkills();
+    // getSkills();
     filterUserSkills();
     
   }, []); 

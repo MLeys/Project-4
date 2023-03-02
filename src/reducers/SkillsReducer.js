@@ -5,7 +5,8 @@ function SkillsReducer(draft, action) {
             break;
         }
         case 'readSkills': {
-            throw Error (`${action.type} - NOT CREATED YET`)
+            return action.data;
+            
             
         }
         case 'updateSkill': {

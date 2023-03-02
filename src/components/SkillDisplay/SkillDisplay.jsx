@@ -1,8 +1,6 @@
 import React from 'react';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link, Route, Routes, Navigate, useParams} from 'react-router-dom';
-
-
 import { 
 	Segment,
 	Card,
@@ -13,8 +11,9 @@ import {
 	Header,
 	Container
 
-
 } from 'semantic-ui-react';
+
+import { SkillsContext } from '../../context/SkillsContext/SkillsContext';
 
 import SubSkillPortal from '../SubSkillPortal/SubSkillPortal';
 
@@ -33,6 +32,8 @@ export default function SkillDisplay({
 	handleAddSubSkill,
 	allResources, handleAddResource
 }) {
+	const skillsContext = useContext(SkillsContext);
+	console.log(skillsContext, "<=== Skills Context (skillDisplay)")
 	const [currentSkill, setCurrentSkill] = useState({});
 	const [youTubeSearchResults, setYouTubeSearchResults] = useState([]);
 	const [subSkills, setSubSkills] = useState([]);
@@ -65,22 +66,7 @@ export default function SkillDisplay({
 		setSkillResources(resources)
 	}
 
-	// function displaySkillResources() {
-	// 	return (
-	// 		<>
-	// 		{
-	// 			skillResources?.map((r) => {
-	// 				return (
-	// 					<>
-	// 					<Segment key={`resourceSeg-${r._id}`} content={r.title} />
-	// 					</>
-	// 				)
-	// 			})
-	// 		}
-	// 		</>
-	// 	)
-			
-	// }
+
 	const displaySkillResources= () => {
 		console.log(skillResources, " SKILL RES")
 		return (
@@ -157,7 +143,7 @@ export default function SkillDisplay({
 				<Segment.Group>
 					{
 						skillResources?.map((r) => {
-							console.log(r, "<<-- resource")
+							// console.log(r, "<<-- resource")
 							return (
 								<>
 								<Segment key={`resourceSeg-${r._id}`} content={r.title} />

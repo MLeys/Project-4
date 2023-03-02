@@ -12,12 +12,10 @@ function LandingPage({getSkills,unAssignSkillUser, assignSkillUser,
     handleAddSkill, handleDeleteSkill, handleAddSubSkill,
     allResources, handleAddResource
 }) {
-    // console.log(loggedUser)
-    // console.log(allSkills, " ALL SKILLS - landing page") 
+
+    
     useEffect(() => {
-        //Getting posts, C(R)UD
-        // getSkills();
-        
+
       }, []); 
     return (
         <div>

@@ -28,7 +28,6 @@ export function create(data) {
 }
 
 export async function getAll() {
-    // console.log(" &&&&&&&&&&&&&&&&&&&&&&&&&&&&&& YES YOU ARE HITTING RIGHT HERE !!!! =========")
     const res = await fetch(`${BASE_URL}all`, {
 		headers: {
 			Authorization: "Bearer " + tokenService.getToken(),

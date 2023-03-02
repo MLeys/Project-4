@@ -6,7 +6,8 @@ import { useImmerReducer} from 'use-immer';
 import {
   Segment,
   Sidebar,
-  Container
+  Container,
+  Button
 } from 'semantic-ui-react'
 
 
@@ -14,6 +15,8 @@ import * as skillsApi from "../../utils/skillApi.js";
 
 import SkillsReducer from '../../reducers/SkillsReducer.js';
 import SidebarReducer from '../../reducers/SidebarReducer.js';
+
+import { SkillsContext, SkillsDispatchContext } from '../../context/SkillsContext/SkillsContext.jsx';
 
 import SkillPortal from '../../components/SkillPortal/SkillPortal';
 import VerticalSidebar from '../../components/VerticalSidebar/VerticalSidebar';
@@ -51,11 +54,24 @@ function Layout({
         type: 'createSkill',
         data: response.skill,
       })
-      
     } catch(err){
       setError(console.log(`*** Error CREATE SKILL ****\n ${err}`))
     }
   } 
+
+  async function handleGetAllSkills() {
+    try {
+      const response = await skillsApi.getAll();
+      dispatch({
+        type: 'readSkills',
+        data: response.data //COULD BE .skills *****
+      })
+      console.log(skills, "_<<< updated skills hook handleget")
+
+    } catch (err) {
+      setError(console.log(`*** Error READ SKILL ****\n ${err}`))
+    }
+  }
   
   async function handleDeleteSkill(skillId) {
     try {
@@ -77,52 +93,62 @@ function Layout({
 
   useEffect(() => {
     getSkills();
+    handleGetAllSkills();
     
   }, []); 
 
   return (
-    <Container  style={{ margin: 0, padding: 0, minHeight: '98vh', width: '98vw' }}>
-      <FixedMenuHeader loggedUser={loggedUser} handleLogout={handleLogout} skill={skill} sidebarDispatch={sidebarDispatch}/>
+    <SkillsContext.Provider value={skills}>
+      <SkillsDispatchContext.Provider value={dispatch}>
+        <Container  style={{ margin: 0, padding: 0, minHeight: '98vh', width: '98vw' }}>
 
-      <Sidebar.Pushable as={Segment} inverted style={{ overflow: 'hidden', margin: 0, padding: 1, minHeight: '89vh'  }}>
-        <VerticalSidebar
-          loggedUser={loggedUser}
-          animation={animation}
-          direction={direction}
-          visible={visible}
-          allSkills={allSkills}
-          handleDeleteSkill={handleDeleteSkill}
-          handleAddSkill={handleAddSkill}
-          handleClose={handleClose}
-          assignSkillUser={assignSkillUser}
-          unAssignSkillUser={unAssignSkillUser}
+          <FixedMenuHeader loggedUser={loggedUser} handleLogout={handleLogout} skill={skill} sidebarDispatch={sidebarDispatch}/>
 
-          
-        />      
-        <Sidebar.Pusher  dimmed={dimmed && visible}>
-          <Segment.Group>
-            <Segment inverted>
-              <SkillPortal handleAddSkill={handleAddSkill} skill={skill} handleClose={handleClose} />   
-            </Segment>
-            <Segment >
-              <Outlet 
-                getSkill={getSkill} 
-                allSkills={allSkills} 
-                loggedUser={loggedUser} 
-                handleLogout={handleLogout} 
-                handleAddSkill={handleAddSkill} 
-                handleDeleteSkill={handleDeleteSkill}
-                handleAddResource={handleAddResource}
-                allResources={allResources}
+          <Sidebar.Pushable as={Segment} inverted style={{ overflow: 'hidden', margin: 0, padding: 1, minHeight: '89vh'  }}>
+            <VerticalSidebar
+              loggedUser={loggedUser}
+              animation={animation}
+              direction={direction}
+              visible={visible}
+              allSkills={allSkills}
+              handleDeleteSkill={handleDeleteSkill}
+              handleAddSkill={handleAddSkill}
+              handleClose={handleClose}
+              assignSkillUser={assignSkillUser}
+              unAssignSkillUser={unAssignSkillUser}
+              
+            />      
+            <Sidebar.Pusher  dimmed={dimmed && visible}>
+              <Segment.Group>
+                <Segment inverted>
+                  <SkillPortal 
+                    
+                    handleAddSkill={handleAddSkill} 
+                    skill={skill} 
+                    handleClose={handleClose} />   
+                </Segment>
+                <Segment >
+                  <Outlet 
+                    getSkill={getSkill} 
+                    allSkills={allSkills} 
+                    loggedUser={loggedUser} 
+                    handleLogout={handleLogout} 
+                    handleAddSkill={handleAddSkill} 
+                    handleDeleteSkill={handleDeleteSkill}
+                    handleAddResource={handleAddResource}
+                    allResources={allResources}
+                    
 
-              />
-            </Segment>
-          </Segment.Group>
-        </Sidebar.Pusher>
-      </Sidebar.Pushable>
-      <MainFooter />
+                  />
+                </Segment>
+              </Segment.Group>
+            </Sidebar.Pusher>
+          </Sidebar.Pushable>
+          <MainFooter />
+        </Container>
+      </SkillsDispatchContext.Provider>
+    </SkillsContext.Provider>
     
-    </Container>
   )
 }
 

@@ -17,6 +17,8 @@ function SkillAccordion({ allSkills, currentUser, skill, assignSkillUser, unAssi
   const [activeIndex, setActiveIndex] = useState(-1);
   const [skills, setSkills] = useState([]);
 
+
+  // FIX ME: SO THAT I PASS PROPS FROM CONTEXT ************
   useEffect(() => {
     setSkills(allSkills);
   }, [allSkills]);
