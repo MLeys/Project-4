@@ -53,10 +53,10 @@ function Layout({
   async function handleCreateSkill(data) {
     try {
       const response = await skillsApi.create(data);
-      setSkills([
-        ...skills,
-        response.skill
-      ])
+      dispatch({
+        type: 'createSkill',
+        data: response.skill,
+      })
       
     } catch(err){
       setError(console.log(`*** Error CREATE SKILL ****\n ${err}`))
@@ -67,7 +67,12 @@ function Layout({
     try {
       
       const response = await skillsApi.deleteSkill(skillId);
-      setSkills(skills.filter((skill) => skill._id !== skillId ))
+      dispatch({
+        type: 'deleteSkill',
+        id: skillId,
+      })
+
+      // setSkills(skills.filter((skill) => skill._id !== skillId ))
       // CHECK IF NEED TO USE ._id INSTEAD OF .id or vice-versa ************
       // ELIMINATED RETURN (orig) ->> return skill._id !== skillId
     } catch (err) {
