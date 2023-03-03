@@ -21,7 +21,6 @@ function DashboardPage({
   loggedUser, unAssignSkillUser,  assignSkillUser, 
   handleDeleteSkill, handleAddSkill,
   handleAddSubSkill,
-   getSkill,  getUserSkills,
   allResources, handleAddResource
   
 }) {
@@ -92,7 +91,7 @@ function DashboardPage({
       </Grid.Row>
       <Grid.Row>
         <Grid.Column>
-        <Tab menu={{ widths: userSkills.length ,color: 'purple', inverted: true, attached: false, tabular: false, vertical: false, borderless: true }} panes={skillPanes} />
+        <Tab menu={{ widths: userSkills?.length ,color: 'purple', inverted: true, attached: false, tabular: false, vertical: false, borderless: true }} panes={skillPanes} />
         </Grid.Column>
       </Grid.Row>
     </Grid>

@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom";
-import { useState, useEffect, Component } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import {
     Grid,
@@ -12,10 +12,14 @@ import {
 
 } from 'semantic-ui-react';
 
+import SkillsReducer from "../../reducers/SkillsReducer";
+import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
+
 import AddSkillForm from "../AddSkillForm/AddSkillForm";
 
-function SkillPortal({handleAddSkill, skill}) {
+function SkillPortal({ skill}) {
     const [formPop, setFormPop] = useState(false)
+    const handleAddSkill = useContext(SkillsContext).createSkill
 
     const open = formPop;
 
@@ -67,7 +71,7 @@ function SkillPortal({handleAddSkill, skill}) {
                     negative
                     onClick={handleClose} 
                 />
-                    <AddSkillForm handleClose={handleClose} skill={skill} handleAddSkill={handleAddSkill} />
+                    <AddSkillForm handleClose={handleClose} />
 
                 </Segment>
             </Portal>

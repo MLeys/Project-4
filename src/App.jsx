@@ -36,18 +36,21 @@ export default function App() {
   const [allResources, setAllResources] = useState([]);
   const [error, setError] = useState('');
   
-  // async function handleCreateSkill(data) {
-  //   try {
-  //     const response = await skillsApi.create(data);
-  //     dispatch({
-  //       type: 'createSkill',
-  //       data: response.skill,
-  //     })
-  //   } catch(err){
-  //     setError(console.log(`*** Error CREATE SKILL ****\n ${err}`))
-  //   }
-  //   console.log(skills, "<<<<<< skills")
-  // } 
+
+
+
+  async function handleCreateSkill(data) {
+    try {
+      const response = await skillsApi.create(data);
+      dispatch({
+        type: 'createSkill',
+        data: response.skill,
+      })
+    } catch(err){
+      setError(console.log(`*** Error CREATE SKILL ****\n ${err}`))
+    }
+    console.log(skills, "<<<<<< skills")
+  } 
 
   async function getSkills() {
     try {
@@ -64,18 +67,60 @@ export default function App() {
     console.log(skills, "<<<<<< skills")
   }
 
-  // async function handleCreateSkill(data) {
+  async function handleDeleteSkill(skillId) {
+    try {
+      const response = await skillsApi.deleteSkill(skillId);
+      dispatch({
+        type: 'deleteSkill',
+        id: skillId,
+      })
+    } catch (err) {
+      setError(console.log(`*** Error DELETE SKILL ****\n ${err}`))
+
+    }
+  }
+  async function assignSkillUser(skillId) {
+    try {
+      const skillIndex = skills.findIndex((skill) => skill._id === skillId)
+      const response = await skillsApi.assignUser(skillId);
+      dispatch({
+        type: 'assignSkill',
+        index: skillIndex,
+        user: user
+      })
+    } catch (err) {
+      setError(console.log(`*** Error Assign SKILL ****\n ${err}`))
+
+    }
+  }
+  // async function assignSkillUser(skill) {
   //   try {
-  //     const response = await skillsApi.create(data);
-  //     dispatch({
-  //       type: 'createSkill',
-  //       data: response.skill,
-  //     })
-  //   } catch(err){
-  //     setError(console.log(`*** Error CREATE SKILL ****\n ${err}`))
+  //     console.log("ASSIGN SKILL USER")
+  //     const isAssigned = skill.usersAssigned.some(user => user._id === loggedUser._id);
+  //     if (!isAssigned) {
+  //       const response = await skillsApi.assignUser(user, skill._id)
+  //       getSkills();
+        
+  //     } else {
+  //       console.log("*** User Already Assigned ***")
+  //     }
+      
+  //   } catch(err) {
+  //     console.log(err, "<--assign Skill error")
   //   }
-  //   console.log(skills, "<<<<<< skills")
-  // } 
+  // }
+
+  async function unAssignSkillUser(skill) {
+    try {
+      const response = await skillsApi.unAssignUser(user, skill._id)
+      getSkills();
+      
+    } catch(err) {
+      console.log(err, "<--unassign Skill error")
+    }
+  }
+
+
 
   async function handleAddResource(data) {
     console.log(`Data(before): ${data}`)
@@ -93,34 +138,6 @@ export default function App() {
       setError(console.log(`***Error in handleAddResource(message): ${err}`))
     }
   }
-
-  async function handleAddSkill(skill) {
-    try {
-      const response = await skillsApi.create(skill);
-      setSkills([response.skill, ...skills])
-      getSkills();
-    } catch(err){
-      setError(console.log(`***Error in handle Skill message: ${err}`))
-    }
-  } 
-
-  // RESERVE FOR UPDATE SKILL ================================
-
-  async function handleDeleteSkill(skillId) {
-    try {
-      
-      const response = await skillsApi.deleteSkill(skillId);
-      console.log(response, "<--- DELETE SKILL RESPONSE")
-      setSkills(skills.filter((skill) => {
-        return skill._id !== skillId
-      }))
-      
-    } catch (err) {
-      console.log(err, "<-------handleDelete skill Error")
-    }
-  }
-
-
 
   async function getResources() {
     console.log("getting resources")
@@ -164,34 +181,8 @@ export default function App() {
     } catch(err){
         console.log(err, " Error IN THE HANDLEADDsubskill")
     }
-
   } // END handleAddSubSkill Function
 
-  // async function getSkills() {
-  //   try {
-  //     const response = await skillsApi.getAll();
-  //     setSkills( await response.data)
-  //     // getUserSkills();
-
-  //   } catch(err) {
-  //     setError(console.log('^^^^ getSkills Error!!! ^^^^'));
-  //     console.log(err, '<--- getSkills ERROR');
-  //   }
-
-  // } // END getSkills Function
-
-  async function getSkill(skillName) {
-    console.log(skillName, "<-getSkill SkillName")
-    try {
-      const response = await skillsApi.getOneSkill(skillName)
-      // console.log(response, "<-- getSkillByNameResponse")
-      setSkill(response.skillDoc)
-      
-      
-    } catch(err) {
-      console.log(err, "getSkill SINGLE error")
-    }
-  }
 
   function handleSignUpOrLogin() {
     setUser(userService.getUser());
@@ -205,33 +196,7 @@ export default function App() {
   }
 
 
-  async function assignSkillUser(skill) {
-    try {
-      console.log("ASSIGN SKILL USER")
-      const isAssigned = skill.usersAssigned.some(user => user._id === loggedUser._id);
-      if (!isAssigned) {
-        const response = await skillsApi.assignUser(user, skill._id)
-        getSkills();
-        
-      } else {
-        console.log("*** User Already Assigned ***")
-      }
-      
-    } catch(err) {
-      console.log(err, "<--assign Skill error")
-    }
-  }
 
-  async function unAssignSkillUser(skill) {
-    try {
-      const response = await skillsApi.unAssignUser(user, skill._id)
-      getSkills();
-      
-    } catch(err) {
-      console.log(err, "<--unassign Skill error")
-    }
-    
-  }
 
   async function assignSubUser(subskill) {
     try {
@@ -250,7 +215,15 @@ export default function App() {
       console.log(err, "<--unassign Skill error")
     }
   }
-
+  async function handleAddSkill(skill) {
+    try {
+      const response = await skillsApi.create(skill);
+      setSkills([response.skill, ...skills])
+      getSkills();
+    } catch(err){
+      setError(console.log(`***Error in handle Skill message: ${err}`))
+    }
+  } 
 
 
   useEffect(() => {
@@ -270,8 +243,14 @@ export default function App() {
     return (
       <SkillsContext.Provider 
         value={{
-          getSkills:getSkills,
-          skills:skills
+          loggedUser: user,
+          skills: skills,
+          createSkill: handleCreateSkill,
+          getSkills: getSkills,
+          deleteSkill: handleDeleteSkill,
+
+
+          
       }}>
         <SkillsDispatchContext.Provider value={dispatch}>
           <Routes>
@@ -284,7 +263,7 @@ export default function App() {
                 unAssignSubUser={unAssignSkillUser}
                 assignSubUser={assignSkillUser}
 
-                getSkill={getSkill} 
+            
 
 
                 getSkills={getSkills}
@@ -309,7 +288,7 @@ export default function App() {
                   unAssignSkillUser={unAssignSkillUser}
                   assignSkillUser={assignSkillUser}
                   getSkills={getSkills}
-                  getSkill={getSkill} 
+                  
                   loggedUser={user} 
                   handleLogout={handleLogout} 
                   handleAddSkill={handleAddSkill} 
@@ -330,7 +309,7 @@ export default function App() {
                   handleAddSubSkill={handleAddSubSkill} 
 
                   allSkills={skills} 
-                  getSkill={getSkill} 
+                  
                   getSkills={getSkills}
                   loggedUser={user}
                   handleAddSkill={handleAddSkill}
@@ -343,7 +322,7 @@ export default function App() {
                   unAssignSkillUser={unAssignSkillUser}
                   assignSkillUser={assignSkillUser}
                   getSkills={getSkills}
-                  getSkill={getSkill} 
+                 
                   loggedUser={user} 
                   handleLogout={handleLogout} 
                   handleAddSkill={handleAddSkill} 
@@ -367,7 +346,7 @@ export default function App() {
 
                     allSkills={skills} 
                     getSkills={getSkills}
-                    getSkill={getSkill} 
+                    
                     loggedUser={user}
                     handleAddSubSkill={handleAddSubSkill}
                     handleEditSubSkill={handleEditSubSkill}
@@ -404,6 +383,11 @@ export default function App() {
       <Route path="/*" element={<Navigate to="/login" />} />
     </Routes>
   );
+
+
+
+
+  // RESERVE FOR UPDATE SKILL ================================
 
 
   // return (

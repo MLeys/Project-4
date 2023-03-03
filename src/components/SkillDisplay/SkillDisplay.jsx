@@ -33,7 +33,6 @@ export default function SkillDisplay({
 	allResources, handleAddResource
 }) {
 	const skillsContext = useContext(SkillsContext);
-	// console.log(skillsContext, "<=== Skills Context (skillDisplay)")
 	const [currentSkill, setCurrentSkill] = useState({});
 	const [youTubeSearchResults, setYouTubeSearchResults] = useState([]);
 	const [subSkills, setSubSkills] = useState([]);

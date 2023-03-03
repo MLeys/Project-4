@@ -1,8 +1,13 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Form, Segment, Button } from "semantic-ui-react";
 
+import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
-export default function AddSkillForm({ handleAddSkill, handleClose}) {
+
+export default function AddSkillForm({ handleClose}) {
+    const handleAddSkill = useContext(SkillsContext).createSkill
+
+
     const [state, setState] = useState({
         name: "",
         type: "",
