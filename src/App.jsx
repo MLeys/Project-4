@@ -27,17 +27,20 @@ import * as resourcesApi from "./utils/resourceApi.js"
 
 export default function App() {
   const navigate = useNavigate();
-  
+  const [error, setError] = useState('');
   const [user, setUser] = useState(userService.getUser());
-  // const [skills, setSkills] = useState([]);
   const [skills, dispatch] = useImmerReducer(SkillsReducer, null)
   const [userSkills, setUserSkills] = useState([])
+  const [activeSkillIndex, setActiveSkillIndex] = useState(-1)
+  const [resources, setResources] = useState([]);
 
-
-  const [allResources, setAllResources] = useState([]);
-  const [error, setError] = useState('');
   
   
+  
+ 
+  function handleActiveSkillIndex(index){
+    setActiveSkillIndex(index)
+  }
 
 
   async function handleCreateSkill(data) {
@@ -139,7 +142,7 @@ export default function App() {
     console.log("getting resources")
     try {
       const response = await resourcesApi.getAll();
-      setAllResources( await response.data)
+      setResources( await response.data)
       
 
     } catch(err) {
@@ -222,7 +225,7 @@ export default function App() {
   useEffect(() => {
     getSkills();
     getResources();    
-  }, [!skills, !allResources]); 
+  }, [!skills, !resources]); 
 
 
   if (user) {
@@ -237,6 +240,8 @@ export default function App() {
           deleteSkill: handleDeleteSkill,
           assignSkillUser: assignSkillUser,
           unAssignSkillUser: unAssignSkillUser, 
+          handleActiveSkillIndex: handleActiveSkillIndex,
+          activeSkillIndex: activeSkillIndex,
 
 
           
@@ -246,10 +251,10 @@ export default function App() {
             <Route path="/" element={ <Layout handleLogout={handleLogout} /> }>
               <Route
                 index
-                element={<LandingPage  handleAddSubSkill={handleAddSubSkill} allResources={allResources} handleAddResource={handleAddResource}/>}
+                element={<LandingPage  handleAddSubSkill={handleAddSubSkill} allResources={resources} handleAddResource={handleAddResource}/>}
               />          
               <Route path="skills/:skillName" element={<SkillPage  handleAddSubSkill={handleAddSubSkill} />} />
-              <Route path="/:username" element={<DashboardPage handleAddSubSkill={handleAddSubSkill}allResources={allResources} handleAddResource={handleAddResource}/>}/>
+              <Route path="/:username" element={<DashboardPage handleAddSubSkill={handleAddSubSkill}allResources={resources} handleAddResource={handleAddResource}/>}/>
                 <Route path="skills/:skillName/subskill/:id" element={<SubSkillPage handleEditSubSkill={handleEditSubSkill} />} />
             </Route>
             <Route path="/login" element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />} />

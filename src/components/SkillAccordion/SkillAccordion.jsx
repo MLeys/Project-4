@@ -16,12 +16,15 @@ import SubSkillAccordion from '../SubSkillAccordion/SubSkillAccordion';
 function SkillAccordion() {
 	// console.log(skill, "<-SkillAccordion skill")
 	// console.log("Hitting SkillAccordion")
-  const [activeIndex, setActiveIndex] = useState(-1);
+//   const [activeSkillIndex, setActiveSkillIndex] = useState(-1);
+  const setActiveSkillIndex = useContext(SkillsContext).handleActiveSkillIndex
+  const activeSkillIndex = useContext(SkillsContext).activeSkillIndex
   const skills = useContext(SkillsContext).skills;
   const loggedUser = useContext(SkillsContext).loggedUser;
   const assignSkillUser = useContext(SkillsContext).assignSkillUser;
   const unAssignSkillUser = useContext(SkillsContext).unAssignSkillUser;
   const getSkills = useContext(SkillsContext).getSkills;
+
  
 
 
@@ -35,10 +38,9 @@ function SkillAccordion() {
 
 
 	const handleSkillClick = (e, index) => {
-		setActiveIndex(activeIndex === index ? -1 : index);
+		setActiveSkillIndex(activeSkillIndex === index ? -1 : index);
 		console.log(`Sidebar Skill Clicked: Index= ${index}`)
 	};
-
 
 	function handleAssignSkillUser(skill) {
 		const assignSkillIndex = skill?.usersAssigned.some(user => user._id === loggedUser._id);
@@ -93,12 +95,12 @@ function SkillAccordion() {
 				<Accordion.Title
 					key={`sidebar-title-${skill._id}`}
 					as={Segment}
-					active={activeIndex === index}
+					active={activeSkillIndex === index}
 					index={index}
 					onClick={(e) => handleSkillClick(e, index)}
 					children={skillAssignComp(skill, index)}
 				/>
-				<Accordion.Content active={activeIndex === index}>
+				<Accordion.Content active={activeSkillIndex === index}>
 						<SubSkillAccordion
 							skill={skill}
 							key={`${skill._id}-subskills`}
