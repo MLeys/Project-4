@@ -3,8 +3,7 @@ import { useParams} from "react-router-dom";
 import { 
   Segment,
   Grid,
-  Icon,
-  Image,
+  Label,
   Menu,
   Tab,
   Progress
@@ -27,11 +26,26 @@ function DashboardPage({ handleAddSubSkill,allResources, handleAddResource }) {
   const unAssignSkillUser = ctx.unAssignSkillUser;
   const getSkills = ctx.getSkills;
   const userSkills = ctx.userSkills;
-  // console.log(`username(Dash): ${username}`)
-  // const userSkills = skills?.filter(skill => skill.usersAssigned.some(user => user._id === loggedUser._id))
 
 	const skillPanes = userSkills?.map((skill, index) => ({
-		menuItem: (`${skill.name} - ${index}` ),
+		// menuItem: (`${skill.name} - ${index}` ),
+    // menuIten: {key:`pane-${skill.name}-${index}`},
+    menuItem: (
+      <Menu.Item key={`pane-${skill.name}-${index}`} >
+        <Progress 
+          inverted 
+          size='small' 
+          color='blue' 
+          value='4' 
+          total='8' 
+          progress='percent' 
+          // label={skill.name}  
+        >
+        <h3>{skill.name}</h3>
+        
+        </Progress>
+      </Menu.Item>
+    ),
     render: () => (
       <Tab.Pane>
         <SkillDisplay key={`skillDisplay-${skill.id}`} 
@@ -61,7 +75,7 @@ function DashboardPage({ handleAddSubSkill,allResources, handleAddResource }) {
           </Segment>
         </Grid.Column>
       </Grid.Row>
-      <Grid.Row> 
+      {/* <Grid.Row> 
         <Grid.Column width={2} />
         <Grid.Column width={12}>
           <Segment  raised>
@@ -69,10 +83,21 @@ function DashboardPage({ handleAddSubSkill,allResources, handleAddResource }) {
           </Segment>
         </Grid.Column>
         <Grid.Column width={2} />
-      </Grid.Row>
-      <Grid.Row>
-        <Grid.Column>
-        <Tab menu={{ widths: userSkills?.length ,color: 'purple', inverted: true, attached: false, tabular: false, vertical: false, borderless: true }} panes={skillPanes} />
+      </Grid.Row> */}
+      <Grid.Row stretched={true}>
+        <Grid.Column >
+        <Tab 
+          menu={{
+            fluid: true,
+            color: 'purple', 
+            inverted: true, 
+            attached: false, 
+            tabular: false, 
+            vertical: true, 
+            borderless: true 
+          }} 
+          panes={skillPanes} 
+        />
         </Grid.Column>
       </Grid.Row>
     </Grid>
