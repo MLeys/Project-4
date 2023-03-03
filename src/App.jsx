@@ -31,12 +31,13 @@ export default function App() {
   const [user, setUser] = useState(userService.getUser());
   // const [skills, setSkills] = useState([]);
   const [skills, dispatch] = useImmerReducer(SkillsReducer, null)
+  const [userSkills, setUserSkills] = useState([])
 
 
   const [allResources, setAllResources] = useState([]);
   const [error, setError] = useState('');
   
-
+  
 
 
   async function handleCreateSkill(data) {
@@ -220,18 +221,12 @@ export default function App() {
 
   useEffect(() => {
     getSkills();
-    getResources();
-    // getUserSkills();
-    
-    // searchYouTube();
-    // searchOpenAi("top 5 most important software engineering skills");
-    
-    
+    getResources();    
   }, [!skills, !allResources]); 
 
 
   if (user) {
-    // are we logged in?
+
     return (
       <SkillsContext.Provider 
         value={{
@@ -248,122 +243,23 @@ export default function App() {
       }}>
         <SkillsDispatchContext.Provider value={dispatch}>
           <Routes>
-
-            <Route
-              path="/"
-              element={<Layout
-                unAssignSkillUser={unAssignSkillUser}
-                assignSkillUser={assignSkillUser}
-                unAssignSubUser={unAssignSkillUser}
-                assignSubUser={assignSkillUser}
-
-            
-
-
-                getSkills={getSkills}
-                allSkills={skills} 
-                
-                handleAddSkill={handleAddSkill} 
-                handleDeleteSkill={handleDeleteSkill} 
-
-                handleAddSubSkill={handleAddSubSkill}
-
-                allResources={allResources}
-                handleAddResource={handleAddResource}
-                
-                loggedUser={user} 
-                handleLogout={handleLogout} 
-                
-              />}
-            >
+            <Route path="/" element={ <Layout handleLogout={handleLogout} /> }>
               <Route
                 index
-                element={<LandingPage 
-                  unAssignSkillUser={unAssignSkillUser}
-                  assignSkillUser={assignSkillUser}
-                  getSkills={getSkills}
-                  
-                  loggedUser={user} 
-                  handleLogout={handleLogout} 
-                  handleAddSkill={handleAddSkill} 
-                  allSkills = {skills} 
-                  handleDeleteSkill={handleDeleteSkill}
-                  handleAddSubSkill={handleAddSubSkill}
-
-                  allResources={allResources}
-                  handleAddResource={handleAddResource}
-                />}
+                element={<LandingPage  handleAddSubSkill={handleAddSubSkill} allResources={allResources} handleAddResource={handleAddResource}/>}
               />          
-              <Route
-                path="skills/:skillName"
-                element={<SkillPage 
-                  
-                  unAssignSkillUser={unAssignSkillUser}
-                  assignSkillUser={assignSkillUser}
-                  handleAddSubSkill={handleAddSubSkill} 
-
-                  allSkills={skills} 
-                  
-                  getSkills={getSkills}
-                  loggedUser={user}
-                  handleAddSkill={handleAddSkill}
-                  
-                />} 
-              />
-              <Route
-                path="/:username"
-                element={<DashboardPage 
-                  unAssignSkillUser={unAssignSkillUser}
-                  assignSkillUser={assignSkillUser}
-                  getSkills={getSkills}
-                 
-                  loggedUser={user} 
-                  handleLogout={handleLogout} 
-                  handleAddSkill={handleAddSkill} 
-                  allSkills = {skills} 
-                  handleDeleteSkill={handleDeleteSkill}
-                  handleAddSubSkill={handleAddSubSkill}
-
-                  allResources={allResources}
-                  handleAddResource={handleAddResource}
-
-                  // getUserSkills={getUserSkills}
-                  // userSkills={userSkills}
-
-                  
-                />}
-              />
-
-                <Route
-                  path="skills/:skillName/subskill/:id"
-                  element={<SubSkillPage 
-
-                    allSkills={skills} 
-                    getSkills={getSkills}
-                    
-                    loggedUser={user}
-                    handleAddSubSkill={handleAddSubSkill}
-                    handleEditSubSkill={handleEditSubSkill}
-                    />} 
-              />
+              <Route path="skills/:skillName" element={<SkillPage  handleAddSubSkill={handleAddSubSkill} />} />
+              <Route path="/:username" element={<DashboardPage handleAddSubSkill={handleAddSubSkill}allResources={allResources} handleAddResource={handleAddResource}/>}/>
+                <Route path="skills/:skillName/subskill/:id" element={<SubSkillPage handleEditSubSkill={handleEditSubSkill} />} />
             </Route>
-
-            <Route
-              path="/login"
-              element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />}
-            />
-            <Route
-              path="/signup"
-              element={<SignUpPage handleSignUpOrLogin={handleSignUpOrLogin} />}
-            />
-
+            <Route path="/login" element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />} />
+            <Route path="/signup" element={<SignUpPage handleSignUpOrLogin={handleSignUpOrLogin} />} />
           </Routes>
         </SkillsDispatchContext.Provider>
       </SkillsContext.Provider>
-
     );
-}
-
+  };
+  
   return (
     <Routes>
       <Route
@@ -377,33 +273,8 @@ export default function App() {
       <Route path="/*" element={<Navigate to="/login" />} />
     </Routes>
   );
-
-
-
-
-  // RESERVE FOR UPDATE SKILL ================================
-
-
-  // return (
-  //   <Routes>
-  //     <Route path="/" element={<LandingPage loggedUser={user} /> } />
-  //     <Route path="/login" element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin}/>} />
-  //     <Route path="/signup" element={<SignUpPage handleSignUpOrLogin={handleSignUpOrLogin}/>} />
-  //     <Route path="/:username" element={<Dashboard />} />
-  //   </Routes>
-  // );
 }
 
-// async function searchYouTube(search) {
-    
-//   try {
-//     const response = await youTubeApi.searchYouTube(search);
-//     console.log(response, " <------ response from YOUTUBE SEARCH");
-
-//   } catch (err) {
-//     console.log(err.message, " <<<<<YouTube SEARCH ERROR>>>>>");
-//   }
-// }
 // async function searchOpenAi(question) {
   
 //   try {

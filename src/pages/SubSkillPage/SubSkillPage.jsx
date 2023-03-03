@@ -16,7 +16,7 @@ import subSkills from "../../../controllers/subSkills";
 import SubSkillCard from "../../components/SubSkillCard/SubSkillCard";
 
 
-export default function SubSkillPage({ loggedUser, skill, allSkills, getSkills, handleEditSubSkill, handleAddSubSkill}) {
+export default function SubSkillPage({ handleEditSubSkill}) {
     
     const subParams = useParams();
     const parentName = useParams().skillName;

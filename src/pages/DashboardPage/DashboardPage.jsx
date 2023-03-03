@@ -17,44 +17,21 @@ import SkillDisplay from "../../components/SkillDisplay/SkillDisplay";
 import UserSkillsBarGraph from "../../components/UserSkillsBarGraph/UserSkillsBarGraph";
 
 
-function DashboardPage({
-  loggedUser, unAssignSkillUser,  assignSkillUser, 
-  handleDeleteSkill, handleAddSkill,
-  handleAddSubSkill,
-  allResources, handleAddResource
+function DashboardPage({ handleAddSubSkill,allResources, handleAddResource }) {
   
-}) {
-  const skills = useContext(SkillsContext).skills
-  console.log(skills, '<=== Skills from context (dash)')
-
-
+  const skills = useContext(SkillsContext).skills;
+  const loggedUser = useContext(SkillsContext).loggedUser;
   const { username } = useParams();
   // console.log(`username(Dash): ${username}`)
-  const [userSkills, setUserSkills] = useState([]);
-
-  function filterUserSkills() {
-    if (skills) {
-      const userSkillsList = skills?.filter(skill => skill.usersAssigned.some(assigned => assigned.id === loggedUser.id))
-
-      // console.log(`userSkillsList: ${userSkillsList}`)
-      setUserSkills([...userSkillsList])
-      console.log(`userSkills: ${userSkills}`)
-    }
-
-
-  }
+  const userSkills = skills?.filter(skill => skill.usersAssigned.some(user => user._id === loggedUser._id))
 
 	const skillPanes = userSkills?.map((skill, index) => ({
 		menuItem: (`${skill.name} - ${index}` ),
     render: () => (
       <Tab.Pane>
         <SkillDisplay key={`skillDisplay-${skill.id}`} 
-          skill={skill} handleAddSkill={handleAddSkill} 
-          loggedUser={loggedUser} 
-          unAssignSkillUser={unAssignSkillUser} 
-          assignSkillUser={assignSkillUser} 
+          skill={skill}
           handleAddSubSkill={handleAddSubSkill} 
-          allSkills={skills}  
           allResources={allResources}
           handleAddResource={handleAddResource}
         />
@@ -64,10 +41,9 @@ function DashboardPage({
 	}));
 
   useEffect(() => {
-    // getSkills();
-    filterUserSkills();
     
-  }, [(!userSkills)]); 
+    
+  }, []); 
   
   
   return (

@@ -1,34 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
-
- import {
-    Container,
-    Divider,
-    Dropdown,
-    Grid,
-    Header,
+import {
     Image,
-    List,
     Menu,
-    Segment,
     Icon
-  } from 'semantic-ui-react'
+} from 'semantic-ui-react'
 
-import SidebarReducer from "../../reducers/SidebarReducer";
+import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 
-
-function FixedMenuHeader({ loggedUser, handleLogout, sidebarDispatch }) {
+function FixedMenuHeader({ handleLogout, sidebarDispatch }) {
     const navigate = useNavigate();
+    const loggedUser = useContext(SkillsContext).loggedUser;
 
 
     return (  
         <Menu inverted style={{padding: '0em', margin: '0'}}>
             <Menu.Item as='a' header onClick={() =>
-                    sidebarDispatch({ type: 'CHANGE_ANIMATION', animation: 'overlay' })
-                    }>
-                Skill.map
+                sidebarDispatch({ 
+                    type: 'CHANGE_ANIMATION', 
+                    animation: 'overlay' 
+                })
+            }>
+            Skill.map
             </Menu.Item>
             <Menu.Item onClick={() => navigate("/")}>
                 <Icon name="home"></Icon>

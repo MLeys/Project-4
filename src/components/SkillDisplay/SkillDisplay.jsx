@@ -9,7 +9,8 @@ import {
 	Label,
 	Grid,
 	Header,
-	Container
+	Container,
+	Item
 
 } from 'semantic-ui-react';
 
@@ -26,8 +27,6 @@ import resources from '../../../controllers/resources';
 
 export default function SkillDisplay({ 
 	skill, 
-	
-	handleAddSkill, 
 	handleAddSubSkill,
 	allResources, handleAddResource
 }) {
@@ -112,18 +111,18 @@ export default function SkillDisplay({
 					/> 
 				</Grid.Column>			
 				<Grid.Column width={4}>
-				<Segment.Group>
+				
 					{
 						skillResources?.map((r) => {
 							// console.log(r, "<<-- resource")
 							return (
 								<>
-								<Segment key={`resourceSeg-${r._id}`} content={r.title} />
+								<Item key={`resourceSeg-${r._id}`} content={r._id} />
 								</>
 							)
 						})
 					}
-			</Segment.Group>
+			
 
 				</Grid.Column>	
 				<Grid.Column width={8}>

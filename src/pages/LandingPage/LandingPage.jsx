@@ -1,18 +1,16 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Grid, Segment} from "semantic-ui-react";
+
+import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 import MainSideBar from "../../_UNUSED/MainSideBar/MainSideBar";
 import SkillDisplay from "../../components/SkillDisplay/SkillDisplay";
 import { unAssignUser } from "../../utils/skillApi";
 
 
-function LandingPage({getSkills,unAssignSkillUser, assignSkillUser, 
-    loggedUser, handleLogout, allSkills, 
-    handleAddSkill, handleDeleteSkill, handleAddSubSkill,
-    allResources, handleAddResource
-}) {
+function LandingPage({ handleAddSubSkill, allResources, handleAddResource }) {
 
+    const skills = useContext(SkillsContext).skills;
     
     useEffect(() => {
 
@@ -20,16 +18,12 @@ function LandingPage({getSkills,unAssignSkillUser, assignSkillUser,
     return (
         <div>
         {
-            allSkills?.map((skill) => {
+            skills?.map((skill) => {
                 return (
                     <SkillDisplay 
                         key={`skillDisplay-${skill._id}`} 
-                        skill={skill} handleAddSkill={handleAddSkill} 
-                        loggedUser={loggedUser} 
-                        unAssignSkillUser={unAssignSkillUser} 
-                        assignSkillUser={assignSkillUser} 
+                        skill={skill} 
                         handleAddSubSkill={handleAddSubSkill} 
-                        allSkills={allSkills}  
                         allResources={allResources}
                         handleAddResource={handleAddResource}
                     />

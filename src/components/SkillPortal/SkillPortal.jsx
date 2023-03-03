@@ -17,7 +17,7 @@ import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 import AddSkillForm from "../AddSkillForm/AddSkillForm";
 
-function SkillPortal({ skill}) {
+function SkillPortal() {
     const [formPop, setFormPop] = useState(false)
     const handleAddSkill = useContext(SkillsContext).createSkill
 

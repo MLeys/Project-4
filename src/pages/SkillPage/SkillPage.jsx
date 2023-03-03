@@ -17,7 +17,7 @@ import SkillGroup from "../../components/SkillDisplay/SkillDisplay";
 
 
 
-function SkillPage({ skill, handleAddSubSkill, getSkill, loggedUser, handleAddSkill, unAssignSkillUser, assignSkillUser}) {
+function SkillPage({ }) {
     console.log(`\n\n\n HERE ======================================================== \n\n\n\n`)
     
     const skillName  = skill.name;

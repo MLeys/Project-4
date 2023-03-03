@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
 	 Button,
 	 Icon,
@@ -11,32 +11,21 @@ import {
 	
 } from 'semantic-ui-react';
 
-import skill from '../../../models/skill';
-import SkillProgressBar from '../SkillProgressBar/SkillProgressBar';
+import { SkillsContext } from '../../context/SkillsContext/SkillsContext';
 
 
 
-function UserSkillsBarGraph({ userSkills }) {
-	const [activeSkill, setActiveSkill] = useState({});
-	
-	// const skillPanes = [
-	// 	userSkills.map((skill, index) => {
-	// 		{
-	// 		menuItem: (
-	// 			<Segment key={`idx-${index}`} inverted>
-	// 				<Progress inverted value='4' total='8' progress='percent' label={skill.name} key={`pBar-${index}`} />
-	// 			</Segment>
-	// 		),
-	// 		render(<Tab.Pane attched={false} tabular={false}> {skill.name} content </Tab.Pane>) 
-	// 		}
-	// 	})
-	// ]
+function UserSkillsBarGraph() {
+	const skills = useContext(SkillsContext).skills;
+	const loggedUser = useContext(SkillsContext).loggedUser;
+	const userSkills = skills?.filter(skill => skill.usersAssigned.some(assigned => assigned.id === loggedUser.id))
+
 
 
 	return (<>
 
 		<Segment.Group>
-		{userSkills.map((skill, index) => {
+		{userSkills?.map((skill, index) => {
 			// {console.log(`Skill(pbar):  ${skill.name}`)}
 			
 			return (

@@ -21,6 +21,7 @@ function SkillAccordion() {
   const loggedUser = useContext(SkillsContext).loggedUser;
   const assignSkillUser = useContext(SkillsContext).assignSkillUser;
   const unAssignSkillUser = useContext(SkillsContext).unAssignSkillUser;
+  const getSkills = useContext(SkillsContext).getSkills;
  
 
 
@@ -44,8 +45,10 @@ function SkillAccordion() {
 		console.log(`AssignSkillIndex: ${assignSkillIndex}`)
 		if (assignSkillIndex) {
 			unAssignSkillUser(skill);
+			getSkills();
 		} else {
 			assignSkillUser(skill);
+			getSkills();
 		}
 	};
 
