@@ -25,24 +25,27 @@ import resources from '../../../controllers/resources';
 
 
 export default function SkillDisplay({ 
-	skill, loggedUser,
-	unAssignSkillUser, assignSkillUser,
+	skill, 
+	
 	handleAddSkill, 
 	handleAddSubSkill,
 	allResources, handleAddResource
 }) {
 	const skills = useContext(SkillsContext).skills;
+	const loggedUser = useContext(SkillsContext).loggedUser;
+	const assignSkillUser = useContext(SkillsContext).assignSkillUser;
+	const unAssignSkillUser = useContext(SkillsContext).unAssignSkillUser;
 	
 	const [youTubeSearchResults, setYouTubeSearchResults] = useState([]);
 	const [subSkills, setSubSkills] = useState([]);
 	const [skillResources, setSkillResources] = useState([])
 
-	const assignIndex = skill?.usersAssigned?.findIndex(user => user.username === loggedUser.username)
-	const assignColor = assignIndex > -1 ? 'red' : 'green';
-	const assignIcon = assignIndex > -1 ? 'minus' : 'plus';
-	const assignContent = assignIndex > -1 ? 'unassign' : 'assign'
+	const assignIndex = skill?.usersAssigned?.some(user => user.username === loggedUser.username)
+	const assignColor = assignIndex ? 'red' : 'green';
+	const assignIcon = assignIndex ? 'minus' : 'plus';
+	const assignContent = assignIndex ? 'unassign' : 'assign'
 
-	const handleAssign = assignIndex > -1 ? () => unAssignSkillUser(skill) : () => assignSkillUser(skill)
+	const handleAssign = assignIndex ? () => unAssignSkillUser(skill) : () => assignSkillUser(skill)
 
 	function liftYouTubeSearchResults(results) {
 		(results) ? setYouTubeSearchResults([...results]) : '';
@@ -59,31 +62,7 @@ export default function SkillDisplay({
 		setSkillResources(resources)
 	}
 
-
-	const displaySkillResources= () => {
-		console.log(skillResources, " SKILL RES")
-		return (
-			<>
-			<Segment.Group>
-			{
-				skillResources?.map((r) => {
-					console.log(r, "<<-- resource")
-					return (
-						<>
-						<Segment key={`resourceSeg-${r._id}`} content={r.title} />
-						</>
-					)
-				})
-			}
-			</Segment.Group>
-			</>
-		)
-			
-	}
-
-
 	useEffect(() => {
-	
 		getSkillResources();
 		
 	}, []); 
