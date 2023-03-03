@@ -1,6 +1,4 @@
-import React from 'react';
 import { useState, useEffect, useContext } from "react";
-import { Link, Route, Routes, Navigate, useParams} from 'react-router-dom';
 import { 
 	Segment,
 	Card,
@@ -14,29 +12,24 @@ import {
 
 } from 'semantic-ui-react';
 
-import { SkillsContext } from '../../context/SkillsContext/SkillsContext';
+import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 import SubSkillPortal from '../SubSkillPortal/SubSkillPortal';
 import SubSkillDisplay from '../SubSkillDisplay/SubSkillDisplay';
-
 import ResourceDisplay from '../ResourceDisplay/ResourceDisplay';
 import SearchYouTube from '../SearchYouTube/SearchYouTube';
-import SkillPane from '../SkillPane/SkillPane';
 
+function SkillPane({ skill, handleAddSubSkill, allResources, handleAddResource }) {
+  const ctx = useContext(SkillsContext)
+  const skills = ctx.skills;
+  const userSkills = ctx.userSkills;
+  const subSkills = skill.subSkills;
 
-
-export default function SkillDisplay({ 
-	skill, 
-	handleAddSubSkill,
-	allResources, handleAddResource
-}) {
-	const skills = useContext(SkillsContext).skills;
-	const loggedUser = useContext(SkillsContext).loggedUser;
+  const loggedUser = useContext(SkillsContext).loggedUser;
 	const assignSkillUser = useContext(SkillsContext).assignSkillUser;
 	const unAssignSkillUser = useContext(SkillsContext).unAssignSkillUser;
 	
 	const [youTubeSearchResults, setYouTubeSearchResults] = useState([]);
-	const [subSkills, setSubSkills] = useState([]);
 	const [skillResources, setSkillResources] = useState([])
 
 	const assignIndex = skill?.usersAssigned?.some(user => user.username === loggedUser.username)
@@ -49,22 +42,7 @@ export default function SkillDisplay({
 	function liftYouTubeSearchResults(results) {
 		(results) ? setYouTubeSearchResults([...results]) : '';
 	}
-	
-	function liftSubSkills(subskills) {
-		(subskills) ? setSubSkills([...subskills]) : '';
-	}
 
-	function getSkillResources() {
-		// console.log(allResources, "ALL RESOURCES")
-		const resources = allResources.filter((r) => r.skillId === skill._id )
-		// console.log(`resources-${skill.name}: ${resources}`)
-		setSkillResources(resources)
-	}
-
-	useEffect(() => {
-		getSkillResources();
-		
-	}, []); 
 
 	return (
 		
@@ -84,7 +62,11 @@ export default function SkillDisplay({
 				size="mini"         
 			/>
 			</Grid.Row>
+			<Grid.Row>
+				<SkillPane skill={skill}/>
 
+
+			</Grid.Row>
 			<Grid.Row stretched={true} color='blue'> 
 				<Grid.Column floated='left' width={12}>
 					
@@ -106,35 +88,15 @@ export default function SkillDisplay({
 					<SubSkillDisplay 
 						skill={skill} 
 						handleAddSubSkill={handleAddSubSkill}
-						liftSubSkills={liftSubSkills}
 						youTubeSearchResults={youTubeSearchResults}
 						liftYouTubeSearchResults={liftYouTubeSearchResults}
 					/> 
 				</Grid.Column>			
 				<Grid.Column width={4}>
-				
-					{
-						skillResources?.map((r) => {
-							// console.log(r, "<<-- resource")
-							return (
-								<>
-								<Item key={`resourceSeg-${r._id}`} content={r._id} />
-								</>
-							)
-						})
-					}
-			
 
 				</Grid.Column>	
 				<Grid.Column width={8}>
-					<ResourceDisplay
-						skill={skill}
-						loggedUser={loggedUser}
-						youTubeSearchResults={youTubeSearchResults}
-						liftYouTubeSearchResults={liftYouTubeSearchResults}
-						handleAddResource={handleAddResource}
-						skillResources={skillResources}
-					/>
+
 			
 				</Grid.Column>				
 				<Grid.Column width={1}>
@@ -147,3 +109,4 @@ export default function SkillDisplay({
 
 	)
 }
+export default SkillPane;

@@ -13,6 +13,7 @@ import {
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 import SkillDisplay from "../../components/SkillDisplay/SkillDisplay";
+
 import UserSkillsBarGraph from "../../components/UserSkillsBarGraph/UserSkillsBarGraph";
 
 
@@ -33,15 +34,14 @@ function DashboardPage({ handleAddSubSkill,allResources, handleAddResource }) {
     menuItem: (
       <Menu.Item key={`pane-${skill.name}-${index}`} >
         <Progress 
-          inverted 
+          inverted={true}
           size='small' 
           color='blue' 
           value='4' 
           total='8' 
-          progress='percent' 
-          // label={skill.name}  
+          progress='ratio' 
         >
-        <h3>{skill.name}</h3>
+        <h4>{skill.name}</h4>
         
         </Progress>
       </Menu.Item>
@@ -58,6 +58,7 @@ function DashboardPage({ handleAddSubSkill,allResources, handleAddResource }) {
       
     )
 	}));
+
 
   useEffect(() => {
     
@@ -85,19 +86,22 @@ function DashboardPage({ handleAddSubSkill,allResources, handleAddResource }) {
         <Grid.Column width={2} />
       </Grid.Row> */}
       <Grid.Row stretched={true}>
-        <Grid.Column >
-        <Tab 
+        <Grid.Column stretched={true}>
+        <Tab
           menu={{
             fluid: true,
             color: 'purple', 
             inverted: true, 
-            attached: false, 
+            attached: true, 
             tabular: false, 
             vertical: true, 
-            borderless: true 
-          }} 
+          }}
+          grid ={{ paneWidth: 12, tabWidth: 4 }} 
           panes={skillPanes} 
-        />
+          menuPosition='left'
+        >
+        
+        </Tab>
         </Grid.Column>
       </Grid.Row>
     </Grid>
