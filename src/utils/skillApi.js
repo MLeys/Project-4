@@ -68,20 +68,25 @@ export function getOneSkill(skillName) {
 	})
 }
 
-export function assignUser(user, skillId) {
-	console.log(skillId, "<- skill")
-	console.log(user, "<- user")
-	return fetch(`${BASE_URL}${skillId}`, {
-        method: 'POST',
-		body: JSON.stringify(user),
-        headers: {
-            Authorization: "Bearer " + tokenService.getToken(),
-            'Content-Type': 'application/json', // MUST HAVE OR req.body in Ctrl remains emppty!!!!
-        }
-	}).then(res => {
-		if(res.ok) return res.json()
-		throw new Error('Error creating a subSkill, check server terminal')
-	})
+export async function assignUser(user, skillId) {
+	try {
+		console.log(skillId, "<- skill")
+		console.log(user, "<- user")
+		return fetch(`${BASE_URL}${skillId}`, {
+			method: 'POST',
+			body: JSON.stringify(user),
+			headers: {
+				Authorization: "Bearer " + tokenService.getToken(),
+				'Content-Type': 'application/json', // MUST HAVE OR req.body in Ctrl remains emppty!!!!
+			}
+		}).then(res => {
+			if(res.ok) return res.json()
+			throw new Error('Error creating a subSkill, check server terminal')
+		})
+	} catch (err) {
+		throw new Error(`*** Error Assigning Skill to user *** \n${err}`)
+	}
+
 }
 
 export function unAssignUser(user, skillId) {

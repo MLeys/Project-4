@@ -69,54 +69,49 @@ export default function App() {
 
   async function handleDeleteSkill(skillId) {
     try {
+      const skillIndex = skills.findIndex((skill) => skill._id === skillId)
       const response = await skillsApi.deleteSkill(skillId);
       dispatch({
         type: 'deleteSkill',
         id: skillId,
+        index: skillIndex,
       })
     } catch (err) {
       setError(console.log(`*** Error DELETE SKILL ****\n ${err}`))
 
     }
   }
-  async function assignSkillUser(skillId) {
+  async function assignSkillUser(skill) {
     try {
-      const skillIndex = skills.findIndex((skill) => skill._id === skillId)
-      const response = await skillsApi.assignUser(skillId);
-      dispatch({
-        type: 'assignSkill',
-        index: skillIndex,
-        user: user
-      })
+      const index = skills.findIndex((s) => s._id === skill._id)
+      if (!skills[index].usersAssigned.some(u => u._id === user._id)) {
+        const response = await skillsApi.assignUser(user, skill._id);
+        getSkills();
+      } else {
+        console.log(`${user.username} already assigned to skill( ${skills[index].name})`)
+      }
     } catch (err) {
       setError(console.log(`*** Error Assign SKILL ****\n ${err}`))
 
     }
   }
-  // async function assignSkillUser(skill) {
-  //   try {
-  //     console.log("ASSIGN SKILL USER")
-  //     const isAssigned = skill.usersAssigned.some(user => user._id === loggedUser._id);
-  //     if (!isAssigned) {
-  //       const response = await skillsApi.assignUser(user, skill._id)
-  //       getSkills();
-        
-  //     } else {
-  //       console.log("*** User Already Assigned ***")
-  //     }
-      
-  //   } catch(err) {
-  //     console.log(err, "<--assign Skill error")
-  //   }
-  // }
 
   async function unAssignSkillUser(skill) {
     try {
-      const response = await skillsApi.unAssignUser(user, skill._id)
-      getSkills();
+      console.log("unassign skill")
+      const index = skills.findIndex((s) => s._id === skill._id)
       
-    } catch(err) {
-      console.log(err, "<--unassign Skill error")
+      if (skills[index].usersAssigned.some(u => u._id === user._id)) {
+        const response = await skillsApi.unAssignUser(user, skill._id);
+        console.log("After response")
+        getSkills();
+      } else {
+        console.log(`${user.username} Not alaready Assigned to skill( ${skills[index].name})`)
+      }
+      
+    } catch (err) {
+      setError(console.log(`*** Error UNAssign SKILL ****\n ${err}`))
+
     }
   }
 
@@ -195,9 +190,6 @@ export default function App() {
     setUser(null);
   }
 
-
-
-
   async function assignSubUser(subskill) {
     try {
       const response = await skillsApi.assignUser(user, subskill._id)
@@ -248,6 +240,8 @@ export default function App() {
           createSkill: handleCreateSkill,
           getSkills: getSkills,
           deleteSkill: handleDeleteSkill,
+          assignSkillUser: assignSkillUser,
+          unAssignSkillUser: unAssignSkillUser, 
 
 
           

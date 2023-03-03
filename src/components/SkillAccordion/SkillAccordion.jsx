@@ -13,12 +13,14 @@ import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 import SubSkillAccordion from '../SubSkillAccordion/SubSkillAccordion';
 
 
-function SkillAccordion({currentUser, assignSkillUser, unAssignSkillUser }) {
+function SkillAccordion() {
 	// console.log(skill, "<-SkillAccordion skill")
 	// console.log("Hitting SkillAccordion")
   const [activeIndex, setActiveIndex] = useState(-1);
-  const skills = useContext(SkillsContext).skills
-
+  const skills = useContext(SkillsContext).skills;
+  const loggedUser = useContext(SkillsContext).loggedUser;
+  const assignSkillUser = useContext(SkillsContext).assignSkillUser;
+  const unAssignSkillUser = useContext(SkillsContext).unAssignSkillUser;
  
 
 
@@ -33,11 +35,13 @@ function SkillAccordion({currentUser, assignSkillUser, unAssignSkillUser }) {
 
 	const handleSkillClick = (e, index) => {
 		setActiveIndex(activeIndex === index ? -1 : index);
+		console.log(`Sidebar Skill Clicked: Index= ${index}`)
 	};
 
 
 	function handleAssignSkillUser(skill) {
-		const assignSkillIndex = skill.usersAssigned.some(user => user._id === currentUser._id);
+		const assignSkillIndex = skill?.usersAssigned.some(user => user._id === loggedUser._id);
+		console.log(`AssignSkillIndex: ${assignSkillIndex}`)
 		if (assignSkillIndex) {
 			unAssignSkillUser(skill);
 		} else {
@@ -46,7 +50,7 @@ function SkillAccordion({currentUser, assignSkillUser, unAssignSkillUser }) {
 	};
 
 	const skillAssignComp = (skill, index) => {
-		const assignSkillIndex = skill.usersAssigned.some(user => user._id === currentUser._id);
+		const assignSkillIndex = skill.usersAssigned.some(user => user._id === loggedUser._id);
 		const assignSkillColor = assignSkillIndex ? 'red' : 'green';
 		const assignSkillIcon =  assignSkillIndex ? 'minus' : 'plus';
 		const assignSkillContent = assignSkillIndex ? 'unassign' : 'assign';

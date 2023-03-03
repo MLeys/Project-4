@@ -16,7 +16,6 @@ import {
 import { SkillsContext } from '../../context/SkillsContext/SkillsContext';
 
 import SubSkillPortal from '../SubSkillPortal/SubSkillPortal';
-
 import SubSkillDisplay from '../SubSkillDisplay/SubSkillDisplay';
 
 import ResourceDisplay from '../ResourceDisplay/ResourceDisplay';
@@ -32,8 +31,8 @@ export default function SkillDisplay({
 	handleAddSubSkill,
 	allResources, handleAddResource
 }) {
-	const skillsContext = useContext(SkillsContext);
-	const [currentSkill, setCurrentSkill] = useState({});
+	const skills = useContext(SkillsContext).skills;
+	
 	const [youTubeSearchResults, setYouTubeSearchResults] = useState([]);
 	const [subSkills, setSubSkills] = useState([]);
 	const [skillResources, setSkillResources] = useState([])
@@ -51,11 +50,6 @@ export default function SkillDisplay({
 	
 	function liftSubSkills(subskills) {
 		(subskills) ? setSubSkills([...subskills]) : '';
-	}
-
-	function getCurrentSkill() {
-			setCurrentSkill(skill)
-			getSkillResources();
 	}
 
 	function getSkillResources() {
@@ -89,7 +83,7 @@ export default function SkillDisplay({
 
 
 	useEffect(() => {
-		getCurrentSkill();
+	
 		getSkillResources();
 		
 	}, []); 
