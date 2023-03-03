@@ -1,3 +1,4 @@
+import "./DashboardPage.css"
 import { useState, useEffect, useContext } from "react";
 import { useParams} from "react-router-dom";
 import { 
@@ -15,6 +16,7 @@ import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 import SkillDisplay from "../../components/SkillDisplay/SkillDisplay";
 
 import UserSkillsBarGraph from "../../components/UserSkillsBarGraph/UserSkillsBarGraph";
+import SkillPane from "../../components/SkillPane/SkillPane";
 
 
 function DashboardPage({ handleAddSubSkill,allResources, handleAddResource }) {
@@ -47,14 +49,23 @@ function DashboardPage({ handleAddSubSkill,allResources, handleAddResource }) {
       </Menu.Item>
     ),
     render: () => (
-      <Tab.Pane>
+      <>
+      <SkillPane
+        skill={skill}
+        handleAddSubSkill={handleAddSubSkill} 
+        allResources={allResources}
+        handleAddResource={handleAddResource}
+      />
+      {/* <Tab.Pane>
         <SkillDisplay key={`skillDisplay-${skill.id}`} 
           skill={skill}
           handleAddSubSkill={handleAddSubSkill} 
           allResources={allResources}
           handleAddResource={handleAddResource}
         />
-      </Tab.Pane>
+      </Tab.Pane> */}
+      </>
+
       
     )
 	}));
@@ -68,8 +79,8 @@ function DashboardPage({ handleAddSubSkill,allResources, handleAddResource }) {
   
   return (
     <>
-    <Grid>
-      <Grid.Row>
+    <Grid className='fullScreenHeight' verticalAlign="top" >
+      <Grid.Row >
         <Grid.Column>
           <Segment color='blue' inverted size='huge'>
             Skills DashboardPage
@@ -85,7 +96,7 @@ function DashboardPage({ handleAddSubSkill,allResources, handleAddResource }) {
         </Grid.Column>
         <Grid.Column width={2} />
       </Grid.Row> */}
-      <Grid.Row stretched={true}>
+      <Grid.Row verticalAlign="top">
         <Grid.Column stretched={true}>
         <Tab
           menu={{

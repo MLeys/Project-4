@@ -42,6 +42,15 @@ function SkillPane({ skill, handleAddSubSkill, allResources, handleAddResource }
 	function liftYouTubeSearchResults(results) {
 		(results) ? setYouTubeSearchResults([...results]) : '';
 	}
+	
+
+	function getSkillResources() {
+		// console.log(allResources, "ALL RESOURCES")
+		const resources = allResources.filter((r) => r.skillId === skill._id )
+		// console.log(`resources-${skill.name}: ${resources}`)
+		setSkillResources(resources)
+	}
+
 
 
 	return (
@@ -63,7 +72,6 @@ function SkillPane({ skill, handleAddSubSkill, allResources, handleAddResource }
 			/>
 			</Grid.Row>
 			<Grid.Row>
-				<SkillPane skill={skill}/>
 
 
 			</Grid.Row>
@@ -93,10 +101,29 @@ function SkillPane({ skill, handleAddSubSkill, allResources, handleAddResource }
 					/> 
 				</Grid.Column>			
 				<Grid.Column width={4}>
+				
+					{
+						skillResources?.map((r) => {
+							// console.log(r, "<<-- resource")
+							return (
+								<>
+								<Item key={`resourceSeg-${r._id}`} content={r._id} />
+								</>
+							)
+						})
+					}
+			
 
 				</Grid.Column>	
 				<Grid.Column width={8}>
-
+					<ResourceDisplay
+						skill={skill}
+						loggedUser={loggedUser}
+						youTubeSearchResults={youTubeSearchResults}
+						liftYouTubeSearchResults={liftYouTubeSearchResults}
+						handleAddResource={handleAddResource}
+						skillResources={skillResources}
+					/>
 			
 				</Grid.Column>				
 				<Grid.Column width={1}>

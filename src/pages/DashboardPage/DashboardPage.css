@@ -1,0 +1,20 @@
+.fullScreenHeight {
+    min-height: 80vh;
+    background-color: #d5e3e6e3;
+    align-content: start ;
+
+}
+
+/* SkillPane column on dash */
+.ui.grid > .row > .stretched.column, .ui.grid > .stretched.column:not(.row), .ui.grid > .stretched.row > .column, .ui.stretched.grid > .column, .ui.stretched.grid > .row > .column {
+    padding-top: 0;
+    
+  }
+
+.ui.column.grid > [class*="twelve wide"].column, .ui.grid > .column.row > [class*="twelve wide"].column, .ui.grid > .row > [class*="twelve wide"].column, .ui.grid > [class*="twelve wide"].column {
+    padding-left: 0;
+}
+
+.ui.column.grid > [class*="four wide"].column, .ui.grid > .column.row > [class*="four wide"].column, .ui.grid > .row > [class*="four wide"].column, .ui.grid > [class*="four wide"].column {
+    padding-right: 0;
+  }
