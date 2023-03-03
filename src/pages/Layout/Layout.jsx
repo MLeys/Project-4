@@ -28,15 +28,15 @@ function Layout({
   loggedUser, handleLogout,
   assignSkillUser, unAssignSkillUser,
   assignSubUser, unAssignSubUser,
-  getSkill, getSkills, skill, allSkills,
+  getSkill, skill, allSkills,
   handleAddSkill, handleDeleteSkill,
   handleClose,    
   allResources, handleAddResource
 
 }) {
-  
+
   const [error, setError] = useState(null);
-  const [skills, dispatch] = useImmerReducer(SkillsReducer, null)
+  // const [skills, dispatch] = useImmerReducer(SkillsReducer, null)
 
   const [sidebarState, sidebarDispatch] = useReducer(SidebarReducer, {
     animation: 'overlay',
@@ -48,66 +48,67 @@ function Layout({
 
   
 
-  async function handleCreateSkill(data) {
-    try {
-      const response = await skillsApi.create(data);
-      dispatch({
-        type: 'createSkill',
-        data: response.skill,
-      })
-    } catch(err){
-      setError(console.log(`*** Error CREATE SKILL ****\n ${err}`))
-    }
-    console.log(skills, "<<<<<< skills")
-  } 
+  // async function handleCreateSkill(data) {
+  //   try {
+  //     const response = await skillsApi.create(data);
+  //     dispatch({
+  //       type: 'createSkill',
+  //       data: response.skill,
+  //     })
+  //   } catch(err){
+  //     setError(console.log(`*** Error CREATE SKILL ****\n ${err}`))
+  //   }
+  //   console.log(skills, "<<<<<< skills")
+  // } 
 
-  async function handleGetAllSkills() {
-    try {
-      const response = await skillsApi.getAll();
-      dispatch({
-        type: 'readSkills',
-        data: response.data //COULD BE .skills *****
-      })
-      console.log(skills, "_<<< updated skills hook handleget")
+  // async function getSkills() {
+  //   try {
+  //     const response = await skillsApi.getAll();
+  //     dispatch({
+  //       type: 'readSkills',
+  //       data: response.data //COULD BE .skills *****
+  //     })
+  //     console.log(skills, "_<<< updated skills hook handleget")
 
-    } catch (err) {
-      setError(console.log(`*** Error READ SKILL ****\n ${err}`))
-    }
-    console.log(skills, "<<<<<< skills")
-  }
+  //   } catch (err) {
+  //     setError(console.log(`*** Error READ SKILL ****\n ${err}`))
+  //   }
+  //   console.log(skills, "<<<<<< skills")
+  // }
+
   
-  
-  async function handleDeleteSkill(skillId) {
-    try {
+  // async function handleDeleteSkill(skillId) {
+  //   try {
       
-      const response = await skillsApi.deleteSkill(skillId);
-      dispatch({
-        type: 'deleteSkill',
-        id: skillId,
-      })
+  //     const response = await skillsApi.deleteSkill(skillId);
+  //     dispatch({
+  //       type: 'deleteSkill',
+  //       id: skillId,
+  //     })
 
-      // setSkills(skills.filter((skill) => skill._id !== skillId ))
-      // CHECK IF NEED TO USE ._id INSTEAD OF .id or vice-versa ************
-      // ELIMINATED RETURN (orig) ->> return skill._id !== skillId
-    } catch (err) {
-      setError(console.log(`*** Error DELETE SKILL ****\n ${err}`))
+  //     // setSkills(skills.filter((skill) => skill._id !== skillId ))
+  //     // CHECK IF NEED TO USE ._id INSTEAD OF .id or vice-versa ************
+  //     // ELIMINATED RETURN (orig) ->> return skill._id !== skillId
+  //   } catch (err) {
+  //     setError(console.log(`*** Error DELETE SKILL ****\n ${err}`))
 
-    }
-  }
+  //   }
+  // }
 
   useEffect(() => {
-    getSkills();
-    handleGetAllSkills();
+    // getSkills();
+    
     
   }, []); 
 
   return (
-    <SkillsContext.Provider 
-      value={{
-        skills:skills
-      }}>
-      <SkillsDispatchContext.Provider value={dispatch}>
-        <SkillList />
+    // <SkillsContext.Provider 
+    //   value={{
+    //     getSkills:getSkills,
+    //     skills:skills
+    //   }}>
+    //   <SkillsDispatchContext.Provider value={dispatch}>
+
         <Container  style={{ margin: 0, padding: 0, minHeight: '98vh', width: '98vw' }}>
 
           <FixedMenuHeader loggedUser={loggedUser} handleLogout={handleLogout} skill={skill} sidebarDispatch={sidebarDispatch}/>
@@ -154,8 +155,8 @@ function Layout({
           </Sidebar.Pushable>
           <MainFooter />
         </Container>
-      </SkillsDispatchContext.Provider>
-    </SkillsContext.Provider>
+    //   </SkillsDispatchContext.Provider>
+    // </SkillsContext.Provider>
     
   )
 }

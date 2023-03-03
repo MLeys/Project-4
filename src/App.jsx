@@ -1,7 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext, useReducer } from "react";
 import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
+import { useImmerReducer} from 'use-immer';
 
 import "./App.css";
+
+import SkillsReducer from "./reducers/SkillsReducer";
+
+import { SkillsContext, SkillsDispatchContext } from './context/SkillsContext/SkillsContext.jsx';
+
 
 import SkillPage from "./pages/SkillPage/SkillPage";
 import SubSkillPage from "./pages/SubSkillPage/SubSkillPage";
@@ -23,12 +29,53 @@ export default function App() {
   const navigate = useNavigate();
   
   const [user, setUser] = useState(userService.getUser());
-  const [skills, setSkills] = useState([]);
+  // const [skills, setSkills] = useState([]);
+  const [skills, dispatch] = useImmerReducer(SkillsReducer, null)
+
+
   const [allResources, setAllResources] = useState([]);
   const [error, setError] = useState('');
   
+  // async function handleCreateSkill(data) {
+  //   try {
+  //     const response = await skillsApi.create(data);
+  //     dispatch({
+  //       type: 'createSkill',
+  //       data: response.skill,
+  //     })
+  //   } catch(err){
+  //     setError(console.log(`*** Error CREATE SKILL ****\n ${err}`))
+  //   }
+  //   console.log(skills, "<<<<<< skills")
+  // } 
 
-  
+  async function getSkills() {
+    try {
+      const response = await skillsApi.getAll();
+      dispatch({
+        type: 'readSkills',
+        data: response.data //COULD BE .skills *****
+      })
+      console.log(skills, "_<<< updated skills hook handleget")
+
+    } catch (err) {
+      setError(console.log(`*** Error READ SKILL ****\n ${err}`))
+    }
+    console.log(skills, "<<<<<< skills")
+  }
+
+  // async function handleCreateSkill(data) {
+  //   try {
+  //     const response = await skillsApi.create(data);
+  //     dispatch({
+  //       type: 'createSkill',
+  //       data: response.skill,
+  //     })
+  //   } catch(err){
+  //     setError(console.log(`*** Error CREATE SKILL ****\n ${err}`))
+  //   }
+  //   console.log(skills, "<<<<<< skills")
+  // } 
 
   async function handleAddResource(data) {
     console.log(`Data(before): ${data}`)
@@ -120,18 +167,18 @@ export default function App() {
 
   } // END handleAddSubSkill Function
 
-  async function getSkills() {
-    try {
-      const response = await skillsApi.getAll();
-      setSkills( await response.data)
-      // getUserSkills();
+  // async function getSkills() {
+  //   try {
+  //     const response = await skillsApi.getAll();
+  //     setSkills( await response.data)
+  //     // getUserSkills();
 
-    } catch(err) {
-      setError(console.log('^^^^ getSkills Error!!! ^^^^'));
-      console.log(err, '<--- getSkills ERROR');
-    }
+  //   } catch(err) {
+  //     setError(console.log('^^^^ getSkills Error!!! ^^^^'));
+  //     console.log(err, '<--- getSkills ERROR');
+  //   }
 
-  } // END getSkills Function
+  // } // END getSkills Function
 
   async function getSkill(skillName) {
     console.log(skillName, "<-getSkill SkillName")
@@ -221,118 +268,126 @@ export default function App() {
   if (user) {
     // are we logged in?
     return (
-      
-      <Routes>
-        <Route
-          path="/"
-          element={<Layout
-            unAssignSkillUser={unAssignSkillUser}
-            assignSkillUser={assignSkillUser}
-            unAssignSubUser={unAssignSkillUser}
-            assignSubUser={assignSkillUser}
-
-            getSkill={getSkill} 
-
-
-            getSkills={getSkills}
-            allSkills={skills} 
-            
-            handleAddSkill={handleAddSkill} 
-            handleDeleteSkill={handleDeleteSkill} 
-
-            handleAddSubSkill={handleAddSubSkill}
-
-            allResources={allResources}
-            handleAddResource={handleAddResource}
-            
-            loggedUser={user} 
-            handleLogout={handleLogout} 
-            
-          />}
-        >
-          <Route
-            index
-            element={<LandingPage 
-              unAssignSkillUser={unAssignSkillUser}
-              assignSkillUser={assignSkillUser}
-              getSkills={getSkills}
-              getSkill={getSkill} 
-              loggedUser={user} 
-              handleLogout={handleLogout} 
-              handleAddSkill={handleAddSkill} 
-              allSkills = {skills} 
-              handleDeleteSkill={handleDeleteSkill}
-              handleAddSubSkill={handleAddSubSkill}
-
-              allResources={allResources}
-              handleAddResource={handleAddResource}
-            />}
-          />          
-          <Route
-            path="skills/:skillName"
-            element={<SkillPage 
-              
-              unAssignSkillUser={unAssignSkillUser}
-              assignSkillUser={assignSkillUser}
-              handleAddSubSkill={handleAddSubSkill} 
-
-              allSkills={skills} 
-              getSkill={getSkill} 
-              getSkills={getSkills}
-              loggedUser={user}
-              handleAddSkill={handleAddSkill}
-              
-            />} 
-          />
-          <Route
-            path="/:username"
-            element={<DashboardPage 
-              unAssignSkillUser={unAssignSkillUser}
-              assignSkillUser={assignSkillUser}
-              getSkills={getSkills}
-              getSkill={getSkill} 
-              loggedUser={user} 
-              handleLogout={handleLogout} 
-              handleAddSkill={handleAddSkill} 
-              allSkills = {skills} 
-              handleDeleteSkill={handleDeleteSkill}
-              handleAddSubSkill={handleAddSubSkill}
-
-              allResources={allResources}
-              handleAddResource={handleAddResource}
-
-              // getUserSkills={getUserSkills}
-              // userSkills={userSkills}
-
-              
-            />}
-          />
+      <SkillsContext.Provider 
+        value={{
+          getSkills:getSkills,
+          skills:skills
+      }}>
+        <SkillsDispatchContext.Provider value={dispatch}>
+          <Routes>
 
             <Route
-              path="skills/:skillName/subskill/:id"
-              element={<SubSkillPage 
+              path="/"
+              element={<Layout
+                unAssignSkillUser={unAssignSkillUser}
+                assignSkillUser={assignSkillUser}
+                unAssignSubUser={unAssignSkillUser}
+                assignSubUser={assignSkillUser}
 
-                allSkills={skills} 
-                getSkills={getSkills}
                 getSkill={getSkill} 
-                loggedUser={user}
+
+
+                getSkills={getSkills}
+                allSkills={skills} 
+                
+                handleAddSkill={handleAddSkill} 
+                handleDeleteSkill={handleDeleteSkill} 
+
                 handleAddSubSkill={handleAddSubSkill}
-                handleEditSubSkill={handleEditSubSkill}
+
+                allResources={allResources}
+                handleAddResource={handleAddResource}
+                
+                loggedUser={user} 
+                handleLogout={handleLogout} 
+                
+              />}
+            >
+              <Route
+                index
+                element={<LandingPage 
+                  unAssignSkillUser={unAssignSkillUser}
+                  assignSkillUser={assignSkillUser}
+                  getSkills={getSkills}
+                  getSkill={getSkill} 
+                  loggedUser={user} 
+                  handleLogout={handleLogout} 
+                  handleAddSkill={handleAddSkill} 
+                  allSkills = {skills} 
+                  handleDeleteSkill={handleDeleteSkill}
+                  handleAddSubSkill={handleAddSubSkill}
+
+                  allResources={allResources}
+                  handleAddResource={handleAddResource}
+                />}
+              />          
+              <Route
+                path="skills/:skillName"
+                element={<SkillPage 
+                  
+                  unAssignSkillUser={unAssignSkillUser}
+                  assignSkillUser={assignSkillUser}
+                  handleAddSubSkill={handleAddSubSkill} 
+
+                  allSkills={skills} 
+                  getSkill={getSkill} 
+                  getSkills={getSkills}
+                  loggedUser={user}
+                  handleAddSkill={handleAddSkill}
+                  
                 />} 
-          />
-          
-        </Route>
+              />
+              <Route
+                path="/:username"
+                element={<DashboardPage 
+                  unAssignSkillUser={unAssignSkillUser}
+                  assignSkillUser={assignSkillUser}
+                  getSkills={getSkills}
+                  getSkill={getSkill} 
+                  loggedUser={user} 
+                  handleLogout={handleLogout} 
+                  handleAddSkill={handleAddSkill} 
+                  allSkills = {skills} 
+                  handleDeleteSkill={handleDeleteSkill}
+                  handleAddSubSkill={handleAddSubSkill}
 
-        <Route
-          path="/login"
-          element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />}
-        />
-        <Route
-          path="/signup"
-          element={<SignUpPage handleSignUpOrLogin={handleSignUpOrLogin} />}
-        />
+                  allResources={allResources}
+                  handleAddResource={handleAddResource}
 
-      </Routes>
+                  // getUserSkills={getUserSkills}
+                  // userSkills={userSkills}
+
+                  
+                />}
+              />
+
+                <Route
+                  path="skills/:skillName/subskill/:id"
+                  element={<SubSkillPage 
+
+                    allSkills={skills} 
+                    getSkills={getSkills}
+                    getSkill={getSkill} 
+                    loggedUser={user}
+                    handleAddSubSkill={handleAddSubSkill}
+                    handleEditSubSkill={handleEditSubSkill}
+                    />} 
+              />
+            </Route>
+
+            <Route
+              path="/login"
+              element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />}
+            />
+            <Route
+              path="/signup"
+              element={<SignUpPage handleSignUpOrLogin={handleSignUpOrLogin} />}
+            />
+
+          </Routes>
+        </SkillsDispatchContext.Provider>
+      </SkillsContext.Provider>
+
     );
 }
 

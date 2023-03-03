@@ -19,6 +19,8 @@ function SkillAccordion({currentUser, assignSkillUser, unAssignSkillUser }) {
   const [activeIndex, setActiveIndex] = useState(-1);
   const skills = useContext(SkillsContext).skills
 
+ 
+
 
 
 

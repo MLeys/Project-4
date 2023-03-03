@@ -21,12 +21,12 @@ function DashboardPage({
   loggedUser, unAssignSkillUser,  assignSkillUser, 
   handleDeleteSkill, handleAddSkill,
   handleAddSubSkill,
-  allSkills, getSkill, getSkills, getUserSkills,
+   getSkill,  getUserSkills,
   allResources, handleAddResource
   
 }) {
-  const skillsContext = useContext(SkillsContext)
-  console.log(skillsContext, '<=== Skills from context (dash)')
+  const skills = useContext(SkillsContext).skills
+  console.log(skills, '<=== Skills from context (dash)')
 
 
   const { username } = useParams();
@@ -34,16 +34,18 @@ function DashboardPage({
   const [userSkills, setUserSkills] = useState([]);
 
   function filterUserSkills() {
+    if (skills) {
+      const userSkillsList = skills?.filter(skill => skill.usersAssigned.some(assigned => assigned.id === loggedUser.id))
 
-    const userSkillsList = allSkills.filter(skill => skill.usersAssigned.some(assigned => assigned._id === loggedUser._id))
+      // console.log(`userSkillsList: ${userSkillsList}`)
+      setUserSkills([...userSkillsList])
+      console.log(`userSkills: ${userSkills}`)
+    }
 
-    // console.log(`userSkillsList: ${userSkillsList}`)
-    setUserSkills([...userSkillsList])
-    console.log(`userSkills: ${userSkills}`)
 
   }
 
-	const skillPanes = userSkills.map((skill, index) => ({
+	const skillPanes = userSkills?.map((skill, index) => ({
 		menuItem: (`${skill.name} - ${index}` ),
     render: () => (
       <Tab.Pane>
@@ -53,7 +55,7 @@ function DashboardPage({
           unAssignSkillUser={unAssignSkillUser} 
           assignSkillUser={assignSkillUser} 
           handleAddSubSkill={handleAddSubSkill} 
-          allSkills={allSkills}  
+          allSkills={skills}  
           allResources={allResources}
           handleAddResource={handleAddResource}
         />
@@ -66,7 +68,7 @@ function DashboardPage({
     // getSkills();
     filterUserSkills();
     
-  }, []); 
+  }, [(!userSkills)]); 
   
   
   return (
