@@ -1,11 +1,11 @@
 import { useState, useEffect, useContext } from 'react';
 import {
-	 Accordion, 
-	 Button, 
-	 Icon,
-	 Segment,
-	 Label,
-	 Menu
+	Accordion, 
+	Button, 
+	Icon,
+	Segment,
+	Label,
+	Menu
 } from 'semantic-ui-react';
 
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
@@ -14,32 +14,21 @@ import SubSkillAccordion from '../SubSkillAccordion/SubSkillAccordion';
 
 
 function SkillAccordion() {
-	// console.log(skill, "<-SkillAccordion skill")
-	// console.log("Hitting SkillAccordion")
-//   const [activeSkillIndex, setActiveSkillIndex] = useState(-1);
-  const setActiveSkillIndex = useContext(SkillsContext).handleActiveSkillIndex
-  const activeSkillIndex = useContext(SkillsContext).activeSkillIndex
-  const skills = useContext(SkillsContext).skills;
-  const loggedUser = useContext(SkillsContext).loggedUser;
-  const assignSkillUser = useContext(SkillsContext).assignSkillUser;
-  const unAssignSkillUser = useContext(SkillsContext).unAssignSkillUser;
-  const getSkills = useContext(SkillsContext).getSkills;
+	const ctx = useContext(SkillsContext);
+		const setActiveSkillIndex = ctx.handleSetActiveSkillIndex
+		const activeSkillIndex = ctx.activeSkillIndex
+		const skills = ctx.skills;
+		const loggedUser = ctx.loggedUser;
+		const assignSkillUser = ctx.assignSkillUser;
+		const unAssignSkillUser = ctx.unAssignSkillUser;
+		const getSkills = ctx.getSkills;
 
- 
-
-
-
-
-  // FIX ME: SO THAT I PASS PROPS FROM CONTEXT ************
   useEffect(() => {
   }, []);
 
-	
-
-
 	const handleSkillClick = (e, index) => {
+		e.preventDefault();
 		setActiveSkillIndex(activeSkillIndex === index ? -1 : index);
-		console.log(`Sidebar Skill Clicked: Index= ${index}`)
 	};
 
 	function handleAssignSkillUser(skill) {

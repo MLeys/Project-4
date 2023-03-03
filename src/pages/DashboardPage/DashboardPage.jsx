@@ -18,12 +18,17 @@ import UserSkillsBarGraph from "../../components/UserSkillsBarGraph/UserSkillsBa
 
 
 function DashboardPage({ handleAddSubSkill,allResources, handleAddResource }) {
-  
-  const skills = useContext(SkillsContext).skills;
-  const loggedUser = useContext(SkillsContext).loggedUser;
-  const { username } = useParams();
+  const ctx = useContext(SkillsContext);
+  const setActiveSkillIndex = ctx.handleSetActiveSkillIndex
+  const activeSkillIndex = ctx.activeSkillIndex
+  const skills = ctx.skills;
+  const loggedUser = ctx.loggedUser;
+  const assignSkillUser = ctx.assignSkillUser;
+  const unAssignSkillUser = ctx.unAssignSkillUser;
+  const getSkills = ctx.getSkills;
+  const userSkills = ctx.userSkills;
   // console.log(`username(Dash): ${username}`)
-  const userSkills = skills?.filter(skill => skill.usersAssigned.some(user => user._id === loggedUser._id))
+  // const userSkills = skills?.filter(skill => skill.usersAssigned.some(user => user._id === loggedUser._id))
 
 	const skillPanes = userSkills?.map((skill, index) => ({
 		menuItem: (`${skill.name} - ${index}` ),

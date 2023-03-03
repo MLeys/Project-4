@@ -36,10 +36,13 @@ export default function App() {
 
   
   
-  
- 
-  function handleActiveSkillIndex(index){
+  function getUserSkills() {
+    setUserSkills(skills?.filter(skill => skill.usersAssigned.some(u => u._id === user._id)))
+  }
+
+  function handleSetActiveSkillIndex(index){
     setActiveSkillIndex(index)
+    console.log(`Active Skill Index: ${index}`)
   }
 
 
@@ -64,7 +67,7 @@ export default function App() {
         data: response.data //COULD BE .skills *****
       })
       console.log(skills, "_<<< updated skills hook handleget")
-
+      getUserSkills();
     } catch (err) {
       setError(console.log(`*** Error READ SKILL ****\n ${err}`))
     }
@@ -91,31 +94,27 @@ export default function App() {
       if (!skills[index].usersAssigned.some(u => u._id === user._id)) {
         const response = await skillsApi.assignUser(user, skill._id);
         getSkills();
+        getUserSkills();
       } else {
         console.log(`${user.username} already assigned to skill( ${skills[index].name})`)
       }
     } catch (err) {
       setError(console.log(`*** Error Assign SKILL ****\n ${err}`))
-
     }
   }
 
   async function unAssignSkillUser(skill) {
     try {
-      console.log("unassign skill")
       const index = skills.findIndex((s) => s._id === skill._id)
-      
       if (skills[index].usersAssigned.some(u => u._id === user._id)) {
         const response = await skillsApi.unAssignUser(user, skill._id);
-        console.log("After response")
         getSkills();
+        getUserSkills();
       } else {
         console.log(`${user.username} Not alaready Assigned to skill( ${skills[index].name})`)
       }
-      
     } catch (err) {
       setError(console.log(`*** Error UNAssign SKILL ****\n ${err}`))
-
     }
   }
 
@@ -159,8 +158,7 @@ export default function App() {
         const response = await subSkillsApi.create(subskill);
         console.log(response, "++++ handleAddSUBskill RESPONSE")
         getSkills();
-
-        
+                
     } catch(err){
         console.log(err, " Error IN THE HANDLEADDsubskill")
     }
@@ -240,8 +238,9 @@ export default function App() {
           deleteSkill: handleDeleteSkill,
           assignSkillUser: assignSkillUser,
           unAssignSkillUser: unAssignSkillUser, 
-          handleActiveSkillIndex: handleActiveSkillIndex,
+          handleSetActiveSkillIndex: handleSetActiveSkillIndex,
           activeSkillIndex: activeSkillIndex,
+          userSkills: userSkills,
 
 
           
