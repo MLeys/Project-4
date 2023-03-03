@@ -107,8 +107,9 @@ function DashboardPage({ handleAddSubSkill,allResources, handleAddResource }) {
             tabular: false, 
             vertical: true, 
           }}
-          grid ={{ paneWidth: 12, tabWidth: 4 }} 
+          grid ={{ paneWidth: 13, tabWidth: 3 }} 
           panes={skillPanes} 
+          
           menuPosition='left'
         >
         

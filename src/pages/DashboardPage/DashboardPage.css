@@ -7,14 +7,13 @@
 
 /* SkillPane column on dash */
 .ui.grid > .row > .stretched.column, .ui.grid > .stretched.column:not(.row), .ui.grid > .stretched.row > .column, .ui.stretched.grid > .column, .ui.stretched.grid > .row > .column {
-    padding-top: 0;
-    
+    padding-top: 0;    
   }
-
-.ui.column.grid > [class*="twelve wide"].column, .ui.grid > .column.row > [class*="twelve wide"].column, .ui.grid > .row > [class*="twelve wide"].column, .ui.grid > [class*="twelve wide"].column {
+/* Skill Vert Tabs area */
+.ui.column.grid > [class*="thirteen wide"].column, .ui.grid > .column.row > [class*="thirteen wide"].column, .ui.grid > .row > [class*="thirteen wide"].column, .ui.grid > [class*="thirteen wide"].column {
     padding-left: 0;
 }
-
-.ui.column.grid > [class*="four wide"].column, .ui.grid > .column.row > [class*="four wide"].column, .ui.grid > .row > [class*="four wide"].column, .ui.grid > [class*="four wide"].column {
+/* Tab Panels Window */
+.ui.column.grid > [class*="three wide"].column, .ui.grid > .column.row > [class*="three wide"].column, .ui.grid > .row > [class*="three wide"].column, .ui.grid > [class*="three wide"].column {
     padding-right: 0;
   }
