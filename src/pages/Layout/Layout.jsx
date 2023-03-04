@@ -50,7 +50,7 @@ function Layout({ handleLogout }) {
           visible={visible}
         />      
         <Sidebar.Pusher className='sidebarPusher' dimmed={dimmed && visible}>
-          <SkillPortal className='skillPortal'/>   
+          <SkillPortal className='s'/>   
           <Outlet />
         </Sidebar.Pusher>
       </Sidebar.Pushable>
