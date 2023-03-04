@@ -11,11 +11,12 @@ import {
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 import SubSkillAccordion from '../SubSkillAccordion/SubSkillAccordion';
+import SkillAssignCornerBtn from '../SkillAssignCornerBtn/SkillAssignCornerBtn';
 
 
 function SkillAccordion() {
 	const ctx = useContext(SkillsContext);
-		const setActiveSkillIndex = ctx.handleSetActiveSkillIndex
+		const setActiveSkillIndex = ctx.handleActiveSkillIndex
 		const activeSkillIndex = ctx.activeSkillIndex
 		const skills = ctx.skills;
 		const loggedUser = ctx.loggedUser;
@@ -31,17 +32,6 @@ function SkillAccordion() {
 		setActiveSkillIndex(activeSkillIndex === index ? -1 : index);
 	};
 
-	function handleAssignSkillUser(skill) {
-		const assignSkillIndex = skill?.usersAssigned.some(user => user._id === loggedUser._id);
-		console.log(`AssignSkillIndex: ${assignSkillIndex}`)
-		if (assignSkillIndex) {
-			unAssignSkillUser(skill);
-			getSkills();
-		} else {
-			assignSkillUser(skill);
-			getSkills();
-		}
-	};
 
 	const skillAssignComp = (skill, index) => {
 		const assignSkillIndex = skill.usersAssigned.some(user => user._id === loggedUser._id);
@@ -52,9 +42,7 @@ function SkillAccordion() {
 		return (
 			<>
 			
-				<Icon name="dropdown" />
-				{skill.name}
-				
+
 				<Label
 					key={`sidebar-title-label-${skill._id}`}
 					as='a' 
@@ -87,7 +75,16 @@ function SkillAccordion() {
 					active={activeSkillIndex === index}
 					index={index}
 					onClick={(e) => handleSkillClick(e, index)}
-					children={skillAssignComp(skill, index)}
+					children={
+						<>
+						<Icon name="dropdown" />
+							{skill.name}
+						<SkillAssignCornerBtn skill={skill} index={index}/>
+				
+						
+						</>
+
+						}
 				/>
 				<Accordion.Content active={activeSkillIndex === index}>
 						<SubSkillAccordion

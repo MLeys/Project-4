@@ -13,6 +13,7 @@ import {
 
 
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
+import { DashboardContext } from "../../context/DashboardContext/DashboardContext"
 
 import SkillDisplay from "../../components/SkillDisplay/SkillDisplay";
 
