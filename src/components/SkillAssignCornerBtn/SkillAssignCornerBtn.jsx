@@ -12,52 +12,56 @@ import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 function SkillAssignCornerBtn({ skill, index }) {
 	const [activeIndex, setActiveIndex] = useState(index);
 	const [ifAssigned, setIfAssigned] = useState(null);
-	const [color, setColor] = useState('orange')
+	const [color, setColor] = useState('orange');
 	const [icon, setIcon] = useState('warning sign');
-	const [content, setContent] = useState('loading')
-
-	function setAttributes() {
-		set
-	}
-	if (ifAssigned) {
-		setColor
-	}
-
-	
+	const [content, setContent] = useState('loading');
+	const [loading, setLoading] = useState(true);
 
 	const skillCtx = useContext(SkillsContext);
 		const loggedUser = skillCtx.loggedUser;
-		const assignSkillUser = ctx.assignSkillUser;
-		const unAssignSkillUser = ctx.unAssignSkillUser;
-		const getSkills = ctx.getSkills;
-	// const ifAssigned = skill.usersAssigned.some(user => user._id === loggedUser._id);
-	const assignSkillColor = ifAssigned ? 'red' : 'green';
-	const assignSkillIcon =  ifAssigned ? 'minus' : 'plus';
-	const assignSkillContent = ifAssigned ? 'unassign' : 'assign';
+		const assignSkillUser = skillCtx.assignSkillUser;
+		const unAssignSkillUser = skillCtx.unAssignSkillUser;
+		const getSkills = skillCtx.getSkills;
+
 
 	async function userAssigned() {
 		try {
 			setIfAssigned(skill?.usersAssigned.some(user => user._id === loggedUser._id));
-
+			setLoading(false)
+			if (!loading) {
+				if (ifAssigned === true) {
+					setColor('red')
+					setIcon('minus')
+					setContent('remove')
+					
+					unAssignSkillUser(skill);
+					getSkills();
+				} else if (ifAssigned === false) {
+					setColor('green')
+					setIcon('plus')
+					setContent('learn')
+					
+					assignSkillUser(skill);
+					getSkills();
+				} else {
+					console.log(`*** Error in handleAssignSkill user (corner btn) ***`)
+				}
+		
+			}
 		} catch (err) {
 			console.log(`Error setting userAssigned at load: ${err}`)
 		}
 	}
 
-	function handleAssignSkillUser() {
+
+
+
+	function handleAssignSkillUser(ifAssigned) {
 		console.log(`ifAssigned= ${ifAssigned}`)
-		if (ifAssigned === true) {
-			setColor('red')
-			setIcon('minus')
-			setContent('remove')
-			
+		if (ifAssigned) {
 			unAssignSkillUser(skill);
 			getSkills();
-		} else if (ifAssigned === false) {
-			setColor('green')
-			setIcon('plus')
-			setContent('learn')
-			
+		} else if (ifAssigned) {			
 			assignSkillUser(skill);
 			getSkills();
 		} else {
@@ -70,28 +74,25 @@ function SkillAssignCornerBtn({ skill, index }) {
 	
 	useEffect(() => {
 		userAssigned();
-  }, []);
+  }, [loading]);
 
 
 	return (
 		<>
-		
-
-			
 			<Label
-				key={`sidebar-title-label-${skill._id}`}
+				key={`assign-${skill._id}`}
 				as='a' 
 				size='mini' 
 				attached='top right' 
-				color={assignSkillColor}
+				color={color}
 				onClick={(e) => {
 					e.stopPropagation();
 					e.preventDefault();
-					handleAssignSkillUser(skill);
+					handleAssignSkillUser(ifAssigned);
 				}}
 			> 
-				<Icon name={assignSkillIcon} size='small'  />
-				{assignSkillContent}
+				<Icon name={icon} size='small'  />
+				{content}
 			</Label>
 		
 		</>
