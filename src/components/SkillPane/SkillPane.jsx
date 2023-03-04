@@ -12,6 +12,7 @@ import {
 
 } from 'semantic-ui-react';
 
+import SubSkillsTabDisplay from "../SubSkillsTabDisplay/SubSkillsTabDisplay";
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 import SubSkillPortal from '../SubSkillPortal/SubSkillPortal';
@@ -55,12 +56,11 @@ function SkillPane({ skill, handleAddSubSkill, allResources, handleAddResource }
 
 	return (
 		
-		<Grid as={Segment} >
-			<Grid.Row className="skillPaneTitle" verticalAlign="top" >
-				<Header  as={Segment} size="huge" attached="top" to={`/skills/${skill?.name}`} inverted={true} color='black' >
-					{skill?.name}
-				</Header>
-				<SubSkillPortal handleAddSubSkill={handleAddSubSkill} skill={skill} />
+		<Grid >
+      <Header  as={Segment}  attached="top" to={`/skills/${skill?.name}`} inverted={true} color='black' >
+        {skill?.name}
+      </Header>
+      <SubSkillPortal handleAddSubSkill={handleAddSubSkill} skill={skill} />
 			<Label
 				onClick={() => handleAssign()}
 				attached='top right'
@@ -70,52 +70,55 @@ function SkillPane({ skill, handleAddSubSkill, allResources, handleAddResource }
 				icon={assignIcon}
 				size="mini"         
 			/>
-			</Grid.Row>
-			<Grid.Row>
-
-
-				<Grid.Column width={4}>
-					<SubSkillDisplay 
-						skill={skill} 
-						handleAddSubSkill={handleAddSubSkill}
-						youTubeSearchResults={youTubeSearchResults}
-						liftYouTubeSearchResults={liftYouTubeSearchResults}
-					/> 
-				</Grid.Column>			
-				<Grid.Column width={4}>
-				
-					{
-						skillResources?.map((r) => {
-							// console.log(r, "<<-- resource")
-							return (
-								<>
-								<Item key={`resourceSeg-${r._id}`} content={r._id} />
-								</>
-							)
-						})
-					}
 			
+      <Grid.Row className="subSkillDisplayTab-row">
+        <SubSkillsTabDisplay skill={skill}>
 
-				</Grid.Column>	
-				<Grid.Column width={8}>
-					<ResourceDisplay
-						skill={skill}
-						loggedUser={loggedUser}
-						youTubeSearchResults={youTubeSearchResults}
-						liftYouTubeSearchResults={liftYouTubeSearchResults}
-						handleAddResource={handleAddResource}
-						skillResources={skillResources}
-					/>
-			
-				</Grid.Column>				
-				<Grid.Column width={1}>
+        </SubSkillsTabDisplay>
+      </Grid.Row>
 
-				</Grid.Column>				
-				<Grid.Column width={1}>
-				</Grid.Column>
-			</Grid.Row>
  	</Grid>
 
 	)
 }
 export default SkillPane;
+
+// {/* <Grid.Row>
+// <Grid.Column width={4}>
+//   <SubSkillDisplay 
+//     skill={skill} 
+//     handleAddSubSkill={handleAddSubSkill}
+//     youTubeSearchResults={youTubeSearchResults}
+//     liftYouTubeSearchResults={liftYouTubeSearchResults}
+//   /> 
+// </Grid.Column>			
+// <Grid.Column width={4}>
+
+//   {
+//     skillResources?.map((r) => {
+//       // console.log(r, "<<-- resource")
+//       return (
+//         <>
+//         <Item key={`resourceSeg-${r._id}`} content={r._id} />
+//         </>
+//       )
+//     })
+//   }
+// </Grid.Column>	
+// <Grid.Column width={8}>
+//   <ResourceDisplay
+//     skill={skill}
+//     loggedUser={loggedUser}
+//     youTubeSearchResults={youTubeSearchResults}
+//     liftYouTubeSearchResults={liftYouTubeSearchResults}
+//     handleAddResource={handleAddResource}
+//     skillResources={skillResources}
+//   />
+
+// </Grid.Column>				
+// <Grid.Column width={1}>
+
+// </Grid.Column>				
+// <Grid.Column width={1}>
+// </Grid.Column>
+// </Grid.Row> */}

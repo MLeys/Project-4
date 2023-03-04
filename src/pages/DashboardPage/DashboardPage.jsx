@@ -80,45 +80,24 @@ function DashboardPage({ handleAddSubSkill,allResources, handleAddResource }) {
   
   return (
     <>
-    <Grid className='fullScreenHeight' style={{ margin: 0, padding: 0 }} >
-
-      {/* <Grid.Row> 
-        <Grid.Column width={2} />
-        <Grid.Column width={12}>
-          <Segment  raised>
-            <UserSkillsBarGraph userSkills={userSkills} />
-          </Segment>
-        </Grid.Column>
-        <Grid.Column width={2} />
-      </Grid.Row> */}
-      <Grid.Row className="tab_row" >
-        <Grid.Column className="skillsTabCol" style={{ margin: 0, padding: 0 }} >
-          <Container className="dashSkillContainer" fluid={true}>
-          <Tab
-            menu={{
-              id: 'skillTabs',
-              fluid: true,
-              color: 'purple', 
-              inverted: true, 
-              attached: false, 
-              tabular: false, 
-              vertical: true, 
-            }}
-            grid ={{ paneWidth: 13, tabWidth: 3, margin: 0, padding: 0, className: 'tabContainer' }} 
-            panes={skillPanes} 
-            
-            
-            menuPosition='left'
-          />
-
-          </Container>
-
-        
-        
-        </Grid.Column>
-      </Grid.Row>
-    </Grid>
-      
+      <Container fluid={true} className='fullScreenHeight'>
+        <Tab
+          menu={{
+            id: 'skillTabs',
+            fluid: true,
+            color: 'purple', 
+            inverted: true, 
+            attached: false, 
+            tabular: false, 
+            vertical: true, 
+          }}
+          grid ={{ paneWidth: 14, tabWidth: 2 }} 
+          panes={skillPanes} 
+          
+          
+          menuPosition='left'
+      />
+      </Container>
     </>
   )
   
