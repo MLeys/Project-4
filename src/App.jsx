@@ -66,13 +66,14 @@ export default function App() {
         type: 'readSkills',
         data: response.data //COULD BE .skills *****
       })
-      console.log(skills, "_<<< updated skills hook handleget")
+      // console.log(skills, "_<<< updated skills hook handleget")
       getUserSkills();
     } catch (err) {
       setError(console.log(`*** Error READ SKILL ****\n ${err}`))
     }
-    console.log(skills, "<<<<<< skills")
+    console.log(skills, "End of getSkills")
   }
+
 
   async function handleDeleteSkill(skillId) {
     try {
@@ -90,9 +91,15 @@ export default function App() {
   }
   async function assignSkillUser(skill) {
     try {
-      const index = skills.findIndex((s) => s._id === skill._id)
+      const index = skills?.findIndex((s) => s._id === skill._id)
       if (!skills[index].usersAssigned.some(u => u._id === user._id)) {
         const response = await skillsApi.assignUser(user, skill._id);
+        console.log(response, "assign skill response")
+        dispatch({
+          type: 'assignSkill',
+          user: user,
+          index: index
+        })
         getSkills();
         getUserSkills();
       } else {
@@ -105,9 +112,16 @@ export default function App() {
 
   async function unAssignSkillUser(skill) {
     try {
-      const index = skills.findIndex((s) => s._id === skill._id)
-      if (skills[index].usersAssigned.some(u => u._id === user._id)) {
+      const skillIndex = skills?.findIndex((s) => s._id === skill._id)
+      if (skills[skillIndex].usersAssigned.some(u => u._id === user._id)) {
+        const userAssignedIndex = skills[skillIndex].usersAssigned?.findIndex((u) => u._id === user._id)
         const response = await skillsApi.unAssignUser(user, skill._id);
+        console.log(response, "unassign skill response")
+        dispatch({
+          type: 'unAssignSkill',
+          userIndex: userAssignedIndex,
+          skillIndex: skillIndex
+        })
         getSkills();
         getUserSkills();
       } else {
@@ -223,7 +237,7 @@ export default function App() {
   useEffect(() => {
     getSkills();
     getResources();    
-  }, [!skills, !resources]); 
+  }, [!skills]); 
 
 
   if (user) {

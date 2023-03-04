@@ -16,22 +16,23 @@ function SkillsReducer(draft, action) {
 			return draft.filter((s) => s.id !== action.id);
 		}
 		case 'assignSkill': {
-			console.log(draft, "DRAFT")
-			const skillIndex = action.index;
-			console.log(skillIndex, "SKILL INDEX")
-			if (draft[skillIndex].usersAssigned.includes(action.user)) {
-				draft[skillIndex].usersAssigned.push(action.user)
-				break;
-			} else {
-				console.log(" USER ALREADY ASSIGNED ")
-				break;
-			}
+			console.log("Reducer(assignSkill): ", action)
+			const index = action.index;
+			const user = action.user;
+			draft[index].usersAssigned.splice(0,0,user);
+			break;				
+		}
+		case 'unAssignSkill': {
+			console.log("Reducer(unAssignSkill): ", action)
+			const skillIndex = action.skillIndex;
+			const userIndex = action.userIndex;
+			draft[skillIndex].usersAssigned.splice(userIndex, 1);
+			
+			break;
 
-				
 		}
 
-		
-		
+	
 		default: {
 			throw Error (`Error handling action: ${action.type}`)
 		}
