@@ -38,7 +38,7 @@ function SkillPortal() {
       }, []); 
 
     return (  
-        <div>
+        <>
             <Label
                 attached="top right"
                 content='Add Skill'
@@ -53,12 +53,12 @@ function SkillPortal() {
             />
             
             <Portal onClose={handleClose} open={open}>
-                <Segment inverted
+                <Segment 
+                    inverted
                     style={{
                         left: '30%',
                         position: 'fixed',
                         top: '25%',
-                        
                 }}
                 >
                     <Header>Add Skill</Header>
@@ -76,7 +76,7 @@ function SkillPortal() {
                 </Segment>
             </Portal>
 
-        </div>
+        </>
     );
 }
 

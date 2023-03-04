@@ -43,21 +43,15 @@ function Layout({ handleLogout }) {
 
       <FixedMenuHeader handleLogout={handleLogout} sidebarDispatch={sidebarDispatch}/>
 
-      <Sidebar.Pushable as={Segment} inverted style={{ overflow: 'hidden', margin: 0, padding: 1, minHeight: '89vh'  }}>
+      <Sidebar.Pushable as={Segment} inverted style={{ overflow: 'hidden', margin: 0, padding: 0  }}>
         <VerticalSidebar
           animation={animation}
           direction={direction}
           visible={visible}
         />      
-        <Sidebar.Pusher  dimmed={dimmed && visible}>
-          <Segment.Group>
-            <Segment inverted>
-              <SkillPortal />   
-            </Segment>
-            <Segment >
-              <Outlet />
-            </Segment>
-          </Segment.Group>
+        <Sidebar.Pusher className='sidebarPusher' dimmed={dimmed && visible}>
+          <SkillPortal className='skillPortal'/>   
+          <Outlet />
         </Sidebar.Pusher>
       </Sidebar.Pushable>
       <MainFooter />

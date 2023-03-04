@@ -1,19 +1,31 @@
 .fullScreenHeight {
-    min-height: 80vh;
+    min-height: 85vh;
     background-color: #d5e3e6e3;
     align-content: start ;
+    margin: 0;
+    margin-bottom: 0;
+    padding: 0;
+}
+.ui.grid.fullScreenHeight {
+    
+    margin: 0;
+    padding: 0;
 
 }
+.ui.grid {
 
-/* SkillPane column on dash */
-.ui.grid > .row > .stretched.column, .ui.grid > .stretched.column:not(.row), .ui.grid > .stretched.row > .column, .ui.stretched.grid > .column, .ui.stretched.grid > .row > .column {
-    padding-top: 0;    
-  }
-/* Skill Vert Tabs area */
-.ui.column.grid > [class*="thirteen wide"].column, .ui.grid > .column.row > [class*="thirteen wide"].column, .ui.grid > .row > [class*="thirteen wide"].column, .ui.grid > [class*="thirteen wide"].column {
+    margin: 0;
+    padding: 0;
+}
+
+/* skill pane window */
+.ui.grid.segment {
+   
+    margin-left: 0;
+    margin: 0;
     padding-left: 0;
 }
-/* Tab Panels Window */
-.ui.column.grid > [class*="three wide"].column, .ui.grid > .column.row > [class*="three wide"].column, .ui.grid > .row > [class*="three wide"].column, .ui.grid > [class*="three wide"].column {
-    padding-right: 0;
-  }
+.ui.grid > .column:not(.row), .ui.grid > .row > .column {
+    padding: 0;
+    margin:0;
+}

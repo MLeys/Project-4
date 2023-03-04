@@ -56,8 +56,8 @@ function SkillPane({ skill, handleAddSubSkill, allResources, handleAddResource }
 	return (
 		
 		<Grid as={Segment} >
-			<Grid.Row>
-				<Header as={Segment} size="huge" attached="top" to={`/skills/${skill?.name}`} inverted={true} color='black' >
+			<Grid.Row className="skillPaneTitle" verticalAlign="top" >
+				<Header  as={Segment} size="huge" attached="top" to={`/skills/${skill?.name}`} inverted={true} color='black' >
 					{skill?.name}
 				</Header>
 				<SubSkillPortal handleAddSubSkill={handleAddSubSkill} skill={skill} />
@@ -74,24 +74,6 @@ function SkillPane({ skill, handleAddSubSkill, allResources, handleAddResource }
 			<Grid.Row>
 
 
-			</Grid.Row>
-			<Grid.Row stretched={true} color='blue'> 
-				<Grid.Column floated='left' width={12}>
-					
-				</Grid.Column>
-				<Grid.Column floated='right' width={4}>
-					<SearchYouTube
-								skill={skill}
-								youTubeSearchResults={youTubeSearchResults}
-								liftYouTubeSearchResults={liftYouTubeSearchResults}
-								handleAddResource={handleAddResource}
-								
-							/>
-				</Grid.Column>
-			</Grid.Row>
-			<Grid.Row>
-
-			
 				<Grid.Column width={4}>
 					<SubSkillDisplay 
 						skill={skill} 

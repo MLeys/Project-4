@@ -34,7 +34,7 @@ function DashboardPage({ handleAddSubSkill,allResources, handleAddResource }) {
 		// menuItem: (`${skill.name} - ${index}` ),
     // menuIten: {key:`pane-${skill.name}-${index}`},
     menuItem: (
-      <Menu.Item key={`pane-${skill.name}-${index}`} >
+      <Menu.Item className="skill_pane" key={`pane-${skill.name}-${index}`} >
         <Progress 
           inverted={true}
           size='small' 
@@ -43,7 +43,7 @@ function DashboardPage({ handleAddSubSkill,allResources, handleAddResource }) {
           total='8' 
           progress='ratio' 
         >
-        <h4>{skill.name}</h4>
+        <h4 >{skill.name}</h4>
         
         </Progress>
       </Menu.Item>
@@ -79,14 +79,8 @@ function DashboardPage({ handleAddSubSkill,allResources, handleAddResource }) {
   
   return (
     <>
-    <Grid className='fullScreenHeight' verticalAlign="top" >
-      <Grid.Row >
-        <Grid.Column>
-          <Segment color='blue' inverted size='huge'>
-            Skills DashboardPage
-          </Segment>
-        </Grid.Column>
-      </Grid.Row>
+    <Grid className='fullScreenHeight' style={{ margin: 0, padding: 0 }} >
+
       {/* <Grid.Row> 
         <Grid.Column width={2} />
         <Grid.Column width={12}>
@@ -96,19 +90,21 @@ function DashboardPage({ handleAddSubSkill,allResources, handleAddResource }) {
         </Grid.Column>
         <Grid.Column width={2} />
       </Grid.Row> */}
-      <Grid.Row verticalAlign="top">
-        <Grid.Column stretched={true}>
+      <Grid.Row className="tab_row" >
+        <Grid.Column className="skillsTabCol" style={{ margin: 0, padding: 0 }} >
         <Tab
           menu={{
+            id: 'skillTabs',
             fluid: true,
             color: 'purple', 
             inverted: true, 
-            attached: true, 
+            attached: false, 
             tabular: false, 
             vertical: true, 
           }}
-          grid ={{ paneWidth: 13, tabWidth: 3 }} 
+          grid ={{ paneWidth: 13, tabWidth: 3, margin: 0, padding: 0, className: 'tabContainer' }} 
           panes={skillPanes} 
+          
           
           menuPosition='left'
         >
