@@ -7,7 +7,8 @@ import {
   Label,
   Menu,
   Tab,
-  Progress
+  Progress,
+  Container
 } from 'semantic-ui-react';
 
 
@@ -92,24 +93,28 @@ function DashboardPage({ handleAddSubSkill,allResources, handleAddResource }) {
       </Grid.Row> */}
       <Grid.Row className="tab_row" >
         <Grid.Column className="skillsTabCol" style={{ margin: 0, padding: 0 }} >
-        <Tab
-          menu={{
-            id: 'skillTabs',
-            fluid: true,
-            color: 'purple', 
-            inverted: true, 
-            attached: false, 
-            tabular: false, 
-            vertical: true, 
-          }}
-          grid ={{ paneWidth: 13, tabWidth: 3, margin: 0, padding: 0, className: 'tabContainer' }} 
-          panes={skillPanes} 
-          
-          
-          menuPosition='left'
-        >
+          <Container className="dashSkillContainer" fluid={true}>
+          <Tab
+            menu={{
+              id: 'skillTabs',
+              fluid: true,
+              color: 'purple', 
+              inverted: true, 
+              attached: false, 
+              tabular: false, 
+              vertical: true, 
+            }}
+            grid ={{ paneWidth: 13, tabWidth: 3, margin: 0, padding: 0, className: 'tabContainer' }} 
+            panes={skillPanes} 
+            
+            
+            menuPosition='left'
+          />
+
+          </Container>
+
         
-        </Tab>
+        
         </Grid.Column>
       </Grid.Row>
     </Grid>

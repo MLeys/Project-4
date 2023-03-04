@@ -1,29 +1,12 @@
 .fullScreenHeight {
     min-height: 85vh;
-    background-color: #d5e3e6e3;
-    align-content: start ;
-    margin: 0;
-    margin-bottom: 0;
-    padding: 0;
-}
-.ui.grid.fullScreenHeight {
-    
-    margin: 0;
-    padding: 0;
-
 }
 .ui.grid {
-
     margin: 0;
-    padding: 0;
 }
-
 /* skill pane window */
 .ui.grid.segment {
-   
-    margin-left: 0;
     margin: 0;
-    padding-left: 0;
 }
 .ui.grid > .column:not(.row), .ui.grid > .row > .column {
     padding: 0;
