@@ -38,7 +38,7 @@ function SkillAssignCornerBtn({ skill, index }) {
 					...attributes,
 					color: 'red',
 					icon: 'minus',
-					content: 'removeINITIAL',
+					content: 'remove',
 					assigned: true
 				})
 			} else {
@@ -47,15 +47,13 @@ function SkillAssignCornerBtn({ skill, index }) {
 					...attributes,
 					color: 'green',
 					icon: 'plus',
-					content: 'learnINITIAL',
+					content: 'learn',
 					assigned: false
 				})
 			}
 			setLoading(false)
 		}
 	}
-
-
 
 	function handleAssignSkillUser() {
 		console.log(`===== handleAssign ======`)
@@ -68,7 +66,7 @@ function SkillAssignCornerBtn({ skill, index }) {
 				...attributes,
 				color: 'green',
 				icon: 'plus',
-				content: 'learnUN',
+				content: 'learn',
 				assigned: false
 			})
 			
@@ -79,7 +77,7 @@ function SkillAssignCornerBtn({ skill, index }) {
 				...attributes,
 				color: 'red',
 				icon: 'minus',
-				content: 'removeASSIGNed now',
+				content: 'remove',
 				assigned: true
 			})
 		}

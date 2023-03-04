@@ -33,36 +33,6 @@ function SkillAccordion() {
 	};
 
 
-	const skillAssignComp = (skill, index) => {
-		const assignSkillIndex = skill.usersAssigned.some(user => user._id === loggedUser._id);
-		const assignSkillColor = assignSkillIndex ? 'red' : 'green';
-		const assignSkillIcon =  assignSkillIndex ? 'minus' : 'plus';
-		const assignSkillContent = assignSkillIndex ? 'unassign' : 'assign';
-
-		return (
-			<>
-			
-
-				<Label
-					key={`sidebar-title-label-${skill._id}`}
-					as='a' 
-					size='mini' 
-					attached='top right' 
-					color={assignSkillColor}
-					onClick={(e) => {
-						e.stopPropagation();
-						e.preventDefault();
-						handleAssignSkillUser(skill);
-					}}
-				> 
-					<Icon name={assignSkillIcon} size='small'  />
-					{assignSkillContent}
-				</Label>
-			
-			</>
-		)
-	}
-
   return (
 		<>
 		{

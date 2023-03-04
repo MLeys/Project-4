@@ -11,13 +11,9 @@ import {
   Container
 } from 'semantic-ui-react';
 
-
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 import { DashboardContext } from "../../context/DashboardContext/DashboardContext"
 
-import SkillDisplay from "../../components/SkillDisplay/SkillDisplay";
-
-import UserSkillsBarGraph from "../../components/UserSkillsBarGraph/UserSkillsBarGraph";
 import SkillPane from "../../components/SkillPane/SkillPane";
 
 
@@ -30,7 +26,17 @@ function DashboardPage({ handleAddSubSkill,allResources, handleAddResource }) {
   const assignSkillUser = ctx.assignSkillUser;
   const unAssignSkillUser = ctx.unAssignSkillUser;
   const getSkills = ctx.getSkills;
-  const userSkills = ctx.userSkills;
+
+  const [userSkills, setUserSkills] = useState([]);
+
+  function getUserSkills() {
+    const assignedSkills =skills?.filter((skill => skill.usersAssigned.some(user => user._id === loggedUser._id)))
+    console.log(assignedSkills, "assigned skilsl (dash)")
+    setUserSkills([
+      ...userSkills,
+      assignedSkills
+    ])
+  }
 
 	const skillPanes = userSkills?.map((skill, index) => ({
 		// menuItem: (`${skill.name} - ${index}` ),
@@ -74,7 +80,8 @@ function DashboardPage({ handleAddSubSkill,allResources, handleAddResource }) {
 
 
   useEffect(() => {
-    
+    getSkills();
+    getUserSkills();
     
   }, []); 
   
