@@ -38,23 +38,20 @@ export default function App() {
     skill: {},
     subSkills: [],
   });
-  const [activeSub, setActiveSub] = ({
+  const [activeSub, setActiveSub] = useState({
     index: -1,
     subSkill: {},
     resources: [],
   });
 
   function handleSetActiveSub(index){
-    const skillIndex = activeSkill.index;
-    if (skills) {
+    const skillIndex = activeSkill?.index;
       setActiveSub({
         ...activeSub,
         index: index,
         subSkill: skills[skillIndex]?.subSkills[index],
-        resources: skills[skillIndex]?.subSkills[index].resources
+        resources: skills[skillIndex]?.subSkills[index]?.resources
       })
-      setActiveSkillIndex(index);
-    }
   }
 
   function handleSetActiveSkill(index){

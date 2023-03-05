@@ -20,8 +20,10 @@ function SubSkillsTabDisplay() {
 	const skill = ctx.skill;
 	const subSkills = ctx.activeSkill.subSkills;
 	const skillInfo = ctx.activeSkill;
-	console.log(skillInfo, "<== skill info subskilldisplaytab")
-	console.log(subSkills, "<== subSkills subskilldisplaytab")
+	
+	const handleSetActiveSub = ctx.handleSetActiveSub;
+	// console.log(skillInfo, "<== skill info subskilldisplaytab")
+	// console.log(subSkills, "<== subSkills subskilldisplaytab")
 
 	const subPanes = subSkills?.map((sub, index) => ({
 
@@ -35,6 +37,14 @@ function SubSkillsTabDisplay() {
 		)
 	}));
 
+  function handleTabChange(e, data) {
+    const activeIndex = data.activeIndex;
+
+		const activeSubId = subSkills[activeIndex]._id;
+    const subIndex = subSkills?.findIndex(sub => sub._id === activeSubId)
+    console.log(`subSkill Index: ${activeIndex}\nsubIndex: ${subIndex}\nactiveSkill: ${subSkills[activeIndex].title}`)
+    handleSetActiveSub(subIndex)
+  }
 
   return (
     <>
@@ -47,6 +57,8 @@ function SubSkillsTabDisplay() {
 					renderActiveOnly={false}
 					panes={subPanes} 
 					defaultActiveIndex={0}
+					onTabChange={ (e, data) => handleTabChange(e,data)}
+
       	/>
       </Container>
     </>
