@@ -34,7 +34,7 @@ function SkillAssignCornerBtn({ index, parent, parentSkill }) {
 
 		if (loading) {
 			if (ifAssigned) {
-				console.log(`** ${skill.name} Assigned at load- **`)
+				// console.log(`** ${skill.name} Assigned at load- **`)
 				setAttributes({
 					...attributes,
 					color: 'red',
@@ -43,7 +43,7 @@ function SkillAssignCornerBtn({ index, parent, parentSkill }) {
 					assigned: true
 				})
 			} else {
-				console.log(`** ${skill.name} NOT assigned at load **`)
+				// console.log(`** ${skill.name} NOT assigned at load **`)
 				setAttributes({
 					...attributes,
 					color: 'green',
@@ -57,11 +57,11 @@ function SkillAssignCornerBtn({ index, parent, parentSkill }) {
 	
 
 	function handleAssignSkillUser() {
-		console.log(`===== handleAssign ======`)
-		console.log(`${skill.name}-ifAssigned= ${ifAssigned}`)
-		console.log(`${skill.name}-${attributes.assigned}`)
+		// console.log(`===== handleAssign ======`)
+		// console.log(`${skill.name}-ifAssigned= ${ifAssigned}`)
+		// console.log(`${skill.name}-${attributes.assigned}`)
 		if (attributes.assigned) {
-			console.log(`${skill.name}--> Skill UNassigned`)
+			// console.log(`${skill.name}--> Skill UNassigned`)
 			unAssignSkillUser(skill);
 			setAttributes({
 				...attributes,
@@ -73,7 +73,7 @@ function SkillAssignCornerBtn({ index, parent, parentSkill }) {
 			
 		} else {		
 			assignSkillUser(skill);
-			console.log(`${skill.name}--> Skill assigned`)
+			// console.log(`${skill.name}--> Skill assigned`)
 			setAttributes({
 				...attributes,
 				color: 'red',
@@ -84,7 +84,7 @@ function SkillAssignCornerBtn({ index, parent, parentSkill }) {
 		}
 		getSkills();
 		
-		console.log("^^ End of handleAssign ^^")
+		// console.log("^^ End of handleAssign ^^")
 	};
 
 

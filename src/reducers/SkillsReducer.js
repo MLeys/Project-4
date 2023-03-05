@@ -16,14 +16,14 @@ function SkillsReducer(draft, action) {
 			return draft.filter((s) => s.id !== action.id);
 		}
 		case 'assignSkill': {
-			console.log("Reducer(assignSkill): ", action)
+			// console.log("Reducer(assignSkill): ", action)
 			const index = action.index;
 			const user = action.user;
 			draft[index].usersAssigned.splice(0,0,user);
 			break;				
 		}
 		case 'unAssignSkill': {
-			console.log("Reducer(unAssignSkill): ", action)
+			// console.log("Reducer(unAssignSkill): ", action)
 			const skillIndex = action.skillIndex;
 			const userIndex = action.userIndex;
 			draft[skillIndex].usersAssigned.splice(userIndex, 1);

@@ -49,11 +49,9 @@ function SkillAccordion() {
 					onClick={(e) => handleSkillClick(e, index)}
 					children={
 						<>
-						<Icon name="dropdown" />
-							{skill.name}
-						<SkillAssignCornerBtn parent={'sidebar'} parentSkill={skill} index={index}/>
-				
-						
+							<Icon name="dropdown" />
+								{skill.name}
+							<SkillAssignCornerBtn parent={'sidebar'} parentSkill={skill} index={index}/>
 						</>
 
 						}

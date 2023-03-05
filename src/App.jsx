@@ -36,6 +36,7 @@ export default function App() {
   const [activeSkill, setActiveSkill] = useState({
     index: -1,
     skill: {},
+    subSkills: [],
   });
 
 
@@ -44,11 +45,14 @@ export default function App() {
       setActiveSkill({
         ...activeSkill,
         index: index,
-        skill: skills[index]
+        skill: skills[index],
+        subSkills: skills[index].subSkills
       })
       setActiveSkillIndex(index);
     }
+    
   }
+
 
   async function handleCreateSkill(data) {
     try {
@@ -73,7 +77,7 @@ export default function App() {
       })
       // console.log(response, "<---- getSkills Response")
       const assignedSkills =response.data?.filter((skill => skill.usersAssigned.some(u => u._id === user._id)))
-      console.log(assignedSkills, "USERS SKILLS (getSkills)")
+      // console.log(assignedSkills, "USERS SKILLS (getSkills)")
       setUserSkills(assignedSkills)
       
     } catch (err) {
@@ -260,16 +264,18 @@ export default function App() {
         value={{
           loggedUser: user,
           skills: skills,
-          skill: activeSkill,
+          skill: activeSkill.skill,
+          activeSkillIndex: activeSkillIndex,
+          activeSkill: activeSkill,
+          userSkills: userSkills,
+          
           createSkill: handleCreateSkill,
           getSkills: getSkills,
           deleteSkill: handleDeleteSkill,
           assignSkillUser: assignSkillUser,
           unAssignSkillUser: unAssignSkillUser, 
           handleSetActiveSkill: handleSetActiveSkill,
-          activeSkillIndex: activeSkillIndex,
-          activeSkill: activeSkill,
-          userSkills: userSkills,
+
           
 
           

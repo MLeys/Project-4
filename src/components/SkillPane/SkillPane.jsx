@@ -18,34 +18,36 @@ import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 import SubSkillPortal from '../SubSkillPortal/SubSkillPortal';
 import SkillAssignCornerBtn from "../SkillAssignCornerBtn/SkillAssignCornerBtn";
 
-function SkillPane({  handleAddSubSkill, allResources, handleAddResource }) {
+function SkillPane() {
   const ctx = useContext(SkillsContext)
-  const userSkills = ctx.userSkills;
-  const skill = ctx.activeSkill
-
-  const loggedUser = ctx.loggedUser;
-
-
+  const skill = ctx.skill;
+	const activeSkillInfo = ctx.activeSkillInfo;
 
 
 	return (
+		<Container>
 		
 		<Grid >
-      <Header  as={Segment}  attached="top" to={`/skills/${skill?.name}`} inverted={true} color='black' >
-        {skill?.name}
-				
+      <Header  as={Segment}  attached="top" to={`/skills/${skill?.name}`} inverted={true} color='blue' >
+        {skill.name}
       </Header>
-      <SubSkillPortal handleAddSubSkill={handleAddSubSkill} skill={skill} />
-			<SkillAssignCornerBtn skill={skill} test={skill.name} />
+      <SubSkillPortal skill={skill} />
+			<SkillAssignCornerBtn />
 			
       <Grid.Row className="subSkillDisplayTab-row">
+				
 				
         <SubSkillsTabDisplay skill={skill}>
 
         </SubSkillsTabDisplay>
+			
+
       </Grid.Row>
 
  	</Grid>
+
+
+		</Container>
 
 	)
 }

@@ -24,7 +24,7 @@ function DashboardPage({ handleAddSubSkill,allResources, handleAddResource }) {
   const skills = ctx.skills;
   const getSkills = ctx.getSkills;
   const userSkills = ctx.userSkills;
-  const skill = ctx.activeSkill
+  const skill = ctx.skill;
 
 
 	const skillPanes = userSkills?.map((skill, index) => ({
@@ -45,12 +45,7 @@ function DashboardPage({ handleAddSubSkill,allResources, handleAddResource }) {
     ),
     render: () => (
       <>
-        <SkillPane
-          skill={skill}
-          handleAddSubSkill={handleAddSubSkill} 
-          allResources={allResources}
-          handleAddResource={handleAddResource}
-        />
+        <SkillPane  />
       </>
     )
 	}));
@@ -87,6 +82,7 @@ function DashboardPage({ handleAddSubSkill,allResources, handleAddResource }) {
           
           menuPosition='left'
       />
+      <Segment> End</Segment>
       </Container>
     </>
   )
@@ -94,28 +90,3 @@ function DashboardPage({ handleAddSubSkill,allResources, handleAddResource }) {
 }
 
 export default DashboardPage;
-
-    
-
-
-// {
-//   allSkills.map((skill) => {
-//     const assignIndex = skill.usersAssigned.findIndex(user => user.username === loggedUser.username)
-//     const ifAssigned = assignIndex > -1 ? true : false;
-    
-    
-//     if (ifAssigned) {
-//       // console.log(`skill(Dash): ${skill} index: ${assignIndex}`)
-//       return (
-//         <>
-
-//           <Segment.Group raised key={`dashSkillCard-${skill._id}`}>
-//               <SkillDisplay skill={skill} handleAddSkill={handleAddSkill} loggedUser={loggedUser} unAssignSkillUser={unAssignSkillUser} assignSkillUser={assignSkillUser} handleAddSubSkill={handleAddSubSkill}  />
-//           </Segment.Group>
-//         </>
-//       ) 
-//     } 
-
-//   })
-
-// }2
