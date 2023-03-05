@@ -38,7 +38,24 @@ export default function App() {
     skill: {},
     subSkills: [],
   });
+  const [activeSub, setActiveSub] = ({
+    index: -1,
+    subSkill: {},
+    resources: [],
+  });
 
+  function handleSetActiveSub(index){
+    const skillIndex = activeSkill.index;
+    if (skills) {
+      setActiveSub({
+        ...activeSub,
+        index: index,
+        subSkill: skills[skillIndex]?.subSkills[index],
+        resources: skills[skillIndex]?.subSkills[index].resources
+      })
+      setActiveSkillIndex(index);
+    }
+  }
 
   function handleSetActiveSkill(index){
     if (skills) {
@@ -50,7 +67,6 @@ export default function App() {
       })
       setActiveSkillIndex(index);
     }
-    
   }
 
 
@@ -268,6 +284,8 @@ export default function App() {
           activeSkillIndex: activeSkillIndex,
           activeSkill: activeSkill,
           userSkills: userSkills,
+          activeSub: activeSub,
+          
           
           createSkill: handleCreateSkill,
           getSkills: getSkills,
@@ -275,6 +293,7 @@ export default function App() {
           assignSkillUser: assignSkillUser,
           unAssignSkillUser: unAssignSkillUser, 
           handleSetActiveSkill: handleSetActiveSkill,
+          handleSetActiveSub: handleSetActiveSub,
 
           
 

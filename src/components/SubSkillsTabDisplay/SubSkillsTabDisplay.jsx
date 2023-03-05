@@ -12,6 +12,8 @@ import {
 
 } from 'semantic-ui-react';
 
+import SubSkillPane from "../SubSkillPane/SubSkillPane";
+
 
 function SubSkillsTabDisplay() {
 	const ctx = useContext(SkillsContext)
@@ -25,9 +27,11 @@ function SubSkillsTabDisplay() {
 
     menuItem: sub.title,
 		pane: (
-			<Tab.Pane key={`{sub._id}-${index}`}>
-				{sub.title}
-			</Tab.Pane>
+			<Tab.Pane 
+				children={ <SubSkillPane />} 
+				
+			/>
+			
 		)
 	}));
 
