@@ -7,7 +7,8 @@ import {
 	Menu,
 	Progress,
 	Grid,
-	Item
+	Item,
+	Header
 
 } from 'semantic-ui-react';
 
@@ -23,56 +24,30 @@ function SubSkillsTabDisplay() {
 
 	const subPanes = subSkills?.map((sub, index) => ({
 
-    menuItem: (
-			<Container as={Grid}>
-				<Grid.Row stretched={true}>
-					<Grid.Column>
-						<Progress 
-							inverted={true}
-							size='small' 
-							color='blue' 
-							value='4' 
-							total='8' 
-							progress='ratio' 
-						>
-						{sub.title}
-						</Progress>
-					</Grid.Column>
-
-				</Grid.Row>
-
-			</Container>
+    menuItem: sub.title,
+		pane: (
+			
+			<Tab.Pane key={`{sub._id}-${index}`}>
+				{sub.title}
+			</Tab.Pane>
 			
 
-      
 
-      
-			
-
-    ),
-		pane: {
-			key: `subContent-${sub._id}`,
-			content: (
-				<>
-				{sub.title}fdsaf
-				</>
-			)
-
-		}
+		)
 	}));
 
 
 
   return (
     <>
-      <Container fluid={true} className='fullScreenHeight'>
+      <Container fluid={true} style={{ backgroundColor: 'teal'}} className='fullScreenHeight'>
         <Tab 
-				as={Container}
-						
+					renderActiveOnly={false}
 					panes={subPanes} 
+					defaultActiveIndex={0}
 
       />
-      <Segment> End</Segment>
+      
       </Container>
     </>
   );

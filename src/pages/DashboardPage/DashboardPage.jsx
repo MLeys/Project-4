@@ -37,7 +37,7 @@ function DashboardPage({ handleAddSubSkill,allResources, handleAddResource }) {
           color='blue' 
           value='4' 
           total='8' 
-          progress='ratio' 
+          progress='percent' 
         >
         <h4 >{skill.name}</h4>
         </Progress>
@@ -67,6 +67,7 @@ function DashboardPage({ handleAddSubSkill,allResources, handleAddResource }) {
     <>
       <Container fluid={true} className='fullScreenHeight'>
         <Tab
+        defaultActiveIndex={0}
           menu={{
             id: 'skillTabs',
             fluid: true,
@@ -79,6 +80,7 @@ function DashboardPage({ handleAddSubSkill,allResources, handleAddResource }) {
           grid ={{ paneWidth: 14, tabWidth: 2 }} 
           panes={skillPanes} 
           onTabChange={ (e, data) => handleTabChange(e,data)}
+          
           
           menuPosition='left'
       />
