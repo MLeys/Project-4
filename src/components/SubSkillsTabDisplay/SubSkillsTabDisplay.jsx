@@ -29,9 +29,8 @@ function SubSkillsTabDisplay() {
 
     menuItem: sub.title,
 		pane: (
-			<Tab.Pane 
+			<Tab.Pane as={Container}
 				children={ <SubSkillPane />} 
-				
 			/>
 			
 		)

@@ -68,7 +68,6 @@ function SkillPortal() {
                     as='a' 
                     icon='close' 
                     size="mini" 
-                    negative
                     onClick={handleClose} 
                 />
                     <AddSkillForm handleClose={handleClose} />

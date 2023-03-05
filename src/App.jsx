@@ -195,6 +195,19 @@ export default function App() {
 
   } // END getSkills Function
 
+  async function handleCreateSkill(data) {
+    try {
+      const response = await subSkillsApi.create(data);
+      dispatch({
+        type: 'createSubSkill',
+        data: response.skill,
+      })
+      getSkills();
+    } catch(err){
+      setError(console.log(`*** Error CREATE SKILL ****\n ${err}`))
+    }
+    // console.log(skills, "<<<<<< skills")
+  } 
   async function handleAddSubSkill(subskill) {
     try {
         console.log(subskill, "<<<<< subskill data IN handleAddSUBSKill")
@@ -214,7 +227,7 @@ export default function App() {
         // setSubSkill(updatedSkill)
         const response = await subSkillsApi.update(subskill);
         console.log(response, "++++ EDIT SUBSKILL RESPONSE")
-        setSkill(response.skill);
+        
         getSkills();
         // return skill;
         
@@ -223,6 +236,8 @@ export default function App() {
         console.log(err, " Error IN THE HANDLEADDsubskill")
     }
   } // END handleAddSubSkill Function
+
+
 
 
   function handleSignUpOrLogin() {
@@ -235,34 +250,6 @@ export default function App() {
     userService.logout();
     setUser(null);
   }
-
-  async function assignSubUser(subskill) {
-    try {
-      const response = await skillsApi.assignUser(user, subskill._id)
-      getSkills();
-    } catch(err) {
-      console.log(err, "<--assign Skill error")
-    }
-  }
-
-  async function unAssignSubUser(subskill) {
-    try {
-      const response = await skillsApi.unAssignUser(user, subskill._id)
-      getSkills();
-    } catch(err) {
-      console.log(err, "<--unassign Skill error")
-    }
-  }
-  async function handleAddSkill(skill) {
-    try {
-      const response = await skillsApi.create(skill);
-      setSkills([response.skill, ...skills])
-      getSkills();
-    } catch(err){
-      setError(console.log(`***Error in handle Skill message: ${err}`))
-    }
-  } 
-
 
   useEffect(() => {
     getSkills();
@@ -291,6 +278,7 @@ export default function App() {
           unAssignSkillUser: unAssignSkillUser, 
           handleSetActiveSkill: handleSetActiveSkill,
           handleSetActiveSub: handleSetActiveSub,
+          handleAddSubSkill: handleAddSubSkill
 
           
 
@@ -341,4 +329,20 @@ export default function App() {
 //     console.log(err.message, " <<<<<OPENAI SEARCH ERROR>>>>>");
 //   }
 // }
+// async function assignSubUser(subskill) {
+//   try {
+//     const response = await skillsApi.assignUser(user, subskill._id)
+//     getSkills();
+//   } catch(err) {
+//     console.log(err, "<--assign Skill error")
+//   }
+// }
 
+// async function unAssignSubUser(subskill) {
+//   try {
+//     const response = await skillsApi.unAssignUser(user, subskill._id)
+//     getSkills();
+//   } catch(err) {
+//     console.log(err, "<--unassign Skill error")
+//   }
+// }

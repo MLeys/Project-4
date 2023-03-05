@@ -69,7 +69,6 @@ function SubSkillPortal({handleAddSubSkill, skill }) {
                     as='a' 
                     icon='close' 
                     size="mini" 
-                    negative
                     onClick={handleClose} 
                 />
                     <AddSubSkillForm handleClose={handleClose} skill={skill} handleAddSubSkill={handleAddSubSkill} />

@@ -4,7 +4,8 @@ import {
 	Label,
 	Grid,
 	Header,
-	Tab
+	Tab,
+	Container
 
 } from 'semantic-ui-react';
 
@@ -13,19 +14,23 @@ import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 
 
-function SubSkillPane({ sub }) {
-	const subCtx = useContext(SkillsContext)
-  const subSkills = subCtx.subSkills;
+function SubSkillPane() {
+	const ctx = useContext(SkillsContext);
+	const subCtx = ctx.activeSub;
+  
 	const subSkill = subCtx.subSkill;
 	const resources = subCtx.resources;
 
 
 	return (
-		
-			
-				<Header  as={Segment}  attached="top" inverted={true} color='blue' >
-					{sub?.title}fdfaf
+		<>
+				<Header attached="top" inverted={true} color='blue' >
+					{subSkill?.title}
 				</Header>
+				
+		</>
+			
+
 			
 
 		
