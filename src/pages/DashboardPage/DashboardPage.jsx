@@ -22,23 +22,12 @@ function DashboardPage({ handleAddSubSkill,allResources, handleAddResource }) {
   const handleSetActiveSkill = ctx.handleSetActiveSkill
   const activeSkillIndex = ctx.activeSkillIndex
   const skills = ctx.skills;
-  const loggedUser = ctx.loggedUser;
-  const assignSkillUser = ctx.assignSkillUser;
-  const unAssignSkillUser = ctx.unAssignSkillUser;
   const getSkills = ctx.getSkills;
   const userSkills = ctx.userSkills;
+  const skill = ctx.activeSkill
 
-
-
-
-
-  
-  
 
 	const skillPanes = userSkills?.map((skill, index) => ({
-		// menuItem: (`${skill.name} - ${index}` ),
-    // menuIten: {key:`pane-${skill.name}-${index}`},
-    
 
     menuItem: (
       <Menu.Item className="skill_pane" key={`pane-${skill.name}-${index}`} >
@@ -51,32 +40,20 @@ function DashboardPage({ handleAddSubSkill,allResources, handleAddResource }) {
           progress='ratio' 
         >
         <h4 >{skill.name}</h4>
-        
         </Progress>
       </Menu.Item>
     ),
     render: () => (
       <>
-      <SkillPane
-        skill={skill}
-        handleAddSubSkill={handleAddSubSkill} 
-        allResources={allResources}
-        handleAddResource={handleAddResource}
-      />
-      {/* <Tab.Pane>
-        <SkillDisplay key={`skillDisplay-${skill.id}`} 
+        <SkillPane
           skill={skill}
           handleAddSubSkill={handleAddSubSkill} 
           allResources={allResources}
           handleAddResource={handleAddResource}
         />
-      </Tab.Pane> */}
       </>
-
-      
     )
 	}));
-
 
   useEffect(() => {
     getSkills();

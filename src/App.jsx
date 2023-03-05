@@ -35,7 +35,7 @@ export default function App() {
   const [resources, setResources] = useState([]);
   const [activeSkill, setActiveSkill] = useState({
     index: -1,
-    skill: [],
+    skill: {},
   });
 
 
@@ -60,10 +60,7 @@ export default function App() {
         skill: skills[index]
       })
       setActiveSkillIndex(index);
-
     }
-
-    // console.log(`Active Skill Index: ${index}\nActive Skill: ${skills[index].name}`)
   }
 
 
@@ -74,6 +71,7 @@ export default function App() {
         type: 'createSkill',
         data: response.skill,
       })
+      getSkills();
     } catch(err){
       setError(console.log(`*** Error CREATE SKILL ****\n ${err}`))
     }
@@ -87,8 +85,9 @@ export default function App() {
         type: 'readSkills',
         data: response.data //COULD BE .skills *****
       })
+      console.log(response, "<---- getSkills Response")
       const assignedSkills =response.data?.filter((skill => skill.usersAssigned.some(u => u._id === user._id)))
-      console.log(assignedSkills, "USERS SKILLS ( in get skills afte response)")
+      console.log(assignedSkills, "USERS SKILLS (getSkills)")
       setUserSkills(assignedSkills)
       
     } catch (err) {
@@ -124,7 +123,10 @@ export default function App() {
           index: index
         })
         getSkills();
-        getUserSkills();
+        const assignedSkills =skills?.filter((skill => skill.usersAssigned.some(u => u._id === user._id)))
+        console.log(assignedSkills, "USERS SKILLS (assignSkill)")
+        setUserSkills(assignedSkills)
+        
       } else {
         console.log(`${user.username} already assigned to skill( ${skills[index].name})`)
       }
@@ -146,9 +148,11 @@ export default function App() {
           skillIndex: skillIndex
         })
         getSkills();
-        getUserSkills();
+        const assignedSkills = skills?.filter((skill => skill.usersAssigned.some(u => u._id === user._id)))
+        console.log(assignedSkills, "USERS SKILLS (unassignSkill)")
+        setUserSkills(assignedSkills)
       } else {
-        console.log(`${user.username} Not alaready Assigned to skill( ${skills[index].name})`)
+        console.log(`${user.username} Not alaready Assigned to skill( ${skills[skillIndex].name})`)
       }
     } catch (err) {
       setError(console.log(`*** Error UNAssign SKILL ****\n ${err}`))
@@ -270,6 +274,7 @@ export default function App() {
         value={{
           loggedUser: user,
           skills: skills,
+          skill: activeSkill,
           createSkill: handleCreateSkill,
           getSkills: getSkills,
           deleteSkill: handleDeleteSkill,

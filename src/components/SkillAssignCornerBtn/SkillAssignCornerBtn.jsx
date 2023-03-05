@@ -9,14 +9,16 @@ import {
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 
-function SkillAssignCornerBtn({ skill, index, test }) {
+function SkillAssignCornerBtn({ index, parent, parentSkill }) {
 	const skillCtx = useContext(SkillsContext);
 		const loggedUser = skillCtx.loggedUser;
 		const assignSkillUser = skillCtx.assignSkillUser;
 		const unAssignSkillUser = skillCtx.unAssignSkillUser;
 		const getSkills = skillCtx.getSkills;
-	
-
+		
+		const skill = parent ==='sidebar' ? parentSkill : skillCtx.skill;
+		
+		
 	const [attributes, setAttributes] = useState({
 		color: 'orange',
 		icon: 'warning sign',
@@ -26,12 +28,10 @@ function SkillAssignCornerBtn({ skill, index, test }) {
 	const [loading, setLoading] = useState(true);
 
 
-	const ifAssigned = skill?.usersAssigned.some(user => user._id === loggedUser._id)
-	const assignColor = ifAssigned ? 'red' : 'green';
-	const assignIcon =  ifAssigned ? 'minus' : 'plus';
-	const assignContent = ifAssigned ? 'remove2' : 'learn2';
+	const ifAssigned = skill?.usersAssigned?.some(user => user._id === loggedUser._id)
 
-	function loadAttributes() {
+
+
 		if (loading) {
 			if (ifAssigned) {
 				console.log(`** ${skill.name} Assigned at load- **`)
@@ -54,7 +54,7 @@ function SkillAssignCornerBtn({ skill, index, test }) {
 			}
 			setLoading(false)
 		}
-	}
+	
 
 	function handleAssignSkillUser() {
 		console.log(`===== handleAssign ======`)
@@ -91,7 +91,7 @@ function SkillAssignCornerBtn({ skill, index, test }) {
 	
 	
 	useEffect(() => {
-		loadAttributes();
+		
   }, []);
 
 
@@ -110,7 +110,7 @@ function SkillAssignCornerBtn({ skill, index, test }) {
 				}}
 			> 
 				<Icon name={attributes.icon} size='small'  />
-				{attributes.content}{test}
+				{attributes.content}
 			</Label>
 		
 		</>

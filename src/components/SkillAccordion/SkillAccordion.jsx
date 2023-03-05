@@ -51,7 +51,7 @@ function SkillAccordion() {
 						<>
 						<Icon name="dropdown" />
 							{skill.name}
-						<SkillAssignCornerBtn skill={skill} index={index}/>
+						<SkillAssignCornerBtn parent={'sidebar'} parentSkill={skill} index={index}/>
 				
 						
 						</>
