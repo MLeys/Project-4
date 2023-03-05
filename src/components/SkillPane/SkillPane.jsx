@@ -35,13 +35,7 @@ function SkillPane() {
 			<SkillAssignCornerBtn />
 			
       <Grid.Row className="subSkillDisplayTab-row">
-				
-				
-        <SubSkillsTabDisplay skill={skill}>
-
-        </SubSkillsTabDisplay>
-			
-
+        <SubSkillsTabDisplay />
       </Grid.Row>
 
  	</Grid>

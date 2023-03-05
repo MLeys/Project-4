@@ -6,6 +6,7 @@ import {
 	Tab,
 	Menu,
 	Progress,
+	Grid,
 	Item
 
 } from 'semantic-ui-react';
@@ -20,30 +21,44 @@ function SubSkillsTabDisplay() {
 	console.log(skillInfo, "<== skill info subskilldisplaytab")
 	console.log(subSkills, "<== subSkills subskilldisplaytab")
 
-	
-	
-
 	const subPanes = subSkills?.map((sub, index) => ({
 
     menuItem: (
-      <Menu.Item className="sub_pane" key={`pane-${sub.name}-${index}`} >
-        <Progress 
-          inverted={true}
-          size='small' 
-          color='blue' 
-          value='4' 
-          total='8' 
-          progress='ratio' 
-        >
-        <h4 >{sub.title}</h4>
-        </Progress>
-      </Menu.Item>
+			<Container as={Grid}>
+				<Grid.Row stretched={true}>
+					<Grid.Column>
+						<Progress 
+							inverted={true}
+							size='small' 
+							color='blue' 
+							value='4' 
+							total='8' 
+							progress='ratio' 
+						>
+						{sub.title}
+						</Progress>
+					</Grid.Column>
+
+				</Grid.Row>
+
+			</Container>
+			
+
+      
+
+      
+			
+
     ),
-    render: () => (
-      <>
-        {sub.title}
-      </>
-    )
+		pane: {
+			key: `subContent-${sub._id}`,
+			content: (
+				<>
+				{sub.title}fdsaf
+				</>
+			)
+
+		}
 	}));
 
 
@@ -51,21 +66,11 @@ function SubSkillsTabDisplay() {
   return (
     <>
       <Container fluid={true} className='fullScreenHeight'>
-        <Tab
-          menu={{
-            id: 'skillTabs',
-            fluid: true,
-            color: 'green', 
-            inverted: true, 
-            attached: false, 
-            tabular: false, 
-            
-          }}
-          grid ={{ paneWidth: 14, tabWidth: 2 }} 
-          panes={'panes'} 
-          onTabChange={ (e, data) => handleTabChange(e,data)}
-          
-          menuPosition='left'
+        <Tab 
+				as={Container}
+						
+					panes={subPanes} 
+
       />
       <Segment> End</Segment>
       </Container>
