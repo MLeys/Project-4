@@ -9,7 +9,7 @@ import {
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 
-function SkillAssignCornerBtn({ skill, index }) {
+function SkillAssignCornerBtn({ skill, index, test }) {
 	const skillCtx = useContext(SkillsContext);
 		const loggedUser = skillCtx.loggedUser;
 		const assignSkillUser = skillCtx.assignSkillUser;
@@ -110,7 +110,7 @@ function SkillAssignCornerBtn({ skill, index }) {
 				}}
 			> 
 				<Icon name={attributes.icon} size='small'  />
-				{attributes.content}
+				{attributes.content}{test}
 			</Label>
 		
 		</>

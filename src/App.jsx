@@ -33,6 +33,11 @@ export default function App() {
   const [userSkills, setUserSkills] = useState([])
   const [activeSkillIndex, setActiveSkillIndex] = useState(-1)
   const [resources, setResources] = useState([]);
+  const [activeSkill, setActiveSkill] = useState({
+    index: -1,
+    skill: [],
+  });
+
 
 
 
@@ -45,10 +50,20 @@ export default function App() {
   // function getUserSkills() {
   //   setUserSkills(skills?.filter(skill => skill.usersAssigned.some(u => u._id === user._id)))
   // }
+  
 
-  function handleSetActiveSkillIndex(index){
-    setActiveSkillIndex(index)
-    console.log(`Active Skill Index: ${index}`)
+  function handleSetActiveSkill(index){
+    if (skills) {
+      setActiveSkill({
+        ...activeSkill,
+        index: index,
+        skill: skills[index]
+      })
+      setActiveSkillIndex(index);
+
+    }
+
+    // console.log(`Active Skill Index: ${index}\nActive Skill: ${skills[index].name}`)
   }
 
 
@@ -260,11 +275,11 @@ export default function App() {
           deleteSkill: handleDeleteSkill,
           assignSkillUser: assignSkillUser,
           unAssignSkillUser: unAssignSkillUser, 
-          handleSetActiveSkillIndex: handleSetActiveSkillIndex,
+          handleSetActiveSkill: handleSetActiveSkill,
           activeSkillIndex: activeSkillIndex,
+          activeSkill: activeSkill,
           userSkills: userSkills,
           
-
 
           
       }}>

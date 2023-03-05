@@ -16,14 +16,13 @@ import SkillAssignCornerBtn from '../SkillAssignCornerBtn/SkillAssignCornerBtn';
 
 function SkillAccordion() {
 	const ctx = useContext(SkillsContext);
-		const setActiveSkillIndex = ctx.handleActiveSkillIndex
-		const activeSkillIndex = ctx.activeSkillIndex
 		const skills = ctx.skills;
 		const loggedUser = ctx.loggedUser;
 		const assignSkillUser = ctx.assignSkillUser;
 		const unAssignSkillUser = ctx.unAssignSkillUser;
 		const getSkills = ctx.getSkills;
 		
+	const [activeSkillIndexSidebar, setActiveSkillIndexSidebar] = useState(-1)
 
   useEffect(() => {
 		getSkills();
@@ -32,7 +31,7 @@ function SkillAccordion() {
 
 	const handleSkillClick = (e, index) => {
 		e.preventDefault();
-		setActiveSkillIndex(activeSkillIndex === index ? -1 : index);
+		setActiveSkillIndexSidebar(activeSkillIndexSidebar === index ? -1 : index);
 	};
 
 
@@ -45,7 +44,7 @@ function SkillAccordion() {
 				<Accordion.Title
 					key={`sidebar-title-${skill._id}`}
 					as={Segment}
-					active={activeSkillIndex === index}
+					active={activeSkillIndexSidebar === index}
 					index={index}
 					onClick={(e) => handleSkillClick(e, index)}
 					children={
@@ -59,7 +58,7 @@ function SkillAccordion() {
 
 						}
 				/>
-				<Accordion.Content active={activeSkillIndex === index}>
+				<Accordion.Content active={activeSkillIndexSidebar === index}>
 						<SubSkillAccordion
 							skill={skill}
 							key={`${skill._id}-subskills`}

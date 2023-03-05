@@ -16,6 +16,7 @@ import SubSkillsTabDisplay from "../SubSkillsTabDisplay/SubSkillsTabDisplay";
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 import SubSkillPortal from '../SubSkillPortal/SubSkillPortal';
+import SkillAssignCornerBtn from "../SkillAssignCornerBtn/SkillAssignCornerBtn";
 import SubSkillDisplay from '../SubSkillDisplay/SubSkillDisplay';
 import ResourceDisplay from '../ResourceDisplay/ResourceDisplay';
 import SearchYouTube from '../SearchYouTube/SearchYouTube';
@@ -30,27 +31,27 @@ function SkillPane({ skill, handleAddSubSkill, allResources, handleAddResource }
 	const assignSkillUser = useContext(SkillsContext).assignSkillUser;
 	const unAssignSkillUser = useContext(SkillsContext).unAssignSkillUser;
 	
-	const [youTubeSearchResults, setYouTubeSearchResults] = useState([]);
-	const [skillResources, setSkillResources] = useState([])
+	// const [youTubeSearchResults, setYouTubeSearchResults] = useState([]);
+	// const [skillResources, setSkillResources] = useState([])
 
-	const assignIndex = skill?.usersAssigned?.some(user => user.username === loggedUser.username)
-	const assignColor = assignIndex ? 'red' : 'green';
-	const assignIcon = assignIndex ? 'minus' : 'plus';
-	const assignContent = assignIndex ? 'unassign' : 'assign'
+	// const assignIndex = skill?.usersAssigned?.some(user => user.username === loggedUser.username)
+	// const assignColor = assignIndex ? 'red' : 'green';
+	// const assignIcon = assignIndex ? 'minus' : 'plus';
+	// const assignContent = assignIndex ? 'unassign' : 'assign'
 
-	const handleAssign = assignIndex ? () => unAssignSkillUser(skill) : () => assignSkillUser(skill)
+	// const handleAssign = assignIndex ? () => unAssignSkillUser(skill) : () => assignSkillUser(skill)
 
-	function liftYouTubeSearchResults(results) {
-		(results) ? setYouTubeSearchResults([...results]) : '';
-	}
+	// function liftYouTubeSearchResults(results) {
+	// 	(results) ? setYouTubeSearchResults([...results]) : '';
+	// }
 	
 
-	function getSkillResources() {
-		// console.log(allResources, "ALL RESOURCES")
-		const resources = allResources.filter((r) => r.skillId === skill._id )
-		// console.log(`resources-${skill.name}: ${resources}`)
-		setSkillResources(resources)
-	}
+	// function getSkillResources() {
+	// 	// console.log(allResources, "ALL RESOURCES")
+	// 	const resources = allResources.filter((r) => r.skillId === skill._id )
+	// 	// console.log(`resources-${skill.name}: ${resources}`)
+	// 	setSkillResources(resources)
+	// }
 
 
 
@@ -59,19 +60,13 @@ function SkillPane({ skill, handleAddSubSkill, allResources, handleAddResource }
 		<Grid >
       <Header  as={Segment}  attached="top" to={`/skills/${skill?.name}`} inverted={true} color='black' >
         {skill?.name}
+				
       </Header>
       <SubSkillPortal handleAddSubSkill={handleAddSubSkill} skill={skill} />
-			<Label
-				onClick={() => handleAssign()}
-				attached='top right'
-				color={assignColor}
-				as='a' 
-				content={assignContent}
-				icon={assignIcon}
-				size="mini"         
-			/>
+			<SkillAssignCornerBtn skill={skill} test={skill.name} />
 			
       <Grid.Row className="subSkillDisplayTab-row">
+				
         <SubSkillsTabDisplay skill={skill}>
 
         </SubSkillsTabDisplay>
