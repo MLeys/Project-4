@@ -29,7 +29,7 @@ function SkillPane() {
 		
 		<Grid >
       <Header  as={Segment}  attached="top" to={`/skills/${skill?.name}`} inverted={true} color='blue' >
-        {skill.name}
+        <h1>{skill.name}</h1>
       </Header>
       <SubSkillPortal skill={skill} />
 			<SkillAssignCornerBtn />

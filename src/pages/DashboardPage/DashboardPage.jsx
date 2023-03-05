@@ -8,7 +8,8 @@ import {
   Menu,
   Tab,
   Progress,
-  Container
+  Container,
+  Header
 } from 'semantic-ui-react';
 
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
@@ -39,7 +40,7 @@ function DashboardPage({ handleAddSubSkill,allResources, handleAddResource }) {
           total='8' 
           progress='percent' 
         >
-        <h4 >{skill.name}</h4>
+        <Header inverted={true}>{skill.name}</Header>
         </Progress>
       </Menu.Item>
     ),
