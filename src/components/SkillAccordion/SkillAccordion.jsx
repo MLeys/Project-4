@@ -23,8 +23,11 @@ function SkillAccordion() {
 		const assignSkillUser = ctx.assignSkillUser;
 		const unAssignSkillUser = ctx.unAssignSkillUser;
 		const getSkills = ctx.getSkills;
+		
 
   useEffect(() => {
+		getSkills();
+		
   }, []);
 
 	const handleSkillClick = (e, index) => {

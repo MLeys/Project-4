@@ -15,6 +15,7 @@ function SkillAssignCornerBtn({ skill, index }) {
 		const assignSkillUser = skillCtx.assignSkillUser;
 		const unAssignSkillUser = skillCtx.unAssignSkillUser;
 		const getSkills = skillCtx.getSkills;
+	
 
 	const [attributes, setAttributes] = useState({
 		color: 'orange',
@@ -82,6 +83,7 @@ function SkillAssignCornerBtn({ skill, index }) {
 			})
 		}
 		getSkills();
+		
 		console.log("^^ End of handleAssign ^^")
 	};
 

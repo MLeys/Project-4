@@ -26,17 +26,14 @@ function DashboardPage({ handleAddSubSkill,allResources, handleAddResource }) {
   const assignSkillUser = ctx.assignSkillUser;
   const unAssignSkillUser = ctx.unAssignSkillUser;
   const getSkills = ctx.getSkills;
+  const userSkills = ctx.userSkills;
 
-  const [userSkills, setUserSkills] = useState([]);
 
-  function getUserSkills() {
-    const assignedSkills =skills?.filter((skill => skill.usersAssigned.some(user => user._id === loggedUser._id)))
-    console.log(assignedSkills, "assigned skilsl (dash)")
-    setUserSkills([
-      ...userSkills,
-      assignedSkills
-    ])
-  }
+
+
+
+  
+  
 
 	const skillPanes = userSkills?.map((skill, index) => ({
 		// menuItem: (`${skill.name} - ${index}` ),
@@ -81,8 +78,7 @@ function DashboardPage({ handleAddSubSkill,allResources, handleAddResource }) {
 
   useEffect(() => {
     getSkills();
-    getUserSkills();
-    
+   
   }, []); 
   
   

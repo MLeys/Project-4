@@ -34,11 +34,17 @@ export default function App() {
   const [activeSkillIndex, setActiveSkillIndex] = useState(-1)
   const [resources, setResources] = useState([]);
 
+
+
   
-  
-  function getUserSkills() {
-    setUserSkills(skills?.filter(skill => skill.usersAssigned.some(u => u._id === user._id)))
-  }
+  // function getUserSkills() {
+  //   const assignedSkills =skills?.filter((skill => skill.usersAssigned.some(u => u._id === user._id)))
+  //   console.log(assignedSkills, "assigned skilsl (dash)")
+  //   setUserSkills(assignedSkills )
+  // }
+  // function getUserSkills() {
+  //   setUserSkills(skills?.filter(skill => skill.usersAssigned.some(u => u._id === user._id)))
+  // }
 
   function handleSetActiveSkillIndex(index){
     setActiveSkillIndex(index)
@@ -66,8 +72,10 @@ export default function App() {
         type: 'readSkills',
         data: response.data //COULD BE .skills *****
       })
-      // console.log(skills, "_<<< updated skills hook handleget")
-      getUserSkills();
+      const assignedSkills =response.data?.filter((skill => skill.usersAssigned.some(u => u._id === user._id)))
+      console.log(assignedSkills, "USERS SKILLS ( in get skills afte response)")
+      setUserSkills(assignedSkills)
+      
     } catch (err) {
       setError(console.log(`*** Error READ SKILL ****\n ${err}`))
     }
@@ -255,6 +263,7 @@ export default function App() {
           handleSetActiveSkillIndex: handleSetActiveSkillIndex,
           activeSkillIndex: activeSkillIndex,
           userSkills: userSkills,
+          
 
 
           
