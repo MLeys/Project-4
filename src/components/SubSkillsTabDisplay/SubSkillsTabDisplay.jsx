@@ -13,7 +13,6 @@ import {
 } from 'semantic-ui-react';
 
 
-
 function SubSkillsTabDisplay() {
 	const ctx = useContext(SkillsContext)
 	const skill = ctx.skill;
@@ -26,13 +25,9 @@ function SubSkillsTabDisplay() {
 
     menuItem: sub.title,
 		pane: (
-			
 			<Tab.Pane key={`{sub._id}-${index}`}>
 				{sub.title}
 			</Tab.Pane>
-			
-
-
 		)
 	}));
 
@@ -40,14 +35,16 @@ function SubSkillsTabDisplay() {
 
   return (
     <>
-      <Container fluid={true} style={{ backgroundColor: 'teal'}} className='fullScreenHeight'>
+      <Container 
+				fluid={true} 
+				style={{ backgroundColor: 'teal'}} 
+				className='fullScreenHeight'
+			>
         <Tab 
 					renderActiveOnly={false}
 					panes={subPanes} 
 					defaultActiveIndex={0}
-
-      />
-      
+      	/>
       </Container>
     </>
   );
