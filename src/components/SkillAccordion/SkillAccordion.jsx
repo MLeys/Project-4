@@ -25,7 +25,7 @@ function SkillAccordion() {
 	const [activeSkillIndexSidebar, setActiveSkillIndexSidebar] = useState(-1)
 
   useEffect(() => {
-		getSkills();
+		
 		
   }, []);
 

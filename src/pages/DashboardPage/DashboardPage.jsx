@@ -56,9 +56,9 @@ function DashboardPage({ handleAddSubSkill,allResources, handleAddResource }) {
 	}));
 
   useEffect(() => {
-    getSkills();
-   
+    
   }, []); 
+
   function handleTabChange(e, data) {
     const activeIndex = data.activeIndex;
 

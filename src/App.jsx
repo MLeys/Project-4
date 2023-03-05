@@ -39,19 +39,6 @@ export default function App() {
   });
 
 
-
-
-  
-  // function getUserSkills() {
-  //   const assignedSkills =skills?.filter((skill => skill.usersAssigned.some(u => u._id === user._id)))
-  //   console.log(assignedSkills, "assigned skilsl (dash)")
-  //   setUserSkills(assignedSkills )
-  // }
-  // function getUserSkills() {
-  //   setUserSkills(skills?.filter(skill => skill.usersAssigned.some(u => u._id === user._id)))
-  // }
-  
-
   function handleSetActiveSkill(index){
     if (skills) {
       setActiveSkill({
@@ -62,7 +49,6 @@ export default function App() {
       setActiveSkillIndex(index);
     }
   }
-
 
   async function handleCreateSkill(data) {
     try {
@@ -75,7 +61,7 @@ export default function App() {
     } catch(err){
       setError(console.log(`*** Error CREATE SKILL ****\n ${err}`))
     }
-    console.log(skills, "<<<<<< skills")
+    // console.log(skills, "<<<<<< skills")
   } 
 
   async function getSkills() {
@@ -85,7 +71,7 @@ export default function App() {
         type: 'readSkills',
         data: response.data //COULD BE .skills *****
       })
-      console.log(response, "<---- getSkills Response")
+      // console.log(response, "<---- getSkills Response")
       const assignedSkills =response.data?.filter((skill => skill.usersAssigned.some(u => u._id === user._id)))
       console.log(assignedSkills, "USERS SKILLS (getSkills)")
       setUserSkills(assignedSkills)
@@ -93,7 +79,7 @@ export default function App() {
     } catch (err) {
       setError(console.log(`*** Error READ SKILL ****\n ${err}`))
     }
-    console.log(skills, "End of getSkills")
+    // console.log(skills, "End of getSkills")
   }
 
 
@@ -116,7 +102,7 @@ export default function App() {
       const index = skills?.findIndex((s) => s._id === skill._id)
       if (!skills[index].usersAssigned.some(u => u._id === user._id)) {
         const response = await skillsApi.assignUser(user, skill._id);
-        console.log(response, "assign skill response")
+        // console.log(response, "assign skill response")
         dispatch({
           type: 'assignSkill',
           user: user,
@@ -124,7 +110,7 @@ export default function App() {
         })
         getSkills();
         const assignedSkills =skills?.filter((skill => skill.usersAssigned.some(u => u._id === user._id)))
-        console.log(assignedSkills, "USERS SKILLS (assignSkill)")
+        // console.log(assignedSkills, "USERS SKILLS (assignSkill)")
         setUserSkills(assignedSkills)
         
       } else {
@@ -141,7 +127,7 @@ export default function App() {
       if (skills[skillIndex].usersAssigned.some(u => u._id === user._id)) {
         const userAssignedIndex = skills[skillIndex].usersAssigned?.findIndex((u) => u._id === user._id)
         const response = await skillsApi.unAssignUser(user, skill._id);
-        console.log(response, "unassign skill response")
+        // console.log(response, "unassign skill response")
         dispatch({
           type: 'unAssignSkill',
           userIndex: userAssignedIndex,
@@ -149,7 +135,7 @@ export default function App() {
         })
         getSkills();
         const assignedSkills = skills?.filter((skill => skill.usersAssigned.some(u => u._id === user._id)))
-        console.log(assignedSkills, "USERS SKILLS (unassignSkill)")
+        // console.log(assignedSkills, "USERS SKILLS (unassignSkill)")
         setUserSkills(assignedSkills)
       } else {
         console.log(`${user.username} Not alaready Assigned to skill( ${skills[skillIndex].name})`)
