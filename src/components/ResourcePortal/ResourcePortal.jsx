@@ -45,6 +45,7 @@ function ResourcePortal() {
 					{subSkill?.title}
 				</Header>
 				<Label
+					as='a'
 					content='Add Resource'
 					color="green" 
 					attached='top right'

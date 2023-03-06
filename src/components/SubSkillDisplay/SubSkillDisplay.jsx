@@ -26,39 +26,43 @@ export default function SubSkillDisplay({ index }) {
 
 	return (
 		<>
-		
-		
-			<Header> 
-			<ResourcePortal />
-				  Subskills 
-			</Header>
+			<Card as={Segment} fluid={true} raised={true}>
+				<Card.Header as={Segment} attached={true}>
+					SubSkills
+					<ResourcePortal />
+				</Card.Header>
+				<Card.Content>
+				{
+					subSkills?.map(sub => {
+						const resources = sub.resources.map((resource) => {
+							{resource.title}
+						})
+						return (
+							<Segment size='large' inverted={true} color='teal' vertical={true} key={`subCard-${sub._id}`} fluid='true' >
+								<Label
+									corner='left'
+									color="grey" 
+									icon='edit' 
+									size="mini" 
+									onClick={() => navigate(`/skills/${skill?.name}/subskill/${sub._id}`)}
+								/>
+									{sub?.title}
+									{resources}
+							</Segment>
 
-		
-		{
+						)
+					})
+				}
+
+				</Card.Content>
+
+			</Card>
+
+
 			
-			subSkills?.map(sub => {
-				const resources = sub.resources.map((resource) => {
-					{resource.title}
-				})
-				
-				return (
-						<Segment size='large' inverted={true} color='teal' vertical={true} key={`subCard-${sub._id}`} fluid='true' >
-							<Label
-								corner='left'
-								color="grey" 
-								icon='edit' 
-								size="mini" 
-								onClick={() => navigate(`/skills/${skill?.name}/subskill/${sub._id}`)}
-							/>
-							
-								{sub?.title}
-								{resources}
-							
-						</Segment>
 
-				)
-			})
-		}
+		
+		
 			
 	</>
 

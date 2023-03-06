@@ -40,6 +40,7 @@ export default function SkillDisplay() {
 		  return (
 				<>
 					<Card as={Segment} fluid={true} raised={true}>
+
 						<Card.Header
 						as={Segment}
 							style={{ backgroundColor: 'teal', color: 'white', fontSize: '1.5rem', padding: ".5rem"}}
@@ -48,9 +49,11 @@ export default function SkillDisplay() {
 						/>	
 						<SubSkillPortal skill={skill} />
 						<SkillAssignCornerBtn index={index} />
-						<Card.Content as={Segment}>
+						<Card.Content>
 							<SubSkillDisplay index={index} /> 
-						</Card.Content>						
+
+						</Card.Content>
+							
 					</Card>
 				</>
 		  )
