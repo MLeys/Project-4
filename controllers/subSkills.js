@@ -11,14 +11,14 @@ async function create(req, res){
         
         console.log(req.body.parentSkill._id, "))))))) REQ PARAM")
         const skill = await Skill.findById(req.body.parentSkill._id);
-        skill.subSkills.push(req.body)
+        skill.subSkills.push(req.body);
     
         // skill.subSkills.push({username: req.user.username, userId: req.user._id}); //mutating a document
         await skill.save()// save it
 
         res.status(201).json({skill})
     } catch(err){
-       
+        console.log(err, "<== Create SubSkill Error")
         res.status(400).json({err})
     }
     
@@ -33,7 +33,7 @@ async function update(req, res){
         // console.log(skill, "<--Update Subskill")
         // const subskills = skill.subSkills
         // console.log(subskills, "<- subskills")
-        const subIndex = skill.subSkills.findIndex(s =>  s.id === req.params.id)
+        const subIndex =skill.subSkills.findIndex(s =>  s.id === req.params.id)
         
         skill.subSkills[subIndex].title = req.body.title
         skill.subSkills[subIndex].details = req.body.details

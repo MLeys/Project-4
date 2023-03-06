@@ -1,15 +1,11 @@
 import Resource from '../models/resource.js';
+import skill from '../models/skill.js';
 import Skill from '../models/skill.js';
 
 export default {
   create,
 	all: allResources,
-//   index,
-//   delete: deleteSkill,
-//   show,
 
-//   assignUser,
-//   unAssignUser,
 };
 
 async function create(req, res) {
@@ -35,17 +31,37 @@ async function create(req, res) {
 	try {
 		const newResource = await Resource.create(resourceData)
 		const skillDoc = await Skill.findById(skillId)
+		.populate("usersAssigned")
+		.populate("resources")
+		.populate({
+			path: 'subSkills',
+			populate: [
+				{
+					path: 'resources',
+					model: 'Resource'
+				},
+				{
+					path: 'usersAssigned',
+					model: 'User'
+				}
+			]
+		});
 	
+		// const subDoc = await skillDoc.subSkills.findById(subId)
+		// 	.populate("usersAssigned")
+		// 	.populate("resources")
+		// 	.exec();
 		const subDoc = await skillDoc.subSkills[subIndex]
+	
 		console.log(subDoc, '<= subDoc')
 	
-		await subDoc.resources.splice(0,0, newResource);
-		// await skillDoc.populate("subSkills").populate("usersAssigned").exec();
-		// await subDoc.populate("resources").populate("usersAssigned").exec();
+		skillDoc.resources.splice(0,0, newResource);
+		await skillDoc.subSkills[subIndex].resources.splice(0,0, newResource)
+	
 
-		subDoc.save();
-		skillDoc.save();
-
+		await skillDoc.save();
+		console.log(skillDoc, "Final skilldoc")
+	
 		res.status(201).json(newResource.toJSON());
 	} catch (error) {
 		console.error("Error creating resource:", error);
@@ -63,76 +79,3 @@ async function allResources(req, res) {
 	res.status(400).json({ err });
   }
 }
-
-// async function deleteSkill(req, res) {
-//   try {
-//     console.log(req.params, "Skill doc params for delete")
-//     const skillDoc = await Skill.findById(req.params.id)
-//     console.log(skillDoc, "<--- SkillDoC on Delete")
-//     skillDoc.remove(req.params.id)
-	
-
-//     res.status(201).json({skillDoc})
-//   } catch (err) {
-//     console.log(err, '<-- Error in deleteSkill.Ctrl')
-//     res.status(400).json({err})
-//   }
-// }
-
-
-
-// async function index(req, res) {
-//   try {
-//     // this populates the user when you find the skills
-//     const skills = await Skill.find({}).populate("usersAssigned").exec(); // populating on the model
-//     res.status(200).json({ data: skills });
-//   } catch (err) {
-//     res.status(400).json({ err });
-//   }
-// }
-
-
-// async function show(req, res) {
-//   try {
-//     const skillDoc = await Skill.findOne({'name': req.params.id}).exec()
-
-  
-
-//     res.status(201).json({skillDoc})
-//   } catch (err) {
-//     console.log(err, '<-- Error in SHOW Ctrl')
-//     res.status(400).json({err})
-//   }
-// }
-
-// async function assignUser(req, res) {
-
-//   try {
-//     const skill = await Skill.findById(req.params.id)
-	
-//     await skill.usersAssigned.push(req.body)
-//     skill.save()
-	
-//     res.status(201).json({skill})
-//   } catch(err) {
-//     console.log(err, "<-- assign user controller error")
-//     res.status(400).json({err})
-//   }
-// }
-
-// async function unAssignUser(req, res) {
-//   try {
-//     const skill = await Skill.findById(req.params.id);
-//     const index = skill.usersAssigned.indexOf(req.user._id);
-
-//     skill.usersAssigned.splice(index, 1);
-
-//     skill.save()
-	
-//     console.log(skill.usersAssigned, "<--UNassigned user in controler")
-//     res.status(201).json({skill})
-//   } catch(err) {
-//     console.log(err, "<-- assign user controller error")
-//     res.status(400).json({err})
-//   }
-// }

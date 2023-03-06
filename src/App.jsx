@@ -169,23 +169,24 @@ export default function App() {
   async function handleAddResource(data) {
     console.log(`Data(before): ${data}`)
     /// ADD LOGIC TO NOT ADD OF ALREADY ADDED
+    const resource = ({
+      title: data.title,
+      videoId: data.videoId,
+      description: data.description,
+      thumbnail: data.thumbnail,
+      datePublished: data.datePublished,
+      skillId: data.skillId,
+      userId: data.userId,
+      source: data.source
+    })
     try {
       const response = await resourcesApi.create(data);
       console.log("RESPONSE", response)
       dispatch({
         type: 'addResource',
-        skillIndex: skillIndex,
-        subIndex: subIndex,
-        resource: {
-          title: data.title,
-          videoId: data.videoId,
-          description: data.description,
-          thumbnail: data.thumbnail,
-          datePublished: data.datePublished,
-          skillId: data.skillId,
-          userId: data.userId,
-          source: data.source
-        }
+        skillIndex: data.skillIndex,
+        subIndex: data.subIndex,
+        resource: response,
       })
 
 

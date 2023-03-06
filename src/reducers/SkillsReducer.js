@@ -36,6 +36,19 @@ function SkillsReducer(draft, action) {
 			draft[skillIndex].subSkills.splice(0,0, newSub);
 			break;
 		}
+		case 'addResource': {
+			console.log(action.resource, "resource in reducer for addResource")
+			const skillIndex = action.skillIndex
+			const subIndex = action.subIndex
+			const skill = draft[action.skillIndex]
+			console.log(skill, "SFASDDSFA SKILL")
+			const subSkill = skill.subSkills[action.subIndex]
+			draft[skillIndex].subSkills[subIndex].resources.splice(0,0, action.resource)
+			
+
+			
+			break;
+		}
 
 	
 		default: {
