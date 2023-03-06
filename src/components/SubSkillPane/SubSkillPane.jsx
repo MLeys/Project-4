@@ -23,18 +23,20 @@ function SubSkillPane() {
 
 
 	return (
-		<Container className="subSkillPaneContainer">
+		<Segment.Group className="subSkillPaneContainer">
 			<Header  inverted={true} color='blue' >
 				{subSkill?.title}
 			</Header>
-			<ResourcePortal />
+
+			
 				<Container className="resourceBodyContainer">
+				<ResourcePortal />
 						THIS IS OTHER INFOMATION - BODY OF RESOURCES
 
 				</Container>
 	
 			
-		</Container>
+		</Segment.Group>
 
 				
 		

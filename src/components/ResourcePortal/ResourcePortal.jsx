@@ -38,7 +38,9 @@ function ResourcePortal() {
 
 	return (  
 		<>
+			
 			<Label
+				
 				content='Add Resource'
 				color="green" 
 				attached='top'
