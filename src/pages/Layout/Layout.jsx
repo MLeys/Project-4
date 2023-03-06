@@ -7,7 +7,9 @@ import {
   Segment,
   Sidebar,
   Container,
-  Button
+  Button,
+  Grid,
+  
 } from 'semantic-ui-react'
 
 
@@ -41,14 +43,15 @@ function Layout({ handleLogout }) {
   return (
     <Container  style={{ margin: 0, padding: 0, minHeight: '98vh', width: '98vw' }}>
 
-      <FixedMenuHeader handleLogout={handleLogout} sidebarDispatch={sidebarDispatch}/>
+  
+    <FixedMenuHeader handleLogout={handleLogout} sidebarDispatch={sidebarDispatch}/>
 
       <Sidebar.Pushable as={Segment} inverted style={{ overflow: 'hidden', margin: 0, padding: 0  }}>
         <VerticalSidebar
           animation={animation}
           direction={direction}
           visible={visible}
-        />      
+        /> 
         <Sidebar.Pusher className='sidebarPusher' dimmed={dimmed && visible}>
           <SkillPortal className='skillPortal'/>   
           <Outlet />

@@ -83,13 +83,14 @@ export default function App() {
   } 
 
   async function getSkills() {
+    console.log(' MOTHER FUCKING GRABBING SKILLS')
     try {
       const response = await skillsApi.getAll();
       dispatch({
         type: 'readSkills',
         data: response.data //COULD BE .skills *****
       })
-      // console.log(response, "<---- getSkills Response")
+      console.log(response, "<---- getSkills Response")
       const assignedSkills =response.data?.filter((skill => skill.usersAssigned.some(u => u._id === user._id)))
       // console.log(assignedSkills, "USERS SKILLS (getSkills)")
       setUserSkills(assignedSkills)
@@ -244,7 +245,7 @@ export default function App() {
   useEffect(() => {
     getSkills();
     getResources();    
-  }, [!skills]); 
+  }, []); 
 
 
   if (user) {

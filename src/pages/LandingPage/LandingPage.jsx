@@ -8,34 +8,35 @@ import SkillDisplay from "../../components/SkillDisplay/SkillDisplay";
 import { unAssignUser } from "../../utils/skillApi";
 
 
-function LandingPage({ handleAddSubSkill, allResources, handleAddResource }) {
+function LandingPage() {
 
     const skills = useContext(SkillsContext).skills;
+    console.log(skills?.map((skill) => skill.name  ))
     
     useEffect(() => {
 
       }, []); 
     return (
-        <div>
-        {
-            skills?.map((skill) => {
-                return (
-                    <SkillDisplay 
-                        key={`skillDisplay-${skill._id}`} 
-                        skill={skill} 
-                        handleAddSubSkill={handleAddSubSkill} 
-                        allResources={allResources}
-                        handleAddResource={handleAddResource}
-                    />
-                )
-            })
-        }
+
+        <SkillDisplay />
+        // <div>
+        // {
+        //     skills?.map((skill) => {
+        //         return (
+        //             <SkillDisplay 
+        //                 key={`skillDisplay-${skill._id}`} 
+        //                 skill={skill} 
+        //                 handleAddSubSkill={handleAddSubSkill} 
+        //                 allResources={allResources}
+        //                 handleAddResource={handleAddResource}
+        //             />
+        //         )
+        //     })
+        // }
         
         
-        </div>
-               
-
-
+        // </div>
+   
     );
 }
 
