@@ -23,10 +23,12 @@ function ResourcePortal() {
 	const subCtx = ctx.activeSub;
 	const subSkill = subCtx.subSkill;
 
+	
 	const [formPop, setFormPop] = useState(false)
 
-
 	const open = formPop;
+
+
 
 	function handleOpen() {
 		setFormPop(true)
@@ -37,7 +39,7 @@ function ResourcePortal() {
 	}
 
 	useEffect(() => {
-			
+		
 	}, []); 
 
 	return (  
@@ -49,10 +51,10 @@ function ResourcePortal() {
 				<Label
 					content='Add Resource'
 					color="green" 
-					attached='top left'
+					attached='top right'
 					icon='plus' 
 					size="small" 
-					
+					active={false}
 					disabled={formPop}
 					onClick={handleOpen} 
 				/>

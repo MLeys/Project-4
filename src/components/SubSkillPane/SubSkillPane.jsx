@@ -24,16 +24,8 @@ function SubSkillPane() {
 
 	return (
 		<Segment.Group className="subSkillPaneContainer">
-
-
-			
-				
 				<ResourcePortal />
 						THIS IS OTHER INFOMATION - BODY OF RESOURCES START
-
-				
-	
-			
 		</Segment.Group>
 
 				

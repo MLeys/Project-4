@@ -6,6 +6,7 @@ import {
 		Card,
 		Button,
 		Form,
+		Embed,
 		Search,
 		Input
 } from 'semantic-ui-react';
@@ -18,28 +19,20 @@ import { SkillsContext } from '../../context/SkillsContext/SkillsContext.jsx';
 
 
 function SearchYouTube() {
-	const ctx = useContext(SkillsContext)
-	const skill = ctx.skills[ctx.activeSkill.index]
+	const ctx = useContext(SkillsContext);
+	const loggedUser = ctx.loggedUser;
+	const skillIndex = ctx.activeSkill?.index;
+	const skill = ctx.skills[skillIndex];
+	const subIndex = ctx.activeSub?.index;
+	const subSkills = skill.subSkills;
+	const subSkill = subSkills[subIndex]
+	const subTitle = subSkill.title;
+	
 
 	const [search, setSearch] = useState('');
-	const [results, setResults] = useState({});
+	const [results, setResults] = useState([]);
 
 
-	function handleSetResults(data) {
-		console.log(data, " DATA")
-		setResults({
-			...results,
-			title: data[index].title,
-			videoId: data[index].videoId,
-			description: data[index].description,
-			thumbnail: data[index].thumbnail,
-			datePublished: data[index].publishTime,
-			skillId: skill._id,
-			userId: loggedUser._id,
-			source: 'youtube'
-			
-		})
-	}
 
 	async function searchYouTube(search) {
 		console.log('start search funct')
@@ -47,11 +40,10 @@ function SearchYouTube() {
 			const response = await youTubeApi.searchYouTube(search);
 			console.log(response, " <------ response from YOUTUBE SEARCH");
 			
-			handleSetResults(response)
+			setResults([...response])
 		} catch (err) {
 			console.log(err.message, " <<<<<YouTube SEARCH ERROR>>>>>");
 		}
-		console.log(results, '<-current results after search')
 	}
 	
 
@@ -72,8 +64,55 @@ function SearchYouTube() {
 
 	useEffect(() => {
 	
-	}, [results]);  
+	}, []);  
 
+	const DisplayResults = () =>{
+		console.log("display results")
+		{
+			results.map((resource, index) => {
+				return (
+				<Card.Group>
+					<Card 
+						key={`${resource.videoId}-${index}`}
+						onClick={(e, resource)=>{handleSelect(e, resource, index)}}
+							
+					>
+						<Embed
+							autoplay={false}
+							color='white'
+							hd={false}
+							id={resource.videoId}
+							iframe={{
+								allowFullScreen: true,
+								style: {
+									padding: 5,
+								},
+							}}
+							placeholder={resource.thumbnail}
+							source='youtube'
+						/>
+	
+						<Card.Content>
+						<Card.Header content={resource.title}/>
+						<Card.Meta content={resource.publishTime} />
+						<Card.Description content={resource.description} />
+						</Card.Content>
+						<Card.Content extra={true}>
+						<div className='ui two buttons'>
+							<Button basic color='green'>
+							Learn
+							</Button>
+							<Button basic color='red'>
+							Nope
+							</Button>
+						</div>
+						</Card.Content>
+					</Card>
+				</Card.Group>
+				)
+			})
+		}
+	}
 
 
 	return (
@@ -90,13 +129,18 @@ function SearchYouTube() {
 								name="search"
 								value={search}
 								onChange={handleChange}
-								placeholder={`Find Resources for ${skill.name}`}
+								placeholder={`Find Results for ${skill.name}`}
 							/>
 						</Form.Field>
+						<Form.Button >go</Form.Button>
 					</Form>
 				</Segment>
-				
 				<Segment>
+					<Container>
+					{DisplayResults}
+					
+
+					</Container>
 
 				</Segment>
 			</Segment.Group>
