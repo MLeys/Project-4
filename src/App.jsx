@@ -83,7 +83,6 @@ export default function App() {
   } 
 
   async function getSkills() {
-    console.log(' MOTHER FUCKING GRABBING SKILLS')
     try {
       const response = await skillsApi.getAll();
       dispatch({

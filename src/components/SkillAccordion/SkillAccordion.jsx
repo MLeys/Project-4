@@ -37,6 +37,7 @@ function SkillAccordion() {
 
   return (
 		<>
+		
 		{
 			skills?.map((skill, index) => (
 			<Accordion styled key={`${skill._id}-accordion`}>

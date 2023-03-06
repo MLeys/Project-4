@@ -20,7 +20,7 @@ import SidebarReducer from '../../reducers/SidebarReducer.js';
 
 import { SkillsContext, SkillsDispatchContext } from '../../context/SkillsContext/SkillsContext.jsx';
 
-import SkillPortal from '../../components/SkillPortal/SkillPortal';
+import AddSkillDisplay from '../../components/AddSkillDisplay/AddSkillDisplay';
 import VerticalSidebar from '../../components/VerticalSidebar/VerticalSidebar';
 import FixedMenuHeader from '../../components/FixedMenuHeader/FixedMenuHeader';
 import MainFooter from '../../components/MainFooter/MainFooter';
@@ -53,7 +53,7 @@ function Layout({ handleLogout }) {
           visible={visible}
         /> 
         <Sidebar.Pusher className='sidebarPusher' dimmed={dimmed && visible}>
-          <SkillPortal className='skillPortal'/>   
+          
           <Outlet />
         </Sidebar.Pusher>
       </Sidebar.Pushable>
