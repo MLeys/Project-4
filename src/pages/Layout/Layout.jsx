@@ -27,9 +27,9 @@ import SkillList from '../../components/SkillList/SkillList.jsx';
 function Layout({ handleLogout }) {
 
   const [sidebarState, sidebarDispatch] = useReducer(SidebarReducer, {
-    animation: 'overlay',
+    animation: 'push',
     direction: 'left',
-    dimmed: false,
+    dimmed: true,
     visible: false,
   })
   const { animation, dimmed, direction, visible } = sidebarState;
@@ -50,7 +50,7 @@ function Layout({ handleLogout }) {
           visible={visible}
         />      
         <Sidebar.Pusher className='sidebarPusher' dimmed={dimmed && visible}>
-          <SkillPortal className='s'/>   
+          <SkillPortal className='skillPortal'/>   
           <Outlet />
         </Sidebar.Pusher>
       </Sidebar.Pushable>

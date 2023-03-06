@@ -21,10 +21,10 @@ function VerticalSidebar({ 	animation, direction, visible }) {
 		<Sidebar 
 			style={{ textColor: 'white'}}
 			as={Menu}
-			animation={animation}
 			direction={direction}
-			inverted
-			vertical
+			inverted={true}
+			vertical={true}
+			animation={animation}
 			visible={visible}
 		>
 			Available Skills
