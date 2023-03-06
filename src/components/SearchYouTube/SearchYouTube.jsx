@@ -135,14 +135,58 @@ function SearchYouTube() {
 						<Form.Button >go</Form.Button>
 					</Form>
 				</Segment>
-				<Segment>
-					<Container>
-					{DisplayResults}
+				<Card.Group>
+					{
+			results.map((resource, index) => {
+				return (
+				
+					<Card 
+						key={`${resource.videoId}-${index}`}
+						onClick={(e, resource)=>{handleSelect(e, resource, index)}}
+							
+					>
+						<Embed
+							autoplay={false}
+							color='white'
+							hd={false}
+							id={resource.videoId}
+							iframe={{
+								allowFullScreen: true,
+								style: {
+									padding: 5,
+								},
+							}}
+							placeholder={resource.thumbnail}
+							source='youtube'
+						/>
+	
+						<Card.Content>
+						<Card.Header content={resource.title}/>
+						<Card.Meta content={resource.publishTime} />
+						<Card.Description content={resource.description} />
+						</Card.Content>
+						<Card.Content extra={true}>
+						<div className='ui two buttons'>
+							<Button basic color='green'>
+							Learn
+							</Button>
+							<Button basic color='red'>
+							Nope
+							</Button>
+						</div>
+						</Card.Content>
+					</Card>
+				
+				)
+			})
+		}
+		</Card.Group>
+					
 					
 
-					</Container>
+				
 
-				</Segment>
+				
 			</Segment.Group>
 		</Container>
 
