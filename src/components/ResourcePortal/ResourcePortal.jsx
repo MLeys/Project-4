@@ -16,6 +16,7 @@ import {
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 import AddResourceForm from "../AddResourceForm/AddResourceForm.jsx"
+import SearchYouTube from "../SearchYouTube/SearchYouTube";
 
 function ResourcePortal() {
 	const [formPop, setFormPop] = useState(false)
@@ -37,49 +38,54 @@ function ResourcePortal() {
 
 	return (  
 		<>
-			
-				<Label
-					content='Add Resource'
-					color="green" 
-					
-					attached='top'
-					icon='plus' 
-					size="huge" 
-					
-					disabled={formPop}
-					onClick={handleOpen} 
-				/>
+			<Label
+				content='Add Resource'
+				color="green" 
+				attached='top'
+				icon='plus' 
+				size="small" 
+				
+				disabled={formPop}
+				onClick={handleOpen} 
+			/>
 			
 
 					
 			<Portal onClose={handleClose} open={open}>
-				<Segment.Group>
-					<Segment 
-						inverted={true}
-						floated='right'
-						style={{
-								left: '30%',
-								position: 'fixed',
-								top: '25%',
-						}}
-					>
-						<Header>Add Resource </Header>
-						<Label
-							attached='top right'
-							color="red" 
-							as='a' 
-							icon='close' 
-							size="mini" 
-							onClick={handleClose} 
+				<Segment.Group
+					floated="right"
+					style={{
+						width: "80%",
+						height: "75%",
+						left: '15%',
+						position: 'fixed',
+						top: '18%',
+						
+						
+					}}
+				>
+					<Segment attached='top'>
+						<Header
+							size="huge" 
+							textAlign="center"	
+							content="Search for Resources to Add"
 						/>
+							<Label
+								attached='top right'
+								color="red" 
+								as={Header} 
+								icon='close' 
+								size="mini" 
+								onClick={handleClose} 
+								content=' Close'
+							/>
 					</Segment>
 					<Segment>
+						<SearchYouTube />
 						<AddResourceForm handleClose={handleClose} />
-
 					</Segment>
-				</Segment.Group>
-
-			</Portal>
+			</Segment.Group>
+		</Portal>
 			
 
 

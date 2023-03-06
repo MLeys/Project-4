@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 
 import { 
 		Segment,
+		Container,
 		Card,
 		Button,
 		Form,
@@ -9,24 +10,31 @@ import {
 		Input
 } from 'semantic-ui-react';
 
-import { SkillsContext } from '../../context/SkillsContext/SkillsContext.jsx';
 import * as youTubeApi from "../../utils/youTubeApi.js"
 import ResourceCard from '../ResourceCard/ResourceCard.jsx';
 
+import { SkillsContext } from '../../context/SkillsContext/SkillsContext.jsx';
 
 
 
 function SearchYouTube() {
 	const ctx = useContext(SkillsContext)
 	const skill = ctx.skills[ctx.activeSkill.index]
+
 	const [state, setState] = useState({
 		search: "",
 	})
-	const [searchYT, setSearchYT] = useState('');
+	const [search, setSearch] = useState('');
 	const [videoId, setVideoId] = useState('');
-	const [resultSearchYT, setResultSearchYT] = useState([]);
+	const [results, setResults] = useState([]);
 
 
+	function handleSetResults(data) {
+		(data) ? setResults({
+			...results,
+			data
+		}) : ''
+	}
 
 	async function searchYouTube(search) {
 		console.log('start search funct')
@@ -39,15 +47,18 @@ function SearchYouTube() {
 		}
 	}
 	
+
 	function handleChange(e){
-		setSearchYT(e.target.value)
+		setSearch(e.target.value)
 	}
 
+
 	async function handleSubmit(e) {
+		
 		e.preventDefault();
 		try {
-			const videoInfo = await searchYouTube(searchYT);
-			setResultSearchYT([...videoInfo])
+			const videoInfo = await searchYouTube(search);
+			setResults([...videoInfo])
 		 
 		} catch(err) {
 			console.log(err, "<<!! ERROR submitting resource search")
@@ -57,28 +68,39 @@ function SearchYouTube() {
 
 
 	useEffect(() => {
-		
-	}, [resultSearchYT]);  
+	
+	}, [results]);  
 
 
 
 	return (
-		<Form
-		  onSubmit={handleSubmit}
-		
-			size='large'
-		>
-			<Form.Field >
-				<Form.Input
-						className="form-control"
-						name="search"
-						value={searchYT}
-						onChange={handleChange}
-						placeholder={`Find Resources for ${skill.name}`}
-						
-					/>
-			</Form.Field>
-		</Form>
+		<Container>
+			<Segment.Group>
+				<Segment>
+					<Form
+						onSubmit={handleSubmit}
+						size='large'
+					>
+						<Form.Field >
+							<Form.Input
+								className="form-control"
+								name="search"
+								value={search}
+								onChange={handleChange}
+								placeholder={`Find Resources for ${skill.name}`}
+							/>
+						</Form.Field>
+					</Form>
+				</Segment>
+				
+				<Segment>
+
+				</Segment>
+			</Segment.Group>
+		</Container>
+
+
+
 
 	);
 }
@@ -88,7 +110,7 @@ export default SearchYouTube;
 // {/* <Form.Input
 // className="form-control"
 // name="search"
-// value={searchYT}
+// value={search}
 // onChange={handleChange}
 // placeholder={skill.name}
 

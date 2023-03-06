@@ -16,24 +16,19 @@ import ResourcePortal from "../ResourcePortal/ResourcePortal";
 function SubSkillPane() {
 	const ctx = useContext(SkillsContext);
 	const subCtx = ctx.activeSub;
-  
 	const subSkill = subCtx.subSkill;
 	const resources = subCtx.resources;
 
+	
+
 
 	return (
-		<Container>
+		<Container className="subSkillPaneContainer">
 			<Header  inverted={true} color='blue' >
 				{subSkill?.title}
 			</Header>
 			<ResourcePortal />
-				<Container>
-
-							
-				
-							
-						
-						
+				<Container className="resourceBodyContainer">
 						THIS IS OTHER INFOMATION - BODY OF RESOURCES
 
 				</Container>
