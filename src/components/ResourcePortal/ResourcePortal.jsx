@@ -38,9 +38,8 @@ function ResourcePortal() {
 
 	return (  
 		<>
-			
+			<Segment>
 			<Label
-				
 				content='Add Resource'
 				color="green" 
 				attached='top'
@@ -50,6 +49,8 @@ function ResourcePortal() {
 				disabled={formPop}
 				onClick={handleOpen} 
 			/>
+			</Segment>
+
 			
 
 					

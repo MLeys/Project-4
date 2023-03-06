@@ -29,11 +29,11 @@ function SubSkillPane() {
 			</Header>
 
 			
-				<Container className="resourceBodyContainer">
+				
 				<ResourcePortal />
-						THIS IS OTHER INFOMATION - BODY OF RESOURCES
+						THIS IS OTHER INFOMATION - BODY OF RESOURCES START
 
-				</Container>
+				
 	
 			
 		</Segment.Group>
