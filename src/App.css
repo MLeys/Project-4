@@ -3,8 +3,9 @@
   margin: 0 auto;
   padding: 0em;
   text-align: center;
-  background-color: rgba(0,0,0,.5);
+  background-color: #00000080;
   min-height: 100vh;
+  color: #37a3ac6a;
 }
 
 .logo {
@@ -71,5 +72,5 @@ div.ui.segment.pushable {
 }
 
 .read-the-docs {
-  color: #888;
+  color: #322b2b;
 }

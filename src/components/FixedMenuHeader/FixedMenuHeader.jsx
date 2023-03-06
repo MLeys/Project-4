@@ -3,7 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import {
 		Image,
 		Menu,
-		Icon
+		Icon,
+		Header,
+		Segment
 } from 'semantic-ui-react'
 
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
@@ -16,23 +18,43 @@ function FixedMenuHeader({ handleLogout, sidebarDispatch }) {
 
 	return (  
 		<Menu 
+			borderless={true}
 			inverted={true}
 			attached='top'
 			style={{padding: '0em', margin: '0'}}
 		>
-			<Menu.Item as='a' header={true} 
-				onClick={() =>
+			<Menu.Item 
+			
+				as='a' 
+				header={true} 
+				onClick={(e, data) => {
 					sidebarDispatch({ 
 							type: 'CHANGE_ANIMATION', 
-							animation: 'overlay' 
+							animation: 'slide out' 
 					})
-				}>
-				Skill.map
+				}}
+		
+			> 
+				<Icon name="down arrow"/>
+				Learn Skills
+				<Icon name="down arrow"/>
+
 			</Menu.Item>
-			<Menu.Item onClick={() => navigate("/")}>
-				<Icon name="home"/>
+			<Menu.Item
+				as={Header}
+				color='white'
+				position="right"
+			>
+				
+				Skills.Map
 			</Menu.Item>
 			<Menu.Menu position="right">
+			<Menu.Item 
+				onClick={() => navigate("/")}
+				position='right'
+			>
+				<Icon name="home" size="big"/>
+			</Menu.Item>
 				<Menu.Item onClick={() => navigate(`/${loggedUser?.username}`)}>
 					<Image
 						src={
@@ -41,7 +63,10 @@ function FixedMenuHeader({ handleLogout, sidebarDispatch }) {
 							: "https://react.semantic-ui.com/images/wireframe/square-image.png"
 						}
 						avatar 
-					/>
+						circular={true}
+						centered={true}
+						style={{ backgroundColor: 'teal'}}
+					/>Dashboard
 				</Menu.Item>
 				<Menu.Item onClick={handleLogout} floated="right">Logout</Menu.Item>
 			</Menu.Menu>
