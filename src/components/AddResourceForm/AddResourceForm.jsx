@@ -23,9 +23,7 @@ export default function AddResourceForm({ handleAddSubSkill, skill, handleClose}
 		state.subSkill = s
 		state.parentSkill = skill;
 		handleClose();
-		
-		// console.log(state, " STATE HERE STATE ASTATE")
-		// console.log(skill, " NEW SKILL WITH SUB")
+	
 		handleAddSubSkill(state)
 	}
 	

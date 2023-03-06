@@ -53,15 +53,12 @@ function ResourcePortal() {
 					
 			<Portal onClose={handleClose} open={open}>
 				<Segment.Group
-					floated="right"
 					style={{
 						width: "80%",
 						height: "75%",
 						left: '15%',
 						position: 'fixed',
-						top: '18%',
-						
-						
+						top: '17%',	
 					}}
 				>
 					<Segment attached='top'>
@@ -81,8 +78,8 @@ function ResourcePortal() {
 							/>
 					</Segment>
 					<Segment>
-						<SearchYouTube />
-						<AddResourceForm handleClose={handleClose} />
+						<SearchYouTube handleClose={handleClose} />
+						{/* <AddResourceForm handleClose={handleClose} /> */}
 					</Segment>
 			</Segment.Group>
 		</Portal>

@@ -21,19 +21,24 @@ function SearchYouTube() {
 	const ctx = useContext(SkillsContext)
 	const skill = ctx.skills[ctx.activeSkill.index]
 
-	const [state, setState] = useState({
-		search: "",
-	})
 	const [search, setSearch] = useState('');
-	const [videoId, setVideoId] = useState('');
-	const [results, setResults] = useState([]);
+	const [results, setResults] = useState({});
 
 
 	function handleSetResults(data) {
-		(data) ? setResults({
+		console.log(data, " DATA")
+		setResults({
 			...results,
-			data
-		}) : ''
+			title: data[index].title,
+			videoId: data[index].videoId,
+			description: data[index].description,
+			thumbnail: data[index].thumbnail,
+			datePublished: data[index].publishTime,
+			skillId: skill._id,
+			userId: loggedUser._id,
+			source: 'youtube'
+			
+		})
 	}
 
 	async function searchYouTube(search) {
@@ -41,10 +46,12 @@ function SearchYouTube() {
 		try {
 			const response = await youTubeApi.searchYouTube(search);
 			console.log(response, " <------ response from YOUTUBE SEARCH");
-			return await response
+			
+			handleSetResults(response)
 		} catch (err) {
 			console.log(err.message, " <<<<<YouTube SEARCH ERROR>>>>>");
 		}
+		console.log(results, '<-current results after search')
 	}
 	
 
@@ -54,16 +61,12 @@ function SearchYouTube() {
 
 
 	async function handleSubmit(e) {
-		
 		e.preventDefault();
 		try {
 			const videoInfo = await searchYouTube(search);
-			setResults([...videoInfo])
-		 
 		} catch(err) {
 			console.log(err, "<<!! ERROR submitting resource search")
 		}
-
 	}
 
 
