@@ -60,9 +60,6 @@ import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 							
 						</Segment>
 
-					
-
-
 				)
 			})
 		}
@@ -75,19 +72,3 @@ import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 export default SubSkillCard;
 
-// {/* <Grid.Column  width={subSkillsLength} verticalAlign='middle' key={`subCard-${sub._id}`}>
-// <Segment size='large' inverted={true} color='teal' vertical={true} key={`subCard-${sub._id}`} fluid='true' >
-// 	<Label
-// 		corner='left'
-// 		color="grey" 
-// 		icon='edit' 
-// 		size="mini" 
-// 		onClick={() => navigate(`/skills/${skill?.name}/subskill/${sub._id}`)}
-// 	/>
-	
-// 		{sub?.title}
-// 		{resources}
-	
-// </Segment>
-
-// </Grid.Column>  */}

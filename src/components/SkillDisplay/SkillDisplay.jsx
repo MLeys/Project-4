@@ -40,39 +40,23 @@ export default function SkillDisplay() {
 		  return (
 				<>
 					<Card as={Segment} fluid={true} raised={true}>
-						
-							<Header
-								style={{ backgroundColor: 'teal', color: 'white', fontSize: '1.5rem'}}
-
-								attached={true}
-								
-							
-								
-							>							
-								{skill?.name}
-
-							</Header>
-							<SubSkillPortal skill={skill} />
-							<SkillAssignCornerBtn index={index} />
-						
-						<Card.Content>
-							
-							<SubSkillDisplay /> 
-						</Card.Content>
-
+						<Card.Header
+						as={Segment}
+							style={{ backgroundColor: 'teal', color: 'white', fontSize: '1.5rem', padding: ".5rem"}}
+							attached={true}
+							content={skill?.name}
+						/>	
+						<SubSkillPortal skill={skill} />
+						<SkillAssignCornerBtn index={index} />
+						<Card.Content as={Segment}>
+							<SubSkillDisplay index={index} /> 
+						</Card.Content>						
 					</Card>
-
-	
-
-	
-					
-
-
 				</>
-		        )
-		    })
-		}
-			</Card.Group>
-		</Container>
+		  )
+	  })
+	}
+		</Card.Group>
+	</Container>
 	);
 };
