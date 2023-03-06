@@ -20,7 +20,7 @@ import SkillAssignCornerBtn from "../SkillAssignCornerBtn/SkillAssignCornerBtn";
 
 function SkillPane() {
   const ctx = useContext(SkillsContext)
-  const skill = ctx.skill;
+  const skill = ctx.activeSkill.skill;
 	const activeSkillInfo = ctx.activeSkillInfo;
 
 

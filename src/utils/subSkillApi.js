@@ -4,7 +4,7 @@ const BASE_URL= '/api/'
 
 export function create(skill){
     console.log(skill, "<--- create subskillAPI param")
-	console.log(skill.parentSkill)
+	
 
 	return fetch(`${BASE_URL}skills/${skill.parentSkill.name}/subskills`, {
         method: 'POST',

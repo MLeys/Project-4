@@ -44,6 +44,7 @@ export default function App() {
     resources: [],
   });
 
+
   function handleSetActiveSub(index){
     const skillIndex = activeSkill?.index;
       setActiveSub({
@@ -92,6 +93,7 @@ export default function App() {
       const assignedSkills =response.data?.filter((skill => skill.usersAssigned.some(u => u._id === user._id)))
       // console.log(assignedSkills, "USERS SKILLS (getSkills)")
       setUserSkills(assignedSkills)
+      
       
     } catch (err) {
       setError(console.log(`*** Error READ SKILL ****\n ${err}`))
@@ -167,14 +169,9 @@ export default function App() {
   async function handleAddResource(data) {
     console.log(`Data(before): ${data}`)
     try {
-          
       const response = await resourcesApi.create(data);
       console.log("RESPONSE", response)
       getResources();
-      
-      getResources();
-      // console.log(`Response(addResource (app)): ${response}`)
-      // return await response;
 
     } catch (err) {
       setError(console.log(`***Error in handleAddResource(message): ${err}`))
@@ -186,40 +183,33 @@ export default function App() {
     try {
       const response = await resourcesApi.getAll();
       setResources( await response.data)
-      
-
     } catch(err) {
       setError(console.log('^^^^ getSkills Error!!! ^^^^'));
       console.log(err, '<--- getSkills ERROR');
     }
 
-  } // END getSkills Function
+  } 
 
-  async function handleCreateSkill(data) {
+  async function handleCreateSubSkill(data) {
     try {
       const response = await subSkillsApi.create(data);
       dispatch({
         type: 'createSubSkill',
+        skillIndex: activeSkill.index,
         data: response.skill,
       })
       getSkills();
+      // setActiveSkill({
+      //   ...activeSkill,
+      //   subSkills: skills[activeSkill.index].subSkills
+      // })
+ 
+      // UPDATE ACTIVE SKILL 
     } catch(err){
       setError(console.log(`*** Error CREATE SKILL ****\n ${err}`))
     }
-    // console.log(skills, "<<<<<< skills")
-  } 
-  async function handleAddSubSkill(subskill) {
-    try {
-        console.log(subskill, "<<<<< subskill data IN handleAddSUBSKill")
 
-        const response = await subSkillsApi.create(subskill);
-        console.log(response, "++++ handleAddSUBskill RESPONSE")
-        getSkills();
-                
-    } catch(err){
-        console.log(err, " Error IN THE HANDLEADDsubskill")
-    }
-  } // END handleAddSubSkill Function
+  } 
 
   async function handleEditSubSkill(subskill) {
     try {
@@ -278,7 +268,8 @@ export default function App() {
           unAssignSkillUser: unAssignSkillUser, 
           handleSetActiveSkill: handleSetActiveSkill,
           handleSetActiveSub: handleSetActiveSub,
-          handleAddSubSkill: handleAddSubSkill
+          handleCreateSubSkill: handleCreateSubSkill
+       
 
           
 
@@ -289,10 +280,10 @@ export default function App() {
             <Route path="/" element={ <Layout handleLogout={handleLogout} /> }>
               <Route
                 index
-                element={<LandingPage  handleAddSubSkill={handleAddSubSkill} allResources={resources} handleAddResource={handleAddResource}/>}
+                element={<LandingPage />}
               />          
-              <Route path="skills/:skillName" element={<SkillPage  handleAddSubSkill={handleAddSubSkill} />} />
-              <Route path="/:username" element={<DashboardPage handleAddSubSkill={handleAddSubSkill}allResources={resources} handleAddResource={handleAddResource}/>}/>
+              <Route path="skills/:skillName" element={<SkillPage  />} />
+              <Route path="/:username" element={<DashboardPage />}/>
                 <Route path="skills/:skillName/subskill/:id" element={<SubSkillPage handleEditSubSkill={handleEditSubSkill} />} />
             </Route>
             <Route path="/login" element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />} />

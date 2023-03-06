@@ -1,35 +1,31 @@
-import { useState } from "react";
+import { useState, useContext} from "react";
 import { Form, Segment, Button, Label } from "semantic-ui-react";
 
+import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
-export default function AddSubSkillForm({ handleAddSubSkill, skill, handleClose}) {
-    const [state, setState] = useState({
-        title: "",
-        details: "",
-		parentSkill: ''
-    });
+export default function AddSubSkillForm({ skill, handleClose}) {
+	const ctx = useContext(SkillsContext);
+	
+	const handleCreateSubSkill = ctx.handleCreateSubSkill;
 
-    function handleChange(e) {
-		// console.log(e.target.name, "e.target.name in handleChange in AddSubSkillform")
-        setState({
-          ...state,
-		//   title: e.target.title,
-		//   details: state.details
-          [e.target.name]: e.target.value
-        })
-    }
+	const [state, setState] = useState({
+			title: "",
+			details: "",
+	parentSkill: ''
+	});
+
+	function handleChange(e) {
+			setState({
+				...state,
+				[e.target.name]: e.target.value
+			})
+	}
+
 	function handleSubmit(e) {
 		e.preventDefault()
-		// console.log(state, "BEFOPRE STATE")
-		// setState(
-		// 	parentSkill = skill
-		// )
 		state.parentSkill = skill;
 		handleClose();
-		
-		// console.log(state, " STATE HERE STATE ASTATE")
-		// console.log(skill, " NEW SKILL WITH SUB")
-		handleAddSubSkill(state)
+		handleCreateSubSkill(state)
 	}
 	
 	return (

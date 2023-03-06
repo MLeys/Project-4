@@ -27,9 +27,14 @@ function SkillsReducer(draft, action) {
 			const skillIndex = action.skillIndex;
 			const userIndex = action.userIndex;
 			draft[skillIndex].usersAssigned.splice(userIndex, 1);
-			
 			break;
-
+		}
+		case 'createSubSkill': {
+			console.log(action.data, "=== data")
+			const skillIndex = action.skillIndex;
+			const newSub = action.data.subSkills.at(-1)
+			draft[skillIndex].subSkills.splice(0,0, newSub);
+			break;
 		}
 
 	

@@ -1,5 +1,5 @@
 import "./SubSkillCard.css"
-import { useEffect, useState } from "react";
+import { useContext} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
 		Card,
@@ -14,11 +14,16 @@ import {
 		
 } from "semantic-ui-react";
 
- function SubSkillCard({ skill }) {
+import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
+
+ function SubSkillCard() {
 	
 	const navigate = useNavigate();
+	const ctx = useContext(SkillsContext)
+	const subSkills = ctx.activeSkill.subSkills;
+	const skill = ctx.activeSkill.skill;
 
-	const subSkills = skill?.subSkills
+	// const subSkills = skill?.subSkills
 	const subSkillsLength = Math.floor(16 / subSkills.length) ;
 
 	return (

@@ -25,15 +25,14 @@ import SkillPane from '../SkillPane/SkillPane';
 
 
 
-export default function SkillDisplay({ 
-	skill, 
-	handleAddSubSkill,
-	allResources, handleAddResource
-}) {
-	const skills = useContext(SkillsContext).skills;
-	const loggedUser = useContext(SkillsContext).loggedUser;
-	const assignSkillUser = useContext(SkillsContext).assignSkillUser;
-	const unAssignSkillUser = useContext(SkillsContext).unAssignSkillUser;
+export default function SkillDisplay() {
+	const ctx = useContext(SkillsContext)
+	const skills = ctx.skills;
+	const loggedUser = ctx.loggedUser;
+	const assignSkillUser = ctx.assignSkillUser;
+	const unAssignSkillUser = ctx.unAssignSkillUser;
+	const skill = ctx.activeSkill.skill;
+	const allResources = ctx.skills.resources;
 	
 	const [youTubeSearchResults, setYouTubeSearchResults] = useState([]);
 	const [subSkills, setSubSkills] = useState([]);
@@ -56,7 +55,7 @@ export default function SkillDisplay({
 
 	function getSkillResources() {
 		// console.log(allResources, "ALL RESOURCES")
-		const resources = allResources.filter((r) => r.skillId === skill._id )
+		const resources = allResources?.filter((r) => r.skillId === skill._id )
 		// console.log(`resources-${skill.name}: ${resources}`)
 		setSkillResources(resources)
 	}
@@ -73,7 +72,7 @@ export default function SkillDisplay({
 				<Header as={Segment} size="huge" attached="top" to={`/skills/${skill?.name}`} inverted={true} color='black' >
 					{skill?.name}
 				</Header>
-				<SubSkillPortal handleAddSubSkill={handleAddSubSkill} skill={skill} />
+				<SubSkillPortal skill={skill} />
 			<Label
 				onClick={() => handleAssign()}
 				attached='top right'
@@ -94,7 +93,6 @@ export default function SkillDisplay({
 								skill={skill}
 								youTubeSearchResults={youTubeSearchResults}
 								liftYouTubeSearchResults={liftYouTubeSearchResults}
-								handleAddResource={handleAddResource}
 								
 							/>
 				</Grid.Column>
@@ -105,7 +103,7 @@ export default function SkillDisplay({
 				<Grid.Column width={4}>
 					<SubSkillDisplay 
 						skill={skill} 
-						handleAddSubSkill={handleAddSubSkill}
+				
 						liftSubSkills={liftSubSkills}
 						youTubeSearchResults={youTubeSearchResults}
 						liftYouTubeSearchResults={liftYouTubeSearchResults}
@@ -132,7 +130,6 @@ export default function SkillDisplay({
 						loggedUser={loggedUser}
 						youTubeSearchResults={youTubeSearchResults}
 						liftYouTubeSearchResults={liftYouTubeSearchResults}
-						handleAddResource={handleAddResource}
 						skillResources={skillResources}
 					/>
 			

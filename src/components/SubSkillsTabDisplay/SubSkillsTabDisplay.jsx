@@ -18,8 +18,10 @@ import SubSkillPane from "../SubSkillPane/SubSkillPane";
 function SubSkillsTabDisplay() {
 	const ctx = useContext(SkillsContext)
 	const skill = ctx.skill;
-	const subSkills = ctx.activeSkill.subSkills;
+	// const subSkills = ctx.activeSkill.subSkills;
 	const skillInfo = ctx.activeSkill;
+	const activeSkillIndex = ctx.activeSkill?.index;
+	const subSkills = ctx.skills[activeSkillIndex]?.subSkills;
 	
 	const handleSetActiveSub = ctx.handleSetActiveSub;
 	// console.log(skillInfo, "<== skill info subskilldisplaytab")
