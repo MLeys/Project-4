@@ -18,13 +18,21 @@ function FixedMenuHeader({ handleLogout, sidebarDispatch }) {
 
 	return (  
 		<Menu 
+			
 			borderless={true}
 			inverted={true}
 			attached='top'
 			style={{padding: '0em', margin: '0'}}
 		>
+			<Menu.Menu position="left">
 			<Menu.Item 
-			
+				onClick={() => navigate("/")}
+				position='left'
+			>
+				<Icon name="home" size="big"/>
+			</Menu.Item>
+			<Menu.Item 
+				position="left"
 				as='a' 
 				header={true} 
 				onClick={(e, data) => {
@@ -40,21 +48,18 @@ function FixedMenuHeader({ handleLogout, sidebarDispatch }) {
 				<Icon name="down arrow"/>
 
 			</Menu.Item>
+				
+			</Menu.Menu>
+
 			<Menu.Item
 				as={Header}
-				color='white'
 				position="right"
 			>
 				
 				Skills.Map
 			</Menu.Item>
 			<Menu.Menu position="right">
-			<Menu.Item 
-				onClick={() => navigate("/")}
-				position='right'
-			>
-				<Icon name="home" size="big"/>
-			</Menu.Item>
+
 				<Menu.Item onClick={() => navigate(`/${loggedUser?.username}`)}>
 					<Image
 						src={

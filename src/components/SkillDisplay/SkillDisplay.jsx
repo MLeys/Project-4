@@ -14,130 +14,59 @@ import {
 
 } from 'semantic-ui-react';
 
-import { SkillsContext } from '../../context/SkillsContext/SkillsContext';
+import  { SkillsContext} from '../../context/SkillsContext/SkillsContext';
 
+import SearchYouTube from "../SearchYouTube/SearchYouTube";
 import ResourcePortal from '../ResourcePortal/ResourcePortal';
 import SubSkillPortal from '../SubSkillPortal/SubSkillPortal';
 import SubSkillDisplay from '../SubSkillDisplay/SubSkillDisplay';
 
-import ResourceDisplay from '../ResourceDisplay/ResourceDisplay';
-import SearchYouTube from '../SearchYouTube/SearchYouTube';
-import SkillPane from '../SkillPane/SkillPane';
-
+// import ResourceDisplay from '../ResourceDisplay/ResourceDisplay';
+import SkillAssignCornerBtn from "../SkillAssignCornerBtn/SkillAssignCornerBtn";
 
 
 export default function SkillDisplay() {
 	const ctx = useContext(SkillsContext)
-	const getSkills = ctx.getSkills;
 	const skills = ctx.skills;
-	const loggedUser = ctx.loggedUser;
-	const assignSkillUser = ctx.assignSkillUser;
-	const unAssignSkillUser = ctx.unAssignSkillUser;
-	const skill = ctx.activeSkill?.skill;
-	const allResources = ctx.skills?.resources;
-	
-	const [youTubeSearchResults, setYouTubeSearchResults] = useState([]);
-	const [subSkills, setSubSkills] = useState([]);
-	const [skillResources, setSkillResources] = useState([])
-
-	const assignIndex = skill?.usersAssigned?.some(user => user.username === loggedUser.username)
-	const assignColor = assignIndex ? 'red' : 'green';
-	const assignIcon = assignIndex ? 'minus' : 'plus';
-	const assignContent = assignIndex ? 'unassign' : 'assign'
-
-	const handleAssign = assignIndex ? () => unAssignSkillUser(skill) : () => assignSkillUser(skill)
-
-	function liftYouTubeSearchResults(results) {
-		(results) ? setYouTubeSearchResults([...results]) : '';
-	}
-	
-	function liftSubSkills(subskills) {
-		(subskills) ? setSubSkills([...subskills]) : '';
-	}
-
-	function getSkillResources() {
-		// console.log(allResources, "ALL RESOURCES")
-		const resources = allResources?.filter((r) => r.skillId === skill._id )
-		// console.log(`resources-${skill.name}: ${resources}`)
-		setSkillResources(resources)
-	}
-
-	useEffect(() => {
-		getSkillResources();
-		getSkills();
-		
-	}, []); 
-
 
 
 	return (
-		<div>
+		<Container as={Grid} >
+			<Card.Group itemsPerRow={3}>
+
+			
 		{
-		skills?.map((skill) => {
+		skills?.map((skill, index) => {
 		  return (
-				<Grid as={Segment} >
-					<Grid.Row>
-						<Header as={Segment} size="huge" attached="top" to={`/skills/${skill?.name}`} inverted={true} color='black' >
+				<>
+					<Card fluid={true}>
+						<Card.Header size="huge" attached="top"  inverted={true} color='black' >
 							{skill?.name}
-						</Header>
-						<SubSkillPortal skill={skill} />
-						<Label
-							onClick={() => handleAssign()}
-							attached='top right'
-							color={assignColor}
-							as='a' 
-							content={assignContent}
-							icon={assignIcon}
-							size="mini"         
-						/>
-					</Grid.Row>
-
-					<Grid.Row stretched={true} color='blue'> 
-						<Grid.Column floated='left' width={12}>
-							
-						</Grid.Column>
-						<Grid.Column floated='right' width={4}>
+							<SubSkillPortal skill={skill} />
+							<SkillAssignCornerBtn index={index} />
+						</Card.Header>
+						<Card.Content>
 							<ResourcePortal />
-							<SearchYouTube/>
-						</Grid.Column>
-					</Grid.Row>
-					<Grid.Row>
-						<Grid.Column width={4}>
 							<SubSkillDisplay /> 
-						</Grid.Column>			
-						<Grid.Column width={4}>
+						</Card.Content>
 						
-							{
-								skillResources?.map((r) => {
-									// console.log(r, "<<-- resource")
-									return (
-										<>
-										<Item key={`resourceSeg-${r._id}`} content={r._id} />
-										</>
-									)
-								})
-							}
-						</Grid.Column>	
-						<Grid.Column width={8}>
-							<ResourceDisplay
-								skill={skill}
-								loggedUser={loggedUser}
-								youTubeSearchResults={youTubeSearchResults}
-								liftYouTubeSearchResults={liftYouTubeSearchResults}
-								skillResources={skillResources}
-							/>
-					
-						</Grid.Column>				
-						<Grid.Column width={1}>
 
-						</Grid.Column>				
-						<Grid.Column width={1}>
-						</Grid.Column>
-					</Grid.Row>
-				</Grid>
+
+
+
+					</Card>
+
+	
+
+	
+					
+
+
+				</>
 		        )
 		    })
 		}
-		</div>
+			</Card.Group>
+		</Container>
 	);
 };

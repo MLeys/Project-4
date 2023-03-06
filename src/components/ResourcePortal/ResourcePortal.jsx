@@ -40,7 +40,7 @@ function ResourcePortal() {
 
 	return (  
 		<>
-			<Segment inverted={true}>
+			
 				<Header  inverted={true} color='blue' >
 					{subSkill?.title}
 				</Header>
@@ -55,7 +55,7 @@ function ResourcePortal() {
 					onClick={handleOpen} 
 				/>
 			
-			</Segment>
+			
 			<Portal onClose={handleClose} open={open}>
 				<Container
 					style={{

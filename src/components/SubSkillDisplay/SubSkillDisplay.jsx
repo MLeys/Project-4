@@ -14,8 +14,7 @@ import {
 import SubSkillCard from '../SubSkillCard/SubSkillCard';
 
 
-export default function SubSkillDisplay({skill, liftSubSkills, 
-	youTubeSearchResults,	liftYouTubeSearchResults
+export default function SubSkillDisplay({skill, 
  }) {
 
 

@@ -46,7 +46,7 @@ function AddSkillDisplay() {
 				size="large" 
 				
 				disabled={formPop}
-				positive="true"
+				positive={true}
 				onClick={handleOpen} 
 			/>
 		

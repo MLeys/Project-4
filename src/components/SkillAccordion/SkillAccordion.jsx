@@ -17,10 +17,8 @@ import SkillAssignCornerBtn from '../SkillAssignCornerBtn/SkillAssignCornerBtn';
 function SkillAccordion() {
 	const ctx = useContext(SkillsContext);
 		const skills = ctx.skills;
-		const loggedUser = ctx.loggedUser;
-		const assignSkillUser = ctx.assignSkillUser;
-		const unAssignSkillUser = ctx.unAssignSkillUser;
-		const getSkills = ctx.getSkills;
+
+
 		
 	const [activeSkillIndexSidebar, setActiveSkillIndexSidebar] = useState(-1)
 
@@ -52,7 +50,7 @@ function SkillAccordion() {
 						<>
 							<Icon name="dropdown" />
 								{skill.name}
-							<SkillAssignCornerBtn parent={'sidebar'} parentSkill={skill} index={index}/>
+							<SkillAssignCornerBtn index={index}/>
 						</>
 
 						}

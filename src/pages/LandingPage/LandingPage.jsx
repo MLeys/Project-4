@@ -10,8 +10,8 @@ import { unAssignUser } from "../../utils/skillApi";
 
 function LandingPage() {
 
-    const skills = useContext(SkillsContext).skills;
-    console.log(skills?.map((skill) => skill.name  ))
+    // const skills = useContext(SkillsContext).skills;
+    // console.log(skills?.map((skill) => skill.name  ))
     
     useEffect(() => {
 

@@ -16,7 +16,7 @@ function SkillAssignCornerBtn({ index, parent, parentSkill }) {
 		const unAssignSkillUser = skillCtx.unAssignSkillUser;
 		const getSkills = skillCtx.getSkills;
 		
-		const skill = parent ==='sidebar' ? parentSkill : skillCtx.skill;
+		const skill =skillCtx.skills[index];
 		
 		
 	const [attributes, setAttributes] = useState({
@@ -27,8 +27,8 @@ function SkillAssignCornerBtn({ index, parent, parentSkill }) {
 	})
 	const [loading, setLoading] = useState(true);
 
-
-	const ifAssigned = skill?.usersAssigned?.some(user => user._id === loggedUser._id)
+	
+	const ifAssigned = (skill) ? skill?.usersAssigned?.some(user => user._id === loggedUser._id) :'';
 
 
 
@@ -98,7 +98,7 @@ function SkillAssignCornerBtn({ index, parent, parentSkill }) {
 	return (
 		<>
 			<Label
-				key={`assign-${skill._id}`}
+				key={`assign-${skill?._id}`}
 				as='a' 
 				size='mini' 
 				attached='top right' 

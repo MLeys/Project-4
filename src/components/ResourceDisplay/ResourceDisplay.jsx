@@ -15,9 +15,7 @@ import {
 
 import ResourceCard from '../ResourceCard/ResourceCard.jsx';
 
-function ResourceDisplay({skill, loggedUser, 
-  youTubeSearchResults, liftYouTubeSearchResults, 
-  skillResources, handleAddResource
+function ResourceDisplay({
 }) {
 
 
@@ -30,12 +28,7 @@ function ResourceDisplay({skill, loggedUser,
 
         <Card.Group>
           <ResourceCard
-            skill={skill}
-            liftYouTubeSearchResults={liftYouTubeSearchResults}
-            youTubeSearchResults={youTubeSearchResults}
-            handleAddResource={handleAddResource}
-            loggedUser={loggedUser}
-            skillResources={skillResources}
+
           />
         </Card.Group>
   
