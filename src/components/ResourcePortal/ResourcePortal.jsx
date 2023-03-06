@@ -38,10 +38,6 @@ function ResourcePortal() {
 		setFormPop(false)
 	}
 
-	useEffect(() => {
-		
-	}, []); 
-
 	return (  
 		<>
 			<Segment inverted={true}>
@@ -60,23 +56,30 @@ function ResourcePortal() {
 				/>
 			
 			</Segment>
-
-			
-
-					
 			<Portal onClose={handleClose} open={open}>
-				<Segment.Group
+				<Container
 					style={{
-						width: "80%",
-						height: "75%",
-						left: '15%',
 						position: 'fixed',
-						top: '17%',	
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: '90%',
+            maxWidth: '800px',
+            backgroundColor: 'gray',
+            padding: '20px',
+            borderRadius: '4px',
+            boxShadow: '0 10px 4px rgba(0,0,0,0.3)',
+            zIndex: '999',
+            maxHeight: '80vh',
+						minHeight: '40vh',
+            overflow: 'auto',
 					}}
 				>
-					<Segment attached='top'>
+					
 						<Header
+							inverted={true}
 							size="huge" 
+							color="white"
 							textAlign="center"	
 							content="Search for Resources to Add"
 						/>
@@ -89,12 +92,12 @@ function ResourcePortal() {
 								onClick={handleClose} 
 								content=' Close'
 							/>
-					</Segment>
-					<Segment>
+					
+					
 						<SearchYouTube handleClose={handleClose} />
 						{/* <AddResourceForm handleClose={handleClose} /> */}
-					</Segment>
-			</Segment.Group>
+					
+			</Container>
 		</Portal>
 			
 

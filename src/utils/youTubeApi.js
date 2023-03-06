@@ -17,7 +17,7 @@ export async function searchYouTube(search) {
     const part = 'snippet'
     const type = 'video'
     const videoEmbeddable = true
-    const max = '3'
+    const max = '4'
     const BASE_URL = 
         `https://youtube.googleapis.com/youtube/v3/search?part=${part}&type=${type}&maxResults=${max}&q=${searchTerms}&videoEmbeddable=${videoEmbeddable}&key=${API_KEY}`
 

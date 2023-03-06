@@ -27,16 +27,6 @@ function SubSkillPane() {
 				<ResourcePortal />
 						THIS IS OTHER INFOMATION - BODY OF RESOURCES START
 		</Segment.Group>
-
-				
-		
-			
-
-			
-
-		
-
-
 	)
 }
 export default SubSkillPane;

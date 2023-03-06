@@ -68,24 +68,29 @@ function SearchYouTube() {
 
 	return (
 		<Container>
-			<Segment.Group>
-				<Segment>
-					<Form
-						onSubmit={handleSubmit}
-						size='large'
-					>
-						<Form.Field >
-							<Form.Input
-								className="form-control"
-								name="search"
-								value={search}
-								onChange={handleChange}
-								placeholder={`Find Results for ${skill.name}`}
-							/>
-						</Form.Field>
-						<Form.Button >go</Form.Button>
-					</Form>
-				</Segment>
+			<Form
+			
+				onSubmit={handleSubmit}
+				size='large'
+			>
+				<Form.Group inline={true}>
+					
+						<Form.Input
+							className="form-control"
+							width={10}
+							name="search"
+							value={search}
+							onChange={handleChange}
+							placeholder={`Find Results for ${skill.name}`}
+						/>
+						
+					
+					<Form.Button> Search YouTube </Form.Button>
+				</Form.Group>
+
+				
+			</Form>
+				
 				<Card.Group>
 					{
 			results.map((resource, index) => {
@@ -138,7 +143,7 @@ function SearchYouTube() {
 				
 
 				
-			</Segment.Group>
+			
 		</Container>
 
 
