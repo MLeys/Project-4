@@ -19,8 +19,12 @@ import AddResourceForm from "../AddResourceForm/AddResourceForm.jsx"
 import SearchYouTube from "../SearchYouTube/SearchYouTube";
 
 function ResourcePortal() {
+	const ctx = useContext(SkillsContext);
+	const subCtx = ctx.activeSub;
+	const subSkill = subCtx.subSkill;
+
 	const [formPop, setFormPop] = useState(false)
-	const handleAddSkill = useContext(SkillsContext).createSkill
+
 
 	const open = formPop;
 
@@ -38,17 +42,21 @@ function ResourcePortal() {
 
 	return (  
 		<>
-			<Segment>
-			<Label
-				content='Add Resource'
-				color="green" 
-				attached='top'
-				icon='plus' 
-				size="small" 
-				
-				disabled={formPop}
-				onClick={handleOpen} 
-			/>
+			<Segment inverted={true}>
+				<Header  inverted={true} color='blue' >
+					{subSkill?.title}
+				</Header>
+				<Label
+					content='Add Resource'
+					color="green" 
+					attached='top left'
+					icon='plus' 
+					size="small" 
+					
+					disabled={formPop}
+					onClick={handleOpen} 
+				/>
+			
 			</Segment>
 
 			

@@ -24,9 +24,7 @@ function SubSkillPane() {
 
 	return (
 		<Segment.Group className="subSkillPaneContainer">
-			<Header  inverted={true} color='blue' >
-				{subSkill?.title}
-			</Header>
+
 
 			
 				
