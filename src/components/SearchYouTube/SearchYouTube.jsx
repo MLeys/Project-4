@@ -20,13 +20,15 @@ import { SkillsContext } from '../../context/SkillsContext/SkillsContext.jsx';
 
 function SearchYouTube() {
 	const ctx = useContext(SkillsContext);
+	const skills = ctx.skills;
+	
 	const loggedUser = ctx.loggedUser;
-	const skillIndex = ctx.activeSkill?.index;
-	const skill = ctx.skills[skillIndex];
-	const subIndex = ctx.activeSub?.index;
+	const skillIndex = ctx.activeSkill.index;
+	const skill = ctx.skill;
+	const subIndex = ctx.activeSub.index;
 	const subSkills = skill.subSkills;
-	const subSkill = subSkills[subIndex]
-	const subTitle = subSkill.title;
+	
+	
 	
 
 	const [search, setSearch] = useState('');

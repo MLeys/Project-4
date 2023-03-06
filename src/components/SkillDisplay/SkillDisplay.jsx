@@ -16,6 +16,7 @@ import {
 
 import { SkillsContext } from '../../context/SkillsContext/SkillsContext';
 
+import ResourcePortal from '../ResourcePortal/ResourcePortal';
 import SubSkillPortal from '../SubSkillPortal/SubSkillPortal';
 import SubSkillDisplay from '../SubSkillDisplay/SubSkillDisplay';
 
@@ -89,6 +90,7 @@ export default function SkillDisplay() {
 					
 				</Grid.Column>
 				<Grid.Column floated='right' width={4}>
+					<ResourcePortal />
 					<SearchYouTube
 								skill={skill}
 								youTubeSearchResults={youTubeSearchResults}
