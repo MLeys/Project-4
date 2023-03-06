@@ -40,20 +40,21 @@ export default function SkillDisplay() {
 		  return (
 				<>
 					<Card as={Segment} fluid={true} raised={true}>
-						<Card.Header >
+						
 							<Header
-								attached={true}
-								block={true}
-								size='large'
-								dividing={true}
-							>							
+								style={{ backgroundColor: 'teal', color: 'white', fontSize: '1.5rem'}}
 
+								attached={true}
+								
+							
+								
+							>							
 								{skill?.name}
 
 							</Header>
 							<SubSkillPortal skill={skill} />
 							<SkillAssignCornerBtn index={index} />
-						</Card.Header>
+						
 						<Card.Content>
 							
 							<SubSkillDisplay /> 
