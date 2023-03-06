@@ -8,7 +8,8 @@ import {
 		Button,
 		Icon,
 		Portal,
-		Label
+		Label,
+		Container
 
 } from 'semantic-ui-react';
 
@@ -37,43 +38,50 @@ function ResourcePortal() {
 	return (  
 		<>
 			
-			<Label
-				attached="top"
-				content='Add Resource'
-				color="green" 
-				as={Button} 
-				icon='plus' 
-				size="mini" 
-				
-				disabled={formPop}
-				positive="true"
-				onClick={handleOpen} 
-			/>
+				<Label
+					content='Add Resource'
+					color="green" 
+					
+					attached='top'
+					icon='plus' 
+					size="huge" 
+					
+					disabled={formPop}
+					onClick={handleOpen} 
+				/>
+			
+
 					
 			<Portal onClose={handleClose} open={open}>
-				<Segment 
-					inverted={true}
-					floated='right'
-					
-					style={{
-							left: '30%',
-							position: 'fixed',
-							top: '25%',
-					}}
-				>
-					<Header>Add Resource</Header>
-					<Label
-						attached='top right'
-						color="red" 
-						as='a' 
-						icon='close' 
-						size="mini" 
-						onClick={handleClose} 
-					/>
-					<AddResourceForm handleClose={handleClose} />
+				<Segment.Group>
+					<Segment 
+						inverted={true}
+						floated='right'
+						style={{
+								left: '30%',
+								position: 'fixed',
+								top: '25%',
+						}}
+					>
+						<Header>Add Resource </Header>
+						<Label
+							attached='top right'
+							color="red" 
+							as='a' 
+							icon='close' 
+							size="mini" 
+							onClick={handleClose} 
+						/>
+					</Segment>
+					<Segment>
+						<AddResourceForm handleClose={handleClose} />
 
-				</Segment>
+					</Segment>
+				</Segment.Group>
+
 			</Portal>
+			
+
 
 		</>
 	);

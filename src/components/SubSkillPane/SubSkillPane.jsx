@@ -22,13 +22,27 @@ function SubSkillPane() {
 
 
 	return (
-		<>
-				<Header attached="top" inverted={true} color='blue' >
-					{subSkill?.title}
-					<ResourcePortal />
-				</Header>
+		<Container>
+			<Header  inverted={true} color='blue' >
+				{subSkill?.title}
+			</Header>
+			<ResourcePortal />
+				<Container>
+
+							
 				
-		</>
+							
+						
+						
+						THIS IS OTHER INFOMATION - BODY OF RESOURCES
+
+				</Container>
+	
+			
+		</Container>
+
+				
+		
 			
 
 			
