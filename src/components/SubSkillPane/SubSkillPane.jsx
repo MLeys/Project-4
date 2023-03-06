@@ -11,8 +11,7 @@ import {
 
 import SubSkillsTabDisplay from "../SubSkillsTabDisplay/SubSkillsTabDisplay";
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
-
-
+import ResourcePortal from "../ResourcePortal/ResourcePortal";
 
 function SubSkillPane() {
 	const ctx = useContext(SkillsContext);
@@ -26,6 +25,7 @@ function SubSkillPane() {
 		<>
 				<Header attached="top" inverted={true} color='blue' >
 					{subSkill?.title}
+					<ResourcePortal />
 				</Header>
 				
 		</>

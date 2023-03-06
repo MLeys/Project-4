@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 
 import { 
 		Segment,
@@ -9,13 +9,16 @@ import {
 		Input
 } from 'semantic-ui-react';
 
+import { SkillsContext } from '../../context/SkillsContext/SkillsContext.jsx';
 import * as youTubeApi from "../../utils/youTubeApi.js"
 import ResourceCard from '../ResourceCard/ResourceCard.jsx';
 
 
 
 
-function SearchYouTube({skill, liftYouTubeSearchResults}) {
+function SearchYouTube() {
+	const ctx = useContext(SkillsContext)
+	const skill = ctx.skills[ctx.activeSkill.index]
 	const [state, setState] = useState({
 		search: "",
 	})
@@ -24,9 +27,6 @@ function SearchYouTube({skill, liftYouTubeSearchResults}) {
 	const [resultSearchYT, setResultSearchYT] = useState([]);
 
 
-	function liftResults() {
-		(resultSearchYT) ? liftYouTubeSearchResults(resultSearchYT) : '';
-	}
 
 	async function searchYouTube(search) {
 		console.log('start search funct')
@@ -39,15 +39,11 @@ function SearchYouTube({skill, liftYouTubeSearchResults}) {
 		}
 	}
 	
-
 	function handleChange(e){
-		
 		setSearchYT(e.target.value)
 	}
 
-
 	async function handleSubmit(e) {
-		
 		e.preventDefault();
 		try {
 			const videoInfo = await searchYouTube(searchYT);
@@ -61,7 +57,7 @@ function SearchYouTube({skill, liftYouTubeSearchResults}) {
 
 
 	useEffect(() => {
-		liftResults();
+		
 	}, [resultSearchYT]);  
 
 
@@ -81,14 +77,8 @@ function SearchYouTube({skill, liftYouTubeSearchResults}) {
 						placeholder={`Find Resources for ${skill.name}`}
 						
 					/>
-
 			</Form.Field>
-			
-
-			
 		</Form>
-
-
 
 	);
 }
