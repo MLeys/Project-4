@@ -15,7 +15,7 @@ import {
 		Container
 		
 } from "semantic-ui-react";
-import ResourcePortal from "../ResourcePortal/ResourcePortal";
+import ResourcePortal from "../AddResourceDisplay/AddResourceDisplay";
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
  function SubSkillCard() {

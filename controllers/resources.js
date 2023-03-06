@@ -13,40 +13,47 @@ export default {
 };
 
 async function create(req, res) {
+	console.log("==================================== ")
+	console.log(" === HITTING CREATE RESOURCES CTRL ====")
+	console.log("==================================== ")
 	console.log(req.body, "<<<< REQ BODY")
+	const skillId = req.body.skillId;
+	const subId = req.body.subId
+	const subIndex = req.body.subIndex;
+	const resourceData = {
+		title: req.body.title,
+		videoId: req.body.videoId,
+		description: req.body.description,
+		thumbnail: req.body.thumbnail,
+		datePublished: req.body.datePublished,
+		skillId: req.body.skillId,
+		userId: req.body.userId,
+		source: req.body.source,
+	}
+	console.log(resourceData, "<= resource data")
 
 	try {
-		
-		const newResource = await (await Resource.create(req.body))
-		const skillDoc = await Skill.findById(req.body.skillId).populate("resources").exec();
-			// .resources.push(newResource)
-			// .populate("resources")
-			// .exec()
-			// .save()
-   
-		skillDoc.resources.push(newResource);
-		console.log('===========================START========================')
-		console.log('===================================================')
+		const newResource = await Resource.create(resourceData)
+		const skillDoc = await Skill.findById(skillId)
+	
+		const subDoc = await skillDoc.subSkills[subIndex]
+		console.log(subDoc, '<= subDoc')
+	
+		await subDoc.resources.splice(0,0, newResource);
+		// await skillDoc.populate("subSkills").populate("usersAssigned").exec();
+		// await subDoc.populate("resources").populate("usersAssigned").exec();
 
-		console.log(newResource)
-	   
-		console.log('================================END===================')
-		console.log('===================================================')
-
+		subDoc.save();
 		skillDoc.save();
 
-		console.log("skillDoc: ",skillDoc)
-		// const subSkills = skillDoc.resources.push(newResource)
-		// console.log(`subSkills: ${subSkills}`)
-		
-
-		console.log(`NewResource(ctrl): \n${newResource}`)
 		res.status(201).json(newResource.toJSON());
 	} catch (error) {
 		console.error("Error creating resource:", error);
 		res.status(500).json({ message: "Error creating resource" });
 	}
 };
+
+`doc.populate("arr.0.path")`
 
 async function allResources(req, res) {
   try {

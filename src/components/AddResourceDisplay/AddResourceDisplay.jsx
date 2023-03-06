@@ -18,7 +18,7 @@ import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 import AddResourceForm from "../AddResourceForm/AddResourceForm.jsx"
 import SearchYouTube from "../SearchYouTube/SearchYouTube";
 
-function ResourcePortal() {
+function AddResourceDisplay() {
 	const ctx = useContext(SkillsContext);
 	const subCtx = ctx.activeSub;
 	const subSkill = subCtx.subSkill;
@@ -107,4 +107,4 @@ function ResourcePortal() {
 	);
 }
 
-export default ResourcePortal;
+export default AddResourceDisplay;

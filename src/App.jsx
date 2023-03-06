@@ -168,10 +168,29 @@ export default function App() {
 
   async function handleAddResource(data) {
     console.log(`Data(before): ${data}`)
+    /// ADD LOGIC TO NOT ADD OF ALREADY ADDED
     try {
       const response = await resourcesApi.create(data);
       console.log("RESPONSE", response)
-      getResources();
+      dispatch({
+        type: 'addResource',
+        skillIndex: skillIndex,
+        subIndex: subIndex,
+        resource: {
+          title: data.title,
+          videoId: data.videoId,
+          description: data.description,
+          thumbnail: data.thumbnail,
+          datePublished: data.datePublished,
+          skillId: data.skillId,
+          userId: data.userId,
+          source: data.source
+        }
+      })
+
+
+
+      getSkills();
 
     } catch (err) {
       setError(console.log(`***Error in handleAddResource(message): ${err}`))
@@ -268,7 +287,8 @@ export default function App() {
           unAssignSkillUser: unAssignSkillUser, 
           handleSetActiveSkill: handleSetActiveSkill,
           handleSetActiveSub: handleSetActiveSub,
-          handleCreateSubSkill: handleCreateSubSkill
+          handleCreateSubSkill: handleCreateSubSkill,
+          handleAddResource: handleAddResource,
        
 
           

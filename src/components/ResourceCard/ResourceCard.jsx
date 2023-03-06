@@ -18,16 +18,6 @@ function ResourceCard({liftYouTubeSearchResults, youTubeSearchResults,
 
 	function handleSelect(e, resource, index) {
 		e.preventDefault();
-		// const newResource = {
-		// 	title: resource.title,
-		// 	videoId: resource.videoId,
-		// 	description: resource.description,
-		// 	thumbnail: resource.thumbnail,
-		// 	datePublished: resource.publishTime,
-		// 	skillId: skill._id,
-		// 	userId: loggedUser._id,
-		// 	source: 'youtube'
-		// }
 		setAddResource({
 			...addResource,
 			title: resources[index].title,
@@ -39,22 +29,13 @@ function ResourceCard({liftYouTubeSearchResults, youTubeSearchResults,
 			userId: loggedUser._id,
 			source: 'youtube'
 		})
-
-		
 		console.log(`addResource(resourceCard-handleSelect): ${addResource}`)
 		handleAddResource(addResource);
 
 	}
 	
 
-	function getSearchResults() {
-		(youTubeSearchResults) ? setResources([...youTubeSearchResults]) : '';
-	}
 
-	useEffect(() => {
-		getSearchResults();
-	}, [youTubeSearchResults]);
-	
 
 
 	return (

@@ -15,7 +15,7 @@ import {
 
 import { SkillsContext } from '../../context/SkillsContext/SkillsContext';
 
-import ResourcePortal from "../ResourcePortal/ResourcePortal";
+import AddResourceDisplay from "../AddResourceDisplay/AddResourceDisplay";
 import SubSkillCard from '../SubSkillCard/SubSkillCard';
 
 export default function SubSkillDisplay({ index }) {
@@ -29,7 +29,7 @@ export default function SubSkillDisplay({ index }) {
 			<Card as={Segment} fluid={true} raised={true}>
 				<Card.Header as={Segment} attached={true}>
 					SubSkills
-					<ResourcePortal />
+					<AddResourceDisplay />
 				</Card.Header>
 				<Card.Content>
 				{

@@ -17,7 +17,7 @@ import {
 import  { SkillsContext} from '../../context/SkillsContext/SkillsContext';
 
 import SearchYouTube from "../SearchYouTube/SearchYouTube";
-import ResourcePortal from '../ResourcePortal/ResourcePortal';
+import AddResourceDisplay from '../AddResourceDisplay/AddResourceDisplay';
 import SubSkillPortal from '../SubSkillPortal/SubSkillPortal';
 import SubSkillDisplay from '../SubSkillDisplay/SubSkillDisplay';
 

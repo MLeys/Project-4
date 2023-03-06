@@ -27,32 +27,61 @@ function SearchYouTube() {
 	const skill = ctx.skill;
 	const subIndex = ctx.activeSub.index;
 	const subSkills = skill.subSkills;
-	
-	
-	
+	const handleAddResource = ctx.handleAddResource;
 
 	const [search, setSearch] = useState('');
 	const [results, setResults] = useState([]);
-
-
+	const [addResource, setAddResource] = useState({})
+	
 
 	async function searchYouTube(search) {
 		console.log('start search funct')
 		try {
 			const response = await youTubeApi.searchYouTube(search);
 			console.log(response, " <------ response from YOUTUBE SEARCH");
-			
+		
 			setResults([...response])
 		} catch (err) {
 			console.log(err.message, " <<<<<YouTube SEARCH ERROR>>>>>");
 		}
 	}
 	
+	function handleAddResourceClick(e, resource) {
+		console.log(resource, "<- resource clicked")
+		const data = {
+			title: resource.title,
+			videoId: resource.videoId,
+			description: resource.description,
+			thumbnail: resource.thumbnail,
+			datePublished: resource.publishTime,
+			skillId: skill._id,
+			subId: skill.subSkills[subIndex]._id,
+			userId: loggedUser._id,
+			source: 'youtube',
+			skillIndex: skillIndex,
+			subIndex: subIndex
+		}
+		e.preventDefault();
+		setAddResource({
+			...addResource,
+			title: resource.title,
+			videoId: resource.videoId,
+			description: resource.description,
+			thumbnail: resource.thumbnail,
+			datePublished: resource.publishTime,
+			skillId: skill._id,
+			userId: loggedUser._id,
+			source: 'youtube'
+		})
+		handleAddResource(data);
+		
+	}
+
+	
 
 	function handleChange(e){
 		setSearch(e.target.value)
 	}
-
 
 	async function handleSubmit(e) {
 		e.preventDefault();
@@ -63,20 +92,13 @@ function SearchYouTube() {
 		}
 	}
 
-
-	useEffect(() => {
-	
-	}, []);  
-
 	return (
 		<Container>
 			<Form
-			
 				onSubmit={handleSubmit}
 				size='large'
 			>
 				<Form.Group inline={true}>
-					
 						<Form.Input
 							className="form-control"
 							width={10}
@@ -85,8 +107,7 @@ function SearchYouTube() {
 							onChange={handleChange}
 							placeholder={`Find Results for ${skill.name}`}
 						/>
-						
-					
+
 					<Form.Button> Search YouTube </Form.Button>
 				</Form.Group>
 
@@ -95,14 +116,13 @@ function SearchYouTube() {
 				
 				<Card.Group>
 					{
-			results.map((resource, index) => {
+			results.map((result, index) => {
+				const resource = result;
+				const resultIndex = index;
 				return (
-				
-					<Card 
-						key={`${resource.videoId}-${index}`}
-						onClick={(e, resource)=>{handleSelect(e, resource, index)}}
-							
-					>
+					
+					
+					<Card key={`result-${index}-${resource.videoId}`} >
 						<Embed
 							autoplay={false}
 							color='white'
@@ -117,15 +137,18 @@ function SearchYouTube() {
 							placeholder={resource.thumbnail}
 							source='youtube'
 						/>
-	
 						<Card.Content>
 						<Card.Header content={resource.title}/>
 						<Card.Meta content={resource.publishTime} />
 						<Card.Description content={resource.description} />
 						</Card.Content>
-						<Card.Content extra={true}>
+						<Card.Content  as='a' extra={true}>
 						<div className='ui two buttons'>
-							<Button basic color='green'>
+							<Button 
+								basic 
+								color='green'
+								onClick={(e)=>{handleAddResourceClick(e, resource)}}
+							>
 							Learn
 							</Button>
 							<Button basic color='red'>

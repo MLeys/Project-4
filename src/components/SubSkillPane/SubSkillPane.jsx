@@ -11,7 +11,7 @@ import {
 
 import SubSkillsTabDisplay from "../SubSkillsTabDisplay/SubSkillsTabDisplay";
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
-import ResourcePortal from "../ResourcePortal/ResourcePortal";
+import AddResourceDisplay from "../AddResourceDisplay/AddResourceDisplay";
 
 function SubSkillPane() {
 	const ctx = useContext(SkillsContext);
@@ -23,8 +23,8 @@ function SubSkillPane() {
 
 
 	return (
-		<Segment.Group className="subSkillPaneContainer">
-				<ResourcePortal />
+		<Segment.Group className="subSkillPaneContainer">sdfad
+				<AddResourceDisplay />
 						THIS IS OTHER INFOMATION - BODY OF RESOURCES START
 		</Segment.Group>
 	)
