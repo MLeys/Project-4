@@ -10,27 +10,37 @@ import {
 		Segment,
 		Menu,
 		Grid,
-		Label
+		Label,
+		Header,
+		Container
 		
 } from "semantic-ui-react";
-
+import ResourcePortal from "../ResourcePortal/ResourcePortal";
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
  function SubSkillCard() {
 	
 	const navigate = useNavigate();
-	const ctx = useContext(SkillsContext)
-	const subSkills = ctx.activeSkill.subSkills;
+	const ctx = useContext(SkillsContext);
+	const skills = ctx.skills;
+
 	const skill = ctx.activeSkill.skill;
+	
 
 	// const subSkills = skill?.subSkills
-	const subSkillsLength = Math.floor(16 / subSkills.length) ;
+
 
 	return (
 		<>
+				<Segment as={Header} fluid={true}>
+				
+				<ResourcePortal />
+				  Subskills 
+				
+				</Segment>
 		{
 			
-			subSkills?.map(sub => {
+			skills?.subSkills?.map(sub => {
 				const resources = sub.resources.map((resource) => {
 					{resource.title}
 				})

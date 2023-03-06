@@ -13,7 +13,6 @@ import {
 
 import SubSkillCard from '../SubSkillCard/SubSkillCard';
 
-
 export default function SubSkillDisplay({skill, 
  }) {
 
@@ -23,10 +22,10 @@ export default function SubSkillDisplay({skill,
 	return (
 		<>
 	
-			<Segment.Group>
-				<Header fluid="true" attached='top'>  Subskills </Header>
-				<SubSkillCard skill={skill} subSkills={subSkills} />
-			</Segment.Group>		
+			
+
+				<SubSkillCard />
+			
 	
 	
 

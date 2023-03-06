@@ -39,20 +39,25 @@ export default function SkillDisplay() {
 		skills?.map((skill, index) => {
 		  return (
 				<>
-					<Card fluid={true}>
-						<Card.Header size="huge" attached="top"  inverted={true} color='black' >
-							{skill?.name}
+					<Card as={Segment} fluid={true} raised={true}>
+						<Card.Header >
+							<Header
+								attached={true}
+								block={true}
+								size='large'
+								dividing={true}
+							>							
+
+								{skill?.name}
+
+							</Header>
 							<SubSkillPortal skill={skill} />
 							<SkillAssignCornerBtn index={index} />
 						</Card.Header>
 						<Card.Content>
-							<ResourcePortal />
+							
 							<SubSkillDisplay /> 
 						</Card.Content>
-						
-
-
-
 
 					</Card>
 
