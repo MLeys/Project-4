@@ -11,7 +11,7 @@ router.post('/', skillsCtrl.create)
 router.delete('/:id', skillsCtrl.delete)
 router.post('/:id', skillsCtrl.assignUser)
 router.put('/:id', skillsCtrl.unAssignUser)
-router.get('/all', skillsCtrl.all)
+router.get('/all/:id', skillsCtrl.all)
 router.get('/:id', skillsCtrl.show)
 
 

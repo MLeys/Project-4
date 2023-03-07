@@ -27,8 +27,8 @@ export function create(data) {
 	})
 }
 
-export async function getAll() {
-    const res = await fetch(`${BASE_URL}all`, {
+export async function getAll(userId) {
+    const res = await fetch(`${BASE_URL}all/${userId}`, {
 		headers: {
 			Authorization: "Bearer " + tokenService.getToken(),
 		}

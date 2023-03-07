@@ -1,6 +1,8 @@
 import User from "../models/user.js";
 import Skill from '../models/skill.js';
-import user from "../models/user.js";
+import deepPopulate from 'mongoose-deep-populate';
+
+
 
 export default {
   create,
@@ -45,6 +47,7 @@ async function create(req, res) {
 
 async function index(req, res) {
   try {
+    console.log(" HITTING INDEX NOT ALL SKILLS")
     // this populates the user when you find the skills
     const skills = await Skill.find({}).populate("usersAssigned").exec(); // populating on the model
     res.status(200).json({ data: skills });
@@ -55,29 +58,36 @@ async function index(req, res) {
 async function allSkills(req, res) {
   try {
     console.log("allskills ctrl")
-    // this populates the user when you find the skills
-    const skills = await Skill.find({})
-    .populate("usersAssigned")
-		.populate("resources")
-    .populate("subSkills")
-		.populate({
-			path: 'subSkills',
-			populate: [
-				{
-					path: 'resources',
-					model: 'Resource'
-				},
-				{
-					path: 'usersAssigned',
-					model: 'User'
-				}
-			]
-		})
-    .exec();;
+    const skills = await Skill.find()
+    .populate({
+      path: "usersAssigned",
+      model: "User"
+    })
+    .populate({
+      path: "subSkills.parentSkill",
+      model: "Skill"
+    })
+    .populate({
+      path: "subSkills.resources",
+      model: "Resource"
+    })
+    .populate({
+      path: "subSkills.usersAssigned",
+      model: "User"
+    })
+    .populate({
+      path: "resources",
+      model: "Resource"
+    })
+    .exec();
+
+    const userSkills = skills.filter(skill => {
+      return skill.usersAssigned.some(user => user._id.toString() === req.params.id);
+    });
+    console.log(userSkills, "<==== userSkills from controller filter at getAll")
     
     
-    
-    res.status(200).json({ data: skills });
+    res.status(200).json({ skills: skills, userSkills: userSkills });
   } catch (err) {
     res.status(400).json({ err });
   }

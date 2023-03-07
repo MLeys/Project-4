@@ -1,35 +1,32 @@
 import { useState, useEffect, useContext } from "react";
 import { 
 	Segment,
-	Card,
-	Button,
-	Icon,
-	Label,
 	Grid,
 	Header,
 	Container,
-	Item
+	Tab
 
 } from 'semantic-ui-react';
 
-import SubSkillsTabDisplay from "../SubSkillsTabDisplay/SubSkillsTabDisplay";
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 import SubSkillPortal from '../SubSkillPortal/SubSkillPortal';
 import SkillAssignCornerBtn from "../SkillAssignCornerBtn/SkillAssignCornerBtn";
+import SubSkillsTabDisplay from "../SubSkillsTabDisplay/SubSkillsTabDisplay";
+
 
 function SkillPane() {
   const ctx = useContext(SkillsContext)
-  const skill = ctx.activeSkill.skill;
-	const activeSkillInfo = ctx.activeSkillInfo;
+  const skill = ctx.activeSkill?.skill;
 
 
+	
 	return (
-		<Container>
+		
 		
 		<Grid >
       <Header  as={Segment}  attached="top" to={`/skills/${skill?.name}`} inverted={true} color='blue' >
-        <h1>{skill.name}</h1>
+        <h1>{skill?.name}</h1>
       </Header>
       <SubSkillPortal skill={skill} />
 			<SkillAssignCornerBtn />
@@ -38,10 +35,10 @@ function SkillPane() {
         <SubSkillsTabDisplay />
       </Grid.Row>
 
- 	</Grid>
+ 		</Grid>
 
 
-		</Container>
+	
 
 	)
 }

@@ -18,13 +18,11 @@ import SubSkillPane from "../SubSkillPane/SubSkillPane";
 function SubSkillsTabDisplay() {
 	const ctx = useContext(SkillsContext)
 	const skill = ctx.skill;
-	// const subSkills = ctx.activeSkill.subSkills;
-	const skillInfo = ctx.activeSkill;
 	const activeSkillIndex = ctx.activeSkill?.index;
 	const subSkills = ctx.skills[activeSkillIndex]?.subSkills;
 	
 	const handleSetActiveSub = ctx.handleSetActiveSub;
-	const [activeIndex, setActiveIndex] = useState(-1);
+
 	
 
 	const subPanes = subSkills?.map((sub, index) => ({
@@ -38,7 +36,9 @@ function SubSkillsTabDisplay() {
 	}));
 
   function handleTabChange(e, data) {
-		setActiveIndex(data.activeIndex)
+		e.preventDefault();
+		e.stopPropagation();
+		
     const activeIndex = data.activeIndex;
 
 		const activeSubId = subSkills[activeIndex]._id;
@@ -46,6 +46,10 @@ function SubSkillsTabDisplay() {
     console.log(`subSkill Index: ${activeIndex}\nsubIndex: ${subIndex}\nactiveSkill: ${subSkills[activeIndex].title}`)
     handleSetActiveSub(subIndex)
   }
+
+  useEffect(() => {
+    
+  }, []); 
 
   return (
     <>
@@ -56,11 +60,8 @@ function SubSkillsTabDisplay() {
 			>
         <Tab 
 					
-					renderActiveOnly={false}
 					panes={subPanes} 
-					
 					onTabChange={ (e, data) => handleTabChange(e,data)}
-
       	/>
       </Container>
 			

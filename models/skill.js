@@ -2,10 +2,10 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const subSkillSchema = Schema({
-    parentSkill: { type: Schema.Types.ObjectId, ref: 'Skill' },
+    parentSkill: { type: Schema.Types.ObjectId, ref: 'Skill', autopopulate: true },
     title: String,
     details: String,
-    resources: [{type: Schema.Types.ObjectId, ref: 'Resource'}],
+    resources: [{type: Schema.Types.ObjectId, ref: 'Resource', autopopulate: true}],
     usersAssigned: [{type: Schema.Types.ObjectId, ref: 'User', autopopulate: true}],
 }, {
     timestamps: true
@@ -18,7 +18,7 @@ const skillSchema = new Schema({
     type: String,
     usersAssigned: [{type: Schema.Types.ObjectId, ref: 'User', autopopulate: true}],
     subSkills: [subSkillSchema],
-    resources: [{type: Schema.Types.ObjectId, ref: 'Resource'}],
+    resources: [{type: Schema.Types.ObjectId, ref: 'Resource', autopopulate: true}],
 
 }, {
     timestamps: true
