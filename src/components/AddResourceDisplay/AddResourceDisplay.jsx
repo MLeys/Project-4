@@ -80,7 +80,7 @@ function AddResourceDisplay() {
 						<Header
 							inverted={true}
 							size="huge" 
-							color="white"
+							
 							textAlign="center"	
 							content="Search for Resources to Add"
 						/>

@@ -38,24 +38,28 @@ export default function SkillDisplay() {
 		{
 		skills?.map((skill, index) => {
 		  return (
-				<>
-					<Card as={Segment} fluid={true} raised={true}>
-
-						<Card.Header
+				<Card 
+					key={`skillCard-${index}-${skill._id}`}
+					as={Segment} 
+					fluid={true} 
+					raised={true}
+				>
+					<Card.Header
+						
 						as={Segment}
-							style={{ backgroundColor: 'teal', color: 'white', fontSize: '1.5rem', padding: ".5rem"}}
-							attached={true}
-							content={skill?.name}
-						/>	
-						<SubSkillPortal skill={skill} />
-						<SkillAssignCornerBtn index={index} />
-						<Card.Content>
-							<SubSkillDisplay index={index} /> 
+						style={{ backgroundColor: 'teal', color: 'white', fontSize: '1.5rem', padding: ".5rem"}}
+						attached={true}
+						content={skill?.name}
+					/>	
+					<SubSkillPortal skill={skill} />
+					<SkillAssignCornerBtn index={index} />
+					<Card.Content >
+						<SubSkillDisplay index={index} /> 
 
-						</Card.Content>
-							
-					</Card>
-				</>
+					</Card.Content>
+						
+				</Card>
+				
 		  )
 	  })
 	}

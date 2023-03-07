@@ -76,7 +76,7 @@ async function login(req, res) {
     console.log(User.find(), '< Find USER *********')
    
     if (!user) return res.status(401).json({err: 'bad credentials'});
-    user.comparePassword(req.body.password, (err, isMatch) => {
+    await user.comparePassword(req.body.password, (err, isMatch) => {
       
       if (isMatch) {
         console.log("*********** MATCHED CREATING TOKEN ************")

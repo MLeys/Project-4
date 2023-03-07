@@ -262,19 +262,19 @@ export default function App() {
   }
 
   useEffect(() => {
+    
     async function loadInitialData() {
       try {
         console.log("**** LOADING INITIAL DATA ****")
-        await getSkills();
+        getSkills();
       } catch (error) {
         console.log(`Error getting skills on initial load:=> ${error}`)
       }
     }
     loadInitialData();
     
-    getResources();    
-  }, []); 
-
+    
+  }, [!skills]); 
 
   if (user) {
 
@@ -289,7 +289,7 @@ export default function App() {
           userSkills: userSkills,
           activeSub: activeSub,
           
-          
+          handleSignUpOrLogin: handleSignUpOrLogin,
           createSkill: handleCreateSkill,
           getSkills: getSkills,
           deleteSkill: handleDeleteSkill,
@@ -299,6 +299,7 @@ export default function App() {
           handleSetActiveSub: handleSetActiveSub,
           handleCreateSubSkill: handleCreateSubSkill,
           handleAddResource: handleAddResource,
+          
        
       }}>
         <SkillsDispatchContext.Provider value={dispatch}>
@@ -328,7 +329,7 @@ export default function App() {
       />
       <Route
         path="/signup"
-        element={<SignUpPage handleSignUpOrLogin={handleSignUpOrLogin} />}
+        element={<SignUpPage handleSignUpOrLogin={handleSignUpOrLogin} getSkills={getSkills} />}
       />
       <Route path="/*" element={<Navigate to="/login" />} />
     </Routes>

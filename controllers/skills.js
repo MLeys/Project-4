@@ -64,7 +64,7 @@ async function allSkills(req, res) {
 			path: 'subSkills',
 			populate: [
 				{
-					path: 'resources-m "',
+					path: 'resources',
 					model: 'Resource'
 				},
 				{

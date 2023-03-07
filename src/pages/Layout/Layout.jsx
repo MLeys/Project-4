@@ -1,6 +1,5 @@
-import React, { useContext } from 'react'
 import { Link, Outlet } from "react-router-dom";
-import { useState, useEffect, useReducer} from "react";
+import { useState, useEffect, useReducer, useContext} from "react";
 import { useImmerReducer} from 'use-immer';
 
 import {
@@ -27,6 +26,8 @@ import MainFooter from '../../components/MainFooter/MainFooter';
 import SkillList from '../../components/SkillList/SkillList.jsx';
 
 function Layout({ handleLogout }) {
+  const ctx = useContext(SkillsContext)
+  const getSkills = ctx.getSkills;
 
   const [sidebarState, sidebarDispatch] = useReducer(SidebarReducer, {
     animation: 'push',
@@ -37,7 +38,7 @@ function Layout({ handleLogout }) {
   const { animation, dimmed, direction, visible } = sidebarState;
 
   useEffect(() => {
- 
+    getSkills();
   }, []); 
 
   return (

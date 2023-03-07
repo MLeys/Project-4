@@ -19,8 +19,8 @@ function handleSubSkillClick(e, subSkill) {
 function SubSkillAccordion({skill}) {
     return (  
         <Accordion styled>
-        {skill.subSkills.map((subSkill) => (
-          <div key={subSkill._id} onClick={(e) => handleSubSkillClick(e, subSkill)}>
+        {skill.subSkills.map((subSkill, index) => (
+          <div key={`${skill._id}-subSkillIdx-${index}`} onClick={(e) => handleSubSkillClick(e, subSkill)}>
             <Accordion.Title active={false}>
               <Icon name="dropdown" />
               {subSkill.title}
@@ -45,8 +45,8 @@ function SubSkillAccordion({skill}) {
             <Accordion.Content>
               <p>{subSkill.details}</p>
               <ul>
-                {subSkill.resources.map((resource) => (
-                  <li key={resource._id}>
+                {subSkill.resources.map((resource, index) => (
+                  <li key={`resourceAccordian-${resource._id}-${index}`}>
                     <a href={resource.link} target="_blank" rel="noopener noreferrer">{resource.name}</a>
                   </li>
                 ))}

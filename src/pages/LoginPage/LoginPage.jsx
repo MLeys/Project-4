@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from 'react'
+import { useState, useEffect } from "react";
 import './LoginPage.css';
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import userService from "../../utils/userService";
@@ -14,7 +13,8 @@ import {
   Segment,
 } from "semantic-ui-react";
 
-export default function LoginPage({handleSignUpOrLogin}) {
+
+export default function LoginPage({handleSignUpOrLogin, getSkills}) {
   const [error, setError] = useState("");
   const [state, setState] = useState({
     email: "",
@@ -22,6 +22,15 @@ export default function LoginPage({handleSignUpOrLogin}) {
   });
 
   const navigate = useNavigate();
+
+  async function loadInitialData() {
+    try {
+      console.log("**** LOADING INITIAL DATA ****")
+      getSkills();
+    } catch (error) {
+      console.log(`Error getting skills on initial load:=> ${error}`)
+    }
+  }
 
   function handleChange(e) {
     setState({
@@ -32,9 +41,7 @@ export default function LoginPage({handleSignUpOrLogin}) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-
     try {
-      
       await userService.login(state);
       // Route to wherever you want!
       handleSignUpOrLogin();
@@ -45,6 +52,10 @@ export default function LoginPage({handleSignUpOrLogin}) {
       setError(err.message);
     }
   }
+
+  useEffect(() => {
+    loadInitialData();
+  }, []); 
 
   return (
     <Grid
@@ -75,7 +86,7 @@ export default function LoginPage({handleSignUpOrLogin}) {
               required
             />
             <Button
-              color="gray"
+              color="grey"
               fluid
               size="large"
               type="submit"
