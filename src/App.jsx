@@ -262,7 +262,16 @@ export default function App() {
   }
 
   useEffect(() => {
-    getSkills();
+    async function loadInitialData() {
+      try {
+        console.log("**** LOADING INITIAL DATA ****")
+        await getSkills();
+      } catch (error) {
+        console.log(`Error getting skills on initial load:=> ${error}`)
+      }
+    }
+    loadInitialData();
+    
     getResources();    
   }, []); 
 
@@ -291,10 +300,6 @@ export default function App() {
           handleCreateSubSkill: handleCreateSubSkill,
           handleAddResource: handleAddResource,
        
-
-          
-
-          
       }}>
         <SkillsDispatchContext.Provider value={dispatch}>
           <Routes>

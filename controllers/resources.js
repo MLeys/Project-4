@@ -37,7 +37,7 @@ async function create(req, res) {
 			path: 'subSkills',
 			populate: [
 				{
-					path: 'resources',
+					path: 'resources-m "',
 					model: 'Resource'
 				},
 				{

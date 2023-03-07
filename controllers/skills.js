@@ -56,7 +56,27 @@ async function allSkills(req, res) {
   try {
     console.log("allskills ctrl")
     // this populates the user when you find the skills
-    const skills = await Skill.find({}).populate("usersAssigned").populate("subSkills").exec(); // populating on the model
+    const skills = await Skill.find({})
+    .populate("usersAssigned")
+		.populate("resources")
+    .populate("subSkills")
+		.populate({
+			path: 'subSkills',
+			populate: [
+				{
+					path: 'resources-m "',
+					model: 'Resource'
+				},
+				{
+					path: 'usersAssigned',
+					model: 'User'
+				}
+			]
+		})
+    .exec();;
+    
+    
+    
     res.status(200).json({ data: skills });
   } catch (err) {
     res.status(400).json({ err });
