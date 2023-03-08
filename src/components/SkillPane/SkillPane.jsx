@@ -17,7 +17,8 @@ import SubSkillsTabDisplay from "../SubSkillsTabDisplay/SubSkillsTabDisplay";
 
 function SkillPane() {
   const ctx = useContext(SkillsContext)
-  const skill = ctx.activeSkill?.skill;
+	const skills = ctx.skills;
+  const skill = ctx.activeSkill?.skil;
 
 
 	

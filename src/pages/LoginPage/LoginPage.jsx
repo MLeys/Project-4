@@ -23,14 +23,6 @@ export default function LoginPage({handleSignUpOrLogin, getSkills}) {
 
   const navigate = useNavigate();
 
-  async function loadInitialData() {
-    try {
-      console.log("**** LOADING INITIAL DATA ****")
-      getSkills();
-    } catch (error) {
-      console.log(`Error getting skills on initial load:=> ${error}`)
-    }
-  }
 
   function handleChange(e) {
     setState({
@@ -52,10 +44,6 @@ export default function LoginPage({handleSignUpOrLogin, getSkills}) {
       setError(err.message);
     }
   }
-
-  useEffect(() => {
-    loadInitialData();
-  }, []); 
 
   return (
     <Grid

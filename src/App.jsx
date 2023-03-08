@@ -33,14 +33,26 @@ export default function App() {
   const [userSkills, setUserSkills] = useState([])
   const [activeSkillIndex, setActiveSkillIndex] = useState(-1)
   const [resources, setResources] = useState([]);
+
+  const loggedUser = userService.getUser();
   
-  const [activeSkill, setActiveSkill] = useState({});
+  const [activeSkill, setActiveSkill] = useState({
+    index: -1,
+    skill: {},
+    subSkills: []
+  });
   const [activeSub, setActiveSub] = useState({
-    index: 0,
+    index: -1,
     subSkill: {},
     resources: [],
   });
 
+  function handleSetUserSkills(skillsArray) {
+      const assignedSkills =skillsArray?.filter((skill => skill.usersAssigned.some(u => u._id === user._id)))
+      // console.log(assignedSkills, "USERS SKILLS (getSkills)")
+      setUserSkills(assignedSkills)
+      console.log(" END OF HANDLE SETUSERSKILLS ")
+  }
 
   function handleSetActiveSub(index){
     const skillIndex = activeSkill?.index;
@@ -54,17 +66,50 @@ export default function App() {
 
   function handleSetActiveSkill(index){
     console.log("^^^ handleSetActiveSkill ^^^");
-    if (skills) {
-      setActiveSkill({
-        ...activeSkill,
-        index: index,
-        skill: skills[index],
-        subSkills: skills[index].subSkills
-      })
-      setActiveSkillIndex(index);
-    }
+    setActiveSkill({
+      ...activeSkill,
+      index: index,
+      skill: skills[index],
+      subSkills: skills[index].subSkills
+    })
+    setActiveSkillIndex(index);
+    
   }
 
+  function setInitialActiveSkill(firstIndex){
+    console.log("==== setting initial active skill ====")
+    console.log(!!activeSkill.index, 'active skill')
+
+    if (!!activeSkill.index === true) {
+      console.log("TRUE")
+    } else {
+      console.log("FALSE")
+    }
+    
+    if (!!activeSkill.index === true) {
+      const skill = skills[firstIndex];
+      console.log(skill, " SKILL initial set")
+      const subSkills = skill.subSkills;
+      setActiveSkill({
+        ...activeSkill,
+        index: firstIndex,
+        skill: skill,
+        subSkills: subSkills
+      })
+      if (!!activeSub.index === true) {
+        const subSkill = subSkills[0];
+        const resources = subSkill.resources;
+        setActiveSub({
+          ...activeSub,
+          index: 0,
+          subSkill: subSkill,
+          resources: resources
+        })
+      }
+    }
+    console.log( " === end of set initial active skill === ")
+
+  }
 
   async function handleCreateSkill(data) {
     try {
@@ -83,17 +128,21 @@ export default function App() {
   async function getSkills() {
     try {
       const response = await skillsApi.getAll(user._id);
+
       dispatch({
         type: 'readSkills',
         data: response.skills //COULD BE .skills *****
       })
-      console.log(response, "<---- getSkills Response")
-      // const assignedSkills =response.data?.filter((skill => skill.usersAssigned.some(u => u._id === user._id)))
-      // console.log(assignedSkills, "USERS SKILLS (getSkills)")
-      setUserSkills(response.userSkills)
+      // console.log(response, "<---- getSkills Response")
+
+      handleSetUserSkills(response.userSkills);
+      setInitialActiveSkill(response.firstSkillIndex);
+      console.log(" after setting in get skills ")
+      (activeSkill.index < 0 ) ? setInitialActiveSkill(response.firstSkillIndex) : '';
+
 
     } catch (err) {
-      setError(console.log(`*** Error READ SKILL ****\n ${err}`))
+      setError(`*** Error READ SKILL ****\n ${err}`)
     }
     // console.log(skills, "End of getSkills")
   }
@@ -186,8 +235,6 @@ export default function App() {
         resource: response,
       })
 
-
-
       getSkills();
 
     } catch (err) {
@@ -257,23 +304,6 @@ export default function App() {
     userService.logout();
     setUser(null);
   }
-
-  // async function loadInitialData() {
-  //   try {
-  //     await getSkills();
-  //     await setUserSkills(skills?.filter((skill => skill.usersAssigned.some(u => u._id === loggedUser._id))));
-  //     const assignedSkills = skills?.filter((skill => skill.usersAssigned.some(u => u._id === loggedUser._id)))
-  //     const firstUserSkillId = assignedSkills[0]?._id;
-  //     const userFirstIndex = skills?.findIndex((skill) => skill._id === firstUserSkillId)
-  //     console.log(userFirstIndex, "==== first user skill index")
-      
-  //     handleSetActiveSkill(userFirstIndex)
-  //   } catch (error) {
-  //     console.log(`Error loading skills on dash==> ${error}`)
-        
-  //   }
-  //   console.log("cannot load becuse userskills null")
-  // }
 
   useEffect(() => {
     getSkills();

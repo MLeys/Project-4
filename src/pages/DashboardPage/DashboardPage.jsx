@@ -19,33 +19,14 @@ import SkillPane from "../../components/SkillPane/SkillPane";
 
 function DashboardPage() {
   const ctx = useContext(SkillsContext);
+  const activeSkill = ctx.activeSkill;
   const loggedUser = ctx.loggedUser;
   const getSkills = ctx.getSkills;
   const handleSetActiveSkill = ctx.handleSetActiveSkill
   const activeSkillIndex = ctx.activeSkillIndex
   const skills = ctx.skills;
   const userSkills = ctx.userSkills;
-  // const firstUserSkillId = userSkills[0]?._id;
-  // const userFirstIndex = skills?.findIndex((skill) => skill._id === firstUserSkillId)
-  // console.log(userFirstIndex, "==== first user skill index")
 
-  // async function loadData() {
-  //   try {
-  //     await getSkills();
-  //     const assignedSkills = skills?.filter((skill => skill.usersAssigned.some(u => u._id === loggedUser._id)))
-  //     const firstUserSkillId = assignedSkills[0]?._id;
-  //     const userFirstIndex = skills?.findIndex((skill) => skill._id === firstUserSkillId)
-  //     console.log(userFirstIndex, "==== first user skill index")
-      
-  //     handleSetActiveSkill(userFirstIndex)
-  //   } catch (error) {
-  //     console.log(`Error loading skills on dash==> ${error}`)
-        
-  //   }
-  //   console.log("cannot load becuse userskills null")
-
-  // }
-  
 
 	const skillPanes = userSkills?.map((skill, index) => ({
   
@@ -69,7 +50,7 @@ function DashboardPage() {
 	}));
 
   useEffect(() => {
-    // loadData();
+    
   }, []); 
 
   function handleTabChange(e, data) {
@@ -84,7 +65,7 @@ function DashboardPage() {
   return (
       <Container fluid={true} className='fullScreenHeight'>
         <Tab
-          defaultActiveIndex={0}
+          
           menu={{
             id: 'skillTabs',
             fluid: true,
