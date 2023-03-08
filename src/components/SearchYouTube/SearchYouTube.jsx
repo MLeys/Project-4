@@ -30,7 +30,6 @@ function SearchYouTube() {
 	const handleAddResource = ctx.handleAddResource;
 	const subSkill = ctx.activeSub.subSkill
 	
-
 	const [search, setSearch] = useState('');
 	const [results, setResults] = useState([]);
 
@@ -121,8 +120,6 @@ function SearchYouTube() {
 				const resource = result;
 				const resultIndex = index;
 				return (
-					
-					
 					<Card key={`result-${index}-${resource.videoId}`} >
 						<Embed
 							autoplay={false}
@@ -158,18 +155,10 @@ function SearchYouTube() {
 						</div>
 						</Card.Content>
 					</Card>
-				
 				)
 			})
 		}
-		</Card.Group>
-					
-					
-
-				
-
-				
-			
+					</Card.Group>
 		</Container>
 
 

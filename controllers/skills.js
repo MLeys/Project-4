@@ -1,8 +1,5 @@
 import User from "../models/user.js";
 import Skill from '../models/skill.js';
-import deepPopulate from 'mongoose-deep-populate';
-
-
 
 export default {
   create,
