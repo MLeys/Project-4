@@ -28,6 +28,8 @@ function SearchYouTube() {
 	const subIndex = ctx.activeSub.index;
 	const subSkills = skill.subSkills;
 	const handleAddResource = ctx.handleAddResource;
+	const subSkill = ctx.activeSub.subSkill
+	
 
 	const [search, setSearch] = useState('');
 	const [results, setResults] = useState([]);
@@ -35,9 +37,9 @@ function SearchYouTube() {
 	
 
 	async function searchYouTube(search) {
-		console.log('start search funct')
+		console.log('start search funct', skill.name, subSkill.title)
 		try {
-			const response = await youTubeApi.searchYouTube(search);
+			const response = await youTubeApi.searchYouTube(search, skill.name, subSkill.title);
 			console.log(response, " <------ response from YOUTUBE SEARCH");
 		
 			setResults([...response])
@@ -110,8 +112,6 @@ function SearchYouTube() {
 
 					<Form.Button> Search YouTube </Form.Button>
 				</Form.Group>
-
-				
 			</Form>
 				
 				<Card.Group>

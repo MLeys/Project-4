@@ -23,10 +23,10 @@ function SubSkillPane() {
 
 
 	return (
-		<>
-		Hello bitchjh
-		</>
-
+		<Segment.Group className="subSkillPaneContainer">sdfada
+				<AddResourceDisplay />fdaf
+						THIS IS OTHER INFOMATION - BODY OF RESOURCES START
+		</Segment.Group>
 	)
 }
 export default SubSkillPane;
