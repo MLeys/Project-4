@@ -19,21 +19,18 @@ function SubSkillsTabDisplay() {
 	const ctx = useContext(SkillsContext)
 	const skills = ctx.skills;
 	const skill = ctx.skill;
-	const firstActiveSkill = skills[ctx.activeSkillIndex]
 	const activeSkillIndex = ctx.activeSkill?.index;
-	const subSkills = ctx.skills[activeSkillIndex]?.subSkills;
+	const subSkills = ctx.activeSkill?.subSkills;
 	
 	const handleSetActiveSub = ctx.handleSetActiveSub;
 
-	
-
 	const subPanes = subSkills?.map((sub, index) => ({
+		
 		menuItem: sub.title,
 		pane: (
-			<Tab.Pane as={Container}			
-				children={ 
-				<SubSkillPane />} 
-			/>
+			<Tab.Pane>
+				<SubSkillPane  />
+			</Tab.Pane>		
 		)
 	}));
 
@@ -55,17 +52,14 @@ function SubSkillsTabDisplay() {
 
   return (
     <>
-      <Container 
-				fluid={true} 
-				style={{ backgroundColor: 'teal'}} 
-				className='fullScreenHeight'
-			>
+Before tab
         <Tab 
-					
+					renderActiveOnly={false}
 					panes={subPanes} 
 					onTabChange={ (e, data) => handleTabChange(e,data)}
       	/>
-      </Container>
+			<Segment> SubSkillsTabDisplay After tab declare</Segment>
+      
 			
     </>
   );

@@ -18,7 +18,7 @@ import SubSkillsTabDisplay from "../SubSkillsTabDisplay/SubSkillsTabDisplay";
 function SkillPane() {
   const ctx = useContext(SkillsContext)
 	const skills = ctx.skills;
-  const skill = ctx.activeSkill?.skil;
+  const skill = ctx.activeSkill?.skill;
 
 
 	
@@ -31,10 +31,15 @@ function SkillPane() {
       </Header>
       <SubSkillPortal skill={skill} />
 			<SkillAssignCornerBtn />
-			
-      <Grid.Row className="subSkillDisplayTab-row">
-        <SubSkillsTabDisplay />
-      </Grid.Row>
+			<Container 
+				as={Segment}
+				fluid={true} 
+				style={{ backgroundColor: 'teal'}} 
+				className='fullScreenHeight'
+			>
+				<SubSkillsTabDisplay />
+			</Container>
+			<Segment> Last Sement on Skill Pane</Segment>
 
  		</Grid>
 

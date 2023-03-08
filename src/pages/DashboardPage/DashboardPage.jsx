@@ -63,16 +63,16 @@ function DashboardPage() {
   }
   
   return (
-      <Container fluid={true} className='fullScreenHeight'>
+    // className='fullScreenHeight'
+      <Container fluid={true} >
         <Tab
-          
           menu={{
             id: 'skillTabs',
             fluid: true,
             color: 'purple', 
             inverted: true, 
             attached: false, 
-            tabular: false, 
+            tabular: true, 
             vertical: true, 
           }}
           grid ={{ paneWidth: 14, tabWidth: 2 }} 
@@ -80,7 +80,7 @@ function DashboardPage() {
           onTabChange={ (e, data) => handleTabChange(e,data)}
           menuPosition='left'
       />
-      <Segment> End</Segment>
+      <Segment> Last Segment on Dashboard </Segment>
     </Container>
     
   )

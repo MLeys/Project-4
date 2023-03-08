@@ -77,18 +77,10 @@ export default function App() {
   }
 
   function setInitialActiveSkill(firstIndex){
-    console.log("==== setting initial active skill ====")
-    console.log(!!activeSkill.index, 'active skill')
 
     if (!!activeSkill.index === true) {
-      console.log("TRUE")
-    } else {
-      console.log("FALSE")
-    }
-    
-    if (!!activeSkill.index === true) {
+      console.log("==== setting initial active skill ====")
       const skill = skills[firstIndex];
-      console.log(skill, " SKILL initial set")
       const subSkills = skill.subSkills;
       setActiveSkill({
         ...activeSkill,
@@ -107,8 +99,6 @@ export default function App() {
         })
       }
     }
-    console.log( " === end of set initial active skill === ")
-
   }
 
   async function handleCreateSkill(data) {
