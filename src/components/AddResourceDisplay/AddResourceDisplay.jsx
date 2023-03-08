@@ -40,21 +40,17 @@ function AddResourceDisplay() {
 
 	return (  
 		<>
-			
-				<Header  inverted={true} color='blue' >
-					{subSkill?.title}
-				</Header>
-				<Label
-					as='a'
-					content='Add Resource'
-					color="green" 
-					attached='top right'
-					icon='plus' 
-					size="small" 
-					active={false}
-					disabled={formPop}
-					onClick={handleOpen} 
-				/>
+			<Label
+				as='a'
+				content='Add Resource'
+				color="green" 
+				attached='top right'
+				icon='plus' 
+				size="small" 
+				active={false}
+				disabled={formPop}
+				onClick={handleOpen} 
+			/>
 			
 			
 			<Portal onClose={handleClose} open={open}>

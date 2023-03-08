@@ -34,8 +34,13 @@ function SkillPane() {
 			<Container 
 				as={Segment}
 				fluid={true} 
-				style={{ backgroundColor: 'teal'}} 
+				style={{ 
+					color: 'white',
+					marginTop: 0,
+					backgroundColor: 'teal'
+				}} 
 				className='fullScreenHeight'
+
 			>
 				<SubSkillsTabDisplay />
 			</Container>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 
 import { 
     Card,
@@ -7,36 +7,11 @@ import {
 
 } from 'semantic-ui-react';
 
-function ResourceCard({liftYouTubeSearchResults, youTubeSearchResults, 
-	skill,
-	skillResources, handleAddResource,
-	loggedUser
-}) {
-	const [resources, setResources] = useState([]);
-	const [selected, setSelected] = useState({});
-	const [addResource, setAddResource] = useState({})
+import { SkillsContext } from '../../context/SkillsContext/SkillsContext';
 
-	function handleSelect(e, resource, index) {
-		e.preventDefault();
-		setAddResource({
-			...addResource,
-			title: resources[index].title,
-			videoId: resources[index].videoId,
-			description: resources[index].description,
-			thumbnail: resources[index].thumbnail,
-			datePublished: resources[index].publishTime,
-			skillId: skill._id,
-			userId: loggedUser._id,
-			source: 'youtube'
-		})
-		console.log(`addResource(resourceCard-handleSelect): ${addResource}`)
-		handleAddResource(addResource);
-
-	}
-	
-
-
-
+function ResourceCard() {
+	const ctx = useContext(SkillsContext);
+	const resources = ctx.activeSub.resources;
 
 	return (
 	<>{
