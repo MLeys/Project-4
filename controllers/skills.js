@@ -85,8 +85,8 @@ async function allSkills(req, res) {
       return skill.usersAssigned.some(user => user._id.toString() === req.params.id);
     })
     ;
-    console.log(skills[0]," skills[0]")
-    console.log(userSkills[0], "<==== userSkills[0]0 from controller filter at getAll")
+    // console.log(skills[0]," skills[0]")
+    // console.log(userSkills[0], "<==== userSkills[0]0 from controller filter at getAll")
     
     // find cooresponding skill index inskilsl of the userskill at [0] and match to cooresponsing 
     const firstSkillIndex = skills.findIndex(skill => skill._id === userSkills[0]._id)

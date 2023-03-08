@@ -20,7 +20,7 @@ function ResourceCard() {
 				
 				<Card 
 					key={`${resource.videoId}-${index}`}
-					onClick={(e, resource)=>{handleSelect(e, resource, index)}}
+					
 						
 				>
 					<Embed

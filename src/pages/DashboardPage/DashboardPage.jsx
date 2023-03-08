@@ -22,14 +22,15 @@ function DashboardPage() {
   const activeSkill = ctx.activeSkill;
   const loggedUser = ctx.loggedUser;
   const getSkills = ctx.getSkills;
-  const handleSetActiveSkill = ctx.handleSetActiveSkill
-  const activeSkillIndex = ctx.activeSkillIndex
+  const handleSetActiveSkill = ctx.handleSetActiveSkill;
+  const handleSetActiveSub = ctx.handleSetActiveSub;
+  const activeSkillIndex = ctx.activeSkillIndex;
   const skills = ctx.skills;
   const userSkills = ctx.userSkills;
 
 
 	const skillPanes = userSkills?.map((skill, index) => ({
-  
+    
     menuItem: (
       <Menu.Item className="skill_pane" key={`pane-${skill?.name}-${index}`} >
         <Progress 
@@ -58,14 +59,16 @@ function DashboardPage() {
 
     const userSkillId = userSkills[activeIndex]._id;
     const skillIndex = skills?.findIndex(skill => skill._id === userSkillId)
-    console.log(`userSkillIndex: ${activeIndex}\nskillIndex: ${skillIndex}\nactiveSkill: ${userSkills[activeIndex].name}`)
+    // console.log(`userSkillIndex: ${activeIndex}\nskillIndex: ${skillIndex}\nactiveSkill: ${userSkills[activeIndex].name}`)
     handleSetActiveSkill(skillIndex)
+    handleSetActiveSub(0)
   }
   
   return (
     // className='fullScreenHeight'
       <Container fluid={true} >
         <Tab
+          
           menu={{
             id: 'skillTabs',
             fluid: true,

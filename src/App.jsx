@@ -54,14 +54,15 @@ export default function App() {
       console.log(" END OF HANDLE SETUSERSKILLS ")
   }
 
-  function handleSetActiveSub(index){
-    const skillIndex = activeSkill?.index;
+  function handleSetActiveSub(subIndex){
+    const skillIndex = activeSkill.index;
       setActiveSub({
         ...activeSub,
-        index: index,
-        subSkill: skills[skillIndex]?.subSkills[index],
-        resources: skills[skillIndex]?.subSkills[index]?.resources
+        index: subIndex,
+        subSkill: skills[skillIndex]?.subSkills[subIndex],
+        resources: skills[skillIndex]?.subSkills[subIndex]?.resources
       })
+      console.log(`Active Subskill\nIndex: ${subIndex}\nTitle:: ${skills[skillIndex]?.subSkills[subIndex].title}\nnumResources: ${skills[skillIndex]?.subSkills[subIndex].resources?.length} `)
   }
 
   function handleSetActiveSkill(index){
@@ -72,6 +73,9 @@ export default function App() {
       skill: skills[index],
       subSkills: skills[index].subSkills
     })
+    console.log(`Active Skill\nIndex: ${index}\nname: ${skills[index].name}\nnumSubSkills: ${skills[index].subSkills.length} `)
+
+    
     setActiveSkillIndex(index);
     
   }
@@ -118,19 +122,23 @@ export default function App() {
   async function getSkills() {
     try {
       const response = await skillsApi.getAll(user._id);
+      
 
       dispatch({
         type: 'readSkills',
         data: response.skills //COULD BE .skills *****
       })
-      // console.log(response, "<---- getSkills Response")
-
       handleSetUserSkills(response.userSkills);
-      setInitialActiveSkill(response.firstSkillIndex);
+      console.log((!!activeSkill.index === -1) === true, " no active skill ")
+      // console.log(response, "<---- getSkills Response")
+      if (!!activeSkill.index === true) {
+        console.log(!!activeSkill.index === true," hitting in get")
+        setActiveSkillIndex(response.firstSkillIndex)
+        
+        setInitialActiveSkill(response.firstSkillIndex);
+      }
+
       console.log(" after setting in get skills ")
-      (activeSkill.index < 0 ) ? setInitialActiveSkill(response.firstSkillIndex) : '';
-
-
     } catch (err) {
       setError(`*** Error READ SKILL ****\n ${err}`)
     }
@@ -203,6 +211,7 @@ export default function App() {
 
 
   async function handleAddResource(data) {
+    console.log(data, "<=== add resource data ")
     console.log(`Data(before): ${data}`)
     /// ADD LOGIC TO NOT ADD OF ALREADY ADDED
     const resource = ({

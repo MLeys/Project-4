@@ -33,8 +33,6 @@ function SearchYouTube() {
 
 	const [search, setSearch] = useState('');
 	const [results, setResults] = useState([]);
-	const [addResource, setAddResource] = useState({})
-	
 
 	async function searchYouTube(search) {
 		console.log('start search funct', skill.name, subSkill.title)
@@ -49,7 +47,10 @@ function SearchYouTube() {
 	}
 	
 	function handleAddResourceClick(e, resource) {
-		console.log(resource, "<- resource clicked")
+		e.preventDefault();
+		// ADD PARAMS TO REMOVE FROM results WHEN CLICKED
+		
+		// console.log(resource, "<- resource clicked")
 		const data = {
 			title: resource.title,
 			videoId: resource.videoId,
@@ -63,18 +64,18 @@ function SearchYouTube() {
 			skillIndex: skillIndex,
 			subIndex: subIndex
 		}
-		e.preventDefault();
-		setAddResource({
-			...addResource,
-			title: resource.title,
-			videoId: resource.videoId,
-			description: resource.description,
-			thumbnail: resource.thumbnail,
-			datePublished: resource.publishTime,
-			skillId: skill._id,
-			userId: loggedUser._id,
-			source: 'youtube'
-		})
+		
+		// setAddResource({
+		// 	...addResource,
+		// 	title: resource.title,
+		// 	videoId: resource.videoId,
+		// 	description: resource.description,
+		// 	thumbnail: resource.thumbnail,
+		// 	datePublished: resource.publishTime,
+		// 	skillId: skill._id,
+		// 	userId: loggedUser._id,
+		// 	source: 'youtube'
+		// })
 		handleAddResource(data);
 		
 	}
