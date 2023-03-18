@@ -11,7 +11,6 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 import logger from 'morgan';
 import favicon  from 'serve-favicon';
-import serveFavicon from 'serve-favicon';
 
 import './config/database.js'
 
@@ -22,13 +21,16 @@ app.set('view engine', 'ejs');
 
 // console.log(assetsRouter)
 // add in when the app is ready to be deployed
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(express.json());
 // app.use("/src", assetsRouter);
 // Configure the auth middleware
 // This decodes the jwt token, and assigns
 // the user information to req.user
+app.use(favicon(path.join(__dirname,'public','images','favicon.ico')));
+
+
 import auth from './config/auth.js'
 
 app.use(auth); 
