@@ -7,7 +7,6 @@ Created by:  Mike Leys
 ## About
 Skill.map is meant to be a tool used to track all of the resources, progress, and what skills you want to learn as a full-stack developer
 
-
 As a new user, create a new account by entering your name, username, email and password. If you already have an account, click **Log In** and login to your credentials.
 **Sign Up**
 ![Signup](https://i.imgur.com/9wQIP5lm.png)
