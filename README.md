@@ -7,13 +7,25 @@ Created by:  Mike Leys
 ## About
 Skill.map is meant to be a tool used to track all of the resources, progress, and what skills you want to learn as a full-stack developer
 
+Skill.map is a full-stack web application which serves as a skill development hub. The application uses the MERN stack, which is a combination of MongoDB, Express.js, React, and Node.js. This allows for a seamless integration of the frontend and backend of the application.
+
+Skill.map includes two external APIs, OpenAI and YouTube, which provide users with helpful tools and learning resources. The OpenAI API provides access to natural language processing tools, allowing users to generate text and perform language-related tasks. The YouTube API allows users to search for and watch relevant video content related to their chosen skill.
+
+To ensure the security of the application, JSON Web Token (JWT) authentication is integrated into the application. This allows users to securely access their account and limit access for single users.
+
+The user experience of Skill.map has been designed using over twenty Semantic UI React elements, views, modules, and collections. This ensures that the application is visually appealing, easy to navigate, and provides a seamless user experience.
+
+Overall, the project demonstrates the use of modern web development technologies to create a functional and visually appealing full-stack web application that serves as a skill development hub. The integration of external APIs and JWT authentication ensures that users have access to helpful tools and resources while maintaining the security of the application.
+
+
+##How to use!
 As a new user, create a new account by entering your name, username, email and password. If you already have an account, click **Log In** and login to your credentials.
 **Sign Up**
 ![Signup](https://i.imgur.com/9wQIP5lm.png)
 **Log In**
 ![Login](https://i.imgur.com/c0BFXCjm.png)
 
-## Landing Page 
+### Landing Page 
 #### View all available skills and assign/ or unassign them to your acccount. Edit or add subskills to a skill.
 ![LandingPage](https://i.imgur.com/dm36aRym.png)
 ![LandingPage](https://i.imgur.com/gSZOyzBm.png)
