@@ -5,8 +5,6 @@ Created by:  Mike Leys
 [Launch Skill.map on Cyclic!](https://skills-map.cyclic.app)
 
 ## About
-Skill.map is meant to be a tool used to track all of the resources, progress, and what skills you want to learn as a full-stack developer
-
 Skill.map is a full-stack web application which serves as a skill development hub. The application uses the MERN stack, which is a combination of MongoDB, Express.js, React, and Node.js. This allows for a seamless integration of the frontend and backend of the application.
 
 Skill.map includes two external APIs, OpenAI and YouTube, which provide users with helpful tools and learning resources. The OpenAI API provides access to natural language processing tools, allowing users to generate text and perform language-related tasks. The YouTube API allows users to search for and watch relevant video content related to their chosen skill.
