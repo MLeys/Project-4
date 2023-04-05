@@ -15,21 +15,28 @@ import AddResourceDisplay from "../AddResourceDisplay/AddResourceDisplay";
 import ResourceDisplay from "../ResourceDisplay/ResourceDisplay"
 
 function SubSkillPane() {
+	const [activeSubIndex, setActiveSubIndex] = useState(0)
+
 	const ctx = useContext(SkillsContext);
 	const subCtx = ctx.activeSub;
+
 	const subSkill = subCtx.subSkill;
 	const resources = subCtx.resources;
 
-	
 
+	
+	useEffect(() => {
+
+		console.log("subskillpane useeffect")
+	}, [])
 
 	return (
 		<Container className="subSkillPaneContainer">
-				<Header  inverted={true} color='purple' as='h2' >
-					{subSkill?.title}
+				<Header  inverted={false} color='purple' as='h2' >
+					{subSkill?.title} ff
 				</Header>
 				<AddResourceDisplay />
-				<ResourceDisplay />
+				{/* <ResourceDisplay /> */}
 		</Container>
 	)
 }

@@ -2,6 +2,8 @@ import { Link, Outlet } from "react-router-dom";
 import { useState, useEffect, useReducer, useContext} from "react";
 import { useImmerReducer} from 'use-immer';
 
+
+
 import {
   Segment,
   Sidebar,
@@ -42,12 +44,12 @@ function Layout({ handleLogout }) {
   }, []); 
 
   return (
-    <Container  style={{ margin: 0, padding: 0, minHeight: '98vh', width: '98vw' }}>
+    <Container className="layoutCtnr" fluid={true} style={{minWidth: '100dvw', margin: 0, padding: 0}}>
 
   
     <FixedMenuHeader handleLogout={handleLogout} sidebarDispatch={sidebarDispatch}/>
 
-      <Sidebar.Pushable as={Segment} inverted style={{ overflow: 'hidden', margin: 0, padding: 0  }}>
+      <Sidebar.Pushable as={Segment} style={{ overflow: 'hidden', margin: 0, padding: 0  }}>
         <VerticalSidebar
           animation={animation}
           direction={direction}

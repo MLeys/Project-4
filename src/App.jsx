@@ -19,11 +19,11 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 
 import userService from "./utils/userService";
-import * as skillsApi from "/src/utils/skillApi.js"
-import * as subSkillsApi from "./utils/subSkillApi.js"
-import * as youTubeApi from "./utils/youTubeApi.js"
-import * as chatGPT3Api from "./utils/chatGPT3Api.js"
-import * as resourcesApi from "./utils/resourceApi.js"
+import * as skillsApi from "/src/utils/skillApi.js";
+import * as subSkillsApi from "./utils/subSkillApi.js";
+import * as youTubeApi from "./utils/youTubeApi.js";
+import * as chatGPT3Api from "./utils/chatGPT3Api.js";
+import * as resourcesApi from "./utils/resourceApi.js";
 
 export default function App() {
   const navigate = useNavigate();
@@ -33,6 +33,7 @@ export default function App() {
   const [userSkills, setUserSkills] = useState([])
   const [activeSkillIndex, setActiveSkillIndex] = useState(-1)
   const [resources, setResources] = useState([]);
+  
 
   const loggedUser = userService.getUser();
   
@@ -54,35 +55,34 @@ export default function App() {
       console.log(" END OF HANDLE SETUSERSKILLS ")
   }
 
-  function handleSetActiveSub(subIndex){
+  async function handleSetActiveSub(subIndex=0){
     const skillIndex = activeSkill.index;
       setActiveSub({
         ...activeSub,
         index: subIndex,
         subSkill: skills[skillIndex]?.subSkills[subIndex],
         resources: skills[skillIndex]?.subSkills[subIndex]?.resources
-      })
-      console.log(`Active Subskill\nIndex: ${subIndex}\nTitle:: ${skills[skillIndex]?.subSkills[subIndex].title}\nnumResources: ${skills[skillIndex]?.subSkills[subIndex].resources?.length} `)
-  }
+      });
+      
+      // console.log(`Active Subskill\nIndex: ${subIndex}\nTitle:: ${skills[skillIndex]?.subSkills[subIndex].title}\nnumResources: ${skills[skillIndex]?.subSkills[subIndex].resources?.length} `)
+    }
 
-  function handleSetActiveSkill(index){
-    console.log("^^^ handleSetActiveSkill ^^^");
+  function handleSetActiveSkill(index=0){
+    // console.log("^^^ handleSetActiveSkill ^^^");
     setActiveSkill({
       ...activeSkill,
       index: index,
       skill: skills[index],
       subSkills: skills[index].subSkills
     })
-    console.log(`Active Skill\nIndex: ${index}\nname: ${skills[index].name}\nnumSubSkills: ${skills[index].subSkills.length} `)
-
-    
+    // console.log(`Active Skill\nIndex: ${index}\nname: ${skills[index].name}\nnumSubSkills: ${skills[index].subSkills.length} `)
     setActiveSkillIndex(index);
-    
+    handleSetActiveSub();
   }
 
   function setInitialActiveSkill(firstIndex){
 
-    if (!!activeSkill.index === true) {
+    if (activeSkill.index === true) {
       console.log("==== setting initial active skill ====")
       const skill = skills[firstIndex];
       const subSkills = skill.subSkills;
@@ -92,7 +92,7 @@ export default function App() {
         skill: skill,
         subSkills: subSkills
       })
-      if (!!activeSub.index === true) {
+      if (activeSub.index === true) {
         const subSkill = subSkills[0];
         const resources = subSkill.resources;
         setActiveSub({
@@ -122,8 +122,6 @@ export default function App() {
   async function getSkills() {
     try {
       const response = await skillsApi.getAll(user._id);
-      
-
       dispatch({
         type: 'readSkills',
         data: response.skills //COULD BE .skills *****
@@ -262,12 +260,7 @@ export default function App() {
         data: response.skill,
       })
       getSkills();
-      // setActiveSkill({
-      //   ...activeSkill,
-      //   subSkills: skills[activeSkill.index].subSkills
-      // })
- 
-      // UPDATE ACTIVE SKILL 
+
     } catch(err){
       setError(console.log(`*** Error CREATE SKILL ****\n ${err}`))
     }
@@ -319,8 +312,10 @@ export default function App() {
           skill: activeSkill.skill,
           activeSkillIndex: activeSkillIndex,
           activeSkill: activeSkill,
+          activeSubSkills: activeSkill?.subSkills,
           userSkills: userSkills,
           activeSub: activeSub,
+          
           
           handleSignUpOrLogin: handleSignUpOrLogin,
           createSkill: handleCreateSkill,

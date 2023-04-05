@@ -42,16 +42,14 @@ function AddResourceDisplay() {
 		<>
 			<Label
 				as='a'
-				content='Add Resource'
 				color="green" 
 				attached='top right'
 				icon='plus' 
 				size="small" 
 				active={false}
 				disabled={formPop}
-				onClick={handleOpen} 
+				onClick={handleOpen}
 			/>
-			
 			
 			<Portal onClose={handleClose} open={open}>
 				<Container
@@ -72,33 +70,27 @@ function AddResourceDisplay() {
             overflow: 'auto',
 					}}
 				>
+					<Header
+						inverted={true}
+						size="huge" 
+						
+						textAlign="center"	
+						content="Search for Resources to Add"
+					/>
+					<Label
+						attached='top right'
+						color="red" 
+						as={Header} 
+						icon='close' 
+						size="mini" 
+						onClick={handleClose} 
+						content=' Close'
+					/>
+					<SearchYouTube handleClose={handleClose} />
+					{/* <AddResourceForm handleClose={handleClose} /> */}
 					
-						<Header
-							inverted={true}
-							size="huge" 
-							
-							textAlign="center"	
-							content="Search for Resources to Add"
-						/>
-							<Label
-								attached='top right'
-								color="red" 
-								as={Header} 
-								icon='close' 
-								size="mini" 
-								onClick={handleClose} 
-								content=' Close'
-							/>
-					
-					
-						<SearchYouTube handleClose={handleClose} />
-						{/* <AddResourceForm handleClose={handleClose} /> */}
-					
-			</Container>
-		</Portal>
-			
-
-
+				</Container>
+			</Portal>
 		</>
 	);
 }

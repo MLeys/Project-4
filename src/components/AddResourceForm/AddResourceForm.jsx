@@ -45,7 +45,7 @@ export default function AddResourceForm({ handleAddSubSkill, skill, handleClose}
 					placeholder="Subskill details"
 					onChange={handleChange}
 					/>
-				<Button fluid color='green' type="submit" className="btn"> Add Subskill</Button>
+				<Button fluid color='green' type="submit" className="btn"> </Button>
 			</Form>
 		</Segment>
 	)

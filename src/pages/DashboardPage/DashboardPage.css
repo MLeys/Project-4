@@ -1,5 +1,7 @@
+
 .fullScreenHeight {
-    min-height: 88vh;
+    min-height: 90dvh;
+    width: 100%;
 }
 .ui.grid {
     margin: 0;
