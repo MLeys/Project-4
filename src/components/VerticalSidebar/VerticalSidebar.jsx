@@ -20,6 +20,7 @@ function VerticalSidebar({ 	animation, direction, visible }) {
 
 	return (
 		<Sidebar 
+			className="pushSidebar"
 			style={{ textColor: 'white'}}
 			as={Menu}
 			direction={direction}

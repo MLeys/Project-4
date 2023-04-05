@@ -21,8 +21,9 @@ function SubSkillsTabDisplay() {
 	const skill = ctx.skill;
 	const activeSkillIndex = ctx.activeSkill?.index;
 	const subSkills = ctx.activeSkill?.subSkills;
-	
 	const handleSetActiveSub = ctx.handleSetActiveSub;
+
+	
 
 	const subPanes = subSkills?.map((sub, index) => ({
 		
@@ -33,6 +34,7 @@ function SubSkillsTabDisplay() {
 			</Tab.Pane>		
 		)
 	}));
+
 
   function handleTabChange(e, data) {
 		e.preventDefault();
@@ -52,13 +54,13 @@ function SubSkillsTabDisplay() {
 
   return (
     <>
-Before tab
+
         <Tab 
 					renderActiveOnly={false}
 					panes={subPanes} 
 					onTabChange={ (e, data) => handleTabChange(e,data)}
       	/>
-			<Segment> SubSkillsTabDisplay After tab declare</Segment>
+			
       
 			
     </>

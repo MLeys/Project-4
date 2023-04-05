@@ -24,25 +24,18 @@ function DashboardPage() {
   const getSkills = ctx.getSkills;
   const handleSetActiveSkill = ctx.handleSetActiveSkill;
   const handleSetActiveSub = ctx.handleSetActiveSub;
-  const activeSkillIndex = ctx.activeSkillIndex;
+  
   const skills = ctx.skills;
   const userSkills = ctx.userSkills;
 
+  const [activeSkillIndex, setActiveSkillIndex] = useState(ctx.activeSkillIndex)
+  const [activeSubIndex, setActiveSubIndex] = useState(0);
+
 
 	const skillPanes = userSkills?.map((skill, index) => ({
-    
     menuItem: (
       <Menu.Item className="skill_pane" key={`pane-${skill?.name}-${index}`} >
-        <Progress 
-          inverted={true}
-          size='small' 
-          color='blue' 
-          value='4' 
-          total='8' 
-          progress='percent' 
-        >
         <Header inverted={true}>{skill?.name}</Header>
-        </Progress>
       </Menu.Item>
     ),
     render: () => (
@@ -50,40 +43,55 @@ function DashboardPage() {
     )
 	}));
 
-  useEffect(() => {
-    
-  }, []); 
-
   function handleTabChange(e, data) {
     const activeIndex = data.activeIndex;
-
     const userSkillId = userSkills[activeIndex]._id;
     const skillIndex = skills?.findIndex(skill => skill._id === userSkillId)
+    console.log(activeSkill)
     // console.log(`userSkillIndex: ${activeIndex}\nskillIndex: ${skillIndex}\nactiveSkill: ${userSkills[activeIndex].name}`)
-    handleSetActiveSkill(skillIndex)
-    handleSetActiveSub(0)
+    updateActiveSkillIndex(skillIndex);
+    updateActiveSubskillIndex();
   }
+
+  async function updateActiveSubskillIndex(subskillIndex=0) {
+    console.log(subskillIndex, ' <- -- active sub index')
+    await handleSetActiveSub(subskillIndex);
+    setActiveSubIndex(subskillIndex);
+  }
+
+  async function updateActiveSkillIndex(skillIndex=0) {
+    console.log(skillIndex, '<-- active skill index')
+    await handleSetActiveSkill(skillIndex);
+    setActiveSkillIndex(skillIndex);
+  } 
   
+  useEffect(() => {
+    console.log('Dash useEffect')
+    updateActiveSkillIndex();
+    updateActiveSubskillIndex();
+  }, []); 
+
+
   return (
     // className='fullScreenHeight'
-      <Container fluid={true} >
+      <Container fluid={true} className='fullScreenHeight' >
         <Tab
-          
+
           menu={{
             id: 'skillTabs',
             fluid: true,
-            color: 'purple', 
+            color: 'blue', 
             inverted: true, 
             attached: false, 
             tabular: true, 
             vertical: true, 
+            
           }}
           grid ={{ paneWidth: 14, tabWidth: 2 }} 
           panes={skillPanes} 
           onTabChange={ (e, data) => handleTabChange(e,data)}
           menuPosition='left'
       />
-      <Segment> Last Segment on Dashboard </Segment>
     </Container>
     
   )

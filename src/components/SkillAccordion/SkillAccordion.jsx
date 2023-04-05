@@ -32,6 +32,10 @@ function SkillAccordion() {
 		setActiveSkillIndexSidebar(activeSkillIndexSidebar === index ? -1 : index);
 	};
 
+	function handleTitleClick(e, data) {
+		console.log('=======================')
+		console.log(`e: ${e}\ndata: ${data}`)
+	}
 
   return (
 		<>
@@ -46,21 +50,25 @@ function SkillAccordion() {
 					active={activeSkillIndexSidebar === index}
 					index={index}
 					onClick={(e) => handleSkillClick(e, index)}
+					
 					children={
 						<>
 							<Icon name="dropdown" />
-								{skill.name}
+								{skill.name}fdfd
 							<SkillAssignCornerBtn index={index}/>
 						</>
 
 						}
 				/>
-				<Accordion.Content active={activeSkillIndexSidebar === index}>
-						<SubSkillAccordion
-							skill={skill}
-							key={`${skill._id}-subskills`}
-						/>
-				</Accordion.Content>	
+				<Accordion.Accordion >
+					<Accordion.Content active={activeSkillIndexSidebar === index}>
+							<SubSkillAccordion
+								skill={skill}
+								key={`${skill._id}-subskills`}
+							/>
+					</Accordion.Content>	
+				</Accordion.Accordion>
+
 			</Accordion>
 			))
 		}
