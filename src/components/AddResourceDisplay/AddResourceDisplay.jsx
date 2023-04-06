@@ -20,8 +20,8 @@ import SearchYouTube from "../SearchYouTube/SearchYouTube";
 
 function AddResourceDisplay() {
 	const ctx = useContext(SkillsContext);
-	const subCtx = ctx.activeSub;
-	const subSkill = subCtx.subSkill;
+	const subCtx = ctx?.activeSub;
+	const subSkill = subCtx?.subSkill;
 
 	
 	const [formPop, setFormPop] = useState(false)

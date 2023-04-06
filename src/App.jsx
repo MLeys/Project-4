@@ -37,16 +37,8 @@ export default function App() {
 
   const loggedUser = userService.getUser();
   
-  const [activeSkill, setActiveSkill] = useState({
-    index: -1,
-    skill: {},
-    subSkills: []
-  });
-  const [activeSub, setActiveSub] = useState({
-    index: -1,
-    subSkill: {},
-    resources: [],
-  });
+  const [activeSkill, setActiveSkill] = useState(null);
+  const [activeSub, setActiveSub] = useState(null);
 
   function handleSetUserSkills(skillsArray) {
       const assignedSkills =skillsArray?.filter((skill => skill.usersAssigned.some(u => u._id === user._id)))
@@ -55,7 +47,7 @@ export default function App() {
       console.log(" END OF HANDLE SETUSERSKILLS ")
   }
 
-  async function handleSetActiveSub(subIndex=0){
+  function handleSetActiveSub(subIndex=0){
     const skillIndex = activeSkill.index;
       setActiveSub({
         ...activeSub,
@@ -68,42 +60,36 @@ export default function App() {
     }
 
   function handleSetActiveSkill(index=0){
-    // console.log("^^^ handleSetActiveSkill ^^^");
+    let iterations = 0;
+    const skill = skills[index];
     setActiveSkill({
       ...activeSkill,
       index: index,
       skill: skills[index],
       subSkills: skills[index].subSkills
     })
-    // console.log(`Active Skill\nIndex: ${index}\nname: ${skills[index].name}\nnumSubSkills: ${skills[index].subSkills.length} `)
-    setActiveSkillIndex(index);
-    handleSetActiveSub();
-  }
-
-  function setInitialActiveSkill(firstIndex){
-
-    if (activeSkill.index === true) {
-      console.log("==== setting initial active skill ====")
-      const skill = skills[firstIndex];
-      const subSkills = skill.subSkills;
-      setActiveSkill({
-        ...activeSkill,
-        index: firstIndex,
-        skill: skill,
-        subSkills: subSkills
-      })
-      if (activeSub.index === true) {
-        const subSkill = subSkills[0];
-        const resources = subSkill.resources;
-        setActiveSub({
-          ...activeSub,
-          index: 0,
-          subSkill: subSkill,
-          resources: resources
-        })
+    console.log(skill)
+    console.log("these fucks")
+    console.log(skill._id)
+    console.log(activeSkill?._id)
+    skillUpdated();
+    function skillUpdated() {
+      if (skill._id !== activeSkill?._id) {
+        console.log(skill._id)
+        console.log(activeSkill?._id)
+        iterations++;
+        console.log(`iteration: ${iterations}`)
+        console.log('Recursive call for active skill')
+        
+        
       }
+      
     }
+    // console.log(`Active Skill\nIndex: ${index}\nname: ${skills[index].name}\nnumSubSkills: ${skills[index].subSkills.length} `)
+    handleSetActiveSub();
+  
   }
+
 
   async function handleCreateSkill(data) {
     try {
@@ -127,10 +113,10 @@ export default function App() {
         data: response.skills //COULD BE .skills *****
       })
       handleSetUserSkills(response.userSkills);
-      console.log((!!activeSkill.index === -1) === true, " no active skill ")
+      // console.log((!!activeSkill.index === -1) === true, " no active skill ")
       // console.log(response, "<---- getSkills Response")
       if (!!activeSkill.index === true) {
-        console.log(!!activeSkill.index === true," hitting in get")
+        // console.log(!!activeSkill.index === true," hitting in get")
         setActiveSkillIndex(response.firstSkillIndex)
         
         setInitialActiveSkill(response.firstSkillIndex);
@@ -298,9 +284,14 @@ export default function App() {
   }
 
   useEffect(() => {
-    getSkills();
+    async function start() {
+      await getSkills();
+      handleSetActiveSkill();
+    }
+    start();
+
     
-  }, [!skills]); 
+  }, [!skills, !activeSkill]); 
 
   if (user) {
 
@@ -309,7 +300,7 @@ export default function App() {
         value={{
           loggedUser: user,
           skills: skills,
-          skill: activeSkill.skill,
+          skill: activeSkill?.skill,
           activeSkillIndex: activeSkillIndex,
           activeSkill: activeSkill,
           activeSubSkills: activeSkill?.subSkills,
