@@ -28,9 +28,6 @@ function DashboardPage() {
   const skills = ctx.skills;
   const userSkills = ctx.userSkills;
 
-  const [activeSkillIndex, setActiveSkillIndex] = useState(ctx.activeSkillIndex)
-  const [activeSubIndex, setActiveSubIndex] = useState(0);
-
 
 	const skillPanes = userSkills?.map((skill, index) => ({
     menuItem: (
@@ -43,19 +40,18 @@ function DashboardPage() {
     )
 	}));
 
-  function handleTabChange(e, data) {
+  async function handleTabChange(e, data) {
     const activeIndex = data.activeIndex;
     const userSkillId = userSkills[activeIndex]._id;
     const skillIndex = skills?.findIndex(skill => skill._id === userSkillId)
-    console.log(activeSkill)
-    // console.log(`userSkillIndex: ${activeIndex}\nskillIndex: ${skillIndex}\nactiveSkill: ${userSkills[activeIndex].name}`)
-    updateActiveSkillIndex(skillIndex);
-    updateActiveSubskillIndex();
+    await handleSetActiveSkill(skillIndex)
+    await handleSetActiveSub(0)
+
   }
 
   async function updateActiveSubskillIndex(subskillIndex=0) {
     console.log(subskillIndex, ' <- -- active sub index')
-    await handleSetActiveSub(subskillIndex);
+    await handleSetActiveSub(subskillIndex).then(console.log());
     setActiveSubIndex(subskillIndex);
   }
 
@@ -67,8 +63,6 @@ function DashboardPage() {
   
   useEffect(() => {
     console.log('Dash useEffect')
-    updateActiveSkillIndex();
-    updateActiveSubskillIndex();
   }, []); 
 
 

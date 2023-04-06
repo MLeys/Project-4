@@ -22,22 +22,19 @@ function SkillPane() {
   const skill = ctx.activeSkill?.skill;
 	const subSkills = ctx.activeSkill?.subSkills;
 	const handleSetActiveSub = ctx.handleSetActiveSub;
+	const activeSubSkill = ctx.activeSub?.subSkill;
 	const sub = ctx.subSkills;
 
-	console.log(sub, ",- sub")
-	console.log(subSkills, '<M-- subskills')
+	console.log(activeSubSkill, "<-- active Subskill (skillpane)")
 	const subPanes = subSkills?.map((sub, index) => ({
 		menuItem: sub.title,
-		pane: (
-	
-				<SubSkillPane  />
-			
+		render: () => (
+			<Header  inverted={false} color='purple' as='h2' >
+			{sub.title} {skill.title} - active skill
+			</Header>
 		)
 	}));
 
-	function activeSubskills() {
-		setSubskills()
-	}
 
 	async function handleTabChange(e, data) {
 		e.preventDefault();
@@ -50,16 +47,10 @@ function SkillPane() {
 
 		const activeSubId = subSkills[activeIndex]._id;
     const subIndex = subSkills?.findIndex(sub => sub._id === activeSubId)
-    console.log(`subSkill Index: ${activeIndex}\nsubIndex: ${subIndex}\nactiveSkill: ${subSkills[activeIndex].title}`)
-    await handleSetActiveSub(subIndex)
-			.then(
-				subSkills = ctx.subSkills,
-				console.log('subSkills', subSkills)
-			)
-		
+    // console.log(`subSkill Index: ${activeIndex}\nsubIndex: ${subIndex}\nactiveSkill: ${subSkills[activeIndex].title}`)
+    await handleSetActiveSub(subIndex)	
 		
 		console.log(activeIndex, "<-- active index")
-
   }
 
 	useEffect(() => {
@@ -74,7 +65,7 @@ function SkillPane() {
 			<Container>
 				<Tab 
 					inverted={false}
-					renderActiveOnly={false}
+					renderActiveOnly={true}
 					panes={subPanes} 
 					onTabChange={ (e, data) => handleTabChange(e,data)}
 				/>
