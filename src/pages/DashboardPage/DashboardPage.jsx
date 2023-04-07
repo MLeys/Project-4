@@ -19,9 +19,18 @@ function DashboardPage() {
 
 	const skillPanes = userSkills?.map((skill, index) => ({
     menuItem: (
-      <Menu.Item className="skill_pane" key={`pane-${skill?.name}-${index}`} >
-        <Header inverted={true} >{skill?.name}</Header>
-      </Menu.Item>
+
+        <Menu.Item
+          className="skill_pane" 
+          key={`pane-${skill?.name}-${index}`} 
+          fitted={false}
+          
+          
+        >
+          {skill?.name}
+        </Menu.Item>
+
+
     ),
     render: () => (
       <SkillPane  />
@@ -44,18 +53,20 @@ function DashboardPage() {
 
 
   return (
-    <Container fluid={true} className='fullScreenHeight' >
+    <Container fluid={true} style={{margin: 0, padding: 0}} className='fullScreenHeight' >
       <Tab
         menu={{
           id: 'skillTabs',
           fluid: true,
           color: 'blue', 
-          inverted: 'true', 
-          attached: 'false', 
-          tabular: true, 
+          inverted: true, 
+  
+          tabular: false, 
           vertical: true, 
+         
+          
         }}
-        grid ={{ paneWidth: 14, tabWidth: 2 }} 
+       
         panes={skillPanes} 
         onTabChange={ (e, data) => handleTabChange(e,data)}
         menuPosition='left'
