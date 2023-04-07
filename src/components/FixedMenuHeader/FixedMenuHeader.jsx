@@ -8,6 +8,7 @@ import {
 		Segment
 } from 'semantic-ui-react'
 
+
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 
@@ -18,37 +19,27 @@ function FixedMenuHeader({ handleLogout, sidebarDispatch }) {
 
 	return (  
 		<Menu 
-			
 			borderless={true}
 			inverted={true}
 			attached='top'
 			style={{padding: '0em', margin: '0'}}
 		>
 			<Menu.Menu position="left">
-			<Menu.Item 
-				onClick={() => navigate("/")}
-				position='left'
-			>
-				<Icon name="home" size="big"/>
-			</Menu.Item>
-			<Menu.Item 
-				position="left"
-				as='a' 
-				header={true} 
-				onClick={(e, data) => {
-					sidebarDispatch({ 
-							type: 'CHANGE_ANIMATION', 
-							animation: 'slide out' 
-					})
-				}}
-		
-			> 
-				<Icon name="down arrow"/>
-				Learn Skills
-				<Icon name="down arrow"/>
+				<Menu.Item 
+					position="left"
+					as='a' 
+					header={true} 
+					onClick={(e, data) => {
+						sidebarDispatch({ 
+								type: 'CHANGE_ANIMATION', 
+								animation: 'slide out' 
+						})
+					}}
+			
+				> 
+					<Icon name="content" size="large"/>Menu
+				</Menu.Item>
 
-			</Menu.Item>
-				
 			</Menu.Menu>
 
 			<Menu.Item
@@ -74,6 +65,12 @@ function FixedMenuHeader({ handleLogout, sidebarDispatch }) {
 					/>Dashboard
 				</Menu.Item>
 				<Menu.Item onClick={handleLogout} floated="right">Logout</Menu.Item>
+				<Menu.Item 
+					onClick={() => navigate("/")}
+					position='left'
+				>
+					<Icon name="home" size="large"/>
+				</Menu.Item>
 			</Menu.Menu>
 		</Menu>
 
