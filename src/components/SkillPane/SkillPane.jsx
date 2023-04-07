@@ -26,11 +26,7 @@ function SkillPane() {
 	const activeSub = ctx.activeSub;
 	const sub = ctx.subSkills;
 
-	// console.log(activeSubSkill, "<-- active Subskill (skillpane)")
-	function handleClickSubSkillTab() {
 
-		return subPanes
-	}
 
 	const subPanes = subSkills?.map((sub, index) => (
 	
@@ -38,7 +34,7 @@ function SkillPane() {
 		menuItem: sub.title,
 		render: () => (
 			<Header  inverted={false} color='purple' as='h2' >
-				
+				<SubSkillPane />
 				{index}
 				title:{sub.title} index:{sub.index}  - active skill 
 			</Header>

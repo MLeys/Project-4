@@ -27,6 +27,7 @@ function DashboardPage() {
   
   const skills = ctx.skills;
   const userSkills = ctx.userSkills;
+  
 
 
 	const skillPanes = userSkills?.map((skill, index) => ({
@@ -77,7 +78,6 @@ function DashboardPage() {
             
           }}
           grid ={{ paneWidth: 14, tabWidth: 2 }} 
-          activeIndex={activeSkill?.index}
           panes={skillPanes} 
           onTabChange={ (e, data) => handleTabChange(e,data)}
           menuPosition='left'
