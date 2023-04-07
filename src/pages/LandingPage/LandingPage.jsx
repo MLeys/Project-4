@@ -1,43 +1,37 @@
 import { useEffect, useState, useContext } from "react";
-import { Grid, Segment} from "semantic-ui-react";
 
-import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
+import Button from '@mui/material/Button'
 
-import MainSideBar from "../../_UNUSED/MainSideBar/MainSideBar";
 import SkillDisplay from "../../components/SkillDisplay/SkillDisplay";
-import { unAssignUser } from "../../utils/skillApi";
+import CreateSkillModal from "../../components/CreateSkillModal/CreateSkillModal";
 
 
 function LandingPage() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-    // const skills = useContext(SkillsContext).skills;
-    // console.log(skills?.map((skill) => skill.name  ))
-    
-    useEffect(() => {
+  const handleCreateSkill = () => {
+    setIsModalOpen(true);
+  };
 
-      }, []); 
-    return (
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
-        <SkillDisplay />
-        // <div>
-        // {
-        //     skills?.map((skill) => {
-        //         return (
-        //             <SkillDisplay 
-        //                 key={`skillDisplay-${skill._id}`} 
-        //                 skill={skill} 
-        //                 handleAddSubSkill={handleAddSubSkill} 
-        //                 allResources={allResources}
-        //                 handleAddResource={handleAddResource}
-        //             />
-        //         )
-        //     })
-        // }
-        
-        
-        // </div>
-   
-    );
+
+  useEffect(() => {
+
+    }, []); 
+  return (
+    <>
+    <section style={{height: '25dvh'}}>
+      <Button variant="contained" color="primary" onClick={handleCreateSkill}>
+        Create a New Skill
+      </Button>
+      <CreateSkillModal isOpen={isModalOpen} onClose={handleCloseModal} />
+    </section>
+    <SkillDisplay />
+    </>
+  );
 }
 
 export default LandingPage;
