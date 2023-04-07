@@ -48,46 +48,37 @@ export default function App() {
   }
 
   function handleSetActiveSub(subIndex=0){
-    const skillIndex = activeSkill.index;
-      setActiveSub({
-        ...activeSub,
-        index: subIndex,
-        subSkill: skills[skillIndex]?.subSkills[subIndex],
-        resources: skills[skillIndex]?.subSkills[subIndex]?.resources
-      });
-      
-      // console.log(`Active Subskill\nIndex: ${subIndex}\nTitle:: ${skills[skillIndex]?.subSkills[subIndex].title}\nnumResources: ${skills[skillIndex]?.subSkills[subIndex].resources?.length} `)
-    }
+    const skillIndex = activeSkill?.index;
+    setActiveSub({
+      ...activeSub,
+      index: subIndex,
+      subSkill: skills[skillIndex]?.subSkills[subIndex],
+      resources: skills[skillIndex]?.subSkills[subIndex]?.resources
+    });
+  };
 
-  function handleSetActiveSkill(index=0){
-    let iterations = 0;
+  function resetActiveSubToFirstIndexActiveSkill(subSkills) {
+    setActiveSub({
+      ...activeSub,
+      index: 0,
+      subSkill: subSkills[0],
+      resources: subSkills[0]?.resources
+    });
+  }
+
+  async function handleSetActiveSkill(index=0){
     const skill = skills[index];
+    
+    resetActiveSubToFirstIndexActiveSkill(skill.subSkills);
     setActiveSkill({
       ...activeSkill,
       index: index,
       skill: skills[index],
       subSkills: skills[index].subSkills
     })
-    console.log(skill)
-    console.log("these fucks")
-    console.log(skill._id)
-    console.log(activeSkill?._id)
-    skillUpdated();
-    function skillUpdated() {
-      if (skill._id !== activeSkill?._id) {
-        console.log(skill._id)
-        console.log(activeSkill?._id)
-        iterations++;
-        console.log(`iteration: ${iterations}`)
-        console.log('Recursive call for active skill')
-        
-        
-      }
-      
-    }
-    // console.log(`Active Skill\nIndex: ${index}\nname: ${skills[index].name}\nnumSubSkills: ${skills[index].subSkills.length} `)
-    handleSetActiveSub();
-  
+    console.log(skill.name, "<--- name of skill clicked")
+    console.log(skill.name === activeSkill.skill.name, " active Skill Updated")
+    
   }
 
 
