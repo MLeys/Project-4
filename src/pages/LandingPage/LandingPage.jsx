@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from "react";
+import mainTheme from "../../themes/mainTheme";
 
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
@@ -22,23 +23,33 @@ const CustomCard = styled(Card)({
   boxShadow: '0px 3px 10px rgba(0,0,0,0.2)',
   cursor: 'pointer',
   transition: 'transform 0.2s ease-in-out',
+  backgroundColor: mainTheme.palette.primary.main,
   '&:hover': {
     transform: 'scale(1.15)',
   },
 })
 
 const CustomCardTitle = styled(Card)({
+  backgroundColor: mainTheme.palette.primary.dark,
+  color: mainTheme.palette.primary.contrastText,
+  
   fontSize: '1.5rem',
   fontWeight: 'bold',
   marginBottom: '0.5rem',
   textAlign: 'center',
+
+  
 })
 
 const CustomCardDetails = styled(Card)({
+  backgroundColor: mainTheme.palette.accent.dark,
+  color: mainTheme.palette.accent.contrastText,
   fontSize: '1rem',
   fontWeight: 'normal',
   marginBottom: '0.5rem',
   textAlign: 'center',
+  overflow: 'auto',
+  maxHeight: '70%',
 })
 
 
@@ -61,17 +72,24 @@ function LandingPage() {
 
     }, []); 
   return (
-    <Grid container={true} spacing={2}>
+    <Grid container={true} spacing={1} backgroundColor='primary.light' >
+          <section style={{height: '5dvh', width: '100dvw', paddingTop: 10, display: 'flex', justifyContent: 'center'}}>
+      <Button variant="contained" color="primary" onClick={handleCreateSkill}>
+        Create a New Skill
+      </Button>
+      <CreateSkillModal isOpen={isModalOpen} onClose={handleCloseModal} />
+    </section>
             {skills?.map(skill => (
-        <Grid item xs={12} sm={6} md={4} lg={3} key={skill.id}>
+        <Grid item={true} display="flex" justifyContent="center" alignItems="center" xs={12} sm={6} md={4} lg={3} key={skill.id}>
         <CustomCard  onClick={() => console.log(`Clicked on ${skill.name} card`)}>
           <CustomCardDetails >
             <CustomCardTitle variant="h6" component="h3" >
               {skill.name}
-            </CustomCardTitle>
-            <Typography variant="subtitle2" color="textSecondary" >
+              <Typography variant="subtitle2" color="textSecondary" >
               Type: {skill.type}
-            </Typography>
+              </Typography>
+            </CustomCardTitle>
+
           </CustomCardDetails>
           <CustomCardDetails>
             {skill.subSkills.map(sub => (
@@ -81,13 +99,7 @@ function LandingPage() {
         </CustomCard>
       </Grid>
       ))}
-    <section style={{height: '25dvh'}}>
-      <Button variant="contained" color="primary" onClick={handleCreateSkill}>
-        Create a New Skill
-      </Button>
-      <CreateSkillModal isOpen={isModalOpen} onClose={handleCloseModal} />
-    </section>
-    <SkillDisplay />
+
     </Grid>
   );
 }
