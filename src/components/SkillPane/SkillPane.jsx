@@ -22,18 +22,29 @@ function SkillPane() {
   const skill = ctx.activeSkill?.skill;
 	const subSkills = ctx.activeSkill?.subSkills;
 	const handleSetActiveSub = ctx.handleSetActiveSub;
-	const activeSubSkill = ctx.activeSub?.subSkill;
+	const activeSkill = ctx.activeSkill;
+	const activeSub = ctx.activeSub;
 	const sub = ctx.subSkills;
 
-	console.log(activeSubSkill, "<-- active Subskill (skillpane)")
-	const subPanes = subSkills?.map((sub, index) => ({
+	// console.log(activeSubSkill, "<-- active Subskill (skillpane)")
+	function handleClickSubSkillTab() {
+
+		return subPanes
+	}
+
+	const subPanes = subSkills?.map((sub, index) => (
+	
+		{
 		menuItem: sub.title,
 		render: () => (
 			<Header  inverted={false} color='purple' as='h2' >
-			{sub.title} {skill.title} - active skill
+				
+				{index}
+				title:{sub.title} index:{sub.index}  - active skill 
 			</Header>
-		)
-	}));
+			)
+		}
+	));
 
 
 	async function handleTabChange(e, data) {
@@ -59,12 +70,14 @@ function SkillPane() {
 	
 	return (
 		<Grid>
+			<h1>Clicked skillpane</h1>
       <Header as={Segment} compact={true} inverted={false} >
         <h1>{skill?.name}</h1> here
       </Header>
 			<Container>
 				<Tab 
 					inverted={false}
+					activeIndex={activeSub?.index}
 					renderActiveOnly={true}
 					panes={subPanes} 
 					onTabChange={ (e, data) => handleTabChange(e,data)}

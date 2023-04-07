@@ -41,25 +41,20 @@ function DashboardPage() {
 	}));
 
   async function handleTabChange(e, data) {
+    console.log(userSkills[data.activeIndex], "<<<<<<<<<<<<< userskill active")
+    e.preventDefault();
+		e.stopPropagation();
+    console.log(e, ' this is event')
+    console.log(data.activeIndex, '<-- active skill tab index')
     const activeIndex = data.activeIndex;
     const userSkillId = userSkills[activeIndex]._id;
-    const skillIndex = skills?.findIndex(skill => skill._id === userSkillId)
+    console.log(userSkillId, '<- userSkillID')
+    const skillIndex = skills?.findIndex(skill => skill?._id === userSkillId);
+    console.log(skillIndex, '<-- skill index whats going on')
+
     await handleSetActiveSkill(skillIndex)
-    await handleSetActiveSub(0)
-
+    console.log('AFTER SET ACTIVE SKILL')
   }
-
-  async function updateActiveSubskillIndex(subskillIndex=0) {
-    console.log(subskillIndex, ' <- -- active sub index')
-    await handleSetActiveSub(subskillIndex).then(console.log());
-    setActiveSubIndex(subskillIndex);
-  }
-
-  async function updateActiveSkillIndex(skillIndex=0) {
-    console.log(skillIndex, '<-- active skill index')
-    await handleSetActiveSkill(skillIndex);
-    setActiveSkillIndex(skillIndex);
-  } 
   
   useEffect(() => {
     console.log('Dash useEffect')
@@ -82,6 +77,7 @@ function DashboardPage() {
             
           }}
           grid ={{ paneWidth: 14, tabWidth: 2 }} 
+          activeIndex={activeSkill?.index}
           panes={skillPanes} 
           onTabChange={ (e, data) => handleTabChange(e,data)}
           menuPosition='left'

@@ -24,14 +24,14 @@ function SubSkillPane() {
 
 	useEffect(() => {
 
-
-	}, [subSkill])
+	}, [])
 
 	return (
 		<Container className="subSkillPaneContainer">
 				<Header  inverted={false} color='purple' as='h2' >
-					{subSkill?.title} {activeSkill} - active skill
+					{subSkill?.title} {activeSkill} -active skill hhh
 				</Header>
+				
 				<AddResourceDisplay />
 				{/* <ResourceDisplay /> */}
 		</Container>
