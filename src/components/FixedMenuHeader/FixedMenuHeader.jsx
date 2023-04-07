@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
 		Image,
@@ -12,9 +12,50 @@ import {
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 
+
+
+
 function FixedMenuHeader({ handleLogout, sidebarDispatch }) {
-		const navigate = useNavigate();
-		const loggedUser = useContext(SkillsContext).loggedUser;
+	const navigate = useNavigate();
+	const loggedUser = useContext(SkillsContext).loggedUser;
+
+	const [open, setOpen] = useState(false);
+  const anchorRef = useRef(null);
+
+  const handleToggle = () => {
+    setOpen((prevOpen) => !prevOpen);
+  };
+
+  const handleClose = (e) => {
+    if (anchorRef.current && anchorRef.current.contains(e.target)) {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  function handleListKeyDown(e) {
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      setOpen(false);
+    } else if (e.key === 'Escape') {
+      setOpen(false);
+    }
+  }
+
+  // return focus to the button when we transitioned from !open -> open
+  const prevOpen = useRef(open);
+  useEffect(() => {
+    if (prevOpen.current === true && open === false) {
+      anchorRef.current.focus();
+    }
+
+    prevOpen.current = open;
+  }, [open]);
+
+
+
+
 
 
 	return (  
