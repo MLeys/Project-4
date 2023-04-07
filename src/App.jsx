@@ -32,19 +32,15 @@ export default function App() {
   const [skills, dispatch] = useImmerReducer(SkillsReducer, null)
   const [userSkills, setUserSkills] = useState([])
   const [activeSkillIndex, setActiveSkillIndex] = useState(-1)
-  const [resources, setResources] = useState([]);
-  
-
-  const loggedUser = userService.getUser();
-  
+  const [resources, setResources] = useState([]);  
   const [activeSkill, setActiveSkill] = useState(null);
   const [activeSub, setActiveSub] = useState(null);
+    
+  const loggedUser = userService.getUser();
 
   function handleSetUserSkills(skillsArray) {
       const assignedSkills =skillsArray?.filter((skill => skill.usersAssigned.some(u => u._id === user._id)))
-      // console.log(assignedSkills, "USERS SKILLS (getSkills)")
       setUserSkills(assignedSkills)
-      console.log(" END OF HANDLE SETUSERSKILLS ")
   }
 
   function handleSetActiveSub(subIndex=0){
@@ -68,17 +64,13 @@ export default function App() {
 
   async function handleSetActiveSkill(index=0){
     const skill = skills[index];
-    
-    resetActiveSubToFirstIndexActiveSkill(skill.subSkills);
+    resetActiveSubToFirstIndexActiveSkill(skill?.subSkills);
     setActiveSkill({
       ...activeSkill,
       index: index,
       skill: skills[index],
-      subSkills: skills[index].subSkills
-    })
-    console.log(skill.name, "<--- name of skill clicked")
-    console.log(skill.name === activeSkill.skill.name, " active Skill Updated")
-    
+      subSkills: skills[index]?.subSkills
+    })    
   }
 
 
@@ -104,16 +96,12 @@ export default function App() {
         data: response.skills //COULD BE .skills *****
       })
       handleSetUserSkills(response.userSkills);
-      // console.log((!!activeSkill.index === -1) === true, " no active skill ")
-      // console.log(response, "<---- getSkills Response")
+
       if (!!activeSkill.index === true) {
-        // console.log(!!activeSkill.index === true," hitting in get")
         setActiveSkillIndex(response.firstSkillIndex)
-        
-        setInitialActiveSkill(response.firstSkillIndex);
       }
 
-      console.log(" after setting in get skills ")
+      console.log("Updated skills from server... ")
     } catch (err) {
       setError(`*** Error READ SKILL ****\n ${err}`)
     }
@@ -246,22 +234,13 @@ export default function App() {
 
   async function handleEditSubSkill(subskill) {
     try {
-        console.log(subskill, "<<<<< subskill data IN handle EDIT SUBSKill")
-        // setSubSkill(updatedSkill)
         const response = await subSkillsApi.update(subskill);
-        console.log(response, "++++ EDIT SUBSKILL RESPONSE")
-        
-        getSkills();
-        // return skill;
-        
+        getSkills();        
         
     } catch(err){
         console.log(err, " Error IN THE HANDLEADDsubskill")
     }
   } // END handleAddSubSkill Function
-
-
-
 
   function handleSignUpOrLogin() {
     setUser(userService.getUser());
@@ -277,7 +256,7 @@ export default function App() {
   useEffect(() => {
     async function start() {
       await getSkills();
-      handleSetActiveSkill();
+      await handleSetActiveSkill();
     }
     start();
 

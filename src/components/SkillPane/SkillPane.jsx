@@ -16,21 +16,15 @@ import SubSkillsTabDisplay from "../SubSkillsTabDisplay/SubSkillsTabDisplay";
 import SubSkillPane from "../SubSkillPane/SubSkillPane";
 
 function SkillPane() {
-	const [subskills, setSubskills] = useState();
   const ctx = useContext(SkillsContext)
-	const skills = ctx.skills;
   const skill = ctx.activeSkill?.skill;
 	const subSkills = ctx.activeSkill?.subSkills;
 	const handleSetActiveSub = ctx.handleSetActiveSub;
-	const activeSkill = ctx.activeSkill;
 	const activeSub = ctx.activeSub;
-	const sub = ctx.subSkills;
 
 
 
-	const subPanes = subSkills?.map((sub, index) => (
-	
-		{
+	const subPanes = subSkills?.map((sub, index) => ({
 		menuItem: sub.title,
 		render: () => (
 			<Header  inverted={false} color='purple' as='h2' >
@@ -39,49 +33,37 @@ function SkillPane() {
 				title:{sub.title} index:{sub.index}  - active skill 
 			</Header>
 			)
-		}
-	));
+	}));
 
 
 	async function handleTabChange(e, data) {
 		e.preventDefault();
 		e.stopPropagation();
 
-		console.log(`activesubIdx: ${data.activeIndex}`)	
-		console.log('tab change')
     const activeIndex = data.activeIndex;
-
 
 		const activeSubId = subSkills[activeIndex]._id;
     const subIndex = subSkills?.findIndex(sub => sub._id === activeSubId)
-    // console.log(`subSkill Index: ${activeIndex}\nsubIndex: ${subIndex}\nactiveSkill: ${subSkills[activeIndex].title}`)
     await handleSetActiveSub(subIndex)	
-		
-		console.log(activeIndex, "<-- active index")
+
   }
 
 	useEffect(() => {
-		console.log('SKILLPANE render')
 	}, [])
 	
 	return (
-		<Grid>
-			<h1>Clicked skillpane</h1>
-      <Header as={Segment} compact={true} inverted={false} >
-        <h1>{skill?.name}</h1> here
+		<Container fluid={true} >
+      <Header as={Segment} fluid={true} inverted={false} >
+        {skill?.name}
       </Header>
-			<Container>
-				<Tab 
-					inverted={false}
-					activeIndex={activeSub?.index}
-					renderActiveOnly={true}
-					panes={subPanes} 
-					onTabChange={ (e, data) => handleTabChange(e,data)}
-				/>
-				<Segment>hello</Segment>
-			</Container>
-
-		</Grid>
+			<Tab 
+				inverted={false}
+				activeIndex={activeSub?.index}
+				renderActiveOnly={true}
+				panes={subPanes} 
+				onTabChange={ (e, data) => handleTabChange(e,data)}
+			/>
+		</Container>
 	)
 }
 export default SkillPane;
