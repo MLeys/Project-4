@@ -69,7 +69,7 @@ function FixedMenuHeader({ sidebarDispatch }) {
 	return (  
 		<>
 		<AppBar 
-      position="fixed" 
+      position="sticky" 
       sx={{ 
         backgroundColor: mainTheme.palette.primary.dark, 
         color: mainTheme.palette.primary.contrastText,
