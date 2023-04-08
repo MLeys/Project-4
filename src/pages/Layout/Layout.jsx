@@ -1,10 +1,11 @@
 import { Link, Outlet } from "react-router-dom";
 import { useState, useEffect, useReducer, useContext} from "react";
+import Container from '@mui/material/Container';
 
 import {
   Segment,
   Sidebar,
-  Container,
+
   Button,
   Grid,
   
@@ -43,7 +44,7 @@ function Layout({ handleLogout }) {
   
     <FixedMenuHeader handleLogout={handleLogout} sidebarDispatch={sidebarDispatch}/>
 
-      <Sidebar.Pushable as={Segment} style={{ overflow: 'hidden', margin: 0, padding: 0  }}>
+      <Sidebar.Pushable as={Container} style={{ overflow: 'hidden', margin: 0, padding: 0  }}>
         <VerticalSidebar
           animation={animation}
           direction={direction}

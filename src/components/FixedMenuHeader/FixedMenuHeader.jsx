@@ -1,14 +1,7 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
 import {  useNavigate } from "react-router-dom";
-import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import {
-		Image,
-		// Menu,
-		Icon,
-		Header,
-		Segment
-} from 'semantic-ui-react'
+
 import Link from '@mui/material/Link';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -17,8 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import GitHubIcon from '@mui/icons-material/GitHub';
+
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -30,8 +22,6 @@ import mainTheme from "../../themes/mainTheme";
 
 
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
-
-
 
 
 
@@ -71,7 +61,7 @@ function FixedMenuHeader({ sidebarDispatch }) {
 		<AppBar 
       position="sticky" 
       sx={{ 
-        backgroundColor: mainTheme.palette.primary.dark, 
+        backgroundColor: mainTheme.palette.primaryDarker.dark, 
         color: mainTheme.palette.primary.contrastText,
       }}
     >
@@ -185,7 +175,7 @@ function FixedMenuHeader({ sidebarDispatch }) {
 	
 							<Tooltip title="logout">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 1 }}>
-                  <Avatar alt="MyAvatar" src={loggedUser?.photoUrl? loggedUser?.photoUrl : "https://react.semantic-ui.com/images/wireframe/square-image.png"} />
+                  <Avatar alt="MyAvatar" src={loggedUser?.photoUrl? loggedUser?.photoUrl : ""} />
                 </IconButton>
               </Tooltip>
             </Stack>
