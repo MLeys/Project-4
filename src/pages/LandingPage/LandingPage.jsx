@@ -30,8 +30,8 @@ const CustomCard = styled(Card)({
 })
 
 const CustomCardTitle = styled(Card)({
-  backgroundColor: mainTheme.palette.primary.dark,
-  color: mainTheme.palette.primary.contrastText,
+  backgroundColor: mainTheme.palette.secondary.dark,
+  color: mainTheme.palette.secondary.contrastText,
   
   fontSize: '1.5rem',
   fontWeight: 'bold',
@@ -42,14 +42,14 @@ const CustomCardTitle = styled(Card)({
 })
 
 const CustomCardDetails = styled(Card)({
-  backgroundColor: mainTheme.palette.accent.dark,
-  color: mainTheme.palette.accent.contrastText,
+  backgroundColor: mainTheme.palette.primary.light,
+  color: mainTheme.palette.secondary.contrastText,
   fontSize: '1rem',
   fontWeight: 'normal',
   marginBottom: '0.5rem',
   textAlign: 'center',
   overflow: 'auto',
-  maxHeight: '70%',
+  height: '70%',
 })
 
 
@@ -79,18 +79,15 @@ function LandingPage() {
       </Button>
       <CreateSkillModal isOpen={isModalOpen} onClose={handleCloseModal} />
     </section>
-            {skills?.map(skill => (
-        <Grid item={true} display="flex" justifyContent="center" alignItems="center" xs={12} sm={6} md={4} lg={3} key={skill.id}>
+      {skills?.map(skill => (
+      <Grid item={true} display="flex" justifyContent="center" alignItems="center" xs={12} sm={6} md={4} lg={3} key={skill.id}>
         <CustomCard  onClick={() => console.log(`Clicked on ${skill.name} card`)}>
-          <CustomCardDetails >
-            <CustomCardTitle variant="h6" component="h3" >
-              {skill.name}
-              <Typography variant="subtitle2" color="textSecondary" >
-              Type: {skill.type}
-              </Typography>
-            </CustomCardTitle>
-
-          </CustomCardDetails>
+          <CustomCardTitle variant="h6" component="h3" >
+            {skill.name}
+            <Typography variant="subtitle2" color="textSecondary" >
+            Type: {skill.type}
+            </Typography>
+          </CustomCardTitle>
           <CustomCardDetails>
             {skill.subSkills.map(sub => (
               <Typography>{sub.title}</Typography>
