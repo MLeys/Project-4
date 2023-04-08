@@ -256,7 +256,7 @@ export default function App() {
   useEffect(() => {
     async function start() {
       await getSkills();
-      handleSetActiveSkill();
+      
     }
     start();
 
@@ -298,7 +298,7 @@ export default function App() {
                 index
                 element={<LandingPage />}
               />          
-              <Route path="skills/:skillName" element={<SkillPage  />} />
+              <Route path="skills/:skillId" element={<SkillPage  />} />
               <Route path="/:username" element={<DashboardPage />}/>
                 <Route path="skills/:skillName/subskill/:id" element={<SubSkillPage handleEditSubSkill={handleEditSubSkill} />} />
             </Route>

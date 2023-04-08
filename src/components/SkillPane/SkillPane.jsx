@@ -10,9 +10,6 @@ import {
 
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
-import SubSkillPortal from '../SubSkillPortal/SubSkillPortal';
-import SkillAssignCornerBtn from "../SkillAssignCornerBtn/SkillAssignCornerBtn";
-import SubSkillsTabDisplay from "../SubSkillsTabDisplay/SubSkillsTabDisplay";
 import SubSkillPane from "../SubSkillPane/SubSkillPane";
 
 function SkillPane() {
