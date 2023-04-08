@@ -89,7 +89,7 @@ function LandingPage() {
           onClick={() => {
             handleSetActiveSkill(index);
             console.log(`Clicked on ${skill.name} card`);
-            navigate(`/skills/${skill.name}`);
+            navigate(`/skills/${skill._id}`);
           }}
         >
           <CustomCardTitle variant="h6" component="h3" >
