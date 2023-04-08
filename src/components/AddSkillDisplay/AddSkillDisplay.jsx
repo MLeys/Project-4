@@ -1,3 +1,4 @@
+import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 
@@ -32,7 +33,6 @@ function AddSkillDisplay() {
 		setFormPop(false)
 	}
 
-	const { skillName } = useParams();
 
 	return (  
 		<>
@@ -41,7 +41,6 @@ function AddSkillDisplay() {
 				fluid={true}
 				content='Add Skill'
 				color="green" 
-			
 				icon='plus' 
 				size="large" 
 				
@@ -50,7 +49,7 @@ function AddSkillDisplay() {
 				onClick={handleOpen} 
 			/>
 		
-			<Portal onClose={handleClose} open={open}>
+			<Portal onClose={handleClose} open={formPop}>
 				<Segment 
 					inverted
 					style={{

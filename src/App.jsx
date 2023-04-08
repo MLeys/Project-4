@@ -62,7 +62,7 @@ export default function App() {
     });
   }
 
-  async function handleSetActiveSkill(index=0){
+  function handleSetActiveSkill(index=0){
     const skill = skills[index];
     resetActiveSubToFirstIndexActiveSkill(skill?.subSkills);
     setActiveSkill({
@@ -256,7 +256,7 @@ export default function App() {
   useEffect(() => {
     async function start() {
       await getSkills();
-      await handleSetActiveSkill();
+      handleSetActiveSkill();
     }
     start();
 

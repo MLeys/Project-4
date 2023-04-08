@@ -1,52 +1,28 @@
-import { useParams, Link } from "react-router-dom";
-import { useState, useEffect, Component } from "react";
+import React from "react";
+import { useState, useEffect, useContext } from "react";
 
-import {
-    Grid,
-    Segment,
-    Header,
-    Button,
-    Icon,
-    Portal
+import Container from '@mui/material/Container';
+import Grid from "@mui/material/Unstable_Grid2/Grid2";
 
-} from 'semantic-ui-react';
+import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
-import SkillDisplay from "../../_UNUSED/SkillDisplay/SkillDisplay";
-import skill from "../../../models/skill";
-import SkillGroup from "../../components/SkillDisplay/SkillDisplay";
+
 
 
 
 function SkillPage({ }) {
-    console.log(`\n\n\n HERE ======================================================== \n\n\n\n`)
+    const ctx = useContext(SkillsContext);
+    const activeSkill = ctx.activeSkill;
+    const skill = activeSkill.skill;
     
-    const skillName  = skill.name;
-
-    // async function skillDetail() {
-    //     try {
-    //         await getSkill(skillName)
-            
-    //         console.log(skill, '=== SKILL on skillpage');
-    //     }catch(err){
-    //         console.log(err, "skill detail error")
-    //     }
-    // }
-    
-    
-    // useEffect(() => {
-    //     //Getting posts, C(R)UD
-    //     // skillDetail();
-    //     // isSkillPage(true);
-
-    //   }, [(skill.name !== skillName)]); 
+    useEffect(() => {
+      }, []); 
 
     return (  
-        <>
-            <h1>Skill Page - {skillName} </h1>
-            {/* <SkillDisplay skill={skill} loggedUser={loggedUser} assignSkillUser={assignSkillUser} unAssignSkillUser={unAssignSkillUser} handleAddSubSkill={handleAddSubSkill} handleAddSkill={handleAddSkill} /> */}
-            <SkillGroup skill={skill} loggedUser={loggedUser} assignSkillUser={assignSkillUser} unAssignSkillUser={unAssignSkillUser} handleAddSkill={handleAddSkill} handleAddSubSkill={handleAddSubSkill}  />
+        <Grid container={true} className='fullScreenHeight'>
+            <h1>{skill.name}</h1>
 
-        </>
+        </Grid>
     );
 }
 export default SkillPage;

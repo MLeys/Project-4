@@ -1,4 +1,6 @@
 import { useEffect, useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+
 import mainTheme from "../../themes/mainTheme";
 
 import Button from '@mui/material/Button';
@@ -54,8 +56,10 @@ const CustomCardDetails = styled(Card)({
 
 
 function LandingPage() {
+  const navigate = useNavigate();
   const ctx = useContext(SkillsContext);
   const skills = ctx.skills;
+  const handleSetActiveSkill = ctx.handleSetActiveSkill;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -79,9 +83,15 @@ function LandingPage() {
       </Button>
       <CreateSkillModal isOpen={isModalOpen} onClose={handleCloseModal} />
     </section>
-      {skills?.map(skill => (
+      {skills?.map((skill, index) => (
       <Grid item={true} display="flex" justifyContent="center" alignItems="center" xs={12} sm={6} md={4} lg={3} key={skill.id}>
-        <CustomCard  onClick={() => console.log(`Clicked on ${skill.name} card`)}>
+        <CustomCard
+          onClick={() => {
+            handleSetActiveSkill(index);
+            console.log(`Clicked on ${skill.name} card`);
+            navigate(`/skills/${skill.name}`);
+          }}
+        >
           <CustomCardTitle variant="h6" component="h3" >
             {skill.name}
             <Typography variant="subtitle2" color="textSecondary" >

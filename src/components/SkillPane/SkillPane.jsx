@@ -53,11 +53,10 @@ function SkillPane() {
 	
 	return (
 		<Container fluid={true} >
-      <Header as={Segment} fluid={true} inverted={false} >
+      <Header as={Segment} >
         {skill?.name}
       </Header>
 			<Tab 
-				inverted={false}
 				activeIndex={activeSub?.index}
 				renderActiveOnly={true}
 				panes={subPanes} 
