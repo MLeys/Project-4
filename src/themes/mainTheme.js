@@ -24,8 +24,15 @@ const mainTheme = createTheme({
       main: '#f50057',
       dark: '#c51162',
       contrastText: '#ffffff',
+    },
+    primaryDarker: {
+      light: '#b3f4ff',
+      main: '#005766',
+      dark: '#002b33',
+      contrastText: '#ffffff',
     }
+
   }
-})
+});
 
 export default mainTheme;

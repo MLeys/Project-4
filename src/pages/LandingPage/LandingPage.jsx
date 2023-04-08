@@ -72,7 +72,7 @@ function LandingPage() {
 
     }, []); 
   return (
-    <Grid container={true} spacing={1} backgroundColor='primary.light' >
+    <Grid container={true} spacing={1} backgroundColor={mainTheme.palette.primaryDarker.main} >
           <section style={{height: '5dvh', width: '100dvw', paddingTop: 10, display: 'flex', justifyContent: 'center'}}>
       <Button variant="contained" color="primary" onClick={handleCreateSkill}>
         Create a New Skill
