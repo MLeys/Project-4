@@ -1,8 +1,5 @@
 import { Link, Outlet } from "react-router-dom";
 import { useState, useEffect, useReducer, useContext} from "react";
-import { useImmerReducer} from 'use-immer';
-
-
 
 import {
   Segment,
@@ -13,19 +10,16 @@ import {
   
 } from 'semantic-ui-react'
 
-
-import * as skillsApi from "../../utils/skillApi.js"; 
-
-import SkillsReducer from '../../reducers/SkillsReducer.js';
 import SidebarReducer from '../../reducers/SidebarReducer.js';
 
 import { SkillsContext, SkillsDispatchContext } from '../../context/SkillsContext/SkillsContext.jsx';
 
-import AddSkillDisplay from '../../components/AddSkillDisplay/AddSkillDisplay';
 import VerticalSidebar from '../../components/VerticalSidebar/VerticalSidebar';
 import FixedMenuHeader from '../../components/FixedMenuHeader/FixedMenuHeader';
 import MainFooter from '../../components/MainFooter/MainFooter';
-import SkillList from '../../components/SkillList/SkillList.jsx';
+
+
+
 
 function Layout({ handleLogout }) {
   const ctx = useContext(SkillsContext)
@@ -44,7 +38,7 @@ function Layout({ handleLogout }) {
   }, []); 
 
   return (
-    <Container className="layoutCtnr" fluid={true} style={{minWidth: '100dvw', margin: 0, padding: 0}}>
+    <Container className="layoutCtnr" fluid={true} style={{width: '100dvw', margin: 0, padding: 0}}>
 
   
     <FixedMenuHeader handleLogout={handleLogout} sidebarDispatch={sidebarDispatch}/>

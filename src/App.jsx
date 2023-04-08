@@ -277,7 +277,7 @@ export default function App() {
           userSkills: userSkills,
           activeSub: activeSub,
           
-          
+          handleLogout: handleLogout,
           handleSignUpOrLogin: handleSignUpOrLogin,
           createSkill: handleCreateSkill,
           getSkills: getSkills,
