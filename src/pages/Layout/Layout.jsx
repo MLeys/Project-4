@@ -39,7 +39,7 @@ function Layout({ handleLogout }) {
   }, []); 
 
   return (
-    <Container className="layoutCtnr" fluid='true' style={{width: '100dvw', margin: 0, padding: 0}}>
+    <Container className="layoutCtnr" fluid='true' style={{margin: 0, padding: 0}}>
 
   
     <FixedMenuHeader handleLogout={handleLogout} sidebarDispatch={sidebarDispatch}/>
