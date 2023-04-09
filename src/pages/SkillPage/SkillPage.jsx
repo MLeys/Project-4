@@ -18,28 +18,35 @@ import Stack from "@mui/material/Stack";
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 const CustomCard = styled(Card)({
-  width: '95%',
+  width: '100%',
   height: '50px',
   marginTop: '.25rem',
-  marginLeft: '.5rem',
-  marginRight: '.5rem',
   marginBottom: '.25rem',
   padding: '1rem',
   borderRadius: '10px',
-  boxShadow: '2px 3px 10px rgba(0,0,0,0.2)',
+  boxShadow: '4px 4px 4px rgba(0,0,20,0.2)',
   cursor: 'pointer',
   transition: 'transform 0.2s ease-in-out',
   backgroundColor: mainTheme.palette.primaryDarker.light,
   '&:hover': {
     transform: 'scale(1.05)',
-    backgroundColor: mainTheme.palette.secondary.light,
+    backgroundColor: mainTheme.palette.primary.main,
+    color: mainTheme.palette.primary.contrastText,
+
+  },
+  '&:active': {
+    backgroundColor: mainTheme.palette.primary.dark,
+    color: mainTheme.palette.primary.contrastText,
+    boxShadow: '0 5px #666',
+    transform: 'translateY(4px)',
   },
 })
 
 const MainTitle = styled(Typography)({
   
   color: mainTheme.palette.secondary.contrastText,
-  padding: '0px 0px',
+  padding: 0,
+  margin: 0
   // animationDuration: '3s',
   // animationName: 'slidein',
   // animationIterationCount: '1',
@@ -62,7 +69,8 @@ function SkillPage() {
   const skillId = useParams().skillId;
   const skill = ctx.activeSkill ? ctx.activeSkill.skill : skills?.find(skill => skill._id === skillId);
   const handleSetActiveSub = ctx.handleSetActiveSub;
-  const subSkill = ctx.activeSub.subSkill; 
+  
+                    
 
   async function loadSkills() {
     await getSkills();
@@ -70,6 +78,7 @@ function SkillPage() {
     console.log(skillIndex, " SKILL INDEX")
     
     await handleSetActiveSkill(skillIndex);
+    await handleSetActiveSub();
   }
 
   const [activeSubIndex, setActiveSubIndex] = useState(0)
@@ -86,22 +95,22 @@ function SkillPage() {
   }, [!skills && !skill]); 
 
   return (  
-    <Box minHeight='90dvh' component={Paper} elevation={12} >
-      <Grid p={1} component={Paper} container elevation={12}  >
+    <Box minHeight='90dvh' component={Paper} elevation={6} >
+      <Grid p={2} component={Paper} container elevation={6}  >
         <Grid xs={12} >
           <PageHeader title={skill?.name}/>
         </Grid>
-        <Grid container component={Paper} elevation={12} bgcolor={"primaryDarker.main"} minHeight='80dvh' spacing={1} mt={1} xs={12}>
+        <Grid container component={Paper} elevation={12} bgcolor={"primaryDarker.main"} minHeight='80dvh' spacing={2} mt={2} xs={12}>
           <Grid xs={3} bgcolor={"primaryDarker.dark"} component={Paper}>
             <Grid container bgcolor={"primary.light"} component={Paper} elevation={12}>
               <Grid xs={12} >
-                <Paper elevation={12} sx={{backgroundColor: "primary.light"}} >
-                  <Typography variant="h5" p={.5} alignContent='center' justifyContent='center'>Subskills</Typography>
-                </Paper>
+                
+                  <Typography  >Subskills</Typography>
+                
               </Grid>
       {skill?.subSkills.map((sub, index) => (
               <CustomCard onClick={() => handleClickSub(index)}>
-                <Typography textAlign='center' variant="subtitle1">{sub?.title }</Typography>
+                <Typography>{sub?.title }</Typography>
               </CustomCard>
               
             ))}
@@ -110,7 +119,7 @@ function SkillPage() {
           </Grid>
           <Grid xs={9} >
             <Paper elevation={12} >
-              <Typography variant="h3">{subSkill?.title}</Typography>
+              <Typography variant="h4" component="h4" p={2}>{skill?.subSkills[activeSubIndex].title}</Typography>
             </Paper>
           </Grid>
         </Grid>
