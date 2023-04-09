@@ -4,7 +4,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
 
-function DeleteButton() {
+function DeleteButton({ children }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -13,10 +13,11 @@ function DeleteButton() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+ const Icon = children;
 
   return (
     <div>
-      <Button
+      <Icon
         id="fade-button"
         aria-controls={open ? 'fade-menu' : undefined}
         aria-haspopup="true"
@@ -24,7 +25,7 @@ function DeleteButton() {
         onClick={handleClick}
       >
         Dashboard
-      </Button>
+      </Icon>
       <Menu
         id="fade-menu"
         MenuListProps={{

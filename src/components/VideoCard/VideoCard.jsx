@@ -25,6 +25,8 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import { SkillsContext } from '../../context/SkillsContext/SkillsContext';
 
+import DeleteButton from '../DeleteButton/DeleteButton';
+
 
 function VideoCard({resource, index}) {
   const theme = useTheme();
@@ -54,7 +56,8 @@ function VideoCard({resource, index}) {
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <CardActions sx={{ alignSelf: 'flex-start', pr: 0 , mt: 0, pb: 5}}>
                 <IconButton aria-label="settings">
-                  <MoreVertIcon />
+                  <DeleteButton children={MoreVertIcon}/>
+                  {/* <MoreVertIcon /> */}
                 </IconButton>
               </CardActions>
             </Box>
