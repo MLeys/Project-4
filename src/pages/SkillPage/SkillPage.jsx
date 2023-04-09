@@ -38,7 +38,7 @@ const CustomCard = styled(Card)({
 
 const MainTitle = styled(Typography)({
   
-  color: mainTheme.palette.primaryDarker.contrastText,
+  color: mainTheme.palette.secondary.contrastText,
   padding: '0px 0px',
   // animationDuration: '3s',
   // animationName: 'slidein',
@@ -48,7 +48,7 @@ const MainTitle = styled(Typography)({
 })
 
 const PageHeader = ({title}) => (
-  <Paper elevation={12} sx={{backgroundColor: mainTheme.palette.primaryDarker.main}}>
+  <Paper elevation={12} sx={{backgroundColor: mainTheme.palette.primaryDarker.light}}>
     <MainTitle className="firstSlideIn" variant="h2">{title}</MainTitle>
   </Paper>
 )
@@ -59,11 +59,10 @@ function SkillPage() {
   const getSkills = ctx.getSkills;
   const handleSetActiveSkill = ctx.handleSetActiveSkill;
   const skills = ctx.skills;
-
   const skillId = useParams().skillId;
-
   const skill = ctx.activeSkill ? ctx.activeSkill.skill : skills?.find(skill => skill._id === skillId);
-  console.log(skill?.name, " SKILL page skill")
+  const handleSetActiveSub = ctx.handleSetActiveSub;
+  const subSkill = ctx.activeSub.subSkill; 
 
   async function loadSkills() {
     await getSkills();
@@ -72,7 +71,14 @@ function SkillPage() {
     
     await handleSetActiveSkill(skillIndex);
   }
+
+  const [activeSubIndex, setActiveSubIndex] = useState(0)
   
+  function handleClickSub(index) {
+    setActiveSubIndex(index);
+    handleSetActiveSub(index);
+  }
+
 
   useEffect(() => {
 
@@ -85,30 +91,28 @@ function SkillPage() {
         <Grid xs={12} >
           <PageHeader title={skill?.name}/>
         </Grid>
-        <Grid container bgcolor={"primaryDarker.main"} minHeight='80dvh' spacing={1} mt={1} xs={12}>
-          <Grid xs={3}  bgcolor={"primaryDarker.dark"} >
-
-            <Grid container bgcolor={"primary.light"}>
+        <Grid container component={Paper} elevation={12} bgcolor={"primaryDarker.main"} minHeight='80dvh' spacing={1} mt={1} xs={12}>
+          <Grid xs={3} bgcolor={"primaryDarker.dark"} component={Paper}>
+            <Grid container bgcolor={"primary.light"} component={Paper} elevation={12}>
               <Grid xs={12} >
                 <Paper elevation={12} sx={{backgroundColor: "primary.light"}} >
                   <Typography variant="h5" p={.5} alignContent='center' justifyContent='center'>Subskills</Typography>
                 </Paper>
               </Grid>
-              {skill?.subSkills.map((sub) => (
-              <CustomCard>
-                <Typography textAlign='center' variant="h6">{sub?.title }</Typography>
+      {skill?.subSkills.map((sub, index) => (
+              <CustomCard onClick={() => handleClickSub(index)}>
+                <Typography textAlign='center' variant="subtitle1">{sub?.title }</Typography>
               </CustomCard>
+              
             ))}
             </Grid>
 
-        </Grid>
-        <Grid xs={9} >
-
+          </Grid>
+          <Grid xs={9} >
             <Paper elevation={12} >
-              <Typography variant="h3">Infoff</Typography>
+              <Typography variant="h3">{subSkill?.title}</Typography>
             </Paper>
-
-        </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </Box>
