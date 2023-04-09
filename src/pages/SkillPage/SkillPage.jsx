@@ -16,6 +16,7 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
+import VideoCard from "../../components/VideoCard/VideoCard";
 
 const CustomCard = styled(Card)({
   width: '100%',
@@ -67,7 +68,7 @@ function SkillPage() {
   const handleSetActiveSkill = ctx.handleSetActiveSkill;
   const skills = ctx.skills;
   const skillId = useParams().skillId;
-  const skill = ctx.activeSkill ? ctx.activeSkill.skill : skills?.find(skill => skill._id === skillId);
+  const skill = ctx.activeSkill ? ctx.activeSkill?.skill : skills?.find(skill => skill?._id === skillId);
   const handleSetActiveSub = ctx.handleSetActiveSub;
   
                     
@@ -119,8 +120,12 @@ function SkillPage() {
           </Grid>
           <Grid xs={9} >
             <Paper elevation={12} >
-              <Typography variant="h4" component="h4" p={2}>{skill?.subSkills[activeSubIndex].title}</Typography>
+              <Typography variant="h4" component="h4" p={2}>{skill?.subSkills[activeSubIndex]?.title}</Typography>
             </Paper>
+            {skill?.subSkills[activeSubIndex]?.resources?.map((resource, index)(
+              <VideoCard resource={resource} index={index} />
+            ))}
+
           </Grid>
         </Grid>
       </Grid>
