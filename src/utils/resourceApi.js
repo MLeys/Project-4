@@ -1,5 +1,5 @@
 
-import tokenService from "./tokenService";
+import tokenService from "./tokenService.js";
 
 const BASE_URL = '/api/resources/';
 
@@ -45,8 +45,8 @@ export function getAll() {
 	  })
 }
 
-export function deleteResource(skillId){
-	return fetch(`${BASE_URL}/${skillId}`, {
+export function deleteResource(id){
+	return fetch(`${BASE_URL}/${id}`, {
 		method: 'DELETE',
 		headers: {
 			Authorization: "Bearer " + tokenService.getToken() 
@@ -57,7 +57,7 @@ export function deleteResource(skillId){
 		// This gets called when we get a response from the 
 		// express server delete controller function
 		if(res.ok) return res.json() 
-		throw new Error('Error deleting a skill check the server terminal')
+		throw new Error('Error deleting a resource check the server terminal')
 	})
 }
 

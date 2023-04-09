@@ -1,10 +1,12 @@
 import Resource from '../models/resource.js';
 import skill from '../models/skill.js';
 import Skill from '../models/skill.js';
+import { deleteResource } from '../src/utils/resourceApi.js';
 
 export default {
   create,
 	all: allResources,
+	delete: deleteResources,
 
 };
 
@@ -77,5 +79,20 @@ async function allResources(req, res) {
 	res.status(200).json({ data: resources });
   } catch (err) {
 	res.status(400).json({ err });
+  }
+}
+
+async function deleteResources(req, res) {
+  try {
+    console.log(req.params, "Resource doc params for delete")
+    const resourceDoc = await Resource.findById(req.params.id)
+    console.log(resourceDoc, "<--- Resource on Delete")
+    resourceDoc.remove(req.params.id)
+    
+
+    res.status(201).json({resourceDoc})
+  } catch (err) {
+    console.log(err, '<-- Error in deleteResource.Ctrl')
+    res.status(400).json({err})
   }
 }

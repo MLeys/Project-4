@@ -6,7 +6,7 @@ import resourcesCtrl  from '../../controllers/resources.js';
 // router.get('/', resourcesCtrl.index)
 router.post('/', resourcesCtrl.create)
 
-// router.delete('/:id', resourcesCtrl.delete)
+router.delete('/:id', resourcesCtrl.delete)
 // router.post('/:id', resourcesCtrl.assignUser)
 // router.put('/:id', resourcesCtrl.unAssignUser)
 router.get('/all', resourcesCtrl.all)
