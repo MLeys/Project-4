@@ -45,6 +45,21 @@ export function getAll() {
 	  })
 }
 
+export function deleteResource(skillId){
+	return fetch(`${BASE_URL}/${skillId}`, {
+		method: 'DELETE',
+		headers: {
+			Authorization: "Bearer " + tokenService.getToken() 
+			//this is how we grab the token from local storage
+		}	
+	}).then(res => {
+		// res is the response from the server
+		// This gets called when we get a response from the 
+		// express server delete controller function
+		if(res.ok) return res.json() 
+		throw new Error('Error deleting a skill check the server terminal')
+	})
+}
 
 
 
@@ -59,21 +74,6 @@ export function getAll() {
 // =========================================================================================================
 
 
-// export function deleteSkill(skillId){
-// 	return fetch(`${BASE_URL}/${skillId}`, {
-// 		method: 'DELETE',
-// 		headers: {
-// 			Authorization: "Bearer " + tokenService.getToken() 
-// 			//this is how we grab the token from local storage
-// 		}	
-// 	}).then(res => {
-// 		// res is the response from the server
-// 		// This gets called when we get a response from the 
-// 		// express server delete controller function
-// 		if(res.ok) return res.json() 
-// 		throw new Error('Error deleting a skill check the server terminal')
-// 	})
-// }
 
 // export function getOneSkill(skillName) {
 	

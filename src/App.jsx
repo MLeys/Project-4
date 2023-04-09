@@ -130,6 +130,7 @@ export default function App() {
 
     }
   }
+
   async function assignSkillUser(skill) {
     try {
       const index = skills?.findIndex((s) => s._id === skill._id)
@@ -222,6 +223,23 @@ export default function App() {
     }
 
   } 
+
+  async function deleteResource(id) {
+    try {
+      const skillIndex = skills?.findIndex((skill) => skill._id === skillId)
+      const response = await resourcesApi.deleteResource(id);
+      // dispatch({
+      //   type: 'deleteSkill',
+      //   id: skillId,
+      //   index: skillIndex,
+      // })
+    } catch (err) {
+      setError(console.log(`*** Error DELETE SKILL ****\n ${err}`))
+
+    }
+  }
+
+
 
   async function handleCreateSubSkill(data) {
     try {
