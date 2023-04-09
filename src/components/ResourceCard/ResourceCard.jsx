@@ -17,7 +17,6 @@ function ResourceCard() {
 	<>{
 		resources.map((resource, index) => {
 			return (
-				
 				<Card 
 					key={`${resource.videoId}-${index}`}
 					

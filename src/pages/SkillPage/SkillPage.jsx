@@ -119,13 +119,18 @@ function SkillPage() {
 
           </Grid>
           <Grid xs={9} >
-            <Paper elevation={12} >
+            <Paper elevation={12} sx={{mb: 2}} >
               <Typography variant="h4" component="h4" p={2}>{skill?.subSkills[activeSubIndex]?.title}</Typography>
             </Paper>
-            {skill?.subSkills[activeSubIndex]?.resources?.map((resource, index)(
-              <VideoCard resource={resource} index={index} />
-            ))}
-
+            <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+              {Array.from(Array(6)).map((_, index) => (
+                <Grid xs={2} sm={4} md={4} key={index}>
+                  {skill?.subSkills[activeSubIndex]?.resources?.map((resource, index) => (
+                    <VideoCard resource={resource} index={index} />
+                  ))}   
+                </Grid>
+              ))}
+            </Grid>
           </Grid>
         </Grid>
       </Grid>
