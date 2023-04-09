@@ -217,6 +217,7 @@ export default function App() {
     try {
       const response = await resourcesApi.getAll();
       setResources( await response.data)
+      console.log(response, '< ALL RESOURCES')
     } catch(err) {
       setError(console.log('^^^^ getSkills Error!!! ^^^^'));
       console.log(err, '<--- getSkills ERROR');
@@ -224,9 +225,11 @@ export default function App() {
 
   } 
 
-  async function deleteResource(id) {
+  async function handleDeleteResource(id) {
     try {
-      const skillIndex = skills?.findIndex((skill) => skill._id === skillId)
+      const name = resources.find((r => r._id === id))
+      const index = resources.indexOf((r => r._id === id));
+      console.log(`HandleDeleteResource: ${name.title} at index: ${index}`)
       const response = await resourcesApi.deleteResource(id);
       // dispatch({
       //   type: 'deleteSkill',
@@ -281,6 +284,7 @@ export default function App() {
   useEffect(() => {
     async function start() {
       await getSkills();
+      await getResources();
       
     }
     start();
@@ -313,6 +317,7 @@ export default function App() {
           handleSetActiveSub: handleSetActiveSub,
           handleCreateSubSkill: handleCreateSubSkill,
           handleAddResource: handleAddResource,
+          handleDeleteResource: handleDeleteResource,
           
        
       }}>

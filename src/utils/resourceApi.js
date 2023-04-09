@@ -37,7 +37,7 @@ export async function create(data) {
 export function getAll() {
     return fetch(`${BASE_URL}all`, {
         headers: {
-            Authorization: "Bearer " + tokenService.getToken(),
+          Authorization: "Bearer " + tokenService.getToken(),
         }
     }).then(res => {
 		if(res.ok) return res.json()
@@ -46,6 +46,7 @@ export function getAll() {
 }
 
 export function deleteResource(id){
+	console.log(`ResourceApi-Delete: ${id}`)
 	return fetch(`${BASE_URL}/${id}`, {
 		method: 'DELETE',
 		headers: {

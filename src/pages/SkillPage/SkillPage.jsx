@@ -71,7 +71,7 @@ function SkillPage() {
   const skill = ctx.activeSkill ? ctx.activeSkill?.skill : skills?.find(skill => skill?._id === skillId);
   const handleSetActiveSub = ctx.handleSetActiveSub;
   
-                    
+
 
   async function loadSkills() {
     await getSkills();
@@ -106,12 +106,14 @@ function SkillPage() {
             <Grid container bgcolor={"primary.light"} component={Paper} elevation={12}>
               <Grid xs={12} >
                 
-                  <Typography  >Subskills</Typography>
+                  <Typography  >Subskills </Typography>
                 
               </Grid>
       {skill?.subSkills.map((sub, index) => (
-              <CustomCard onClick={() => handleClickSub(index)}>
-                <Typography>{sub?.title }</Typography>
+              <CustomCard key={`sub-${index}`} onClick={() => handleClickSub(index)}>
+                <Typography>{sub?.title }
+                <h5>{<p> fuc{skill?.subSkills[activeSubIndex]?.resources?.length}</p>}</h5>
+                </Typography>
               </CustomCard>
               
             ))}
@@ -125,8 +127,13 @@ function SkillPage() {
             <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
               {Array.from(Array(6)).map((_, index) => (
                 <Grid xs={2} sm={4} md={4} key={index}>
-                  {skill?.subSkills[activeSubIndex]?.resources?.map((resource, index) => (
-                    <VideoCard resource={resource} index={index} />
+                  {skill?.resources?.map((resource, index) => (
+                    <>
+                    <p>{skill?.subSkills[activeSubIndex]?.resources}</p>
+                    <h1> hello {resource.title}</h1>
+                    <VideoCard key={`resource-${index}`} resource={resource} index={index} />
+
+                    </>
                   ))}   
                 </Grid>
               ))}
