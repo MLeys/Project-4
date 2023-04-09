@@ -37,13 +37,13 @@ function VideoCard({resource, index}) {
     return (
       <iframe
         src={`https://www.youtube.com/embed/${resource.videoId}`}
-        frameborder='0'
+     
         allow='autoplay; encrypted-media'
-        allowfullscreen
         title='video'
       /> 
     )
   }
+  
 
   return (
     <Box component={Paper} elevation={16}>
@@ -56,7 +56,7 @@ function VideoCard({resource, index}) {
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <CardActions sx={{ alignSelf: 'flex-start', pr: 0 , mt: 0, pb: 5}}>
                 <IconButton aria-label="settings">
-                  <DeleteButton children={MoreVertIcon}/>
+                  <DeleteButton children={MoreVertIcon} id={resource._id}/>
                   {/* <MoreVertIcon /> */}
                 </IconButton>
               </CardActions>

@@ -1,18 +1,27 @@
 import * as React from 'react';
+import { useContext, useState } from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
 
-function DeleteButton({ children }) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+import { SkillsContext } from '../../context/SkillsContext/SkillsContext';
+
+
+function DeleteButton({ children , id}) {
+  const ctx = useContext(SkillsContext);
+  const handleDeleteResource = ctx.handleDeleteResource;
+
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
+
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
+
  const Icon = children;
 
   return (
@@ -36,7 +45,11 @@ function DeleteButton({ children }) {
         onClose={handleClose}
         TransitionComponent={Fade}
       >
-        <MenuItem onClick={handleClose}>Delete</MenuItem>
+        <MenuItem onClick={() => {
+          console.log(`resourceID: ${id}`)
+          handleClose();
+          handleDeleteResource(id);
+        }}>Delete</MenuItem>
         <MenuItem onClick={handleClose}>Edit</MenuItem>
         <MenuItem onClick={handleClose}>AddNote</MenuItem>
       </Menu>

@@ -87,7 +87,9 @@ async function deleteResources(req, res) {
     console.log(req.params, "Resource doc params for delete")
     const resourceDoc = await Resource.findById(req.params.id)
     console.log(resourceDoc, "<--- Resource on Delete")
-    resourceDoc.remove(req.params.id)
+    // resourceDoc.remove(req.params.id)
+		
+		await Resource.deleteOne({_id: req.params.id})
     
 
     res.status(201).json({resourceDoc})
