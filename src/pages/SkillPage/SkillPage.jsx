@@ -29,7 +29,7 @@ const CustomCard = styled(Card)({
   boxShadow: '2px 3px 10px rgba(0,0,0,0.2)',
   cursor: 'pointer',
   transition: 'transform 0.2s ease-in-out',
-  backgroundColor: mainTheme.palette.secondary.main,
+  backgroundColor: mainTheme.palette.primaryDarker.light,
   '&:hover': {
     transform: 'scale(1.05)',
     backgroundColor: mainTheme.palette.secondary.light,
@@ -39,7 +39,7 @@ const CustomCard = styled(Card)({
 const MainTitle = styled(Typography)({
   
   color: mainTheme.palette.primaryDarker.contrastText,
-  padding: '10px 0px',
+  padding: '0px 0px',
   // animationDuration: '3s',
   // animationName: 'slidein',
   // animationIterationCount: '1',
@@ -80,33 +80,37 @@ function SkillPage() {
   }, [!skills && !skill]); 
 
   return (  
-    <Box>
-      <Grid p={1} component={Paper} container elevation={12}   >
+    <Box minHeight='90dvh' component={Paper} elevation={12} >
+      <Grid p={1} component={Paper} container elevation={12}  >
         <Grid xs={12} >
           <PageHeader title={skill?.name}/>
         </Grid>
-      <Grid xs={4} container bgcolor={"primaryDarker.dark"}>
-        <Grid xs={12} >
-          <Paper elevation={12} >
-            <Typography variant="h4">Learn</Typography>
-          </Paper>
+        <Grid container bgcolor={"primaryDarker.main"} minHeight='80dvh' spacing={1} mt={1} xs={12}>
+          <Grid xs={3}  bgcolor={"primaryDarker.dark"} >
+
+            <Grid container bgcolor={"primary.light"}>
+              <Grid xs={12} >
+                <Paper elevation={12} sx={{backgroundColor: "primary.light"}} >
+                  <Typography variant="h5" p={.5} alignContent='center' justifyContent='center'>Subskills</Typography>
+                </Paper>
+              </Grid>
+              {skill?.subSkills.map((sub) => (
+              <CustomCard>
+                <Typography textAlign='center' variant="h6">{sub?.title }</Typography>
+              </CustomCard>
+            ))}
+            </Grid>
+
         </Grid>
-        {skill?.subSkills.map((sub) => (
-          <CustomCard>
-            <Typography textAlign='center' variant="h5">{sub?.title }</Typography>
-          </CustomCard>
-        ))}
+        <Grid xs={9} >
+
+            <Paper elevation={12} >
+              <Typography variant="h3">Infoff</Typography>
+            </Paper>
+
+        </Grid>
+        </Grid>
       </Grid>
-      <Grid xs={8} >
-
-          <Paper elevation={12} >
-            <Typography variant="h3">Infoff</Typography>
-          </Paper>
-
-      </Grid>
-
-    </Grid>
-
     </Box>
 
   );
