@@ -44,13 +44,17 @@ export default function App() {
   }
 
   function handleSetActiveSub(subIndex=0){
-    const skillIndex = activeSkill?.index;
-    setActiveSub({
-      ...activeSub,
-      index: subIndex,
-      subSkill: skills[skillIndex]?.subSkills[subIndex],
-      resources: skills[skillIndex]?.subSkills[subIndex]?.resources
-    });
+    if (skills) {
+      const skillIndex = activeSkill?.index;
+      setActiveSub({
+        ...activeSub,
+        index: subIndex,
+        subSkill: skills[skillIndex]?.subSkills[subIndex],
+        resources: skills[skillIndex]?.subSkills[subIndex]?.resources
+      });
+    }
+    getSkills();
+
   };
 
   function resetActiveSubToFirstIndexActiveSkill(subSkills) {
@@ -62,15 +66,18 @@ export default function App() {
     });
   }
 
-  function handleSetActiveSkill(index=0){
-    const skill = skills[index];
-    resetActiveSubToFirstIndexActiveSkill(skill?.subSkills);
-    setActiveSkill({
-      ...activeSkill,
-      index: index,
-      skill: skills[index],
-      subSkills: skills[index]?.subSkills
-    })    
+  async function handleSetActiveSkill(index=0){
+    if (skills) { 
+      const skill = skills[index];
+      resetActiveSubToFirstIndexActiveSkill(skill?.subSkills);
+      setActiveSkill({
+        ...activeSkill,
+        index: index,
+        skill: skills[index],
+        subSkills: skills[index]?.subSkills
+      })    
+    }
+    await getSkills();
   }
 
 
