@@ -7,11 +7,17 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import SwipeableViews from 'react-swipeable-views';
 import AppBar from '@mui/material/AppBar';
+import Input from '@mui/material/Input';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormControl from '@mui/material/FormControl';
 
 
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 import SubSkillPane from "../SubSkillPane/SubSkillPane";
+import SearchForm from "../SearchForm/SearchForm";
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
@@ -107,11 +113,14 @@ function SkillPane() {
 					{subSkills?.map((sub, index) => (
 						<Tab label={sub.title} {...a11yProps({index})} key={`tabKey-${index}`}/>
 					))}
+					<SearchForm />
 				</Tabs>
+				
 			</AppBar>
 			<SwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={value}
+				animateTransitions
         onChangeIndex={handleChangeIndex}
       >
 				{subSkills?.map((sub, index) => (

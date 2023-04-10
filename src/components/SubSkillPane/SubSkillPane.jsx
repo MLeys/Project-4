@@ -9,7 +9,8 @@ import VideoCard from "../VideoCard/VideoCard";
 
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 import AddResourceDisplay from "../AddResourceDisplay/AddResourceDisplay";
-import ResourceDisplay from "../ResourceDisplay/ResourceDisplay"
+
+
 
 function SubSkillPane() {
 	const ctx = useContext(SkillsContext);
@@ -25,11 +26,14 @@ function SubSkillPane() {
 
 	return (
 		<><Grid container spacing={1}>
+			
+			
 				{resources?.map((resource, index) => (
 					<Grid xs={12} sm={6} lg={4} >
 						<VideoCard key={`resource-${index}`} resource={resource} index={index} />
 					</Grid>
 				))}   
+				<AddResourceDisplay />
 		</Grid>
 
 		</>
