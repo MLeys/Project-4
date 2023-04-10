@@ -55,21 +55,10 @@ function SkillPane() {
 	const theme = useTheme();
 
 	const [value, setValue] = useState(0);
-  const [open, setOpen] = useState(false);
-  const [formSubmitted, setFormSubmitted] = useState(false);
-
-	const handleFormSubmit = () => {
-    setFormSubmitted(true);
-    setOpen(true);
-  };
-
-  const handleModalClose = () => {
-    setOpen(false);
-    setFormSubmitted(false);
-  };
-
+	const [activeTab, setActiveTab] = useState(activeSubIndex);
 
   const handleChangeIndex = (index) => {
+		setValue(index)
     setActiveTab(index);
 		handleSetActiveSub(index)
   };
