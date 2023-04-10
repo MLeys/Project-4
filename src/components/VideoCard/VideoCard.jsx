@@ -31,13 +31,17 @@ import DeleteButton from '../DeleteButton/DeleteButton';
 function VideoCard({resource, index}) {
   const theme = useTheme();
 	const ctx = useContext(SkillsContext);
+
   const {title, videoId, description, thumbnail, datePublished, skillId, subSkillId } = resource;
+
+  const createdAt = resource.formattedCreatedAt;
+  
 
   function ResourceVideo() {
     return (
       <iframe
         width='100%'
-        src={`https://www.youtube.com/embed/${resource.videoId}`}
+        src={`https://www.youtube.com/embed/${videoId}`}
         allowFullScreen={true}
         allow='autoplay; encrypted-media'
         title='video'
@@ -52,7 +56,7 @@ function VideoCard({resource, index}) {
       <CardContent sx={{ mt: 1, pt: 1, mb: 0, pb: 0}}>
         <Box ml={0} sx={{ display: 'flex', alignItems: 'center' }}>            
           <Typography variant="h5" sx={{ fontWeight: 900 }}>
-            {resource.title}
+            {title}
           </Typography>
           <Box m={0} p={0} position='relative'>
             <CardActions >
@@ -63,11 +67,17 @@ function VideoCard({resource, index}) {
             </CardActions>
           </Box>
         </Box>
-        <Typography variant="body1" color="secondary.contrastText" >
-          {resource.description}
-        </Typography>
-        <ResourceVideo />
+        <Box height='60px'  sx={{overflow: 'auto'}} >
+        <Typography whiteSpace='normal' variant="subtitle2" color="secondary.contrastText">            {resource.description}
+          </Typography>
+        </Box>
+        <Box mt={2}>
+          <ResourceVideo />
+        </Box>
       </CardContent>
+
+        <Typography alignContent={'flex-end'}>Added: {createdAt}</Typography>
+
     </Card>
 
   );

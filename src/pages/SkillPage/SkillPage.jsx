@@ -105,11 +105,9 @@ function SkillPage() {
           <Grid xs={3} bgcolor={"primaryDarker.dark"} component={Paper}>
             <Grid container bgcolor={"primary.light"} component={Paper} elevation={12}>
               <Grid xs={12} >
-                
-                  <Typography  >Subskills </Typography>
-                
+                <Typography  >Subskills </Typography>
               </Grid>
-      {skill?.subSkills.map((sub, index) => (
+              {skill?.subSkills.map((sub, index) => (
               <CustomCard key={`sub-${index}`} onClick={() => handleClickSub(index)}>
                 <Typography>{sub?.title }
                
