@@ -1,5 +1,5 @@
 import "./DashboardPage.css"
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import { 
   Menu,
   Tab,
@@ -14,8 +14,12 @@ import SkillPane from "../../components/SkillPane/SkillPane";
 function DashboardPage() {
   const ctx = useContext(SkillsContext);
   const handleSetActiveSkill = ctx.handleSetActiveSkill;
+  const loadSkills = ctx.loadSkills;
   const skills = ctx.skills;
   const userSkills = ctx.userSkills;
+  const getSkills = ctx.getSkills;
+
+  const [activeIndex, setActiveIndex] = useState(0)
 
 	const skillPanes = userSkills?.map((skill, index) => ({
     menuItem: (
@@ -24,8 +28,6 @@ function DashboardPage() {
           className="skill_pane" 
           key={`pane-${skill?.name}-${index}`} 
           fitted={false}
-          
-          
         >
           {skill?.name}
         </Menu.Item>
@@ -41,15 +43,17 @@ function DashboardPage() {
     e.preventDefault();
 		e.stopPropagation();
 
-    const activeIndex = data.activeIndex;
-    const userSkillId = userSkills[activeIndex]._id;
-    const skillIndex = skills?.findIndex(skill => skill?._id === userSkillId);
+    setActiveIndex(data.activeIndex);
 
-    await handleSetActiveSkill(skillIndex)
+    const userSkillId = userSkills[data.activeIndex]._id;
+    const skillIndex = skills?.findIndex(skill => skill?._id === userSkillId);
+ 
+    await handleSetActiveSkill(data.activeIndex)
   }
   
   useEffect(() => {
-  }, []); 
+    handleSetActiveSkill();
+  }, [!skills]); 
 
 
   return (
@@ -60,13 +64,10 @@ function DashboardPage() {
           fluid: true,
           color: 'blue', 
           inverted: true, 
-  
           tabular: false, 
           vertical: true, 
-         
-          
         }}
-       
+        defaultActiveIndex={0}
         panes={skillPanes} 
         onTabChange={ (e, data) => handleTabChange(e,data)}
         menuPosition='left'

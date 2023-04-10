@@ -101,32 +101,31 @@ function SkillPage() {
         <Grid xs={12} >
           <PageHeader title={skill?.name}/>
         </Grid>
-        <Grid container component={Paper} elevation={12} bgcolor={"primaryDarker.main"} minHeight='80dvh' spacing={2} mt={2} xs={12}>
-          <Grid xs={3} bgcolor={"primaryDarker.dark"} component={Paper}>
-            <Grid container bgcolor={"primary.light"} component={Paper} elevation={12}>
+        <Grid container component={Paper} elevation={12}  minHeight='80dvh' spacing={2} mt={2} xs={12}>
+          <Grid xs={3} component={Paper}>
+            <Grid container bgcolor={"primary.main"} component={Paper} elevation={12}>
               <Grid xs={12} >
                 <Typography  >Subskills </Typography>
               </Grid>
               {skill?.subSkills.map((sub, index) => (
               <CustomCard key={`sub-${index}`} onClick={() => handleClickSub(index)}>
-                <Typography>{sub?.title }
-               
+                <Typography>
+                  {sub?.title }
                 </Typography>
               </CustomCard>
-              
             ))}
             </Grid>
 
           </Grid>
-          <Grid xs={9} >
+          <Grid xs={9}  >
             <Paper elevation={12} sx={{mb: 2}} >
               <Typography variant="h4" component="h4" p={2}>{skill?.subSkills[activeSubIndex]?.title}</Typography>
             </Paper>
             <Box sx={{ flexGrow: 1 }}>
-              <Grid container >
+              <Grid container align={'center'} >
                 
                   {skill?.resources?.map((resource, index) => (
-                    <Grid xs={2} sm={4} md={4} >
+                    <Grid xs={12} md={6} lg={4} >
                       <VideoCard key={`resource-${index}`} resource={resource} index={index} />
                     </Grid>
                   ))}   
