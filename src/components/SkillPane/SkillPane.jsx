@@ -6,13 +6,13 @@ import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import SwipeableViews from 'react-swipeable-views';
 import AppBar from '@mui/material/AppBar';
+import Button from '@mui/material/Button';
 
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
-
-
 import SubSkillPane from "../SubSkillPane/SubSkillPane";
 import SearchForm from "../SearchForm/SearchForm";
+import SearchResultsModal from "../SearchResultsModal/SearchResultsModal";
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
@@ -49,17 +49,25 @@ function a11yProps(index) {
 
 function SkillPane() {
   const ctx = useContext(SkillsContext)
-  const skill = ctx.activeSkill?.skill;
-	const skillIndex = ctx.activeSkill?.index;
 	const subSkills = ctx.activeSkill?.subSkills;
 	const handleSetActiveSub = ctx.handleSetActiveSub;
-	const activeSub = ctx.activeSub;
 	const activeSubIndex = ctx.activeSub?.index;
-
 	const theme = useTheme();
 
-	const [activeTab, setActiveTab] = useState(activeSubIndex);
 	const [value, setValue] = useState(0);
+  const [open, setOpen] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
+	const handleFormSubmit = () => {
+    setFormSubmitted(true);
+    setOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setOpen(false);
+    setFormSubmitted(false);
+  };
+
 
   const handleChangeIndex = (index) => {
     setActiveTab(index);
@@ -74,12 +82,6 @@ function SkillPane() {
     const subIndex = subSkills?.findIndex(sub => sub._id === activeSubId);
     handleSetActiveSub(subIndex)	
   };
-
-
-	useEffect(() => {
-
-	}, [!subSkills])
-	
 
 	return (
 		<Box bgcolor={'primary.light'} height={'100dvh'} >
