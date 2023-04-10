@@ -39,12 +39,12 @@ function Layout({ handleLogout }) {
   }, []); 
 
   return (
-    <Container className="layoutCtnr" fluid='true' style={{margin: 0, padding: 0}}>
+    <Container fluid='true' style={{margin: 0, padding: 0}}>
 
   
     <FixedMenuHeader handleLogout={handleLogout} sidebarDispatch={sidebarDispatch}/>
 
-      <Sidebar.Pushable as={Container} style={{ overflow: 'hidden', margin: 0, padding: 0  }}>
+      <Sidebar.Pushable as={Container} style={{ overflow: 'auto', margin: 0, padding: 0  }}>
         <VerticalSidebar
           animation={animation}
           direction={direction}

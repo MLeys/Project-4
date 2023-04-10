@@ -1,5 +1,7 @@
 import "./DashboardPage.css"
 import { useEffect, useContext, useState } from "react";
+
+
 import { 
   Menu,
   Tab,
@@ -25,6 +27,12 @@ function DashboardPage() {
     menuItem: (
 
         <Menu.Item
+          sx={{overflow: 'auto'}}
+          onClick={() => {
+            console.log(skill, " <--- skilllll on click")
+            console.log(`Clicked On ${skill.name} tab`);
+            handleClickTab(index);
+          }}
           className="skill_pane" 
           key={`pane-${skill?.name}-${index}`} 
           fitted={false}
@@ -39,16 +47,20 @@ function DashboardPage() {
     )
 	}));
 
+  function handleClickTab(index){
+    console.log(index, '<< trying to change')
+    
+  }
+
   async function handleTabChange(e, data) {
     e.preventDefault();
 		e.stopPropagation();
-
+    console.log(data.activeIndex, " << tab change activeindex")
     setActiveIndex(data.activeIndex);
-
     const userSkillId = userSkills[data.activeIndex]._id;
-    const skillIndex = skills?.findIndex(skill => skill?._id === userSkillId);
- 
-    await handleSetActiveSkill(data.activeIndex)
+    const skillId = skills?.findIndex((skill) => skill._id === userSkillId)
+
+    await handleSetActiveSkill(skillId)
   }
   
   useEffect(() => {
@@ -67,7 +79,7 @@ function DashboardPage() {
           tabular: false, 
           vertical: true, 
         }}
-        defaultActiveIndex={0}
+        defaultActiveIndex={activeIndex}
         panes={skillPanes} 
         onTabChange={ (e, data) => handleTabChange(e,data)}
         menuPosition='left'

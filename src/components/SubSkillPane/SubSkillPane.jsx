@@ -24,16 +24,19 @@ function SubSkillPane() {
 	}, [])
 
 	return (
-
-    <Box minHeight='90dvh' component={Paper} elevation={6} >
-      <Grid container component={Paper} elevation={12} bgcolor={"primaryDarker.main"} minHeight='80dvh' spacing={2} mt={2} xs={12}>
+		<><Grid container spacing={1}>
 				{resources?.map((resource, index) => (
 					<Grid xs={12} sm={6} lg={4} >
 						<VideoCard key={`resource-${index}`} resource={resource} index={index} />
 					</Grid>
 				))}   
-      </Grid>
-    </Box>
+		</Grid>
+
+		</>
+
+
+    
+
 	)
 }
 export default SubSkillPane;
