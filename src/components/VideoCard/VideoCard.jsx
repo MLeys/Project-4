@@ -58,7 +58,7 @@ function VideoCard({resource, index}) {
 
   return (
 
-    <Card sx={{ minWidth: '275px', minHeight: '375px' , m: 0, p: 0}}  >
+    <Card sx={{ minWidth: '260px', maxWidth: '350px',minHeight: '375px' , m: 0, p: 0}} >
       <CardContent sx={{ mt: 1, pt: 1, mb: 0, pb: 0}}>
         <Box ml={0} height='80px' mb={1} sx={{ display: 'flex', alignItems: 'center' }}>            
           <Typography variant="h5" sx={{ fontWeight: 900 }}>
@@ -77,7 +77,7 @@ function VideoCard({resource, index}) {
         <Typography whiteSpace='normal' variant="subtitle2" color="secondary.contrastText">            {resource.description}
           </Typography>
         </Box>
-        <Box mt={2} >
+        <Box m={0} mt={2} >
           <ResourceVideo />
         </Box>
       </CardContent>

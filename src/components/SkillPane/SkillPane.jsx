@@ -12,7 +12,7 @@ import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 import SubSkillPane from "../SubSkillPane/SubSkillPane";
 import SearchForm from "../SearchForm/SearchForm";
-import SearchResultsModal from "../SearchResultsModal/SearchResultsModal";
+
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
@@ -54,11 +54,9 @@ function SkillPane() {
 	const activeSubIndex = ctx.activeSub?.index;
 	const theme = useTheme();
 
-	const [value, setValue] = useState(0);
 	const [activeTab, setActiveTab] = useState(activeSubIndex);
 
   const handleChangeIndex = (index) => {
-		setValue(index)
     setActiveTab(index);
 		handleSetActiveSub(index)
   };
@@ -90,25 +88,26 @@ function SkillPane() {
 					))}
 				</Tabs>
 			</AppBar>
+			<Box bgcolor={'primary.main'} sx={{ display: 'flex', alignItems: 'flex-start', p: 1, mb: 5 }}>
+				<SearchForm />
+			</Box>
 			<SwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-        index={value}
+        index={activeTab}
 				animateTransitions
         onChangeIndex={handleChangeIndex}
       >
 				<Box >
-					<Box bgcolor={'primary.main'} sx={{ display: 'flex', alignItems: 'flex-start', p: 1 }}>
-						<SearchForm />
-					</Box>
+
 
 					{subSkills?.map((sub, index) => (
-					<TabPanel value={value} index={index} key={`panelKey-${index}`} dir={theme.direction}>
+					<TabPanel value={activeTab} index={index} key={`panelKey-${index}`} dir={theme.direction}>
 						<SubSkillPane />
 					</TabPanel>
 					))}
 				</Box>
-
 			</SwipeableViews>
+
 	</Box>
 	)
 }
