@@ -14,11 +14,13 @@ export default function SearchForm() {
   const ctx = useContext(SkillsContext)
   const skillName = ctx.activeSkill?.skill?.name;
   const subSkillName = ctx.activeSub?.subSkill?.title;
+  const searchYouTube = ctx.searchYouTube;
 
   const [search, setSearch] = useState('');
 
   function handleSubmit(e, data) {
     e.preventDefault();
+    searchYouTube(search);
 
   }
 
@@ -36,7 +38,7 @@ export default function SearchForm() {
           color='secondary'
           label={`Search YouTube for resources on ${skillName} - ${subSkillName}`}
           id="filled-start-adornment"
-          sx={{ m: 1, width: '50ch', bgcolor: 'primaryDarker.main' }}
+          sx={{ m: 1, width: '40ch', bgcolor: 'primaryDarker.main' }}
           InputProps={{
             startAdornment: <InputAdornment position="start">Enter Keywords:</InputAdornment>,
             style: {color: 'white'}
