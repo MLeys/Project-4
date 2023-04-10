@@ -17,21 +17,24 @@ export default function SearchForm() {
 
 
   return (
-    <FormControl label="With normal TextField" variant="standard" sx={{ m: 0, p: 0, width: '15ch' }}>
+    <FormControl label="With normal TextField" variant="standard" sx={{color: 'black', m: 0, p: 0}}>
       <TextField
-          label={`Search YouTube for resources on SKILL - SUBSKILLS`}
-          id="filled-start-adornment"
-          sx={{ m: 1, width: '25ch' }}
-          InputProps={{
-            startAdornment: <InputAdornment position="start">Keywords</InputAdornment>,
-          }}
-          variant="filled"
+        color='secondary'
+        label={`Search YouTube for resources on SKILL - SUBSKILLS`}
+        id="filled-start-adornment"
+        sx={{ m: 1, width: '50ch', bgcolor: 'primaryDarker.main' }}
+        InputProps={{
+          startAdornment: <InputAdornment position="start">Enter Keywords:</InputAdornment>,
+          style: {color: 'white'}
+        }}
+   
+        variant="filled"
         value={search}
         onChange={(event) => {
           setSearch(event.target.value);
         }}
       />
     </FormControl>
-    
+
   );
 }
