@@ -240,10 +240,8 @@ export default function App() {
     try {
       const response = await resourcesApi.getAll();
       setResources( await response.data)
-      console.log(response, '< ALL RESOURCES')
     } catch(err) {
       setError(console.log('^^^^ getSkills Error!!! ^^^^'));
-      console.log(err, '<--- getSkills ERROR');
     }
 
   } 

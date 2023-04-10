@@ -92,7 +92,7 @@ function SkillPane() {
 	
 
 	return (
-		<Box my={1} p={0} ml={0} mr={1} bgcolor={'primary.dark'} className='fullScreenHeight'>
+		<Box bgcolor={'primary.light'} height={'100dvh'} >
 			<AppBar position="static" sx={{backgroundColor: 'primaryDarker.dark', color: 'primary.contrastText'}}>
 				<Tabs
 					textColor="inherit"
