@@ -1,6 +1,8 @@
 import "./DashboardPage.css"
 import { useEffect, useContext, useState } from "react";
 
+import Grid from "@mui/material/Unstable_Grid2/Grid2";
+import Box from '@mui/material/Box';
 
 import { 
   Menu,
@@ -23,6 +25,10 @@ function DashboardPage() {
   const getSkills = ctx.getSkills;
 
   const [activeIndex, setActiveIndex] = useState(0)
+
+
+  const skillTitlesArray = userSkills?.map((skill) => skill.name)
+  console.log(skillTitlesArray, " skill titles!")
 
 	const skillPanes = userSkills?.map((skill, index) => ({
     menuItem: (
@@ -70,22 +76,12 @@ function DashboardPage() {
 
 
   return (
-    <Container fluid={true} style={{margin: 0, padding: 0}} className='fullScreenHeight' >
-      <Tab
-        menu={{
-          id: 'skillTabs',
-          fluid: true,
-          color: 'blue', 
-          inverted: true, 
-          tabular: false, 
-          vertical: true, 
-        }}
-        defaultActiveIndex={activeIndex}
-        panes={skillPanes} 
-        onTabChange={ (e, data) => handleTabChange(e,data)}
-        menuPosition='left'
-      />
-    </Container>
+    <Grid className='fullScreenHeight' p={.5} bgcolor={'accent.dark'} >
+      
+      <VerticalTabs titleArray={skillTitlesArray} >
+        <SkillPane />
+      </VerticalTabs>
+    </Grid>
   )
 }
 
