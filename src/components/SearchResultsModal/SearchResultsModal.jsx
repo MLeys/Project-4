@@ -5,13 +5,16 @@ import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Unstable_Grid2/Grid2';
 
 const style = {
   position: 'absolute',
-  top: '50%',
+  overflow: 'auto',
+  top: '60%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  width: {xs: '90%', md: '80%'},
+  height: '90%',
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -22,7 +25,7 @@ export default function SearchResultsModal({open, handleClose}) {
 
 
   return (
-    <div>
+   
       
       <Modal
         aria-labelledby="transition-modal-title"
@@ -37,17 +40,18 @@ export default function SearchResultsModal({open, handleClose}) {
           },
         }}
       >
-        <Fade in={open}>
+        <Fade in={open} >
+
           <Box sx={style}>
-            <Typography id="transition-modal-title" variant="h6" component="h2">
+            <Typography  variant="h6" component="h2">
               Text in a modal
             </Typography>
-            <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+            <Typography sx={{ mt: 2 }}>
               tresults stesfds
             </Typography>
           </Box>
         </Fade>
       </Modal>
-    </div>
+
   );
 }
