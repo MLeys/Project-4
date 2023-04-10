@@ -11,7 +11,8 @@ import {
 
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 import SkillPane from "../../components/SkillPane/SkillPane";
-
+import AddResourceDisplay from "../../components/AddResourceDisplay/AddResourceDisplay";
+import VerticalTabs from "../../components/VerticalTabs/VerticalTabs";
 
 function DashboardPage() {
   const ctx = useContext(SkillsContext);
