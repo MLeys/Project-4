@@ -7,9 +7,9 @@ import Box from '@mui/material/Box';
 import SwipeableViews from 'react-swipeable-views';
 import AppBar from '@mui/material/AppBar';
 
-
-
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
+
+
 
 import SubSkillPane from "../SubSkillPane/SubSkillPane";
 import SearchForm from "../SearchForm/SearchForm";
