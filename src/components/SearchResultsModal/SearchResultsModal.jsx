@@ -7,12 +7,14 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
 
+import SearchResultsDisplay from '../SearchResultsDisplay/SearchResultsDisplay';
 
 const style = {
   position: 'absolute',
   overflow: 'auto',
-  top: '60%',
+  top: '50%',
   left: '50%',
+  
   transform: 'translate(-50%, -50%)',
   width: {xs: '90%', md: '80%'},
   height: '90%',
@@ -20,6 +22,7 @@ const style = {
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
+  
 };
 
 export default function SearchResultsModal({open, handleClose}) {
@@ -40,16 +43,12 @@ export default function SearchResultsModal({open, handleClose}) {
             timeout: 500,
           },
         }}
+        sx={{overflow: 'auto'}}
       >
         <Fade in={open} >
 
-          <Box sx={style}>
-            <Typography  variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography sx={{ mt: 2 }}>
-              tresults stesfds
-            </Typography>
+          <Box sx={style} m={3}>
+            <SearchResultsDisplay handleClose={handleClose}/>
           </Box>
         </Fade>
       </Modal>

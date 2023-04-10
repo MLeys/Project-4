@@ -17,7 +17,7 @@ export default function SearchForm({onSubmit}) {
   const searchYouTube = ctx.searchYouTube;
 
   const [search, setSearch] = useState("");
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -29,7 +29,7 @@ export default function SearchForm({onSubmit}) {
   }
 
   return (
-    <Box sx={{ display: "flex", alignItems: "center" }}>
+    <Box mb={5} sx={{ display: "flex", alignItems: "center" }}>
       <form onSubmit={handleSubmit}>
         <FormControl
           label="With normal TextField"
