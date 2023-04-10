@@ -53,18 +53,21 @@ function SkillPane() {
 	const subSkills = ctx.activeSkill?.subSkills;
 	const handleSetActiveSub = ctx.handleSetActiveSub;
 	const activeSub = ctx.activeSub;
+	const activeSubIndex = ctx.activeSub?.index;
 
 	const theme = useTheme();
 
-	const [activeTab, setActiveTab] = useState(0);
+	const [activeTab, setActiveTab] = useState(activeSubIndex);
 	const [value, setValue] = useState(0);
 
   const handleChangeIndex = (index) => {
-    setValue(index);
+    setActiveTab(index);
+		handleSetActiveSub(index)
   };
 	
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    setActiveTab(newValue);
+		console.log('CHANGED TAB')
 		const activeIndex = newValue;
 		const activeSubId = subSkills[activeIndex]?._id;
     const subIndex = subSkills?.findIndex(sub => sub._id === activeSubId);
@@ -92,7 +95,9 @@ function SkillPane() {
 		<Box my={1} p={0} ml={0} mr={1} bgcolor={'primary.dark'} className='fullScreenHeight'>
 			<AppBar position="static" sx={{backgroundColor: 'primaryDarker.dark', color: 'primary.contrastText'}}>
 				<Tabs
-					value={value}
+					textColor="inherit"
+					indicatorColor="secondary"
+					value={activeSubIndex}
 					onChange={handleChange}
 					variant="scrollable"
 					scrollButtons
