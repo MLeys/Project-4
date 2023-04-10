@@ -231,6 +231,8 @@ export default function App() {
       const index = resources.indexOf((r => r._id === id));
       console.log(`HandleDeleteResource: ${name.title} at index: ${index}`)
       const response = await resourcesApi.deleteResource(id);
+      console.log(response.resourceDoc.title, ' <---resource removed from database')
+      getResources();
       // dispatch({
       //   type: 'deleteSkill',
       //   id: skillId,
