@@ -16,7 +16,7 @@ import SkipNextIcon from '@mui/icons-material/SkipNext';
 import { styled } from '@mui/material/styles';
 import Collapse from '@mui/material/Collapse';
 import Avatar from '@mui/material/Avatar';
-import { red } from '@mui/material/colors';
+import { lightGreen, red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -36,8 +36,9 @@ function VideoCard({resource, index}) {
   function ResourceVideo() {
     return (
       <iframe
+        width='100%'
         src={`https://www.youtube.com/embed/${resource.videoId}`}
-     
+        allowFullScreen={true}
         allow='autoplay; encrypted-media'
         title='video'
       /> 
@@ -46,30 +47,28 @@ function VideoCard({resource, index}) {
   
 
   return (
-    <Box component={Paper} elevation={16}>
-      <Card >
-        <CardContent sx={{my: .5, p: 0, maxWidth: '100%'}}>
-          <Box ml={2} sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>            
-            <Typography variant="h5" component="div" sx={{ fontWeight: 900 }}>
-              {resource.title}
-            </Typography>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <CardActions sx={{ alignSelf: 'flex-start', pr: 0 , mt: 0, pb: 5}}>
-                <IconButton aria-label="settings">
-                  <DeleteButton children={MoreVertIcon} id={resource._id}/>
-                  {/* <MoreVertIcon /> */}
-                </IconButton>
-              </CardActions>
-            </Box>
-          </Box>
-          <Typography variant="body1" color="secondary.contrastText" >
-            {resource.description}
-          </Typography>
-          <ResourceVideo />
-        </CardContent>
-      </Card>
 
-    </Box>
+    <Card sx={{ height: '350px', m: 0, p: 0}}  >
+      <CardContent sx={{ mt: 1, pt: 1, mb: 0, pb: 0}}>
+        <Box ml={0} sx={{ display: 'flex', alignItems: 'center' }}>            
+          <Typography variant="h5" sx={{ fontWeight: 900 }}>
+            {resource.title}
+          </Typography>
+          <Box m={0} p={0} position='relative'>
+            <CardActions >
+              <IconButton aria-label="add-edit-delete" sx={{ position: 'absolute', top: -35, right: -20}}>
+                <DeleteButton children={MoreVertIcon} id={resource._id}/>
+                {/* <MoreVertIcon /> */}
+              </IconButton>
+            </CardActions>
+          </Box>
+        </Box>
+        <Typography variant="body1" color="secondary.contrastText" >
+          {resource.description}
+        </Typography>
+        <ResourceVideo />
+      </CardContent>
+    </Card>
 
   );
 }
