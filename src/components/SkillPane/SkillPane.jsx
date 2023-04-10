@@ -4,14 +4,9 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import SwipeableViews from 'react-swipeable-views';
 import AppBar from '@mui/material/AppBar';
-import Input from '@mui/material/Input';
-import InputLabel from '@mui/material/InputLabel';
-import InputAdornment from '@mui/material/InputAdornment';
-import FormHelperText from '@mui/material/FormHelperText';
-import FormControl from '@mui/material/FormControl';
+
 
 
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
@@ -80,17 +75,6 @@ function SkillPane() {
     handleSetActiveSub(subIndex)	
   };
 
-	async function handleTabChange(e, data) {
-		console.log(data, " <--- data")
-		e.preventDefault();
-		e.stopPropagation();
-		setActiveTab(data)
-    const activeIndex = data;
-		const activeSubId = subSkills[activeIndex]?._id;
-    const subIndex = subSkills?.findIndex(sub => sub._id === activeSubId);
-    await handleSetActiveSub(subIndex)	
-
-  }
 
 	useEffect(() => {
 
@@ -113,9 +97,7 @@ function SkillPane() {
 					{subSkills?.map((sub, index) => (
 						<Tab label={sub.title} {...a11yProps({index})} key={`tabKey-${index}`}/>
 					))}
-					<SearchForm />
 				</Tabs>
-				
 			</AppBar>
 			<SwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
@@ -123,13 +105,19 @@ function SkillPane() {
 				animateTransitions
         onChangeIndex={handleChangeIndex}
       >
-				{subSkills?.map((sub, index) => (
-				<TabPanel value={value} index={index} key={`panelKey-${index}`} dir={theme.direction}>
-					<SubSkillPane />
-				</TabPanel>
-				))}
-			</SwipeableViews>
+				<Box >
+					<Box bgcolor={'primary.main'} sx={{ display: 'flex', alignItems: 'flex-start', p: 1 }}>
+						<SearchForm />
+					</Box>
 
+					{subSkills?.map((sub, index) => (
+					<TabPanel value={value} index={index} key={`panelKey-${index}`} dir={theme.direction}>
+						<SubSkillPane />
+					</TabPanel>
+					))}
+				</Box>
+
+			</SwipeableViews>
 	</Box>
 	)
 }
