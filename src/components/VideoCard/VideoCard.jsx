@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -50,11 +50,16 @@ function VideoCard({resource, index}) {
   }
   
 
+  useEffect(() => {
+
+    
+  }, []); 
+
   return (
 
-    <Card sx={{ height: '350px', m: 0, p: 0}}  >
+    <Card sx={{ height: '375px', m: 0, p: 0}}  >
       <CardContent sx={{ mt: 1, pt: 1, mb: 0, pb: 0}}>
-        <Box ml={0} sx={{ display: 'flex', alignItems: 'center' }}>            
+        <Box ml={0} height='80px' mb={1} sx={{ display: 'flex', alignItems: 'center' }}>            
           <Typography variant="h5" sx={{ fontWeight: 900 }}>
             {title}
           </Typography>
