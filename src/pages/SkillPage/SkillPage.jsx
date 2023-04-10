@@ -70,6 +70,7 @@ function SkillPage() {
   const skillId = useParams().skillId;
   const skill = ctx.activeSkill ? ctx.activeSkill?.skill : skills?.find(skill => skill?._id === skillId);
   const handleSetActiveSub = ctx.handleSetActiveSub;
+  const resources = ctx.activeSub?.subSkill?.resources;
   
 
 
@@ -79,7 +80,7 @@ function SkillPage() {
     console.log(skillIndex, " SKILL INDEX")
     
     await handleSetActiveSkill(skillIndex);
-    await handleSetActiveSub();
+    
   }
 
   const [activeSubIndex, setActiveSubIndex] = useState(0)
@@ -124,7 +125,7 @@ function SkillPage() {
             <Box sx={{ flexGrow: 1 }}>
               <Grid container align={'center'} >
                 
-                  {skill?.resources?.map((resource, index) => (
+                  {resources?.map((resource, index) => (
                     <Grid xs={12} md={6} lg={4} >
                       <VideoCard key={`resource-${index}`} resource={resource} index={index} />
                     </Grid>
