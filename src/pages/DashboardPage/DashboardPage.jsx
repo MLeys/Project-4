@@ -28,7 +28,7 @@ function DashboardPage() {
 
 
   const skillTitlesArray = userSkills?.map((skill) => skill.name)
-  console.log(skillTitlesArray, " skill titles!")
+
 
 	const skillPanes = userSkills?.map((skill, index) => ({
     menuItem: (

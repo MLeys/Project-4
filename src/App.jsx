@@ -35,6 +35,7 @@ export default function App() {
   const [resources, setResources] = useState([]);  
   const [activeSkill, setActiveSkill] = useState(null);
   const [activeSub, setActiveSub] = useState(null);
+  const [youTubeResults, setYouTubeResults] = useState([]);
     
   const loggedUser = userService.getUser();
 
@@ -293,6 +294,19 @@ export default function App() {
     }
   } // END handleAddSubSkill Function
 
+
+  async function searchYouTube(search) {
+		try {
+			const response = await youTubeApi.searchYouTube(search, activeSkill?.name, activeSub?.title);
+			console.log(response, " <------ response from YOUTUBE SEARCH");
+		
+			setYouTubeResults([...response])
+		} catch (err) {
+			console.log(err.message, " <<<<<YouTube SEARCH ERROR>>>>>");
+		}
+	}
+
+
   function handleSignUpOrLogin() {
     setUser(userService.getUser());
   }
@@ -328,6 +342,7 @@ export default function App() {
           userSkills: userSkills,
           activeSub: activeSub,
               
+          searchYouTube: searchYouTube,
           loadSkills: loadSkills,
           formatDate: formatDate,
           handleLogout: handleLogout,
