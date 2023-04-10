@@ -17,7 +17,7 @@ export default function SearchForm({onSubmit}) {
   const searchYouTube = ctx.searchYouTube;
 
   const [search, setSearch] = useState("");
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -26,10 +26,6 @@ export default function SearchForm({onSubmit}) {
     handleOpen
     e.preventDefault();
     searchYouTube(search);
-
-    return (
-      <SearchResultsModal />
-    )
   }
 
   return (

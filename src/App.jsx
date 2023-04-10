@@ -340,8 +340,10 @@ export default function App() {
           activeSkill: activeSkill,
           activeSubSkills: activeSkill?.subSkills,
           userSkills: userSkills,
-          activeSub: activeSub,
-              
+          activeSub: activeSub, 
+          youTubeResults: youTubeResults,
+
+          setYouTubeResults: setYouTubeResults,
           searchYouTube: searchYouTube,
           loadSkills: loadSkills,
           formatDate: formatDate,
