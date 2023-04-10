@@ -38,6 +38,21 @@ export default function App() {
     
   const loggedUser = userService.getUser();
 
+  function formatDate(timestamp) {
+    const date = new Date(timestamp);
+    const year = date.getFullYear().toString().slice(2);
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    const hours = date.getHours();
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const formattedHours = hours % 12 || 12;
+    const formattedDate = `${month}/${day}/${year}`;
+    const formattedTime = `${formattedHours}:${minutes} ${ampm}`;
+    return `${formattedDate} ${formattedTime}`;
+  }
+
+
   function handleSetUserSkills(skillsArray) {
       const assignedSkills =skillsArray?.filter((skill => skill.usersAssigned.some(u => u._id === user._id)))
       setUserSkills(assignedSkills)
@@ -308,6 +323,7 @@ export default function App() {
           userSkills: userSkills,
           activeSub: activeSub,
           
+          formatDate: formatDate,
           handleLogout: handleLogout,
           handleSignUpOrLogin: handleSignUpOrLogin,
           createSkill: handleCreateSkill,
