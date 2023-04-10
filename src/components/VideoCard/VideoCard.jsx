@@ -40,7 +40,8 @@ function VideoCard({resource, index}) {
   function ResourceVideo() {
     return (
       <iframe
-        width='100%'
+        width='256px'
+        height='144px'
         src={`https://www.youtube.com/embed/${videoId}`}
         allowFullScreen={true}
         allow='autoplay; encrypted-media'
@@ -57,7 +58,7 @@ function VideoCard({resource, index}) {
 
   return (
 
-    <Card sx={{ height: '375px', m: 0, p: 0}}  >
+    <Card sx={{ minWidth: '275px', minHeight: '375px' , m: 0, p: 0}}  >
       <CardContent sx={{ mt: 1, pt: 1, mb: 0, pb: 0}}>
         <Box ml={0} height='80px' mb={1} sx={{ display: 'flex', alignItems: 'center' }}>            
           <Typography variant="h5" sx={{ fontWeight: 900 }}>
@@ -76,7 +77,7 @@ function VideoCard({resource, index}) {
         <Typography whiteSpace='normal' variant="subtitle2" color="secondary.contrastText">            {resource.description}
           </Typography>
         </Box>
-        <Box mt={2}>
+        <Box mt={2} >
           <ResourceVideo />
         </Box>
       </CardContent>

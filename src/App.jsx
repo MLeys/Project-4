@@ -52,6 +52,14 @@ export default function App() {
     return `${formattedDate} ${formattedTime}`;
   }
 
+  async function loadSkills(skillId) {
+    await getSkills();
+    const skillIndex = skills?.findIndex((skill => skill._id === skillId))
+    console.log(skillIndex, " SKILL INDEX")
+    
+    await handleSetActiveSkill(skillIndex);
+    handleSetActiveSub();
+  }
 
   function handleSetUserSkills(skillsArray) {
       const assignedSkills =skillsArray?.filter((skill => skill.usersAssigned.some(u => u._id === user._id)))
@@ -322,6 +330,7 @@ export default function App() {
           userSkills: userSkills,
           activeSub: activeSub,
               
+          loadSkills: loadSkills,
           formatDate: formatDate,
           handleLogout: handleLogout,
           handleSignUpOrLogin: handleSignUpOrLogin,
