@@ -30,6 +30,7 @@ function FixedMenuHeader({ sidebarDispatch }) {
 	const ctx = useContext(SkillsContext);
 	const loggedUser = ctx.loggedUser;
 	const handleLogout = ctx.handleLogout;
+  const handleSignUpOrLogin = ctx.handleSignUpOrLogin;
 
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -54,6 +55,15 @@ function FixedMenuHeader({ sidebarDispatch }) {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  function handleClickSignIn() {
+    navigate(`/login`)
+  }
+
+  function handleClickSignUp() {
+    navigate(`/signup`)
+  }
+
 
 
 	return (  
@@ -196,16 +206,41 @@ function FixedMenuHeader({ sidebarDispatch }) {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-							<MenuItem  
-								key={`logout`}
-								sx={{ margin: 0}}
-								onClick={() => {
-										handleCloseUserMenu(),
-										handleLogout()
-								}}
-							>
-								Logout  
-							</MenuItem>
+            
+            {loggedUser ? (
+              <MenuItem  
+                key={`logout`}
+                sx={{ m: 0}}
+                onClick={() => {
+                    handleCloseUserMenu(),
+                    handleLogout()
+                }}
+              >
+                Logout  
+              </MenuItem>
+              ) : 
+              <>
+                <MenuItem
+                  key={`signin`}
+                  sx={{m: 0}}
+                  onClick={() => {handleClickSignIn()}}
+                >
+                  Sign-In
+                </MenuItem>
+                <MenuItem
+                  key={`signup`}
+                  sx={{m: 0}}
+                  onClick={() => {handleClickSignUp()}}
+                >
+                  Sign-Up
+                </MenuItem>
+              </>
+
+
+            }
+
+          
+
             </Menu>
           </Box>
         </Toolbar>

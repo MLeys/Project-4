@@ -11,16 +11,24 @@ import { SkillsContext } from '../../context/SkillsContext/SkillsContext';
 function DeleteButton({ children , id}) {
   const ctx = useContext(SkillsContext);
   const handleDeleteResource = ctx.handleDeleteResource;
+  const loggedUser = ctx.loggedUser;
 
+  const [isUser, setIsUser] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+
+  function ifUser() {
+    setIsUser(loggedUser)
+  }
+
+  function handleClick(e) {
+    setAnchorEl(e.currentTarget);
 
   };
-  const handleClose = () => {
+  function handleClose() {
     setAnchorEl(null);
   };
+
 
  const Icon = children;
 
@@ -45,11 +53,16 @@ function DeleteButton({ children , id}) {
         onClose={handleClose}
         TransitionComponent={Fade}
       >
-        <MenuItem onClick={() => {
+        <MenuItem
+          disabled={isUser} 
+          onClick={() => {
           console.log(`resourceID: ${id}`)
           handleClose();
           handleDeleteResource(id);
-        }}>Delete</MenuItem>
+          }}
+        >
+          Delete
+        </MenuItem>
         <MenuItem onClick={handleClose}>Edit</MenuItem>
         <MenuItem onClick={handleClose}>AddNote</MenuItem>
       </Menu>

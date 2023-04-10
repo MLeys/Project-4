@@ -309,8 +309,7 @@ export default function App() {
     
   }, [!skills, !activeSkill]); 
 
-  if (user) {
-
+  
     return (
       <SkillsContext.Provider 
         value={{
@@ -322,7 +321,7 @@ export default function App() {
           activeSubSkills: activeSkill?.subSkills,
           userSkills: userSkills,
           activeSub: activeSub,
-          
+              
           formatDate: formatDate,
           handleLogout: handleLogout,
           handleSignUpOrLogin: handleSignUpOrLogin,
@@ -336,19 +335,16 @@ export default function App() {
           handleCreateSubSkill: handleCreateSubSkill,
           handleAddResource: handleAddResource,
           handleDeleteResource: handleDeleteResource,
-          
-       
-      }}>
+        }}>
         <SkillsDispatchContext.Provider value={dispatch}>
           <Routes>
-            <Route path="/" element={ <Layout handleLogout={handleLogout} /> }>
-              <Route
-                index
-                element={<LandingPage />}
-              />          
-              <Route path="skills/:skillId" element={<SkillPage  />} />
-              <Route path="/:username" element={<DashboardPage />}/>
-                <Route path="skills/:skillName/subskill/:id" element={<SubSkillPage handleEditSubSkill={handleEditSubSkill} />} />
+            <Route path="/" element={<Layout handleLogout={handleLogout} />}>
+              <Route index element={<LandingPage />} />
+              <Route path="skills/:skillId" element={<SkillPage />} />
+              {user ? (
+                <Route path="/:username" element={<DashboardPage />} />
+              ) : null}
+              <Route path="skills/:skillName/subskill/:id" element={<SubSkillPage handleEditSubSkill={handleEditSubSkill} />} />
             </Route>
             <Route path="/login" element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />} />
             <Route path="/signup" element={<SignUpPage handleSignUpOrLogin={handleSignUpOrLogin} />} />
@@ -356,21 +352,7 @@ export default function App() {
         </SkillsDispatchContext.Provider>
       </SkillsContext.Provider>
     );
-  };
-  
-  return (
-    <Routes>
-      <Route
-        path="/login"
-        element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />}
-      />
-      <Route
-        path="/signup"
-        element={<SignUpPage handleSignUpOrLogin={handleSignUpOrLogin} getSkills={getSkills} />}
-      />
-      <Route path="/*" element={<Navigate to="/login" />} />
-    </Routes>
-  );
+    
 }
 
 // async function searchOpenAi(question) {
