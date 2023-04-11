@@ -9,11 +9,9 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-
 import { SkillsContext } from '../../context/SkillsContext/SkillsContext';
 
 import DeleteButton from '../DeleteButton/DeleteButton';
-
 
 function VideoCard({resource, index}) {
   const theme = useTheme();
@@ -55,7 +53,7 @@ function VideoCard({resource, index}) {
             <CardActions >
               <IconButton aria-label="add-edit-delete" sx={{ position: 'absolute', top: -35, right: -20}}>
                 <DeleteButton children={MoreVertIcon} id={resource._id}/>
-
+                
               </IconButton>
             </CardActions>
           </Box>
