@@ -1,4 +1,14 @@
 import * as React from 'react';
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+
+import userService from "../../utils/userService";
+
+
+import Input from '@mui/material/Input';
+import InputLabel from '@mui/material/InputLabel';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormControl from '@mui/material/FormControl';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,6 +23,10 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import { SkillsContext } from '../../context/SkillsContext/SkillsContext';
+const theme = createTheme();
+
+
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -26,31 +40,65 @@ function Copyright(props) {
   );
 }
 
-const theme = createTheme();
 
 export default function SignUp() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-    const credentials = {
-      username: data.get('username'),
-      email: data.get('email'),
-      password: data.get('password'),
-      passwordConf: data.get('passwordConf'),
-      name: data.get('name'),
-      career: data.get('career'),
-    }
+  const ctx = useContext(SkillsContext)
+  const handleSignUpOrLogin = ctx.handleSignUpOrLogin;
 
-  };
+  const [selectedFile, setSelectedFile] = useState("");
+  const [error, setError] = useState("");
+  const [state, setState] = useState({
+    username: "",
+    email: "",
+    password: "",
+    passwordConf: "",
+    name: "",
+    career: "",
+  });
+
+  const navigate = useNavigate()
+  
+  async function handleSubmit(e) {
+    e.preventDefault(); 
+
+    const formData = new FormData();
+    formData.append("photo", selectedFile);
+
+    for (let key in state) {
+      console.log(key, "<<<<_KEY")
+      formData.append(key, state[key]);
+    }
+    console.log(formData.forEach((item) => console.log(item)));
+
+	try {
+		
+		await userService.signup(formData); 
+		
+    handleSignUpOrLogin();
+		navigate('/');
+
+	} catch(err){
+		console.log(err.message, ' this is the error in signup')
+		setError('Check your terminal, there was an error signing up')
+	}
+
+  }
+
+  function handleChange(e) {
+    setState({
+      ...state,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  function handleFileInput(e) {
+    console.log("&&&&&&&&&   handlefileInput   &&&&&*&")
+    // e.target.files is an array, we just want the first file uploaded to set in state
+    setSelectedFile(e.target.files[0]);
+  }
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
+      <Container component="main" maxWidth="xs" sx={{bgcolor: 'primary.main'}}>
         <Box
           sx={{
             marginTop: 8,
@@ -67,56 +115,77 @@ export default function SignUp() {
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
                 <TextField
-                  autoComplete="given-name"
-                  name="firstName"
+                  color='secondary'
                   required
                   fullWidth
-                  id="firstName"
-                  label="First Name"
-                  autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
+                  id="username"
+                  label="username"
+                  name="username"
                   autoComplete="family-name"
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
+                  color='secondary'
                   fullWidth
                   id="email"
                   label="Email Address"
                   name="email"
+                  value={state.email}
                   autoComplete="email"
+                  onChange={handleChange}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item  xs={6}>
                 <TextField
+                  color='secondary'
                   required
-                  fullWidth
                   name="password"
+                  value={state.password}
                   label="Password"
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  onChange={handleChange}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
+              <Grid item xs={6}>
+                <TextField
+                  color='secondary'
+                  required
+                  name="passwordConf"
+                  value={state.passwordConf}
+                  label="Confirm Password"
+                  type="password"
+                  id="password"
+                  placeholder="Confirm Password"
+                  onChange={handleChange}
                 />
               </Grid>
+              
+
+              <FormControlLabel
+                sx={{mt: 5, pl: 5}}
+                control={
+                  <FormControl fullWidth error={Boolean(error)}>               
+                  <Input
+                    color='secondary'
+                    id="photo-input"
+                    type="file"
+                    name="photo"
+                    onChange={handleFileInput}
+                  />
+                  </FormControl>}
+                label="Upload a photo"
+              />
             </Grid>
+            
             <Button
+              color='secondary'
               type="submit"
               fullWidth
               variant="contained"
@@ -126,7 +195,7 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link onClick={() =>navigate('/login')} variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
@@ -135,147 +204,5 @@ export default function SignUp() {
         </Box>
         <Copyright sx={{ mt: 5 }} />
       </Container>
-    </ThemeProvider>
   );
 }
-
-
-
-
-
-
-
-// import { Button, Form, Grid, Header, Image, Segment } from "semantic-ui-react";
-// import { useState } from "react";
-
-// import { useNavigate } from "react-router-dom";
-
-// import userService from "../../utils/userService";
-
-// function SignUpPage({handleSignUpOrLogin}) {
-//   const [state, setState] = useState({
-//     username: "",
-//     email: "",
-//     password: "",
-//     passwordConf: "",
-//     name: "",
-//     career: "",
-//   });
-
-//   const [selectedFile, setSelectedFile] = useState("");
-
-//   const [error, setError] = useState("");
-
-//   const navigate = useNavigate()
-  
-//   async function handleSubmit(e) {
-//     e.preventDefault(); 
-
-//     const formData = new FormData();
-//     formData.append("photo", selectedFile);
-
-//     for (let key in state) {
-//       console.log(key, "<<<<_KEY")
-//       formData.append(key, state[key]);
-//     }
-//     console.log(formData.forEach((item) => console.log(item)));
-
-// 	try {
-		
-// 		await userService.signup(formData); 
-		
-//     handleSignUpOrLogin();
-// 		navigate('/');
-
-// 	} catch(err){
-// 		console.log(err.message, ' this is the error in signup')
-// 		setError('Check your terminal, there was an error signing up')
-// 	}
-
-
-//   }
-
-//   function handleChange(e) {
-//     setState({
-//       ...state,
-//       [e.target.name]: e.target.value,
-//     });
-//   }
-
-//   function handleFileInput(e) {
-//     console.log("&&&&&&&&&   handlefileInput   &&&&&*&")
-//     // e.target.files is an array, we just want the first file uploaded to set in state
-//     setSelectedFile(e.target.files[0]);
-//   }
-
-//   return (
-//     <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
-//       <Grid.Column style={{ maxWidth: 450 }}>
-//         <Header as="h2" color="black" textAlign="center">
-//           Sign Up
-//         </Header>
-//         <Form autoComplete="off" onSubmit={handleSubmit}>
-//           <Segment stacked>
-//             <Form.Input
-//               name="username"
-//               placeholder="username"
-//               value={state.username}
-//               onChange={handleChange}
-//               required
-//             />
-//             <Form.Input
-//               type="email"
-//               name="email"
-//               placeholder="email"
-//               value={state.email}
-//               onChange={handleChange}
-//               required
-//             />
-//             <Form.Input
-//               name="password"
-//               type="password"
-//               placeholder="password"
-//               value={state.password}
-//               onChange={handleChange}
-//               required
-//             />
-//             <Form.Input
-//               name="passwordConf"
-//               type="password"
-//               placeholder="Confirm Password"
-//               value={state.passwordConf}
-//               onChange={handleChange}
-//               required
-//             />
-//             <Form.Input
-//               name="name"
-//               value={state.name}
-//               placeholder="Enter name"
-//               onChange={handleChange}
-//             />
-//             <Form.Input
-//               name="career"
-//               value={state.career}
-//               placeholder="Enter current job title or goal"
-//               onChange={handleChange}
-//             />
-//             <Form.Field>
-//               <Form.Input
-//                 type="file"
-//                 name="photo"
-//                 placeholder="upload profile image"
-//                 onChange={handleFileInput}
-//               />
-//             </Form.Field>
-//             <Button type="submit" className="btn">
-//               Signup
-//             </Button>
-//           </Segment>
-//           {error ? <ErrorMessage error={error} /> : null}
-//         </Form>
-//       </Grid.Column>
-//     </Grid>
-//   );
-// }
-
-// export default SignUpPage;
