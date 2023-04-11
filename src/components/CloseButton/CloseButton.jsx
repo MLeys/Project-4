@@ -20,7 +20,7 @@ export default function CloseButton({close}) {
         sx={{ position: 'absolute', top: 0, right: 0}}
         onClick={() => close()}
       >
-        <div>Add+</div>
+        <div>{` Close X `}</div>
       </Fab>
     </Zoom>
   );
