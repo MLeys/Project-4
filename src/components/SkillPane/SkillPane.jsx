@@ -4,7 +4,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
-import SwipeableViews from 'react-swipeable-views';
+
 import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 
@@ -91,12 +91,7 @@ function SkillPane() {
 			<Box bgcolor={'primary.main'} sx={{ display: 'flex', alignItems: 'flex-start', p: 1, mb: 5 }}>
 				<SearchForm />
 			</Box>
-			<SwipeableViews
-        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-        index={activeTab}
-				animateTransitions
-        onChangeIndex={handleChangeIndex}
-      >
+
 				<Box >
 
 
@@ -106,7 +101,7 @@ function SkillPane() {
 					</TabPanel>
 					))}
 				</Box>
-			</SwipeableViews>
+
 
 	</Box>
 	)
