@@ -140,12 +140,7 @@ function FixedMenuHeader({ sidebarDispatch }) {
 					<Tooltip title="Skills Menu">
 						<IconButton 
 							sx={{ p: 0, m: 0, backgroundColor: 'accent.dark', color: 'accent.contrastText', display: { xs: 'none', sm: 'flex' } }}
-							onClick={(e, data) => {
-								sidebarDispatch({ 
-										type: 'CHANGE_ANIMATION', 
-										animation: 'slide out' 
-								})
-							}}
+							onClick={console.log("CLICKED Downdownarrow")}
 						>
 							<ArrowDropDownIcon alt='droparrow' fontSize="large" />
 						</IconButton>
