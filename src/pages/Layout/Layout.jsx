@@ -6,7 +6,6 @@ import { SkillsContext, SkillsDispatchContext } from '../../context/SkillsContex
 
 import FixedMenuHeader from '../../components/FixedMenuHeader/FixedMenuHeader';
 
-
 function Layout({ handleLogout }) {
   const ctx = useContext(SkillsContext)
   const getSkills = ctx.getSkills;

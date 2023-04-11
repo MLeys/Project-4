@@ -9,9 +9,6 @@ import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
 import { styled } from "@mui/system";
 
-
-import CreateSkillModal from "../../components/CreateSkillModal/CreateSkillModal";
-
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 
@@ -33,13 +30,10 @@ const CustomCard = styled(Card)({
 const CustomCardTitle = styled(Card)({
   backgroundColor: mainTheme.palette.secondary.dark,
   color: mainTheme.palette.secondary.contrastText,
-  
   fontSize: '1.5rem',
   fontWeight: 'bold',
   marginBottom: '0.5rem',
   textAlign: 'center',
-
-  
 })
 
 const CustomCardDetails = styled(Card)({
@@ -80,7 +74,6 @@ function LandingPage() {
       <Button variant="contained" color="primary" onClick={handleCreateSkill}>
         Create a New Skill
       </Button>
-      <CreateSkillModal isOpen={isModalOpen} onClose={handleCloseModal} />
     </section>
       {skills?.map((skill, index) => (
       <Grid item={true} display="flex" justifyContent="center" alignItems="center" xs={12} sm={6} md={4} lg={3} key={skill.id}>
