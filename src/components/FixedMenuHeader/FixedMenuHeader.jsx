@@ -9,6 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDownIcon';
 
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
