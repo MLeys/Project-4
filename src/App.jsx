@@ -390,20 +390,3 @@ export default function App() {
 //     console.log(err.message, " <<<<<OPENAI SEARCH ERROR>>>>>");
 //   }
 // }
-// async function assignSubUser(subskill) {
-//   try {
-//     const response = await skillsApi.assignUser(user, subskill._id)
-//     getSkills();
-//   } catch(err) {
-//     console.log(err, "<--assign Skill error")
-//   }
-// }
-
-// async function unAssignSubUser(subskill) {
-//   try {
-//     const response = await skillsApi.unAssignUser(user, subskill._id)
-//     getSkills();
-//   } catch(err) {
-//     console.log(err, "<--unassign Skill error")
-//   }
-// }
