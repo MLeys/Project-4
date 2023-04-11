@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.11.16",
     "aws-sdk": "^2.1306.0",
     "bcrypt": "^5.1.0",

@@ -8,7 +8,7 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-
+import MenuIcon from '@mui/icons-material/Menu';
 
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
@@ -86,7 +86,7 @@ function FixedMenuHeader({ sidebarDispatch }) {
                 aria-haspopup="true"
                 onClick={handleOpenNavMenu}
               >
-                
+                 <MenuIcon  color="secondary" />
               </IconButton>
             </Tooltip>
 
@@ -128,7 +128,7 @@ function FixedMenuHeader({ sidebarDispatch }) {
 							onClick={()=> console.log("CLICKED MENU SLIDEOUT")}
 						>
 							Skill.Map
-
+              <ArrowDropDownIcon alt='droparrow' fontSize="large" />
 						</Typography>
 					</Tooltip>
 					<Tooltip title="Skills Menu">
@@ -136,7 +136,7 @@ function FixedMenuHeader({ sidebarDispatch }) {
 							sx={{ p: 0, m: 0, backgroundColor: 'accent.dark', color: 'accent.contrastText', display: { xs: 'none', sm: 'flex' } }}
 							onClick={() => console.log("CLICKED Downdownarrow")}
 						>
-
+              <ArrowDropDownIcon alt='droparrow' fontSize="large" />
 						</IconButton>
 					</Tooltip>
 
