@@ -98,8 +98,8 @@ function LandingPage() {
             </Typography>
           </CustomCardTitle>
           <CustomCardDetails>
-            {skill.subSkills.map(sub => (
-              <Typography>{sub.title}</Typography>
+            {skill.subSkills.map((sub, index) => (
+              <Typography key={`subTitle-${index}`}>{sub.title}</Typography>
             ))}
           </CustomCardDetails>
         </CustomCard>
