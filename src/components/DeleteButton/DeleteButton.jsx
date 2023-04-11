@@ -40,8 +40,9 @@ function DeleteButton({ children , id}) {
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
+        
       >
-        Dashboard
+        X
       </Icon>
       <Menu
         id="fade-menu"
@@ -63,8 +64,8 @@ function DeleteButton({ children , id}) {
         >
           Delete
         </MenuItem>
-        <MenuItem onClick={handleClose}>Edit</MenuItem>
-        <MenuItem onClick={handleClose}>AddNote</MenuItem>
+        {/* <MenuItem onClick={handleClose}>Edit</MenuItem>
+        <MenuItem onClick={handleClose}>AddNote</MenuItem> */}
       </Menu>
     </div>
   );

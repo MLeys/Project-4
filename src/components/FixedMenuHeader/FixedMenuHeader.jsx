@@ -8,8 +8,7 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -79,14 +78,14 @@ function FixedMenuHeader({ sidebarDispatch }) {
 				<Box sx={{ flexGrow: 1, display: { xs: 'flex', sm: 'none' } }}>
             <Tooltip title='See All Skills'>
               <IconButton
-								
+								sx={{ backgroundColor: 'accent.dark', color: 'accent.contrastText', }}
                 size="big"
                 aria-label="More Information"
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
                 onClick={handleOpenNavMenu}
               >
-                 <MenuIcon  color="secondary" />
+               Menu
               </IconButton>
             </Tooltip>
 
@@ -128,7 +127,7 @@ function FixedMenuHeader({ sidebarDispatch }) {
 							onClick={()=> console.log("CLICKED MENU SLIDEOUT")}
 						>
 							Skill.Map
-              <ArrowDropDownIcon alt='droparrow' fontSize="large" />
+              
 						</Typography>
 					</Tooltip>
 					<Tooltip title="Skills Menu">
@@ -136,7 +135,7 @@ function FixedMenuHeader({ sidebarDispatch }) {
 							sx={{ p: 0, m: 0, backgroundColor: 'accent.dark', color: 'accent.contrastText', display: { xs: 'none', sm: 'flex' } }}
 							onClick={() => console.log("CLICKED Downdownarrow")}
 						>
-              <ArrowDropDownIcon alt='droparrow' fontSize="large" />
+              Skills
 						</IconButton>
 					</Tooltip>
 

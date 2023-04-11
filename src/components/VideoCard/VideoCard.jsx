@@ -52,7 +52,9 @@ function VideoCard({resource, index}) {
           <Box m={0} p={0} position='relative'>
             <CardActions >
               <IconButton aria-label="add-edit-delete" sx={{ position: 'absolute', top: -35, right: -20}}>
-                <DeleteButton children={MoreVertIcon} id={resource._id}/>
+                <DeleteButton id={resource._id}>
+                  fdf
+                  </DeleteButton>
                 
               </IconButton>
             </CardActions>
