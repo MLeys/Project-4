@@ -2,26 +2,12 @@ import * as React from 'react';
 import { useContext, useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
 import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions'
-import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import SkipNextIcon from '@mui/icons-material/SkipNext';
-import { styled } from '@mui/material/styles';
-import Collapse from '@mui/material/Collapse';
-import Avatar from '@mui/material/Avatar';
-import { lightGreen, red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Badge from '@mui/material/Badge';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+
 
 import { SkillsContext } from '../../context/SkillsContext/SkillsContext';
 
@@ -68,7 +54,7 @@ function VideoCard({resource, index}) {
             <CardActions >
               <IconButton aria-label="add-edit-delete" sx={{ position: 'absolute', top: -35, right: -20}}>
                 <DeleteButton children={MoreVertIcon} id={resource._id}/>
-                {/* <MoreVertIcon /> */}
+
               </IconButton>
             </CardActions>
           </Box>

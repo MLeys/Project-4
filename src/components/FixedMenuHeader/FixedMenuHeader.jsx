@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
 import {  useNavigate } from "react-router-dom";
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 import Link from '@mui/material/Link';
 import AppBar from '@mui/material/AppBar';
@@ -9,7 +8,7 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
+
 
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
@@ -87,7 +86,7 @@ function FixedMenuHeader({ sidebarDispatch }) {
                 aria-haspopup="true"
                 onClick={handleOpenNavMenu}
               >
-                <MenuIcon  color="secondary" />
+                
               </IconButton>
             </Tooltip>
 
@@ -126,23 +125,18 @@ function FixedMenuHeader({ sidebarDispatch }) {
 								fontWeight: 700,
 								letterSpacing: '.2rem',
 							}}
-							onClick={() => {
-								sidebarDispatch({ 
-										type: 'CHANGE_ANIMATION', 
-										animation: 'slide out' 
-								})
-							}}
+							onClick={()=> console.log("CLICKED MENU SLIDEOUT")}
 						>
 							Skill.Map
-							<ArrowDropDownIcon alt='droparrow' fontSize="large" />
+
 						</Typography>
 					</Tooltip>
 					<Tooltip title="Skills Menu">
 						<IconButton 
 							sx={{ p: 0, m: 0, backgroundColor: 'accent.dark', color: 'accent.contrastText', display: { xs: 'none', sm: 'flex' } }}
-							onClick={console.log("CLICKED Downdownarrow")}
+							onClick={() => console.log("CLICKED Downdownarrow")}
 						>
-							<ArrowDropDownIcon alt='droparrow' fontSize="large" />
+
 						</IconButton>
 					</Tooltip>
 
