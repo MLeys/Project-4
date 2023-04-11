@@ -10,7 +10,6 @@ import Typography from '@mui/material/Typography';
 import { styled } from "@mui/system";
 
 
-import SkillDisplay from "../../components/SkillDisplay/SkillDisplay";
 import CreateSkillModal from "../../components/CreateSkillModal/CreateSkillModal";
 
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";

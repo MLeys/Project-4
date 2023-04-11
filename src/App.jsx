@@ -10,13 +10,11 @@ import { SkillsContext, SkillsDispatchContext } from './context/SkillsContext/Sk
 
 
 import SkillPage from "./pages/SkillPage/SkillPage";
-import SubSkillPage from "./pages/SubSkillPage/SubSkillPage";
 import Layout from "./pages/Layout/Layout";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import SignUpPage from "./pages/SignupPage/SignupPage";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
-import ProfilePage from "./pages/ProfilePage/ProfilePage";
 
 import userService from "./utils/userService";
 import * as skillsApi from "/src/utils/skillApi.js";
@@ -368,7 +366,6 @@ export default function App() {
               {user ? (
                 <Route path="/:username" element={<DashboardPage />} />
               ) : null}
-              <Route path="skills/:skillName/subskill/:id" element={<SubSkillPage handleEditSubSkill={handleEditSubSkill} />} />
             </Route>
             <Route path="/login" element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />} />
             <Route path="/signup" element={<SignUpPage handleSignUpOrLogin={handleSignUpOrLogin} />} />

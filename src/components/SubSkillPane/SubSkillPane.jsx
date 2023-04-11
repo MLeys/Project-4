@@ -8,7 +8,7 @@ import Paper from '@mui/material/Paper'
 import VideoCard from "../VideoCard/VideoCard";
 
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
-import AddResourceDisplay from "../AddResourceDisplay/AddResourceDisplay";
+
 
 
 
@@ -33,7 +33,7 @@ function SubSkillPane() {
 						<VideoCard key={`resource-${index}`} resource={resource} index={index} />
 					</Grid>
 				))}   
-				<AddResourceDisplay />
+				
 		</Grid>
 
 		</>

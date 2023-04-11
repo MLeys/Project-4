@@ -1,19 +1,11 @@
-import "./DashboardPage.css"
 import { useEffect, useContext, useState } from "react";
 
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import Box from '@mui/material/Box';
 
-import { 
-  Menu,
-  Tab,
-  Container,
-  Header
-} from 'semantic-ui-react';
 
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 import SkillPane from "../../components/SkillPane/SkillPane";
-import AddResourceDisplay from "../../components/AddResourceDisplay/AddResourceDisplay";
 import VerticalTabs from "../../components/VerticalTabs/VerticalTabs";
 
 function DashboardPage() {
@@ -29,35 +21,6 @@ function DashboardPage() {
 
   const skillTitlesArray = userSkills?.map((skill) => skill.name)
 
-
-	const skillPanes = userSkills?.map((skill, index) => ({
-    menuItem: (
-
-        <Menu.Item
-          sx={{overflow: 'auto'}}
-          onClick={() => {
-            console.log(skill, " <--- skilllll on click")
-            console.log(`Clicked On ${skill.name} tab`);
-            handleClickTab(index);
-          }}
-          className="skill_pane" 
-          key={`pane-${skill?.name}-${index}`} 
-          fitted={false}
-        >
-          {skill?.name}
-        </Menu.Item>
-
-
-    ),
-    render: () => (
-      <SkillPane  />
-    )
-	}));
-
-  function handleClickTab(index){
-    console.log(index, '<< trying to change')
-    
-  }
 
   async function handleTabChange(e, data) {
     e.preventDefault();
