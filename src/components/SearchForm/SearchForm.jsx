@@ -7,7 +7,8 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
-import SearchResultsModal from '../SearchResultsModal/SearchResultsModal';
+import SearchResultsModal from '../ModalFullScreen/ModalFullScreen';
+import SearchResultsDisplay from '../SearchResultsDisplay/SearchResultsDisplay';
 
 
 export default function SearchForm({onSubmit}) {
@@ -65,7 +66,9 @@ export default function SearchForm({onSubmit}) {
         > 
           Go
         </Button>
-        <SearchResultsModal open={open} handleClose={handleClose}/>
+        <SearchResultsModal open={open} handleClose={handleClose}>
+            <SearchResultsDisplay handleClose={handleClose}/>
+        </SearchResultsModal>
       </form>
     </Box>
   );

@@ -11,9 +11,9 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import { SkillsContext } from '../../context/SkillsContext/SkillsContext';
 
-import DeleteButton from '../DeleteButton/DeleteButton';
+import OptionsButton from '../OptionsButton/OptionsButton';
 
-function VideoCard({resource, index}) {
+function VideoCard({resource, index, children}) {
   const theme = useTheme();
 	const ctx = useContext(SkillsContext);
 
@@ -43,22 +43,23 @@ function VideoCard({resource, index}) {
 
   return (
 
-    <Card sx={{ minWidth: '260px', maxWidth: '350px',minHeight: '375px' , m: 0, p: 0}} >
+    <Card sx={{ position: 'relative', minWidth: '260px', maxWidth: '350px',minHeight: '375px' , m: 0, p: 0}} >
+      <CardActions 
+        sx={{
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          p: 0,
+          m: 0,
+        }}
+      >
+        <OptionsButton />
+      </CardActions>
       <CardContent sx={{ mt: 1, pt: 1, mb: 0, pb: 0}}>
         <Box ml={0} height='80px' mb={1} sx={{ display: 'flex', alignItems: 'center' }}>            
           <Typography variant="h5" sx={{ fontWeight: 900 }}>
             {title}
           </Typography>
-          <Box m={0} p={0} position='relative'>
-            <CardActions >
-              <IconButton aria-label="add-edit-delete" sx={{ position: 'absolute', top: -35, right: -20}}>
-                <DeleteButton id={resource._id}>
-                  fdf
-                  </DeleteButton>
-                
-              </IconButton>
-            </CardActions>
-          </Box>
         </Box>
         <Box height='60px'  sx={{overflow: 'auto'}} >
         <Typography whiteSpace='normal' variant="subtitle2" color="secondary.contrastText">            {resource.description}

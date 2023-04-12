@@ -25,12 +25,10 @@ const style = {
   
 };
 
-export default function SearchResultsModal({open, handleClose}) {
+export default function ModalFullScreen({open, handleClose, children}) {
 
 
   return (
-   
-      
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -46,9 +44,8 @@ export default function SearchResultsModal({open, handleClose}) {
         sx={{overflow: 'auto'}}
       >
         <Fade in={open} >
-
           <Box sx={style} m={3}>
-            <SearchResultsDisplay handleClose={handleClose}/>
+            {children}
           </Box>
         </Fade>
       </Modal>

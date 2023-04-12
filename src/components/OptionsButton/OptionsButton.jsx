@@ -1,14 +1,17 @@
 import * as React from 'react';
 import { useContext, useState } from 'react';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
+import IconButton from '@mui/material/IconButton';
+
 
 import { SkillsContext } from '../../context/SkillsContext/SkillsContext';
+import { VertDotsIcon } from '../../customIcons';
 
-
-function DeleteButton({ children , id}) {
+function OptionsButton({ children }) {
   const ctx = useContext(SkillsContext);
   const handleDeleteResource = ctx.handleDeleteResource;
   const loggedUser = ctx.loggedUser;
@@ -33,17 +36,16 @@ function DeleteButton({ children , id}) {
  const Icon = children;
 
   return (
-    <div>
-      <Icon
+    <Box >
+      <IconButton
         id="fade-button"
         aria-controls={open ? 'fade-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
-        
       >
-        X
-      </Icon>
+        <VertDotsIcon />
+      </IconButton>
       <Menu
         id="fade-menu"
         MenuListProps={{
@@ -64,10 +66,8 @@ function DeleteButton({ children , id}) {
         >
           Delete
         </MenuItem>
-        {/* <MenuItem onClick={handleClose}>Edit</MenuItem>
-        <MenuItem onClick={handleClose}>AddNote</MenuItem> */}
       </Menu>
-    </div>
+    </Box>
   );
 }
-export default DeleteButton;
+export default OptionsButton;

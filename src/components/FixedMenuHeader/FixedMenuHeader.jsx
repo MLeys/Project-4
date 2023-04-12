@@ -141,28 +141,23 @@ function FixedMenuHeader({ sidebarDispatch }) {
 						</Typography>
 					</Tooltip>
 					<Tooltip title="Skills Menu">
-          <Box 
-            focusRipple={true}
-            component={Button}
-            variant="text"
-            onClick={() => {
-              alert('clicked');
-            }}
-            p={1} 
-            sx={{ 
-              backgroundColor: 'accent.dark', 
-              backdropFilter: 'saturate(8000%) blur(20px)', 
-              borderRadius: '8px',              
-            }}
-          >
               <IconButton 
-                sx={{p: 0, m: 0,  color: 'accent.contrastText', display: { xs: 'none', sm: 'flex' } }}
+                sx={{
+                  p: 0, 
+                  m: 0,  
+                  color: 'accent.contrastText', 
+                  display: { xs: 'none', sm: 'flex' },
+                  ":hover": {
+                    // backgroundColor:'accent.main',
+                    fillOpacity: 1,
+                    color: 'accent.main',
+                  }
+                }}
                 onClick={() => console.log("CLICKED Downdownarrow")}
               >
                 <DownArrowBoxed height={24} width={24}/>
-                &nbsp; Skills
+                {/* &nbsp; Skills */}
               </IconButton>
-            </Box>
 					</Tooltip>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' } }}>
