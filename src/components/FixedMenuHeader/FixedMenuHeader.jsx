@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
 import {  useNavigate } from "react-router-dom";
+import { useTheme } from "@mui/material";
 
 import Link from '@mui/material/Link';
 import AppBar from '@mui/material/AppBar';
@@ -8,7 +9,6 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -18,12 +18,18 @@ import Stack from '@mui/material/Stack';
 
 import mainTheme from "../../themes/mainTheme";
 
+import {
+  DownArrowBoxed,
+  ListIcon
+
+} from "../../customIcons";
 
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 
 
 function FixedMenuHeader({ sidebarDispatch }) {
+  const theme = useTheme();
 	const navigate = useNavigate();
 	const ctx = useContext(SkillsContext);
 	const loggedUser = ctx.loggedUser;
@@ -78,14 +84,18 @@ function FixedMenuHeader({ sidebarDispatch }) {
 				<Box sx={{ flexGrow: 1, display: { xs: 'flex', sm: 'none' } }}>
             <Tooltip title='See All Skills'>
               <IconButton
-								sx={{ backgroundColor: 'accent.dark', color: 'accent.contrastText', }}
+                centerRipple={true}
+                
+								sx={{ backgroundColor: 'accent.dark', color: 'accent.contrastText', ":hover": {backgroundColor:'secondary.dark'} }}
                 size="big"
                 aria-label="More Information"
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
                 onClick={handleOpenNavMenu}
               >
-               Menu
+               <ListIcon color={'white'} height={24} width={24}/>
+
+                
               </IconButton>
             </Tooltip>
 
@@ -131,12 +141,28 @@ function FixedMenuHeader({ sidebarDispatch }) {
 						</Typography>
 					</Tooltip>
 					<Tooltip title="Skills Menu">
-						<IconButton 
-							sx={{ p: 0, m: 0, backgroundColor: 'accent.dark', color: 'accent.contrastText', display: { xs: 'none', sm: 'flex' } }}
-							onClick={() => console.log("CLICKED Downdownarrow")}
-						>
-              Skills
-						</IconButton>
+          <Box 
+            focusRipple={true}
+            component={Button}
+            variant="text"
+            onClick={() => {
+              alert('clicked');
+            }}
+            p={1} 
+            sx={{ 
+              backgroundColor: 'accent.dark', 
+              backdropFilter: 'saturate(8000%) blur(20px)', 
+              borderRadius: '8px',              
+            }}
+          >
+              <IconButton 
+                sx={{p: 0, m: 0,  color: 'accent.contrastText', display: { xs: 'none', sm: 'flex' } }}
+                onClick={() => console.log("CLICKED Downdownarrow")}
+              >
+                <DownArrowBoxed height={24} width={24}/>
+                &nbsp; Skills
+              </IconButton>
+            </Box>
 					</Tooltip>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' } }}>
