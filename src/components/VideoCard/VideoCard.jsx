@@ -61,12 +61,12 @@ function VideoCard({resource, index, children}) {
         <OptionsButton />
       </CardActions>
       <CardContent sx={{width: '100%', height: '100%', p: 0, m: 0,}} >
-        <Box sx={{ display: 'flex', alignItems: 'center', height: '20%', mt: 2,  }}>            
-          <Typography variant="h5" sx={{ fontWeight: 900 }}>
+        <Box sx={{overflow: 'hidden', display: 'flex', height: '16%', m: 1, pt: 1  }}>            
+          <Typography whiteSpace='normal' variant="h6" sx={{ fontWeight: 900, alignSelf: 'flex-start' }}>
             {title}
           </Typography>
         </Box>
-        <Box sx={{overflow: 'auto', height: '15%', my: 1}} >
+        <Box sx={{overflow: 'hidden', height: '14%', my: 1, }} >
           <Typography whiteSpace='normal' variant="subtitle2" color="secondary.contrastText">
             {resource.description}
           </Typography>
@@ -74,7 +74,7 @@ function VideoCard({resource, index, children}) {
         <Box height={'40%'} >
           <ResourceVideo />
         </Box>
-        <Box height={'25%'}>
+        <Box height={'30%'}>
           {children}
         </Box>
       </CardContent>
