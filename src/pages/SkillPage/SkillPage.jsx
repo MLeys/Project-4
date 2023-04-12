@@ -31,12 +31,12 @@ const CustomCard = styled(Card)({
   backgroundColor: mainTheme.palette.primaryDarker.light,
   '&:hover': {
     transform: 'scale(1.05)',
-    backgroundColor: mainTheme.palette.primary.main,
+    backgroundColor: mainTheme.palette.secondary.main,
     color: mainTheme.palette.primary.contrastText,
 
   },
   '&:active': {
-    backgroundColor: mainTheme.palette.primary.dark,
+    backgroundColor: mainTheme.palette.secondary.dark,
     color: mainTheme.palette.primary.contrastText,
     boxShadow: '0 5px #666',
     transform: 'translateY(4px)',
@@ -98,7 +98,7 @@ function SkillPage() {
 
   return (  
     <Box minHeight='90dvh' component={Paper} elevation={6} >
-      <Grid p={2} component={Paper} container elevation={6}  >
+      <Grid p={1} component={Paper} container elevation={6}  >
         <Grid xs={12} >
           <PageHeader title={skill?.name}/>
         </Grid>
@@ -123,7 +123,7 @@ function SkillPage() {
               <Typography variant="h4" component="h4" p={2}>{skill?.subSkills[activeSubIndex]?.title}</Typography>
             </Paper>
             <Box sx={{ flexGrow: 1 }}>
-              <Grid container align={'center'} >
+              <Grid container align={'center'} m={0} p={0} spacing={1} >
                 
                   {resources?.map((resource, index) => (
                     <Grid xs={12} md={6} lg={4} >

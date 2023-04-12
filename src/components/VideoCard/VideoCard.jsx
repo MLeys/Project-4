@@ -25,8 +25,10 @@ function VideoCard({resource, index, children}) {
   function ResourceVideo() {
     return (
       <iframe
-        width='256px'
-        height='144px'
+        style={{
+          width: 'auto',
+          height: '100%'
+        }}
         src={`https://www.youtube.com/embed/${videoId}`}
         allowFullScreen={true}
         allow='autoplay; encrypted-media'
@@ -43,7 +45,7 @@ function VideoCard({resource, index, children}) {
 
   return (
 
-    <Card sx={{ position: 'relative', minWidth: '260px', maxWidth: '350px',minHeight: '375px' , m: 0, p: 0}} >
+    <Card sx={{ position: 'relative', minWidth: '300px', maxWidth: '100%',minHeight: '375px' , m: 0, p: 0}} >
       <CardActions 
         sx={{
           position: 'absolute',
@@ -55,17 +57,18 @@ function VideoCard({resource, index, children}) {
       >
         <OptionsButton />
       </CardActions>
-      <CardContent sx={{ mt: 1, pt: 1, mb: 0, pb: 0}}>
-        <Box ml={0} height='80px' mb={1} sx={{ display: 'flex', alignItems: 'center' }}>            
+      <CardContent sx={{width: '100%', height: '100%', p: 0, m: 0,}} >
+        <Box sx={{ display: 'flex', alignItems: 'center', height: '20%', m: 1 }}>            
           <Typography variant="h5" sx={{ fontWeight: 900 }}>
             {title}
           </Typography>
         </Box>
-        <Box height='60px'  sx={{overflow: 'auto'}} >
-        <Typography whiteSpace='normal' variant="subtitle2" color="secondary.contrastText">            {resource.description}
+        <Box sx={{overflow: 'auto', height: '15%', mt: 1}} >
+          <Typography whiteSpace='normal' variant="subtitle2" color="secondary.contrastText">
+            {resource.description}
           </Typography>
         </Box>
-        <Box m={0} mt={2} >
+        <Box sx={{m: 1, height: '60%', width: 'fit-content'}}>
           <ResourceVideo />
         </Box>
       </CardContent>
