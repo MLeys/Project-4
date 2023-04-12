@@ -116,26 +116,24 @@ function SkillPage() {
               </CustomCard>
             ))}
             </Grid>
-
           </Grid>
           <Grid xs={9}  >
             <Paper elevation={12} sx={{mb: 2}} >
-              <Typography variant="h4" component="h4" p={2}>{skill?.subSkills[activeSubIndex]?.title}</Typography>
+              <Typography variant="h4" component="h4" p={2}>
+                {skill?.subSkills[activeSubIndex]?.title}
+              </Typography>
             </Paper>
             <Box sx={{ flexGrow: 1 }}>
               <Grid container align={'center'} m={0} p={0} spacing={1} >
-                
-                  {resources?.map((resource, index) => (
-                    <Grid xs={12} md={6} lg={4} >
-                      <VideoCard key={`resource-${index}`} resource={resource} index={index} >
-                      <Typography alignContent={'flex-end'}>Added: {resource.createdAt}</Typography>
-                        </VideoCard>
-                    </Grid>
-                  ))}   
-                
+                {resources?.map((resource, index) => (
+                  <Grid xs={12} md={6} lg={4} >
+                    <VideoCard key={`resource-${index}`} resource={resource} index={index} >
+                    `<Typography alignContent={'flex-end'}>Added: {resource.createdAt}</Typography>
+                    </VideoCard>
+                  </Grid>
+                ))}   
               </Grid>
             </Box>
-
           </Grid>
         </Grid> 
       </Grid>
