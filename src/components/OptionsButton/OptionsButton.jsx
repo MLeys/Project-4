@@ -44,7 +44,7 @@ function OptionsButton({ children }) {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        <VertDotsIcon />
+        <VertDotsIcon color='red' />
       </IconButton>
       <Menu
         id="fade-menu"

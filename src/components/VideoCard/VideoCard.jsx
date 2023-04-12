@@ -48,7 +48,7 @@ function VideoCard({resource, index, children}) {
 
   return (
 
-    <Card sx={{ position: 'relative', width: '290px',height: '400px' , m: 0, px: .5}} >
+    <Card sx={{ position: 'relative', width: '290px',height: '400px' , m: 0, px: .5, pt: .5}} >
       <CardActions 
         sx={{
           position: 'absolute',
