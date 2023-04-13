@@ -10,8 +10,9 @@ import IconButton from '@mui/material/IconButton';
 
 import { SkillsContext } from '../../context/SkillsContext/SkillsContext';
 import { VertDotsIcon } from '../../customIcons';
+import { grey, red } from '@mui/material/colors';
 
-function OptionsButton({ children }) {
+function OptionsButton({ children, color='black' }) {
   const ctx = useContext(SkillsContext);
   const handleDeleteResource = ctx.handleDeleteResource;
   const loggedUser = ctx.loggedUser;
@@ -32,19 +33,18 @@ function OptionsButton({ children }) {
     setAnchorEl(null);
   };
 
-
- const Icon = children;
-
   return (
-    <Box >
+    <Box>
       <IconButton
+  
         id="fade-button"
         aria-controls={open ? 'fade-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
+        sx={{ color: {color}}}
       >
-        <VertDotsIcon color='red' />
+        <VertDotsIcon  />
       </IconButton>
       <Menu
         id="fade-menu"

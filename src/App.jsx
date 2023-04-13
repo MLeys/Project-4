@@ -15,6 +15,7 @@ import LandingPage from "./pages/LandingPage/LandingPage";
 import SignUpPage from "./pages/SignupPage/SignupPage";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
+import LearnPage from "./pages/LearnPage/LearnPage";
 
 import userService from "./utils/userService";
 import * as skillsApi from "/src/utils/skillApi.js";
@@ -366,6 +367,7 @@ export default function App() {
               {user ? (
                 <Route path="/:username" element={<DashboardPage />} />
               ) : null}
+              <Route path="learn" element={<LearnPage />} />
             </Route>
             <Route path="/login" element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />} />
             <Route path="/signup" element={<SignUpPage handleSignUpOrLogin={handleSignUpOrLogin} />} />

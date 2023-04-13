@@ -22,16 +22,7 @@ function DashboardPage() {
   const skillTitlesArray = userSkills?.map((skill) => skill.name)
 
 
-  async function handleTabChange(e, data) {
-    e.preventDefault();
-		e.stopPropagation();
-    console.log(data.activeIndex, " << tab change activeindex")
-    setActiveIndex(data.activeIndex);
-    const userSkillId = userSkills[data.activeIndex]._id;
-    const skillId = skills?.findIndex((skill) => skill._id === userSkillId)
 
-    await handleSetActiveSkill(skillId)
-  }
   
   useEffect(() => {
     handleSetActiveSkill();

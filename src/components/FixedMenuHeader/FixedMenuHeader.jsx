@@ -1,7 +1,9 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
 import {  useNavigate } from "react-router-dom";
-import { useTheme } from "@mui/material";
+import { CssBaseline, useTheme } from "@mui/material";
+import mainTheme from "../../themes/mainTheme";
 
+import Cssbaseline from '@mui/material/CssBaseline'
 import Link from '@mui/material/Link';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -16,13 +18,12 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import Stack from '@mui/material/Stack';
 
-import mainTheme from "../../themes/mainTheme";
-
 import {
   DownArrowBoxed,
   ListIcon
-
 } from "../../customIcons";
+
+import SideDrawer from "../SideDrawer/SideDrawer";
 
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
@@ -61,196 +62,201 @@ function FixedMenuHeader({ sidebarDispatch }) {
   };
 
   function handleClickSignIn() {
-    navigate(`/login`)
+    navigate(`/login`);
   }
 
   function handleClickSignUp() {
-    navigate(`/signup`)
+    navigate(`/signup`);
+  }
+
+  function handleClickLearnPage() {
+    navigate(`/learn`);
   }
 
 
-
 	return (  
-		<>
+		<Box container sx={{ display: 'flex' }}>
+      <CssBaseline />
 		<AppBar 
-      position="sticky" 
+      position="sticky"
       sx={{ 
         backgroundColor: mainTheme.palette.primaryDarker.dark, 
         color: mainTheme.palette.primary.contrastText,
+        zIndex: (theme) => theme.zIndex.drawer + 1,
+        
       }}
     >
-      <Container maxWidth="100%" >
-        <Toolbar disableGutters >
-				<Box sx={{ flexGrow: 1, display: { xs: 'flex', sm: 'none' } }}>
-            <Tooltip title='See All Skills'>
-              <IconButton
-                centerRipple={true}
-                
-								sx={{ backgroundColor: 'accent.dark', color: 'accent.contrastText', ":hover": {backgroundColor:'secondary.dark'} }}
-                size="big"
-                aria-label="More Information"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleOpenNavMenu}
-              >
-               <ListIcon color={'white'} height={24} width={24}/>
-
-                
-              </IconButton>
-            </Tooltip>
-
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{ display: { xs: 'block', md: 'none' } }}
-            >
-              {sections.map((page, index) => (
-                <MenuItem key={`menuItem-${index}`}>
-                  <Link 
-                    key={page.title} 
-                    variant='subtitle1'
-                    underline='hover'
-                    onClick={() => {
-											handleCloseNavMenu();
-											navigate(`/${page.link}`); 
-										}}>
-                    {page.title}
-                  </Link>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-					<Tooltip title="Click for All Skills Menu">
-						<Typography
-							variant="h6"
-							as={Button}
-							color={mainTheme.palette.common.white}
-							sx={{
-								mr: 5,
-								display: { xs: 'flex', sm: 'none' },
-								flexGrow: 1,
-								fontWeight: 700,
-								letterSpacing: '.2rem',
-							}}
-							onClick={()=> console.log("CLICKED MENU SLIDEOUT")}
-						>
-							Skill.Map
-              
-						</Typography>
-					</Tooltip>
-					<Tooltip title="Skills Menu">
-              <IconButton 
-                sx={{
-                  p: 0, 
-                  m: 0,  
-                  color: 'accent.contrastText', 
-                  display: { xs: 'none', sm: 'flex' },
-                  ":hover": {
-                    // backgroundColor:'accent.main',
-                    fillOpacity: 1,
-                    color: 'accent.main',
-                  }
-                }}
-                onClick={() => console.log("CLICKED Downdownarrow")}
-              >
-                <DownArrowBoxed height={24} width={24}/>
-                {/* &nbsp; Skills */}
-              </IconButton>
-					</Tooltip>
-
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' } }}>
-            {sections.map((page) => (
-              <Button
-                key={page.title}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-								onClick={() => {
-									handleCloseNavMenu();
-									navigate(`/${page.link}`); 
-								}}
-              >
+      <Toolbar >
+      <Box sx={{ flexGrow: 1, display: { xs: 'flex', sm: 'none' } }}>
+        <Tooltip title='See All Skills'>
+          <SideDrawer />
+        </Tooltip>
+        <Menu
+          id="menu-appbar"
+          anchorEl={anchorElNav}
+          open={Boolean(anchorElNav)}
+          onClose={handleCloseNavMenu}
+          sx={{ display: { xs: 'block', md: 'none' } }}
+        >
+          {sections.map((page, index) => (
+            <MenuItem key={`menuItem-${index}`}>
+              <Link 
+                key={page.title} 
+                variant='subtitle1'
+                underline='hover'
+                onClick={() => {
+                  handleCloseNavMenu();
+                  navigate(`/${page.link}`); 
+                }}>
                 {page.title}
-              </Button>
-            ))}
-          </Box>
-
-					<Typography
-            variant="h4"
+              </Link>
+            </MenuItem>
+          ))}
+        </Menu>
+      </Box>
+        <Tooltip title="Click for All Skills Menu">
+          <Typography
+            variant="h6"
+            as={Button}
+            color={mainTheme.palette.common.white}
             sx={{
-							alignItems: 'center',
-              mr: 12,
-              display: { xs: 'none', sm: 'flex' },
+              mr: 5,
+              display: { xs: 'flex', sm: 'none' },
               flexGrow: 1,
               fontWeight: 700,
               letterSpacing: '.2rem',
+              ":hover": {backgroundColor:'accent.dark'}
+            }}
+            aria-label="More Information"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            onClick={handleOpenNavMenu}
+          >
+            Skill.Map
+          </Typography>
+        </Tooltip>
+        <Tooltip title="Skills Menu">
+            <IconButton 
+              sx={{
+                p: 0, 
+                m: 0,  
+                color: 'accent.contrastText', 
+                display: { xs: 'none', sm: 'flex' },
+                ":hover": {
+                  // backgroundColor:'accent.main',
+                  fillOpacity: 1,
+                  color: 'accent.main',
+                }
+              }}
+              onClick={() => console.log("CLICKED Downdownarrow")}
+            >
+              
+              <SideDrawer />
+              <DownArrowBoxed height={24} width={24}/>
+              {/* &nbsp; Skills */}
+            </IconButton>
+        </Tooltip>
+
+        <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' } }}>
+          {sections.map((page) => (
+            <Button
+              key={page.title}
+              sx={{ my: 2, color: 'white', display: 'block' }}
+              onClick={() => {
+                handleCloseNavMenu();
+                navigate(`/${page.link}`); 
+              }}
+            >
+              {page.title}
+            </Button>
+          ))}
+        </Box>
+
+        <Typography
+          variant="h4"
+          sx={{
+            alignItems: 'center',
+            mr: 12,
+            display: { xs: 'none', sm: 'flex' },
+            flexGrow: 1,
+            fontWeight: 700,
+            letterSpacing: '.2rem',
+          }}
+        >
+            Skill.Map
+        </Typography>
+        <Box sx={{ flexGrow: 0 }} >
+          <Stack direction='row'>
+            <Tooltip title="logout">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 1 }}>
+                <Avatar alt="MyAvatar" src={loggedUser?.photoUrl? loggedUser?.photoUrl : ""} />
+              </IconButton>
+            </Tooltip>
+          </Stack>
+          
+          <Menu
+            sx={{ mt: '45px' }}
+            id="menu-appbar"
+            anchorEl={anchorElUser}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={Boolean(anchorElUser)}
+            onClose={handleCloseUserMenu}
+          >
+          
+          {loggedUser ? (
+            <>
+            <MenuItem  
+              key={`logout`}
+              sx={{ m: 0}}
+              onClick={() => {
+                  handleCloseUserMenu(),
+                  handleLogout()
+              }}
+            >
+              Logout  
+            </MenuItem>
+            <MenuItem  
+            key={`logout`}
+            sx={{ m: 0}}
+            onClick={() => {
+                handleCloseUserMenu(),
+                handleClickLearnPage()
             }}
           >
-             Skill.Map
-          </Typography>
-					
-          <Box sx={{ flexGrow: 0 }} >
-            <Stack direction='row'>
-	
-							<Tooltip title="logout">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 1 }}>
-                  <Avatar alt="MyAvatar" src={loggedUser?.photoUrl? loggedUser?.photoUrl : ""} />
-                </IconButton>
-              </Tooltip>
-            </Stack>
-            
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-            
-            {loggedUser ? (
-              <MenuItem  
-                key={`logout`}
-                sx={{ m: 0}}
-                onClick={() => {
-                    handleCloseUserMenu(),
-                    handleLogout()
-                }}
+            Learn Page  
+          </MenuItem>
+          </>
+            ) : 
+            <>
+              <MenuItem
+                key={`signin`}
+                sx={{m: 0}}
+                onClick={() => {handleClickSignIn()}}
               >
-                Logout  
+                Sign-In
               </MenuItem>
-              ) : 
-              <>
-                <MenuItem
-                  key={`signin`}
-                  sx={{m: 0}}
-                  onClick={() => {handleClickSignIn()}}
-                >
-                  Sign-In
-                </MenuItem>
-                <MenuItem
-                  key={`signup`}
-                  sx={{m: 0}}
-                  onClick={() => {handleClickSignUp()}}
-                >
-                  Sign-Up
-                </MenuItem>
-              </>
-            }
-            </Menu>
-          </Box>
-        </Toolbar>
-      </Container>
+              <MenuItem
+                key={`signup`}
+                sx={{m: 0}}
+                onClick={() => {handleClickSignUp()}}
+              >
+                Sign-Up
+              </MenuItem>
+            </>
+          }
+          </Menu>
+        </Box>
+      </Toolbar>
     </AppBar>
-		</>
+		</Box>
 	);
  }
  

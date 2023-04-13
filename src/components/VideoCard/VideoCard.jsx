@@ -12,6 +12,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { SkillsContext } from '../../context/SkillsContext/SkillsContext';
 
 import OptionsButton from '../OptionsButton/OptionsButton';
+import { grey } from '@mui/material/colors';
 
 function VideoCard({resource, index, children}) {
   const theme = useTheme();
@@ -48,7 +49,17 @@ function VideoCard({resource, index, children}) {
 
   return (
 
-    <Card sx={{ position: 'relative', width: '290px',height: '400px' , m: 0, px: .5, pt: .5}} >
+    <Card 
+      sx={{ 
+        position: 'relative', 
+        width: '290px',
+        height: '400px' , 
+        m: 0, 
+        px: .5, 
+        pt: .5,
+        backgroundColor: grey[100]
+      }} 
+    >
       <CardActions 
         sx={{
           position: 'absolute',
