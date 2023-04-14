@@ -16,6 +16,7 @@ import {
 
 import { programmingSkills } from "../../lists/skillTypes";
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
+import AddSkillForm from "../AddSkillForm/AddSkillForm";
 
 
 const CreateSkillDialog = ({ open, onClose }) => {
@@ -56,7 +57,9 @@ const CreateSkillDialog = ({ open, onClose }) => {
 
   return (
     <Dialog open={open} onClose={onClose}>
+      
       <DialogTitle>Create a Skill</DialogTitle>
+      <AddSkillForm />
       <DialogContent>
         <TextField
           label="Skill Name"
