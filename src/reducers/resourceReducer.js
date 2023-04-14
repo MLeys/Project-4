@@ -1,41 +1,35 @@
-function skillsReducer(draft, action) {
+function resourcesReducer(draft, action) {
 	switch (action.type) {
-		case 'createSkill': {
+		case 'createResource': {
 			draft.push(action.data)
 			break;
 		}
-		case 'readSkills': {
+		case 'readResources': {
 			return action.data;	
 		}
-		case 'updateSkill': {
+		case 'updateResource': {
 			const index = draft.findIndex((s) => s.id === action.skill.id);
 			draft[index] = action.skill;
 			break;
 		}
-		case 'deleteSkill': {
+		case 'deleteResource': {
 			return draft.filter((s) => s.id !== action.id);
 		}
-		case 'assignSkill': {
+		case 'assignResource': {
 			// console.log("Reducer(assignSkill): ", action)
 			const index = action.index;
 			const user = action.user;
 			draft[index].usersAssigned.splice(0,0,user);
 			break;				
 		}
-		case 'unAssignSkill': {
+		case 'unAssignResource': {
 			// console.log("Reducer(unAssignSkill): ", action)
 			const skillIndex = action.skillIndex;
 			const userIndex = action.userIndex;
 			draft[skillIndex].usersAssigned.splice(userIndex, 1);
 			break;
 		}
-		case 'createSubSkill': {
-			console.log(action.data, "=== data")
-			const skillIndex = action.skillIndex;
-			const newSub = action.data.subSkills.at(-1)
-			draft[skillIndex].subSkills.splice(0,0, newSub);
-			break;
-		}
+
 		case 'addResource': {
 			console.log(action.resource, "resource in reducer for addResource")
 			const skillIndex = action.skillIndex
@@ -57,4 +51,4 @@ function skillsReducer(draft, action) {
 	}
 }
 
-export default skillsReducer;
+export default resourcesReducer;

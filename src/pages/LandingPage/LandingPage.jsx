@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-
 import mainTheme from "../../themes/mainTheme";
+import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
@@ -9,7 +9,8 @@ import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
 import { styled } from "@mui/system";
 
-import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
+
+import CreateSkillModal from "../../components/CreateSkillModal/CreateSkillModal";
 
 
 const CustomCard = styled(Card)({
@@ -74,6 +75,7 @@ function LandingPage() {
       <Button variant="contained" color="primary" onClick={handleCreateSkill}>
         Create a New Skill
       </Button>
+      <CreateSkillModal isOpen={isModalOpen} onClose={handleCloseModal} />
     </section>
       {skills?.map((skill, index) => (
       <Grid item={true} display="flex" justifyContent="center" alignItems="center" xs={12} sm={6} md={4} lg={3} key={skill.id}>

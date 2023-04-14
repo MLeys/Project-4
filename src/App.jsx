@@ -4,7 +4,7 @@ import { useImmerReducer} from 'use-immer';
 
 import "./App.css";
 
-import SkillsReducer from "./reducers/SkillsReducer";
+import skillsReducer from "./reducers/skillsReducer";
 
 import { SkillsContext, SkillsDispatchContext } from './context/SkillsContext/SkillsContext.jsx';
 
@@ -28,7 +28,7 @@ export default function App() {
   const navigate = useNavigate();
   const [error, setError] = useState('');
   const [user, setUser] = useState(userService.getUser());
-  const [skills, dispatch] = useImmerReducer(SkillsReducer, null)
+  const [skills, dispatch] = useImmerReducer(skillsReducer, null)
   const [userSkills, setUserSkills] = useState([])
   const [activeSkillIndex, setActiveSkillIndex] = useState(-1)
   const [resources, setResources] = useState([]);  
@@ -150,7 +150,6 @@ export default function App() {
       })
     } catch (err) {
       setError(console.log(`*** Error DELETE SKILL ****\n ${err}`))
-
     }
   }
 
