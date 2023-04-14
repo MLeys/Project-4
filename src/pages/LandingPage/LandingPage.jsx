@@ -11,7 +11,7 @@ import { styled } from "@mui/system";
 
 
 import CreateSkillModal from "../../components/CreateSkillModal/CreateSkillModal";
-
+import CreateSkillDialog from "../../components/CreateSkillDialog/CreateSkillDialog";
 
 const CustomCard = styled(Card)({
   width: '300px',
@@ -56,6 +56,7 @@ function LandingPage() {
   const handleSetActiveSkill = ctx.handleSetActiveSkill;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
 
   const handleCreateSkill = () => {
     setIsModalOpen(true);
@@ -63,6 +64,14 @@ function LandingPage() {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+  };
+
+  const handleOpenDialog = () => {
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
   };
 
 
@@ -76,6 +85,14 @@ function LandingPage() {
         Create a New Skill
       </Button>
       <CreateSkillModal isOpen={isModalOpen} onClose={handleCloseModal} />
+      <Button onClick={handleOpenDialog} color="primary">
+      Create Skill
+      </Button>
+<CreateSkillDialog
+     open={openDialog}
+     onClose={handleCloseDialog}
+     
+   />
     </section>
       {skills?.map((skill, index) => (
       <Grid item={true} display="flex" justifyContent="center" alignItems="center" xs={12} sm={6} md={4} lg={3} key={skill.id}>

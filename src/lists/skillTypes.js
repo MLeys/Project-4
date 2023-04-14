@@ -195,7 +195,7 @@ export const programmingSkills = [
       "Google Charts",
       "ApexCharts"
     ]
-  }
+  },
   {
     category: "Backend Development",
     subcategories: [
