@@ -5,8 +5,8 @@ const BASE_URL = '/api/skills/';
 
 export async function createAllSkillsFromList(data) {
 
-	console.log(JSON.stringify(data), " <<< <STRINGIFIED DATA")
-	return await fetch(BASE_URL, {
+	// console.log(JSON.stringify(data), " <<< <STRINGIFIED DATA")
+	return await fetch(`${BASE_URL}/createInitial`, {
 			method: 'POST',
 			body: JSON.stringify(data),
 			headers: {

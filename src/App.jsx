@@ -25,6 +25,7 @@ import * as subSkillsApi from "./utils/subSkillApi.js";
 import * as youTubeApi from "./utils/youTubeApi.js";
 import * as chatGPT3Api from "./utils/chatGPT3Api.js";
 import * as resourcesApi from "./utils/resourceApi.js";
+import { createAllSkillsFromList } from "./utils/skillApi";
 
 export default function App() {
   const navigate = useNavigate();
@@ -329,6 +330,7 @@ export default function App() {
 
   useEffect(() => {
     async function start() {
+      await onStartUploadAllSkillsFromList();
       await getSkills();
       await getResources();
       

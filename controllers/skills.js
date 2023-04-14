@@ -9,8 +9,41 @@ export default {
   all: allSkills,
   assignUser,
   unAssignUser,
+  createInitial
 };
 
+async function createInitial(req, res) {
+  console.log(req.body, " <======= REQUEST FROM CREATE INITIAL")
+  const data = req.body;
+  try {
+    // data.forEach((category))
+    // const skill = await Skill.create({
+    //   name: req.body.name,
+    //   type: req.body.type,
+      
+    // })
+
+    // await skill.populate('usersAssigned')// populating on a document "skill"
+    res.status(201).json({skill})
+  } catch(err){
+    res.status(400).json({err})
+  }
+}
+
+//    [1] [
+//   [1]   {
+//   [1]     category: 'Programming Languages',
+//   [1]     subcategories: [ 'Java', 'Python', 'JavaScript', 'Rust' ]
+//   [1]   },
+//   [1]   {
+//   [1]     category: 'Functional Programming',
+//   [1]     subcategories: [
+//   [1]       'Regular Expressions (RegEx)',
+//   [1]       'Sorting Algorithms',
+//   [1]       'Searching Algorithms'
+//   [1]     ]
+//   [1]   }
+//   [1] ]
 async function deleteSkill(req, res) {
   try {
     console.log(req.params, "Skill doc params for delete")
