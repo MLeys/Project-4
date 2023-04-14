@@ -132,11 +132,14 @@ export default function App() {
 
   async function getSkills() {
     try {
+      console.log("GET SKILLS")
       const response = await skillsApi.getAll(user._id);
+      console.log(await response, " RESPonse")
       dispatch({
         type: 'readSkills',
         data: response.skills //COULD BE .skills *****
       })
+     
       handleSetUserSkills(response.userSkills);
 
       if (!!activeSkill.index === true) {

@@ -55,20 +55,6 @@ async function createInitial(req, res) {
   }
 }
 
-  //  [1] [
-  // [1]   {
-  // [1]     category: 'Programming Languages',
-  // [1]     subcategories: [ 'Java', 'Python', 'JavaScript', 'Rust' ]
-  // [1]   },
-  // [1]   {
-  // [1]     category: 'Functional Programming',
-  // [1]     subcategories: [
-  // [1]       'Regular Expressions (RegEx)',
-  // [1]       'Sorting Algorithms',
-  // [1]       'Searching Algorithms'
-  // [1]     ]
-  // [1]   }
-  // [1] ]
 async function deleteSkill(req, res) {
   try {
     console.log(req.params, "Skill doc params for delete")
@@ -112,46 +98,41 @@ async function index(req, res) {
 }
 async function allSkills(req, res) {
   try {
-    console.log("allskills ctrl")
+    console.log("allskills ctrl");
     const skills = await Skill.find()
-    .populate({
-      path: "usersAssigned",
-      model: "User"
-    })
-    .populate({
-      path: "subSkills.parentSkill",
-      model: "Skill"
-    })
-    .populate({
-      path: "subSkills.resources",
-      model: "Resource"
-    })
-    .populate({
-      path: "subSkills.usersAssigned",
-      model: "User"
-    })
-    .populate({
-      path: "resources",
-      model: "Resource"
-    })
-    .exec();
+      .populate("usersAssigned", "User")
+      .populate({
+        path: "subSkills.resources",
+        model: "Resource",
+      })
+      .populate({
+        path: "subSkills.usersAssigned",
+        model: "User",
+      })
+      .populate("resources", "Resource")
+      .exec();
 
-    const userSkills = skills.filter(skill => {
-      return skill.usersAssigned.some(user => user._id.toString() === req.params.id);
-    })
-    ;
-    // console.log(skills[0]," skills[0]")
-    // console.log(userSkills[0], "<==== userSkills[0]0 from controller filter at getAll")
-    
-    // find cooresponding skill index inskilsl of the userskill at [0] and match to cooresponsing 
-    const firstSkillIndex = skills.findIndex(skill => skill._id === userSkills[0]._id)
-    
-    
-    res.status(200).json({ skills: skills, userSkills: userSkills, firstSkillIndex: firstSkillIndex });
+    const userSkills = skills.filter((skill) => {
+      return skill.usersAssigned.some(
+        (user) => user._id.toString() === req.params.id
+      );
+    });
+
+    const firstSkillIndex = skills.findIndex(
+      (skill) => skill._id?.toString() === userSkills[0]?._id.toString()
+    );
+
+    res.status(200).json({
+      skills: skills,
+      userSkills: userSkills,
+      firstSkillIndex: firstSkillIndex,
+    });
   } catch (err) {
+    console.log(err, '<--- Error from GET allSkills')
     res.status(400).json({ err });
   }
 }
+
 
 async function show(req, res) {
   try {

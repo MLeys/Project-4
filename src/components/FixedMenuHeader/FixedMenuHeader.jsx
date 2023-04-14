@@ -214,7 +214,7 @@ function FixedMenuHeader({ sidebarDispatch }) {
           {loggedUser ? (
             <>
             <MenuItem  
-              key={`logout`}
+              key={`logout-user`}
               sx={{ m: 0}}
               onClick={() => {
                   handleCloseUserMenu(),
@@ -224,7 +224,7 @@ function FixedMenuHeader({ sidebarDispatch }) {
               Logout  
             </MenuItem>
             <MenuItem  
-            key={`logout`}
+            key={`learnpage`}
             sx={{ m: 0}}
             onClick={() => {
                 handleCloseUserMenu(),
