@@ -7,6 +7,8 @@ import "./App.css";
 import skillsReducer from "./reducers/skillsReducer";
 
 import { SkillsContext, SkillsDispatchContext } from './context/SkillsContext/SkillsContext.jsx';
+import { programmingSkills } from "./lists/skillTypes";
+import { testSkillsList } from "./lists/skillTypes";
 
 
 import SkillPage from "./pages/SkillPage/SkillPage";
@@ -37,6 +39,15 @@ export default function App() {
   const [youTubeResults, setYouTubeResults] = useState([]);
     
   const loggedUser = userService.getUser();
+  
+
+  async function onStartUploadAllSkillsFromList() {
+    (testSkillsList) 
+      ? await skillsApi.createAllSkillsFromList(testSkillsList) 
+      : console.log('prorgammingSkills list is empty')
+  }
+
+
 
   function formatDate(timestamp) {
     const date = new Date(timestamp);

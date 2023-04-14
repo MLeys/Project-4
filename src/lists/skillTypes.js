@@ -31,6 +31,26 @@ export const Types = [
   'Finance and Accounting',
 ]
 
+export const testSkillsList = [
+  {
+    category: "Programming Languages",
+    subcategories: [
+      "Java",
+      "Python",
+      "JavaScript",
+      "Rust",
+    ]
+  },
+  {
+    category: "Functional Programming",
+    subcategories: [
+      "Regular Expressions (RegEx)",
+      "Sorting Algorithms",
+      "Searching Algorithms",
+    ]
+  },
+]
+
 export const programmingSkills = [
   {
     category: "Programming Languages",

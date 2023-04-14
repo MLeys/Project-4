@@ -3,8 +3,27 @@ import tokenService from "./tokenService";
 
 const BASE_URL = '/api/skills/';
 
+export async function createAllSkillsFromList(data) {
 
-export function create(data) {
+	console.log(JSON.stringify(data), " <<< <STRINGIFIED DATA")
+	return await fetch(BASE_URL, {
+			method: 'POST',
+			body: JSON.stringify(data),
+			headers: {
+					Authorization: "Bearer " + tokenService.getToken(),
+				 'Content-Type': 'application/json', // MUST HAVE OR req.body in Ctrl remains emppty!!!!
+			}
+			
+}).then((res) =>{
+	if(res.ok) return res.json() 
+
+	return res.json().then(res => {
+		throw new Error('Error creating all skills from list in skillsApi'); 
+	})
+})
+}
+
+export async function create(data) {
     console.log(data, 'THS IS DATA')
     console.log(JSON.stringify(data), " <<< <STRINGIFIED DATA")
     return fetch(BASE_URL, {
