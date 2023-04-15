@@ -13,7 +13,9 @@ function skillsReducer(draft, action) {
 			break;
 		}
 		case 'deleteSkill': {
-			return draft.filter((s) => s.id !== action.id);
+			// return draft.filter((s) => s.id !== action.id);
+			const updatedSkills = draft.filter((skill, index) => index !== action.index);
+      return updatedSkills;
 		}
 		case 'assignSkill': {
 			// console.log("Reducer(assignSkill): ", action)
