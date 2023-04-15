@@ -55,8 +55,15 @@ const mainTheme = createTheme({
       dark: '#16836d',
       contrastText: '#ffffff',
     },
+  },
+  components: {
+    MuiListItemButton: {
+      defaultProps: {
+        disableTouchRipple: true,
+      },
+    },
+  },
 
-  }
 });
 
 export default mainTheme;

@@ -44,7 +44,7 @@ export const StyledCard = styled(Card)(({ theme }) => ({
     '&:hover': {
       backgroundColor: theme.palette.teal.main,
       transitionDelay: "0.1s",
-      transform: 'scale(1.2)',
+      transform: 'scale(1.5)',
     }
   },
   opacity: 0,
