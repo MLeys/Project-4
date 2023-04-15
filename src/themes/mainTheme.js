@@ -30,7 +30,31 @@ const mainTheme = createTheme({
       main: '#005766',
       dark: '#002b33',
       contrastText: '#ffffff',
-    }
+    },
+    green: {
+      light: '#81c784',
+      main: '#4caf50',
+      dark: '#388e3c',
+      contrastText: '#ffffff',
+    },
+    darkGreen: {
+      light: '#a5d6a7',
+      main: '#2e7d32',
+      dark: '#1b5e20',
+      contrastText: '#ffffff',
+    },
+    teal: {
+      light: '#b3ffe6',
+      main: '#00ffaa',
+      dark: '#009966',
+      contrastText: '#000000',
+    },
+    teal2: {
+      light: '#bef4e9',
+      main: '#3bdebd',
+      dark: '#16836d',
+      contrastText: '#000000',
+    },
 
   }
 });
