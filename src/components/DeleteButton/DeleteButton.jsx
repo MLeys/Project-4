@@ -14,7 +14,7 @@ import { LargeXIcon } from '../../customIcons';
 import { TrashIcon } from '../../customIcons';
 import { grey, red } from '@mui/material/colors';
 
-function OptionsButton({ children, color='black' }) {
+function OptionsButton({ children, color='black', handleClick, handleClose, open }) {
   const ctx = useContext(SkillsContext);
   const handleDeleteResource = ctx.handleDeleteResource;
   const loggedUser = ctx.loggedUser;

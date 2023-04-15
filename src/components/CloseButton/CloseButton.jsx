@@ -1,8 +1,9 @@
+
 import * as React from 'react';
 
 import Zoom from '@mui/material/Zoom';
 import Fab from '@mui/material/Fab';
-
+import { LargeXIcon } from '../../customIcons';
 
 export default function CloseButton({close}) {
 
@@ -16,11 +17,11 @@ export default function CloseButton({close}) {
       }}
       unmountOnExit
     >
-      <Fab color="accent" aria-label="close" 
+      <Fab  aria-label="close" 
         sx={{ position: 'absolute', top: 0, right: 0}}
         onClick={() => close()}
       >
-        <div>{` Close X `}</div>
+        <LargeXIcon />
       </Fab>
     </Zoom>
   );
