@@ -17,32 +17,21 @@ import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Typography from '@mui/material/Typography';
+import { ListIcon } from '../../customIcons';
 
 
 const iOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
 const drawerWidth = 240;
 
-export default function SideDrawer() {
-  const [open, setOpen] = React.useState(false);
+export default function SideDrawer({open, toggleDrawer}) {
 
-  const toggleDrawer = () => (event) => {
-    if (
-      event &&
-      event.type === 'keydown' &&
-      (event.key === 'Tab' || event.key === 'Shift')
-    ) {
-      return;
-    }
-
-    setOpen(!open);
-  };
 
   const list = () => (
     <Box
       sx={{ width: 250 }}
       role="presentation"
-      onClick={toggleDrawer(false)}
-      onKeyDown={toggleDrawer(false)}
+      onClick={() => toggleDrawer(false)}
+      onKeyDown={() => toggleDrawer(false)}
     >
       <List>
         {['Inbox', 'Temp', 'List', 'Items'].map((text, index) => (
@@ -74,29 +63,19 @@ export default function SideDrawer() {
 
   return (
     <>
-      <IconButton
-        color="inherit"
-        aria-label="open drawer"
-        edge="start"
-        onClick={toggleDrawer()}
-        sx={{ mr: 2, }}
-      >
-        <MenuIcon />
-      </IconButton>
       <SwipeableDrawer
         variant='temporary'
-
         disableBackdropTransition={!iOS} 
         disableDiscovery={iOS} 
         allowSwipeInChildren
         anchor={'left'}
         open={open}
-        onClick={toggleDrawer()}
+        onClick={() => toggleDrawer()}
         transitionDuration={800}
         hideBackdrop
         elevation={24}
-        // onClose={toggleDrawer()}
-        // onOpen={toggleDrawer()}
+        onClose={() => toggleDrawer()}
+        onOpen={() => toggleDrawer()}
         ModalProps={{
           keepMounted: false, // Better open performance on mobile.
           // disableEnforceFocus: true,

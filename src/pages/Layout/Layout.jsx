@@ -17,7 +17,7 @@ function Layout({ handleLogout }) {
   return (
     <Container fluid='true' style={{margin: 0, padding: 0}}>
       
-    <FixedMenuHeader handleLogout={handleLogout} />
+    <FixedMenuHeader />
   
       <Outlet />
      
