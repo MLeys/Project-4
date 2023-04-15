@@ -11,6 +11,7 @@ const resourceSchema = new Schema(
     datePublished: String,
     skillId: String,
     subSkillId: String,
+    complete: Boolean,
     source: { type: String, default: "youtube" },
     usersAssigned: [
       { type: Schema.Types.ObjectId, ref: "User", autopopulate: true },
