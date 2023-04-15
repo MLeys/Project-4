@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
 import CardContent from '@mui/material/CardContent';
@@ -24,10 +23,10 @@ function SkillCard({skill, index}) {
   const ctx = useContext(SkillsContext);
   const skills = ctx.skills;
   const handleSetActiveSkill = ctx.handleSetActiveSkill;
-  const handleDeleteSkill = ctx.handleDeleteSkill;
+  const deleteSkill = ctx.deleteSkill;
 
   const handleDeleteClick = () => {
-    handleDeleteSkill(skill.id)
+    deleteSkill(skill.id)
   };
 
   return ( 
@@ -44,7 +43,7 @@ function SkillCard({skill, index}) {
         <Typography variant="h6" component="div">
           Subskills:
         </Typography>
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+        <Box alignContent={'center'} justifyContent={'center'}  sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
           {skill.subSkills.map((subSkill, index) => (
             <Chip key={index} label={subSkill.title} />
           ))}

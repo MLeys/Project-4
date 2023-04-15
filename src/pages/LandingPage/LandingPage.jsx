@@ -4,7 +4,7 @@ import mainTheme from "../../themes/mainTheme";
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
+import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
 
@@ -40,7 +40,7 @@ function LandingPage() {
           onClose={handleCloseDialog}
         />
       </section>
-      <Grid xs={12}>
+      <Grid xs={12} px={2} >
         <DisplaySkills />
       </Grid>
     </Grid>

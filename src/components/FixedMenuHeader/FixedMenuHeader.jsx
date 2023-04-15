@@ -18,6 +18,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import Stack from '@mui/material/Stack';
 
+
 import {
   DownArrowBoxed,
   ListIcon
@@ -35,7 +36,7 @@ function FixedMenuHeader({ sidebarDispatch }) {
 	const ctx = useContext(SkillsContext);
 	const loggedUser = ctx.loggedUser;
 	const handleLogout = ctx.handleLogout;
-  const handleSignUpOrLogin = ctx.handleSignUpOrLogin;
+  
 
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
