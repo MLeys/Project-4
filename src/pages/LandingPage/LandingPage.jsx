@@ -16,7 +16,6 @@ function LandingPage() {
   const ctx = useContext(SkillsContext);
   const skills = ctx.skills;
   const handleSetActiveSkill = ctx.handleSetActiveSkill;
-
   const [openDialog, setOpenDialog] = useState(false);
 
 
@@ -27,6 +26,11 @@ function LandingPage() {
   const handleCloseDialog = () => {
     setOpenDialog(false);
   };
+
+  useEffect(() => {
+
+    
+  }, []); 
 
   return (
     <Grid container={true} spacing={1} backgroundColor={mainTheme.palette.primaryDarker.main} >

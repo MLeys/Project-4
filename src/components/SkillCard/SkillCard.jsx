@@ -24,9 +24,12 @@ function SkillCard({skill, index}) {
   const skills = ctx.skills;
   const handleSetActiveSkill = ctx.handleSetActiveSkill;
   const deleteSkill = ctx.deleteSkill;
+  const getSkills = ctx.getSkills;
 
   const handleDeleteClick = () => {
-    deleteSkill(skill.id)
+    deleteSkill(skill._id)
+    getSkills();
+
   };
 
   return ( 
