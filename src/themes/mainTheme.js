@@ -53,7 +53,7 @@ const mainTheme = createTheme({
       light: '#bef4e9',
       main: '#3bdebd',
       dark: '#16836d',
-      contrastText: '#000000',
+      contrastText: '#ffffff',
     },
 
   }

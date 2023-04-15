@@ -13,11 +13,12 @@ export const StyledCard = styled(Card)(({ theme }) => ({
   border: `1px solid ${theme.palette.secondary.main}`,
   boxShadow: theme.shadows[3],
   borderRadius: theme.shape.borderRadius,
+  color: theme.palette.primary.contrastText,
   '& .MuiCardHeader-root': {
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.secondary.contrastText,
+    backgroundColor: theme.palette.teal2.dark,
+    color: theme.palette.primary.contrastText,
     '& .MuiIconButton-root': {
-      color: theme.palette.secondary.contrastText,
+      color: theme.palette.primary.contrastText,
     }
   },
   '& .MuiCardContent-root': {
@@ -26,29 +27,48 @@ export const StyledCard = styled(Card)(({ theme }) => ({
   },
   '& .MuiTypography-root': {
     fontWeight: 600,
-    color: theme.palette.text.primary,
+    color: theme.palette.text.secondary,
   },
   '& .MuiChip-root': {
-    margin: theme.spacing(0.5),
-    backgroundColor: theme.palette.primary.light,
+    margin: theme.spacing(1.4),
+    backgroundColor: theme.palette.teal.light,
     color: theme.palette.secondary.contrastText,
+    transition: "transform 0.5s ease-out, background-color 0.2s ease-out",
+    transform: "scale(1)",
+    opacity: 0,
+    transform: "scale(0)",
+    animation: `$grow 1.5s ease-in forwards`,
+    "&.loaded": {
+      animationDelay: "0.2s",
+    },
     '&:hover': {
-      backgroundColor: theme.palette.primary.main,
+      backgroundColor: theme.palette.teal.main,
+      transitionDelay: "0.1s",
+      transform: 'scale(1.2)',
     }
   },
   opacity: 0,
   transform: "translateY(-100%)",
-  transition: "all 0.5s ease-out",
+  transition: "all 1.5s ease-out",
   "&.loaded": {
     opacity: 1,
     transform: "translateY(0%)",
     "& .MuiChip-root": {
       opacity: 1,
-      transform: "scale(1)",
+      transform: "scale(1.1)",
       transitionDelay: "0.2s",
     },
   },
-
+  '@keyframes grow': {
+    '0%': {
+      transform: 'scale(0)',
+      opacity: 0,
+    },
+    '100%': {
+      transform: 'scale(1.2)',
+      opacity: 1,
+    }
+  },
 }));
 
 export const StyledCardContent = styled(CardContent)({
@@ -57,37 +77,45 @@ export const StyledCardContent = styled(CardContent)({
   alignItems: "center",
   "& .MuiChip-root": {
     opacity: 0,
-    transition: "all 0.5s ease-out",
+    transform: "scale3d(0.5, 0.5, 0.5) translateZ(0)",
+    transition: "all 5.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
   },
   "& .animate .MuiChip-root": {
     opacity: 1,
+    transform: "scale3d(20, 2, 2) translateZ(0)",
   },
+  "& .MuiChip-root:hover": {
+    backgroundColor: mainTheme.palette.teal.main,
+    transform: "scale3d(1.5, 1.5, 1.5) translateZ(0)",
+    transition: "all 1.0s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+  },
+  perspective: "800px",
 });
 
 export const StyledChip = styled(Chip)({
   opacity: 0,
   transform: "scale(0)",
-  animation: `$grow 0.5s ease forwards`,
+  animation: `$grow 1s ease forwards`,
   "&.loaded": {
-    animationDelay: "0.2s",
-  },
-  "&.delay-1": {
-    animationDelay: "0.4s",
-  },
-  "&.delay-2": {
-    animationDelay: "0.6s",
-  },
-  "&.delay-3": {
-    animationDelay: "0.8s",
-  },
-  "&.delay-4": {
-    animationDelay: "1.0s",
-  },
-  "&.delay-5": {
     animationDelay: "1.2s",
   },
-  "&.delay-6": {
+  "&.delay-1": {
     animationDelay: "1.4s",
+  },
+  "&.delay-2": {
+    animationDelay: "1.6s",
+  },
+  "&.delay-3": {
+    animationDelay: "1.8s",
+  },
+  "&.delay-4": {
+    animationDelay: "2.0s",
+  },
+  "&.delay-5": {
+    animationDelay: "2.2s",
+  },
+  "&.delay-6": {
+    animationDelay: "2.4s",
   },
   "@keyframes grow": {
     "0%": {
@@ -96,20 +124,25 @@ export const StyledChip = styled(Chip)({
     },
     "50%": {
       opacity: 1,
-      transform: "scale(1.2)",
+      transform: "scale(5.3)",
     },
     "100%": {
       opacity: 1,
       transform: "scale(1)",
     },
   },
+  "&:hover": {
+    backgroundColor: `${mainTheme.palette.teal.main} !important`,
+    transition: "background-color 0.2s ease-in-out",
+    transform: "scale(2.9)",
+  },
 });
 
 export const AnimatedChip = styled(Chip)(({ theme }) => ({
   position: "relative",
-  animation: `$myEffect 0.5s ease forwards`,
-  transform: "scale(0)",
-  animationDelay: `${Math.random() * 0.5}s`,
+  animation: `$myEffect 10.5s ease forwards`,
+  transform: "scale(2)",
+  animationDelay: `${Math.random() * 1.5}s`,
   "@keyframes myEffect": {
     "0%": {
       transform: "scale(0)",
@@ -124,4 +157,5 @@ export const AnimatedChip = styled(Chip)(({ theme }) => ({
       opacity: 1,
     },
   },
+
 }));
