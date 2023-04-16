@@ -70,7 +70,7 @@ function SkillPage() {
   const skillId = useParams().skillId;
   const skill = skillId ? skills?.find(skill => skill?._id === skillId) : console.log('skill param not found');
   const resources = ctx.activeSub?.subSkill?.resources;
-  
+  const activeSubIndex = ctx.activeSub?.index;
 
 
   // async function loadSkills() {
@@ -82,10 +82,9 @@ function SkillPage() {
     
   // }
 
-  const [activeSubIndex, setActiveSubIndex] = useState(0)
+ 
   
   function handleClickSub(index) {
-    setActiveSubIndex(index);
     handleSetActiveSub(index);
   }
 
@@ -127,7 +126,7 @@ function SkillPage() {
                 {resources?.map((resource, index) => (
                   <Grid xs={12} md={6} lg={4} >
                     <VideoCard key={`resource-${index}`} resource={resource} index={index} >
-                    `<Typography alignContent={'flex-end'}>Added: {resource.createdAt}</Typography>
+                     <Typography alignContent={'flex-end'}>Added: {resource.createdAt}</Typography>
                     </VideoCard>
                   </Grid>
                 ))}   

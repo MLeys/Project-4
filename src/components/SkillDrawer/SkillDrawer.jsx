@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import {  useNavigate } from "react-router-dom";
+import {  useNavigate, useParams } from "react-router-dom";
 
 import mainTheme from "../../themes/mainTheme";
 
@@ -26,6 +26,7 @@ import Toolbar from "@mui/material/Toolbar";
 
 
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
+import { BoxArrowRightIcon } from "../../customIcons";
 
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
@@ -33,11 +34,17 @@ const iOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigato
 const drawerWidth = 260;
 
 export default function SkillDrawer({open, toggleDrawer }) {
+  const navigate = useNavigate();
   const ctx = useContext(SkillsContext);
   const skills = ctx.skills;
+  const activeSkillIndex = ctx.activeSkillIndex;
   const handleSetActiveSkill = ctx.handleSetActiveSkill;
-  const navigate = useNavigate();
   const handleSetActiveSub = ctx.handleSetActiveSub;
+
+  const skillId = useParams().skillId;
+  const activePageSkillIndex = skillId ? skills?.findIndex(skill => skill?._id === skillId) : console.log('skill param not found');
+  const activePageSkill = skillId ? skills?.find(skill => skill?._id === skillId) : console.log('skill param not found');
+  const activeSkillId = activePageSkill?._id
 
 
   const [openSkills, setOpenSkills] = useState({});
@@ -57,14 +64,16 @@ export default function SkillDrawer({open, toggleDrawer }) {
   };
 
   const handleClickSkillArrow = ( skillIndex) => {
-
+    toggleDrawer(false);
     console.log('===== HANDLING SKILL CLICK =======-')
     console.log(`Clicked skill: ${skills[skillIndex].name}`);
     handleSkillToggle(skillIndex)
     // Navigate to the skill's details screen
     handleSetActiveSkill(skillIndex);
     const skillId = skills[skillIndex]?._id
+    
     navigate(`/skills/${skillId}`)
+    
   };
 
   const handleSkillToggle = ( skillIndex) => {
@@ -75,13 +84,16 @@ export default function SkillDrawer({open, toggleDrawer }) {
 
   const handleSubSkillClick = (skillIndex, subSkillIndex) => {
     console.log(`Clicked subSkill: ${skills[skillIndex].subSkills[subSkillIndex].title}`);
-    handleSetActiveSub(subSkillIndex);
+    if (skillIndex === activePageSkillIndex) {
+      handleSetActiveSub(subSkillIndex);
+    }
+    
 
   };
 
   const handleSkillIconClick = (event, index) => {
     event.stopPropagation();
-    handleSkillToggle(index);
+    toggleDrawer();
   };
 
   return (
@@ -98,7 +110,7 @@ export default function SkillDrawer({open, toggleDrawer }) {
       transitionDuration={800}
       hideBackdrop
       elevation={24}
-      onClose={() => toggleDrawer()}
+      onClose={() => handleSkillIconClick()}
       onOpen={() => toggleDrawer()}
       ModalProps={{
         keepMounted: false, // Better open performance on mobile.
@@ -134,11 +146,17 @@ export default function SkillDrawer({open, toggleDrawer }) {
               <ListItemText primary={skill.name}  sx={{pr: 2}}/>
               <ListItemSecondaryAction>
                 <IconButton
-                  edge="end"
+                  edge="start"
                   size="small"
-                  onClick={() => handleClickSkillArrow( index)}
+                  
                 >
-                  {openSkills[index] ? <ExpandLess /> : <ExpandMore />}
+                  {openSkills[index] ? <ExpandLess /> : <ExpandMore  />}
+                </IconButton>
+                <IconButton
+                  edge="end"
+                  onClick={(event) => handleClickSkillArrow(index)}
+                >
+                  <BoxArrowRightIcon height={20} width={20} fill="white"/>                  
                 </IconButton>
               </ListItemSecondaryAction>
             </ListItemButton>
@@ -149,9 +167,6 @@ export default function SkillDrawer({open, toggleDrawer }) {
                   <div key={`sidebar-${index}-${subIndex}`}>
                     <ListItemButton onClick={() => handleSubSkillClick(index, subIndex)}>
                       <ListItemText primary={subSkill.title} />
-                      <ListItemSecondaryAction>
-                        <Slider value={subSkill.progress} />
-                      </ListItemSecondaryAction>
                     </ListItemButton>
                     <LinearProgress variant="determinate" value={skill.progress} />
                   </div>
