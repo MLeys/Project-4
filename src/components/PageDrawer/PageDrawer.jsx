@@ -26,12 +26,12 @@ import Paper from '@mui/material/Paper';
 import SubList from "../../components/SubList/SubList";
 
 
-const drawerWidth = 240;
+const drawerWidth = 260;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     flexGrow: 1,
-    padding: theme.spacing(3),
+    padding: theme.spacing(0),
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -74,16 +74,10 @@ const DrawerHeader = styled('Box')(({ theme }) => ({
 }));
 
 const MainTitle = styled(Typography)({
-  
   color: mainTheme.palette.secondary.contrastText,
   padding: 0,
   margin: 0,
-  animationDuration: '3s',
-  animationName: 'slidein',
-  animationIterationCount: '1',
-  animationDirection: 'alternate',
-
-})
+});
 
 
 const PageHeader = ({title, children}) => (
@@ -111,7 +105,7 @@ export default function PageDrawer({children}) {
   }
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex' }} bgcolor={'grey'} m={0} p={0}>
       <AppBar position="absolute"  open={open}>
         <Toolbar />
         <PageHeader >
@@ -129,11 +123,8 @@ export default function PageDrawer({children}) {
           <Typography variant="h6" noWrap component="div">
             Current Skill Page
           </Typography>
-    
         </Toolbar>
-
         </PageHeader>
-
       </AppBar>
  
       <Drawer
@@ -161,11 +152,9 @@ export default function PageDrawer({children}) {
         <Divider />
       </Drawer>
       <Toolbar />
-      <Main open={open}>
+      <Main open={open} >
         <Toolbar />
-        <DrawerHeader />Drawer`
-            {children}
-            
+        {children}
       </Main>
     </Box>
   );
