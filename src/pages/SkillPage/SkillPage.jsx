@@ -6,7 +6,7 @@ import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { styled } from "@mui/system";
 
-
+import Toolbar from "@mui/material/Toolbar";
 import Container from '@mui/material/Container';
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import Paper from "@mui/material/Paper";
@@ -17,6 +17,7 @@ import Stack from "@mui/material/Stack";
 
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 import VideoCard from "../../components/VideoCard/VideoCard";
+import PageDrawer from "../../components/PageDrawer/PageDrawer";
 
 const CustomCard = styled(Card)({
   width: '100%',
@@ -84,8 +85,10 @@ function SkillPage() {
 
   }, [!skill]); 
 
-  return (  
-    <Box minHeight='90dvh' component={Paper} elevation={6} >
+  return ( 
+    <PageDrawer>
+      
+
       <Grid p={1} component={Paper} container elevation={6}  >
         <Grid xs={12} >
           <PageHeader title={skill?.name}>
@@ -102,7 +105,7 @@ function SkillPage() {
               {skill?.subSkills.map((sub, index) => (
               <CustomCard key={`sub-${index}`} onClick={() => handleClickSub(index)}>
                 <Typography>
-                  {sub?.title }4gbfg
+                  {sub?.title }
                 </Typography>
               </CustomCard>
             ))}
@@ -128,7 +131,11 @@ function SkillPage() {
           </Grid>
         </Grid> 
       </Grid>
-    </Box>
+
+
+    </PageDrawer>
+
+
 
   );
 }
