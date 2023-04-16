@@ -24,10 +24,9 @@ import {
   ListIcon
 } from "../../customIcons";
 
-import SideDrawer from "../SideDrawer/SideDrawer";
+import SkillDrawer from "../SkillDrawer/SkillDrawer";
 
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
-
 
 
 function FixedMenuHeader({ sidebarDispatch }) {
@@ -39,13 +38,13 @@ function FixedMenuHeader({ sidebarDispatch }) {
   
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const [openSidebar, setOpenSidebar] = useState(false);
+  const [openSidebar, setOpenSidebar] = useState(true);
 
 	const sections = [
 		{ title: "Home", link: "#", target: '' },
 		{ title: "Dashboard", link : loggedUser?.username }
 	]
-	
+
   const toggleDrawer = () => (event) => {
     if (
       event &&
@@ -105,7 +104,8 @@ function FixedMenuHeader({ sidebarDispatch }) {
             onClick={toggleDrawer()}
             sx={{ mr: 2, }}
           >
-            <SideDrawer open={openSidebar} toggleDrawer={toggleDrawer}/>
+
+            {/* <SideDrawer open={openSidebar} toggleDrawer={toggleDrawer}/> */}
             <DownArrowBoxed />
           </IconButton>
 
@@ -155,7 +155,7 @@ function FixedMenuHeader({ sidebarDispatch }) {
               Skill.Map
             </Typography>
           </Tooltip>
-
+          
           <Tooltip title="Skills Menu">
             <IconButton 
               sx={{
@@ -171,8 +171,9 @@ function FixedMenuHeader({ sidebarDispatch }) {
               }}
               onClick={toggleDrawer()}
             >
-             
-              <SideDrawer open={openSidebar} toggleDrawer={toggleDrawer}/>
+              
+
+              {/* <SideDrawer open={openSidebar} toggleDrawer={toggleDrawer}/> */}
               <ListIcon />
             </IconButton>
           </Tooltip>
@@ -280,6 +281,7 @@ function FixedMenuHeader({ sidebarDispatch }) {
           </Box>
         </Toolbar>
       </AppBar>
+      <SkillDrawer open={openSidebar} toggleDrawer={toggleDrawer} />
       <Toolbar />
 	  </Box>
 	);

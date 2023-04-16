@@ -9,12 +9,12 @@ import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
 
 import CreateSkillDialog from "../../components/CreateSkillDialog/CreateSkillDialog";
-
 import DisplaySkills from "../../components/DisplaySkills/DisplaySkills";
+import SkillDrawer from "../../components/SkillDrawer/SkillDrawer";
 
 function LandingPage() {
   const ctx = useContext(SkillsContext);
-  const skills = ctx.skills;
+
   const handleSetActiveSkill = ctx.handleSetActiveSkill;
   const [openDialog, setOpenDialog] = useState(false);
 
@@ -27,15 +27,9 @@ function LandingPage() {
     setOpenDialog(false);
   };
 
-  useEffect(() => {
-
-    
-  }, []); 
-
   return (
     <Grid container={true} spacing={1} backgroundColor={mainTheme.palette.primaryDarker.main} >
       <section style={{height: '5dvh', width: '100dvw', paddingTop: 10, display: 'flex', justifyContent: 'center'}}>
-
         <Button  onClick={handleOpenDialog} color="primary">
         Create Skill
         </Button>
