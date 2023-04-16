@@ -66,29 +66,36 @@ const PageHeader = ({title, children}) => (
 
 function SkillPage() {
   const ctx = useContext(SkillsContext);
+  const getSkills = ctx.getSkills;
   const skills = ctx.skills;
   const handleSetActiveSub = ctx.handleSetActiveSub;
-
+  const handleSetActiveSkill = ctx.handleSetActiveSkill;
+  const handleSetActiveSkillById = ctx.handleSetActiveSkillById;
+  const activeSkill = ctx.activeSkill;
   const skillId = useParams().skillId;
   const skill = skillId ? skills?.find(skill => skill?._id === skillId) : console.log('skill param not found');
   const activeSubIndex = ctx.activeSub?.index;
- 
- 
 
-  function handleClickSub(index=0) {
+ 
+  function handleClickSub(index) {
     handleSetActiveSub(index);
+  }
+
+  async function ifActiveSkills() {
+    await getSkills();
+    console.log("FUCKER", skillId)
+    console.log("ACtive SKill fuck: ", activeSkill)
+    activeSkill ? "" : handleSetActiveSkillById(skillId)
   }
 
 
   useEffect(() => {
-    activeSubIndex ? "" : handleSetActiveSub();
-
-  }, [!skill]); 
+    ifActiveSkills();
+  }, [!skills]); 
 
   return ( 
-    <PageDrawer>
+    <PageDrawer key={skill?._id}>
       
-
       <Grid p={1} component={Paper} container elevation={6}  >
         <Grid xs={12} >
           <PageHeader title={skill?.name}>
@@ -120,7 +127,7 @@ function SkillPage() {
             <Box sx={{ flexGrow: 1 }}>
               <Grid container align={'center'} m={0} p={0} spacing={1} >
                 {skill?.subSkills[activeSubIndex]?.resources?.map((resource, index) => (
-                  <Grid xs={12} md={6} lg={4} >
+                  <Grid xs={12} md={6} lg={4} key={`resource-${index}`} >
                     <VideoCard key={`resource-${index}`} resource={resource} index={index} >
                      <Typography alignContent={'flex-end'}>Added: {resource.createdAt}</Typography>
                     </VideoCard>

@@ -64,12 +64,11 @@ export default function App() {
     return `${formattedDate} ${formattedTime}`;
   }
 
-  async function loadSkills(skillId) {
-    await getSkills();
+  async function handleSetActiveSkillById(skillId) {
+    getSkills();
     const skillIndex = skills?.findIndex((skill => skill._id === skillId))
     console.log(skillIndex, " SKILL INDEX")
-    
-    await handleSetActiveSkill(skillIndex);
+    handleSetActiveSkill(skillIndex);
     handleSetActiveSub();
   }
 
@@ -80,14 +79,16 @@ export default function App() {
 
   function handleSetActiveSub(subIndex=0){
     if (skills) {
+      console.log("PASSED FUCKER")
       const skillIndex = activeSkill?.index;
-      console.log(`ActiveSub: ${skills[skillIndex]?.subSkills[subIndex]?.title}`)
       setActiveSub({
         ...activeSub,
         index: subIndex,
-        subSkill: skills[skillIndex]?.subSkills[subIndex],
-        resources: skills[skillIndex]?.subSkills[subIndex]?.resources
+        subSkill: activeSkill?.subSkills[subIndex],
+        resources: activeSkill?.subSkills[subIndex]?.resources
       });
+      console.log(`ActiveSub: ${activeSkill?.subSkills[subIndex]} index: ${subIndex} ${activeSkill?.subSkills.length}`)
+
     }
 
   };
@@ -102,6 +103,7 @@ export default function App() {
   }
 
   async function handleSetActiveSkill(index=0){
+    console.log('SetACtiveSkill')
     if (skills) { 
       const skill = skills[index];
       resetActiveSubToFirstIndexActiveSkill(skill?.subSkills);
@@ -112,8 +114,11 @@ export default function App() {
         skill: skills[index],
         subSkills: skills[index]?.subSkills
       })    
+    } else {
+      console.log("FUCKING FAILED FUCK FUCK FUCK")
+      console.log("SKILLS => ", skills)
+
     }
-   
   }
 
 
@@ -358,7 +363,7 @@ export default function App() {
 
           setYouTubeResults: setYouTubeResults,
           searchYouTube: searchYouTube,
-          loadSkills: loadSkills,
+          handleSetActiveSkillById: handleSetActiveSkillById,
           formatDate: formatDate,
           handleLogout: handleLogout,
           handleSignUpOrLogin: handleSignUpOrLogin,

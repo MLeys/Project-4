@@ -39,7 +39,7 @@ function FixedMenuHeader({ sidebarDispatch }) {
   
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const [openSidebar, setOpenSidebar] = useState(true);
+  const [openSidebar, setOpenSidebar] = useState(false);
 
 	const sections = [
 		{ title: "Home", link: "#", target: '' },

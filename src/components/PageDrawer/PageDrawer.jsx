@@ -101,8 +101,10 @@ export default function PageDrawer({children}) {
           <Typography variant="h6" noWrap component="div">
             Current Skill Page
           </Typography>
+    
         </Toolbar>
       </AppBar>
+ 
       <Drawer
         sx={{
           width: drawerWidth,
@@ -116,6 +118,7 @@ export default function PageDrawer({children}) {
         anchor="left"
         open={open}
       >
+        <Toolbar />
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
