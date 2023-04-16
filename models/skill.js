@@ -19,7 +19,7 @@ const skillSchema = new Schema({
     usersAssigned: [{type: Schema.Types.ObjectId, ref: 'User'}],
     subSkills: [subSkillSchema],
     resources: [{type: Schema.Types.ObjectId, ref: 'Resource', autopopulate: true}],
-    progress: {type: Number, default: 0},
+    progress: {type: Number, default: 10},
     complete: {type: Boolean, default: false},
 }, {
     timestamps: true

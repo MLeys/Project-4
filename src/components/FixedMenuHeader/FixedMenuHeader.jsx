@@ -171,9 +171,6 @@ function FixedMenuHeader({ sidebarDispatch }) {
               }}
               onClick={toggleDrawer()}
             >
-              
-
-              {/* <SideDrawer open={openSidebar} toggleDrawer={toggleDrawer}/> */}
               <ListIcon />
             </IconButton>
           </Tooltip>
@@ -281,8 +278,9 @@ function FixedMenuHeader({ sidebarDispatch }) {
           </Box>
         </Toolbar>
       </AppBar>
-      <SkillDrawer open={openSidebar} toggleDrawer={toggleDrawer} />
       <Toolbar />
+      <SkillDrawer open={openSidebar} toggleDrawer={toggleDrawer} />
+      
 	  </Box>
 	);
  }

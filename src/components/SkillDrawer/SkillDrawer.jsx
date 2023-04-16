@@ -23,7 +23,8 @@ import {
   Box,
   Typography,
   Toolbar,
-  Button
+  Button,
+  Divider
 } from "@mui/material";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 
@@ -57,7 +58,13 @@ const SkillDrawer = ({open, toggleDrawer }) => {
   };
 
   return (
+    <>
+    
     <SwipeableDrawer anchor="left" open={open} onClose={toggleDrawer} onOpen={toggleDrawer}>
+      <Toolbar />
+      <Button sx={{bgcolor: 'accent.dark', color: "accent.contrastText" }} onClick={toggleDrawer()}>
+        Close
+      </Button>
       <TextField
         label="Search skills"
         type="search"
@@ -66,14 +73,11 @@ const SkillDrawer = ({open, toggleDrawer }) => {
         variant="outlined"
       />
 
-      <Button sx={{bgcolor: 'accent.dark', color: "accent.contrastText" }} onClick={toggleDrawer()}>
-        Close
-      </Button>
-      <List>
+      <List sx={{width: '40dvw', bgcolor: 'primary.main'}}>
         {skills?.map((skill, index) => (
           <div key={index}>
             <ListItemButton onClick={() => handleSkillToggle(index)}>
-              <ListItemText primary={skill.name} />
+              <ListItemText primary={skill.name}  sx={{pr: 2}}/>
               <ListItemSecondaryAction>
                 <IconButton
                   edge="end"
@@ -86,7 +90,7 @@ const SkillDrawer = ({open, toggleDrawer }) => {
             </ListItemButton>
             <LinearProgress variant="determinate" value={skill.progress} />
             <Collapse in={openSkills[index]} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
+              <List component="div" disablePadding sx={{bgcolor: 'primary.light'}}>
                 {skill.subSkills?.map((subSkill, subIndex) => (
                   <div key={`sidebar-${index}-${subIndex}`}>
                     <ListItemButton onClick={() => handleSubSkillClick(index, subIndex)}>
@@ -98,12 +102,18 @@ const SkillDrawer = ({open, toggleDrawer }) => {
                     <LinearProgress variant="determinate" value={skill.progress} />
                   </div>
                 ))}
+                <Divider />
               </List>
             </Collapse>
+            <Divider />
           </div>
+          
         ))}
       </List>
+      
     </SwipeableDrawer>
+    </>
+    
   );
 };
 
