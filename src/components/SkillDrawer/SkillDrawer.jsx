@@ -30,14 +30,28 @@ import { ExpandLess, ExpandMore } from "@mui/icons-material";
 
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
+const iOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
+const drawerWidth = 240;
 
-
-
-const SkillDrawer = ({open, toggleDrawer }) => {
+export default function SkillDrawer({open, toggleDrawer }) {
   const ctx = useContext(SkillsContext);
   const skills = ctx.skills;
 
   const [openSkills, setOpenSkills] = useState({});
+  const [searchValue, setSearchValue] = useState("");
+
+  const handleSearchChange = (event) => {
+    setSearchValue(event.target.value);
+  };
+
+  const isSkillMatched = (skill) => {
+    return (
+      skill.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+      skill.subSkills.some((subSkill) =>
+        subSkill.title.toLowerCase().includes(searchValue.toLowerCase())
+      )
+    );
+  };
 
   const handleSkillClick = (skillIndex, subSkillIndex) => {
     console.log(`Clicked skill: ${skills[skillIndex].subSkills[subSkillIndex].name}`);
@@ -60,7 +74,24 @@ const SkillDrawer = ({open, toggleDrawer }) => {
   return (
     <>
     
-    <SwipeableDrawer anchor="left" open={open} onClose={toggleDrawer} onOpen={toggleDrawer}>
+    <SwipeableDrawer 
+      variant='temporary'
+      disableBackdropTransition={!iOS} 
+      disableDiscovery={iOS} 
+      allowSwipeInChildren
+      anchor={'left'}
+      open={open}
+      onClick={() => toggleDrawer()}
+      transitionDuration={800}
+      hideBackdrop
+      elevation={24}
+      onClose={() => toggleDrawer()}
+      onOpen={() => toggleDrawer()}
+      ModalProps={{
+        keepMounted: false, // Better open performance on mobile.
+        // disableEnforceFocus: true,
+      }}
+    >
       <Toolbar />
       <Button sx={{bgcolor: 'accent.dark', color: "accent.contrastText" }} onClick={toggleDrawer()}>
         Close
@@ -71,10 +102,14 @@ const SkillDrawer = ({open, toggleDrawer }) => {
         margin="normal"
         fullWidth
         variant="outlined"
+        value={searchValue}
+        onChange={handleSearchChange}
       />
 
       <List sx={{width: '40dvw', bgcolor: 'primary.main'}}>
-        {skills?.map((skill, index) => (
+        {skills
+        ?.filter(isSkillMatched)
+        .map((skill, index) => (
           <div key={index}>
             <ListItemButton onClick={() => handleSkillToggle(index)}>
               <ListItemText primary={skill.name}  sx={{pr: 2}}/>
@@ -88,7 +123,7 @@ const SkillDrawer = ({open, toggleDrawer }) => {
                 </IconButton>
               </ListItemSecondaryAction>
             </ListItemButton>
-            <LinearProgress variant="determinate" value={skill.progress} />
+            <LinearProgress variant="determinate" value={skill.progress} color="warning" />
             <Collapse in={openSkills[index]} timeout="auto" unmountOnExit>
               <List component="div" disablePadding sx={{bgcolor: 'primary.light'}}>
                 {skill.subSkills?.map((subSkill, subIndex) => (
@@ -116,5 +151,3 @@ const SkillDrawer = ({open, toggleDrawer }) => {
     
   );
 };
-
-export default SkillDrawer;
