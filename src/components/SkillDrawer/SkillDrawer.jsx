@@ -57,7 +57,7 @@ const SkillDrawer = ({open, toggleDrawer }) => {
   };
 
   return (
-    <SwipeableDrawer anchor="left" open={open} onClose={toggleDrawer} >
+    <SwipeableDrawer anchor="left" open={open} onClose={toggleDrawer} onOpen={toggleDrawer}>
       <TextField
         label="Search skills"
         type="search"
@@ -72,7 +72,7 @@ const SkillDrawer = ({open, toggleDrawer }) => {
       <List>
         {skills?.map((skill, index) => (
           <div key={index}>
-            <ListItemButton button onClick={() => handleSkillToggle(index)}>
+            <ListItemButton onClick={() => handleSkillToggle(index)}>
               <ListItemText primary={skill.name} />
               <ListItemSecondaryAction>
                 <IconButton
