@@ -1,4 +1,6 @@
 import * as React from 'react';
+import mainTheme from '../../themes/mainTheme';
+
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -19,6 +21,10 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import Button  from '@mui/material/Button';
+import Paper from '@mui/material/Paper';
+
+import SubList from "../../components/SubList/SubList";
+
 
 const drawerWidth = 240;
 
@@ -58,14 +64,35 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-const DrawerHeader = styled('div')(({ theme }) => ({
+const DrawerHeader = styled('Box')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
-  justifyContent: 'flex-end',
+  justifyContent: 'flex-end',  
 }));
+
+const MainTitle = styled(Typography)({
+  
+  color: mainTheme.palette.secondary.contrastText,
+  padding: 0,
+  margin: 0,
+  animationDuration: '3s',
+  animationName: 'slidein',
+  animationIterationCount: '1',
+  animationDirection: 'alternate',
+
+})
+
+
+const PageHeader = ({title, children}) => (
+  <Box component={Paper} display={'flex'} justifyContent={'center'} elevation={12} sx={{backgroundColor: mainTheme.palette.primaryDarker.light}}>
+    <MainTitle className="firstSlideIn" variant="h2">{title}</MainTitle>
+    {children}
+  </Box>
+)
+
 
 export default function PageDrawer({children}) {
   const theme = useTheme();
@@ -87,6 +114,7 @@ export default function PageDrawer({children}) {
     <Box sx={{ display: 'flex' }}>
       <AppBar position="absolute"  open={open}>
         <Toolbar />
+        <PageHeader >
         <Toolbar>
           <IconButton
             color="inherit"
@@ -103,6 +131,9 @@ export default function PageDrawer({children}) {
           </Typography>
     
         </Toolbar>
+
+        </PageHeader>
+
       </AppBar>
  
       <Drawer
@@ -112,6 +143,7 @@ export default function PageDrawer({children}) {
           '& .MuiDrawer-paper': {
             width: drawerWidth,
             boxSizing: 'border-box',
+            bgcolor: 'primary.main'
           },
         }}
         variant="persistent"
@@ -119,43 +151,20 @@ export default function PageDrawer({children}) {
         open={open}
       >
         <Toolbar />
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+        <DrawerHeader sx={{color: 'white', justifyContent: 'center', bgcolor: 'primary.dark'}} >
+          <IconButton onClick={handleDrawerClose} >
+            {theme.direction === 'ltr' ? <ChevronLeftIcon sx={{color: 'white'}} /> : <ChevronRightIcon sx={{color: 'white'}}/>}
+            <Typography fontSize={'20px'} fontWeight={800} color={'white'} > Subskills</Typography>
           </IconButton>
         </DrawerHeader>
+        <SubList />
         <Divider />
-        <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
       </Drawer>
       <Toolbar />
       <Main open={open}>
         <Toolbar />
         <DrawerHeader />Drawer`
-            {children}fdf
+            {children}
             
       </Main>
     </Box>

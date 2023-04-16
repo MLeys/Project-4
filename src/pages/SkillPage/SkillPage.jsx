@@ -48,17 +48,14 @@ const MainTitle = styled(Typography)({
   
   color: mainTheme.palette.secondary.contrastText,
   padding: 0,
-  margin: 0
-  // animationDuration: '3s',
-  // animationName: 'slidein',
-  // animationIterationCount: '1',
-  // animationDirection: 'alternate',
+  margin: 0,
+
 
 })
 
-const PageHeader = ({title, children}) => (
+const PageHeader = ({title='default', children}) => (
   <Box component={Paper} display={'flex'} justifyContent={'center'} elevation={12} sx={{backgroundColor: mainTheme.palette.primaryDarker.light}}>
-    <MainTitle className="firstSlideIn" variant="h2">{title}</MainTitle>
+    <MainTitle  variant="h2">{title}</MainTitle>
     {children}
   </Box>
 )
@@ -83,8 +80,6 @@ function SkillPage() {
 
   async function ifActiveSkills() {
     await getSkills();
-    console.log("FUCKER", skillId)
-    console.log("ACtive SKill fuck: ", activeSkill)
     activeSkill ? "" : handleSetActiveSkillById(skillId)
   }
 
@@ -95,11 +90,10 @@ function SkillPage() {
 
   return ( 
     <PageDrawer key={skill?._id}>
-      
       <Grid p={1} component={Paper} container elevation={6}  >
         <Grid xs={12} >
           <PageHeader title={skill?.name}>
-            Hello
+            
           </PageHeader>
           
         </Grid>
