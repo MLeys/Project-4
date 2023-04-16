@@ -113,7 +113,7 @@ export default function App() {
         subSkills: skills[index]?.subSkills
       })    
     }
-    await getSkills();
+   
   }
 
 

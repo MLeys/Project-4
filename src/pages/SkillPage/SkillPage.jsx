@@ -64,24 +64,23 @@ const PageHeader = ({title}) => (
 
 function SkillPage() {
   const ctx = useContext(SkillsContext);
-  const getSkills = ctx.getSkills;
-  const handleSetActiveSkill = ctx.handleSetActiveSkill;
   const skills = ctx.skills;
-  const skillId = useParams().skillId;
-  const skill = ctx.activeSkill ? ctx.activeSkill?.skill : skills?.find(skill => skill?._id === skillId);
   const handleSetActiveSub = ctx.handleSetActiveSub;
+
+  const skillId = useParams().skillId;
+  const skill = skillId ? skills?.find(skill => skill?._id === skillId) : console.log('skill param not found');
   const resources = ctx.activeSub?.subSkill?.resources;
   
 
 
-  async function loadSkills() {
-    await getSkills();
-    const skillIndex = skills?.findIndex((skill => skill._id === skillId))
-    console.log(skillIndex, " SKILL INDEX")
+  // async function loadSkills() {
+  //   await getSkills();
+  //   const skillIndex = skills?.findIndex((skill => skill?._id === skillId))
+  //   console.log(skillIndex, " SKILL INDEX")
     
-    await handleSetActiveSkill(skillIndex);
+  //   await handleSetActiveSkill(skillIndex);
     
-  }
+  // }
 
   const [activeSubIndex, setActiveSubIndex] = useState(0)
   
@@ -91,10 +90,10 @@ function SkillPage() {
   }
 
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    loadSkills();
-  }, [!skills && !skill]); 
+  //   loadSkills();
+  // }, [!skills && !skill]); 
 
   return (  
     <Box minHeight='90dvh' component={Paper} elevation={6} >

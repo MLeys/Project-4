@@ -64,7 +64,7 @@ export default function SkillDrawer({open, toggleDrawer }) {
     // Navigate to the skill's details screen
     handleSetActiveSkill(skillIndex);
     const skillId = skills[skillIndex]?._id
-    navigate(`/${skillId}`)
+    navigate(`/skills/${skillId}`)
   };
 
   const handleSkillToggle = ( skillIndex) => {
