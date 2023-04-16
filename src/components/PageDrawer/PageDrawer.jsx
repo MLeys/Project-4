@@ -1,5 +1,8 @@
 import * as React from 'react';
 import mainTheme from '../../themes/mainTheme';
+import { useContext } from 'react';
+
+import { SkillsContext } from '../../context/SkillsContext/SkillsContext';
 
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -67,7 +70,7 @@ const AppBar = styled(MuiAppBar, {
 const DrawerHeader = styled('Box')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-  padding: theme.spacing(0, 1),
+  padding: theme.spacing(0, 0),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
   justifyContent: 'flex-end',  
@@ -81,7 +84,7 @@ const MainTitle = styled(Typography)({
 
 
 const PageHeader = ({title, children}) => (
-  <Box component={Paper} display={'flex'} justifyContent={'center'} elevation={12} sx={{backgroundColor: mainTheme.palette.primaryDarker.light}}>
+  <Box component={Paper} display={'flex-start'} elevation={12} sx={{backgroundColor: mainTheme.palette.primaryDarker.light}}>
     <MainTitle className="firstSlideIn" variant="h2">{title}</MainTitle>
     {children}
   </Box>
@@ -89,6 +92,9 @@ const PageHeader = ({title, children}) => (
 
 
 export default function PageDrawer({children}) {
+  const ctx = useContext(SkillsContext);
+  const activeSkill = ctx.activeSkill;
+
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -109,24 +115,22 @@ export default function PageDrawer({children}) {
       <AppBar position="absolute"  open={open}>
         <Toolbar />
         <PageHeader >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={() => toggleDrawer()}
-            
-            edge="start"
-            // sx={{ mr: 2, ...(open && { display: 'flex' }) }}
-          >
-           {open ? <ChevronLeftIcon /> : <MenuIcon />}
-          </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Current Skill Page
-          </Typography>
-        </Toolbar>
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={() => toggleDrawer()}
+              
+            >
+            {open ? <ChevronLeftIcon /> : <MenuIcon />}
+            </IconButton>
+            <Typography variant="h2" noWrap component="h3" pl={5} fontWeight={900}>
+              {activeSkill?.skill.name}
+            </Typography>
+          </Toolbar>
         </PageHeader>
       </AppBar>
- 
+
       <Drawer
         sx={{
           width: drawerWidth,
@@ -151,7 +155,7 @@ export default function PageDrawer({children}) {
         <SubList />
         <Divider />
       </Drawer>
-      <Toolbar />
+      
       <Main open={open} >
         <Toolbar />
         {children}

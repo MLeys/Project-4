@@ -90,20 +90,23 @@ function SkillPage() {
 
   return ( 
     <PageDrawer key={skill?._id}>
-      <Paper elevation={12} sx={{my: 2}} >
-        <Typography variant="h4" component="h4"  p={2}>
-          {skill?.subSkills[activeSubIndex]?.title}
-        </Typography>
-      </Paper>
-      <Box sx={{ flexGrow: 1 }}>
-          {skill?.subSkills[activeSubIndex]?.resources?.map((resource, index) => (
-            <Grid xs={12} md={6} lg={4} key={`resource-${index}`} >
-              <VideoCard key={`resource-${index}`} resource={resource} index={index} >
-                <Typography alignContent={'flex-end'}>Added: {resource.createdAt}</Typography>
-              </VideoCard>
-            </Grid>
-          ))}   
+      <Box mx={1}>      
+        <Paper elevation={12} sx={{my: 2}} >
+          <Typography variant="h4" component="h4"  p={2}>
+            {skill?.subSkills[activeSubIndex]?.title}f
+          </Typography>
+        </Paper>
+        <Box sx={{ flexGrow: 1 }}>
+            {skill?.subSkills[activeSubIndex]?.resources?.map((resource, index) => (
+              <Grid xs={12} md={6} lg={4} key={`resource-${index}`} >
+                <VideoCard key={`resource-${index}`} resource={resource} index={index} >
+                  <Typography alignContent={'flex-end'}>Added: {resource.createdAt}</Typography>
+                </VideoCard>
+              </Grid>
+            ))}   
+        </Box>
       </Box>
+
     </PageDrawer>
 
 
