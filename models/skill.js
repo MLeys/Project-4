@@ -5,8 +5,8 @@ const subSkillSchema = Schema({
     parentSkill: String,
     title: String,
     details: String,
-    progress: Number,
-    complete: Boolean,
+    progress: {type: Number, default: 0},
+    complete: {type: Boolean, default: false},
     resources: [{type: Schema.Types.ObjectId, ref: 'Resource', autopopulate: true}],
     usersAssigned: [{type: Schema.Types.ObjectId, ref: 'User'}],
 }, {
@@ -19,8 +19,8 @@ const skillSchema = new Schema({
     usersAssigned: [{type: Schema.Types.ObjectId, ref: 'User'}],
     subSkills: [subSkillSchema],
     resources: [{type: Schema.Types.ObjectId, ref: 'Resource', autopopulate: true}],
-    progress: Number,
-    complete: Boolean,
+    progress: {type: Number, default: 0},
+    complete: {type: Boolean, default: false},
 }, {
     timestamps: true
 });

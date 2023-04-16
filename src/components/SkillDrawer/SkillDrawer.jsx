@@ -1,5 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import mainTheme from "../../themes/mainTheme";
+import FormLabel from '@mui/material/FormLabel';
+import FormControl from '@mui/material/FormControl';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormHelperText from '@mui/material/FormHelperText';
+import Switch from '@mui/material/Switch';
+
 import {
   SwipeableDrawer,
   List,
@@ -20,29 +27,15 @@ import {
 } from "@mui/material";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 
-const theme = mainTheme;
+import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
-const skills = [
-  {
-    name: "JavaScript",
-    progress: 80,
-    subSkills: [
-      { name: "React", progress: 70 },
-      { name: "Vue.js", progress: 40 },
-    ],
-  },
-  {
-    name: "Python",
-    progress: 90,
-    subSkills: [
-      { name: "Django", progress: 85 },
-      { name: "Flask", progress: 75 },
-    ],
-  },
-];
+
 
 
 const SkillDrawer = ({open, toggleDrawer }) => {
+  const ctx = useContext(SkillsContext);
+  const skills = ctx.skills;
+
   const [openSkills, setOpenSkills] = useState({});
 
   const handleSkillClick = (skillIndex, subSkillIndex) => {
@@ -64,7 +57,7 @@ const SkillDrawer = ({open, toggleDrawer }) => {
   };
 
   return (
-    <SwipeableDrawer anchor="left" open={open} onClose={toggleDrawer}>
+    <SwipeableDrawer anchor="left" open={open} onClose={toggleDrawer} >
       <TextField
         label="Search skills"
         type="search"
@@ -73,9 +66,11 @@ const SkillDrawer = ({open, toggleDrawer }) => {
         variant="outlined"
       />
 
-      <Button sx={{bgcolor: 'accent.dark', color: "accent.contrastText" }} onClick={toggleDrawer()}>Close</Button>
+      <Button sx={{bgcolor: 'accent.dark', color: "accent.contrastText" }} onClick={toggleDrawer()}>
+        Close
+      </Button>
       <List>
-        {skills.map((skill, index) => (
+        {skills?.map((skill, index) => (
           <div key={index}>
             <ListItemButton button onClick={() => handleSkillToggle(index)}>
               <ListItemText primary={skill.name} />
@@ -92,17 +87,16 @@ const SkillDrawer = ({open, toggleDrawer }) => {
             <LinearProgress variant="determinate" value={skill.progress} />
             <Collapse in={openSkills[index]} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                {skill.subSkills.map((subSkill, subIndex) => (
-                  <ListItem
-                    key={subIndex}
-                    button
-                    onClick={() => handleSubSkillClick(index, subIndex)}
-                  >
-                    <ListItemText primary={subSkill.name} />
-                    <ListItemSecondaryAction>
-                      <Slider value={subSkill.progress} />
-                    </ListItemSecondaryAction>
-                  </ListItem>
+                {skill.subSkills?.map((subSkill, subIndex) => (
+                  <div key={`sidebar-${index}-${subIndex}`}>
+                    <ListItemButton onClick={() => handleSubSkillClick(index, subIndex)}>
+                      <ListItemText primary={subSkill.title} />
+                      <ListItemSecondaryAction>
+                        <Slider value={subSkill.progress} />
+                      </ListItemSecondaryAction>
+                    </ListItemButton>
+                    <LinearProgress variant="determinate" value={skill.progress} />
+                  </div>
                 ))}
               </List>
             </Collapse>
