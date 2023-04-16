@@ -41,7 +41,7 @@ export default function SkillDrawer({open, toggleDrawer }) {
   const handleSetActiveSkill = ctx.handleSetActiveSkill;
   const handleSetActiveSub = ctx.handleSetActiveSub;
 
-  const skillId = useParams().skillId;
+  const skillId = useParams()?.skillId;
   const activePageSkillIndex = skillId ? skills?.findIndex(skill => skill?._id === skillId) : console.log('skill param not found');
   const activePageSkill = skillId ? skills?.find(skill => skill?._id === skillId) : console.log('skill param not found');
   const activeSkillId = activePageSkill?._id
@@ -71,9 +71,7 @@ export default function SkillDrawer({open, toggleDrawer }) {
     // Navigate to the skill's details screen
     handleSetActiveSkill(skillIndex);
     const skillId = skills[skillIndex]?._id
-    
     navigate(`/skills/${skillId}`)
-    
   };
 
   const handleSkillToggle = ( skillIndex) => {
@@ -87,7 +85,6 @@ export default function SkillDrawer({open, toggleDrawer }) {
     if (skillIndex === activePageSkillIndex) {
       handleSetActiveSub(subSkillIndex);
     }
-    
 
   };
 
