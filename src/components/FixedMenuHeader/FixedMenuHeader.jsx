@@ -27,6 +27,7 @@ import {
 import SkillDrawer from "../SkillDrawer/SkillDrawer";
 
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
+import { teal } from "@mui/material/colors";
 
 
 function FixedMenuHeader({ sidebarDispatch }) {
@@ -167,11 +168,12 @@ function FixedMenuHeader({ sidebarDispatch }) {
                   // backgroundColor:'accent.main',
                   fillOpacity: 1,
                   color: 'accent.main',
-                }
+                },
+               
               }}
               onClick={toggleDrawer()}
             >
-              <ListIcon />
+              <ListIcon height={20} width={20} />
             </IconButton>
           </Tooltip>
 
@@ -225,6 +227,7 @@ function FixedMenuHeader({ sidebarDispatch }) {
                 vertical: 'top',
                 horizontal: 'right',
               }}
+              
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >

@@ -81,6 +81,7 @@ export default function App() {
   function handleSetActiveSub(subIndex=0){
     if (skills) {
       const skillIndex = activeSkill?.index;
+      console.log(`ActiveSub: ${skills[skillIndex]?.subSkills[subIndex]?.title}`)
       setActiveSub({
         ...activeSub,
         index: subIndex,
@@ -88,7 +89,6 @@ export default function App() {
         resources: skills[skillIndex]?.subSkills[subIndex]?.resources
       });
     }
-    getSkills();
 
   };
 
@@ -105,6 +105,7 @@ export default function App() {
     if (skills) { 
       const skill = skills[index];
       resetActiveSubToFirstIndexActiveSkill(skill?.subSkills);
+      console.log(`ActiveSkill: ${skills[index].name}`)
       setActiveSkill({
         ...activeSkill,
         index: index,
@@ -134,12 +135,10 @@ export default function App() {
     try {
       console.log("GET SKILLS")
       const response = await skillsApi.getAll(user._id);
-      console.log(await response, " RESPonse")
       dispatch({
         type: 'readSkills',
         data: response.skills //COULD BE .skills *****
       })
-     
       handleSetUserSkills(response.userSkills);
 
       if (!!activeSkill.index === true) {

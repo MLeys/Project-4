@@ -47,13 +47,11 @@ export async function create(data) {
 }
 
 export async function getAll(userId) {
-	console.log('Get ALl', userId)
-    const res = await fetch(`${BASE_URL}all/${userId}`, {
+	const res = await fetch(`${BASE_URL}all/${userId}`, {
 		headers: {
 			Authorization: "Bearer " + tokenService.getToken(),
 		}
 	});
-	console.log(" After req")
 	if (res.ok)
 		return res.json();
 	throw new Error('Error from getALLSkill request, check the server terminal');

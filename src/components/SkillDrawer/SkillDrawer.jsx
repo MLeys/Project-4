@@ -1,41 +1,44 @@
 import React, { useState, useContext } from "react";
+import {  useNavigate } from "react-router-dom";
+
 import mainTheme from "../../themes/mainTheme";
+
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormHelperText from '@mui/material/FormHelperText';
 import Switch from '@mui/material/Switch';
+import Box from '@mui/material/Box';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import Button from '@mui/material/Button';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction";
+import Collapse from "@mui/material/Collapse";
+import Slider from '@mui/material/Slider';
+import LinearProgress from "@mui/material/LinearProgress";
+import IconButton from "@mui/material/IconButton";
+import TextField from "@mui/material/TextField";
+import Toolbar from "@mui/material/Toolbar";
 
-import {
-  SwipeableDrawer,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemButton,
-  ListItemSecondaryAction,
-  ListItemAvatar,
-  Collapse,
-  Slider,
-  LinearProgress,
-  IconButton,
-  TextField,
-  Box,
-  Typography,
-  Toolbar,
-  Button,
-  Divider
-} from "@mui/material";
+
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 const iOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
-const drawerWidth = 240;
+const drawerWidth = 260;
 
 export default function SkillDrawer({open, toggleDrawer }) {
   const ctx = useContext(SkillsContext);
   const skills = ctx.skills;
+  const handleSetActiveSkill = ctx.handleSetActiveSkill;
+  const navigate = useNavigate();
+  const handleSetActiveSub = ctx.handleSetActiveSub;
+
 
   const [openSkills, setOpenSkills] = useState({});
   const [searchValue, setSearchValue] = useState("");
@@ -53,17 +56,27 @@ export default function SkillDrawer({open, toggleDrawer }) {
     );
   };
 
-  const handleSkillClick = (skillIndex, subSkillIndex) => {
-    console.log(`Clicked skill: ${skills[skillIndex].subSkills[subSkillIndex].name}`);
+  const handleClickSkillArrow = ( skillIndex) => {
+
+    console.log('===== HANDLING SKILL CLICK =======-')
+    console.log(`Clicked skill: ${skills[skillIndex].name}`);
+    handleSkillToggle(skillIndex)
     // Navigate to the skill's details screen
+    handleSetActiveSkill(skillIndex);
+    const skillId = skills[skillIndex]?._id
+    navigate(`/${skillId}`)
   };
 
-  const handleSkillToggle = (index) => {
-    setOpenSkills({ ...openSkills, [index]: !openSkills[index] });
+  const handleSkillToggle = ( skillIndex) => {
+    console.log(`Clicked skill: ${skills[skillIndex].name}`);
+    setOpenSkills({ ...openSkills, [skillIndex]: !openSkills[skillIndex] });
+    handleSetActiveSkill(skillIndex);
   };
 
   const handleSubSkillClick = (skillIndex, subSkillIndex) => {
-    handleSkillClick(skillIndex, subSkillIndex);
+    console.log(`Clicked subSkill: ${skills[skillIndex].subSkills[subSkillIndex].title}`);
+    handleSetActiveSub(subSkillIndex);
+
   };
 
   const handleSkillIconClick = (event, index) => {
@@ -91,41 +104,47 @@ export default function SkillDrawer({open, toggleDrawer }) {
         keepMounted: false, // Better open performance on mobile.
         // disableEnforceFocus: true,
       }}
+      sx={{
+        display: { xs: 'block' },
+        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, minHeight: '100%', bgcolor: 'primaryDarker.dark' },
+        zIndex: 1
+      }}
+      
+      
     >
       <Toolbar />
-      <Button sx={{bgcolor: 'accent.dark', color: "accent.contrastText" }} onClick={toggleDrawer()}>
+      <Button sx={{ mt: 1, bgcolor: 'accent.dark', color: "accent.contrastText" }} onClick={toggleDrawer()}>
         Close
       </Button>
       <TextField
         label="Search skills"
         type="search"
         margin="normal"
-        fullWidth
-        variant="outlined"
+        variant="filled"
         value={searchValue}
         onChange={handleSearchChange}
       />
 
-      <List sx={{width: '40dvw', bgcolor: 'primary.main'}}>
+      <List sx={{ bgcolor: 'primaryDarker.main', color: 'primaryDarker.contrastText'}}>
         {skills
         ?.filter(isSkillMatched)
         .map((skill, index) => (
           <div key={index}>
-            <ListItemButton onClick={() => handleSkillToggle(index)}>
+            <ListItemButton onClick={() => handleSkillToggle( index)}>
               <ListItemText primary={skill.name}  sx={{pr: 2}}/>
               <ListItemSecondaryAction>
                 <IconButton
                   edge="end"
                   size="small"
-                  onClick={(event) => handleSkillIconClick(event, index)}
+                  onClick={() => handleClickSkillArrow( index)}
                 >
                   {openSkills[index] ? <ExpandLess /> : <ExpandMore />}
                 </IconButton>
               </ListItemSecondaryAction>
             </ListItemButton>
-            <LinearProgress variant="determinate" value={skill.progress} color="warning" />
+            <LinearProgress variant="determinate" value={skill.progress} color="warning" sx={{mb: 1}} />
             <Collapse in={openSkills[index]} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding sx={{bgcolor: 'primary.light'}}>
+              <List component="div" disablePadding sx={{bgcolor: 'primary.dark'}}>
                 {skill.subSkills?.map((subSkill, subIndex) => (
                   <div key={`sidebar-${index}-${subIndex}`}>
                     <ListItemButton onClick={() => handleSubSkillClick(index, subIndex)}>
