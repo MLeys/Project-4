@@ -55,10 +55,11 @@ const MainTitle = styled(Typography)({
 
 })
 
-const PageHeader = ({title}) => (
-  <Paper elevation={12} sx={{backgroundColor: mainTheme.palette.primaryDarker.light}}>
+const PageHeader = ({title, children}) => (
+  <Box component={Paper} display={'flex'} justifyContent={'center'} elevation={12} sx={{backgroundColor: mainTheme.palette.primaryDarker.light}}>
     <MainTitle className="firstSlideIn" variant="h2">{title}</MainTitle>
-  </Paper>
+    {children}
+  </Box>
 )
 
 
@@ -69,47 +70,39 @@ function SkillPage() {
 
   const skillId = useParams().skillId;
   const skill = skillId ? skills?.find(skill => skill?._id === skillId) : console.log('skill param not found');
-  const resources = ctx.activeSub?.subSkill?.resources;
   const activeSubIndex = ctx.activeSub?.index;
-
-
-  // async function loadSkills() {
-  //   await getSkills();
-  //   const skillIndex = skills?.findIndex((skill => skill?._id === skillId))
-  //   console.log(skillIndex, " SKILL INDEX")
-    
-  //   await handleSetActiveSkill(skillIndex);
-    
-  // }
-
  
-  
-  function handleClickSub(index) {
+ 
+
+  function handleClickSub(index=0) {
     handleSetActiveSub(index);
   }
 
 
-  // useEffect(() => {
+  useEffect(() => {
+    activeSubIndex ? "" : handleSetActiveSub();
 
-  //   loadSkills();
-  // }, [!skills && !skill]); 
+  }, [!skill]); 
 
   return (  
     <Box minHeight='90dvh' component={Paper} elevation={6} >
       <Grid p={1} component={Paper} container elevation={6}  >
         <Grid xs={12} >
-          <PageHeader title={skill?.name}/>
+          <PageHeader title={skill?.name}>
+            Hello
+          </PageHeader>
+          
         </Grid>
         <Grid container component={Paper} elevation={12}  minHeight='80dvh' spacing={2} mt={2} xs={12}>
           <Grid xs={3} component={Paper}>
             <Grid container bgcolor={"primary.main"} component={Paper} elevation={12}>
               <Grid xs={12} >
-                <Typography  >Subskills </Typography>
+                <Typography >Subskills </Typography>
               </Grid>
               {skill?.subSkills.map((sub, index) => (
               <CustomCard key={`sub-${index}`} onClick={() => handleClickSub(index)}>
                 <Typography>
-                  {sub?.title }
+                  {sub?.title }4gbfg
                 </Typography>
               </CustomCard>
             ))}
@@ -123,7 +116,7 @@ function SkillPage() {
             </Paper>
             <Box sx={{ flexGrow: 1 }}>
               <Grid container align={'center'} m={0} p={0} spacing={1} >
-                {resources?.map((resource, index) => (
+                {skill?.subSkills[activeSubIndex]?.resources?.map((resource, index) => (
                   <Grid xs={12} md={6} lg={4} >
                     <VideoCard key={`resource-${index}`} resource={resource} index={index} >
                      <Typography alignContent={'flex-end'}>Added: {resource.createdAt}</Typography>
