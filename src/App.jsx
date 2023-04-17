@@ -7,7 +7,6 @@ import "./App.css";
 import skillsReducer from "./reducers/skillsReducer";
 
 import { SkillsContext, SkillsDispatchContext } from './context/SkillsContext/SkillsContext.jsx';
-import { programmingSkills } from "./lists/skillTypes";
 import { testSkillsList } from "./lists/skillTypes";
 
 

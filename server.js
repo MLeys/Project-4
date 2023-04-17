@@ -28,7 +28,7 @@ app.use(express.json());
 // Configure the auth middleware
 // This decodes the jwt token, and assigns
 // the user information to req.user
-app.use(favicon(path.join(__dirname,'public','favicon.png')));
+// app.use(favicon(path.join(__dirname,'public','favicon.png')));
 
 
 import auth from './config/auth.js'

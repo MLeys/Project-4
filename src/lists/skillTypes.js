@@ -1,35 +1,3 @@
-export const Types = [
-  'Web Development',
-  'Mobile Development',
-  'Database Management',
-  'Data Analysis',
-  'Artificial Intelligence',
-  'Machine Learning',
-  'Cloud Computing',
-  'DevOps',
-  'Cybersecurity',
-  'Game Development',
-  'UI/UX Design',
-  'Testing and Quality Assurance',
-  'Project Management',
-  'Agile Methodologies',
-  'Software Engineering',
-  'Programming Languages',
-  'Algorithms and Data Structures',
-  'Operating Systems',
-  'Computer Networks',
-  'Computer Architecture',
-  'Computer Graphics',
-  'Virtual Reality',
-  'Blockchain Technology',
-  'Internet of Things',
-  'Quantum Computing',
-  'Robotics',
-  'Digital Marketing',
-  'Content Creation',
-  'Business Analysis',
-  'Finance and Accounting',
-]
 
 export const testSkillsList = [
   {
@@ -155,6 +123,7 @@ export const programmingSkills = [
       "Vue.js",
       "Angular",
       "jQuery",
+      "React Native",
       "Ember.js",
       "Backbone.js",
       "Svelte",
@@ -180,7 +149,7 @@ export const programmingSkills = [
       "Ant Design",
       "Chakra UI",
       "Element",
-      "PrimeNG"
+      "PrimeNG",
     ]
   },
   {
@@ -284,17 +253,6 @@ export const programmingSkills = [
     ]
   },
   {
-    category: "Mobile Development",
-    subcategories: [
-      "iOS",
-      "Android",
-      "React Native",
-      "Flutter",
-      "Ionic",
-      "Xamarin"
-    ]
-  },
-  {
     category: "Game Development",
     subcategories: [
       "Unity",
@@ -302,16 +260,6 @@ export const programmingSkills = [
       "Game Design",
       "Game Engine Architecture",
       "Graphics Programming"
-    ]
-  },
-  {
-    category: "Code Optimization and Performance",
-    subcategories: [
-      "Profiling",
-      "Code Refactoring",
-      "Memory Management",
-      "Caching",
-      "Parallel Processing"
     ]
   },
   {
@@ -333,19 +281,6 @@ export const programmingSkills = [
       "GraphQL"
     ]
   },
-]
-
-const unUsed = [
-    {
-    category: "Integrated Development Environments (IDEs)",
-    subcategories: [
-      "Visual Studio",
-      "Eclipse",
-      "IntelliJ IDEA",
-      "Code Editors",
-      "Plugins and Extensions"
-    ]
-  },
   {
     category: "Language Paradigms",
     subcategories: [
@@ -357,39 +292,6 @@ const unUsed = [
       "Concurrent Programming",
       "Parallel Programming",
       "Distributed Programming"
-    ]
-  },
-  {
-    category: "Operating Systems",
-    subcategories: [
-      "Linux",
-      "Windows",
-      "Mac OS",
-      "Unix",
-      "Kernel Architecture"
-    ]
-  },
-  {
-    category: "Soft Skills",
-    subcategories: [
-      "Problem-Solving",
-      "Communication",
-      "Teamwork",
-      "Time Management",
-      "Leadership",
-      "Adaptability",
-      "Creativity"
-    ]
-  },
-  {
-    category: "Domain-Specific Languages (DSLs)",
-    subcategories: [
-     
-      "Makefiles",
-      "YAML",
-      "TOML",
-      "Markdown",
-      "LaTeX"
     ]
   },
 ]

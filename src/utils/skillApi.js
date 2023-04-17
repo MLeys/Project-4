@@ -4,16 +4,13 @@ import tokenService from "./tokenService";
 const BASE_URL = '/api/skills/';
 
 export async function createAllSkillsFromList(data) {
-
-	// console.log(JSON.stringify(data), " <<< <STRINGIFIED DATA")
-	return await fetch(`${BASE_URL}/createInitial`, {
+	return await fetch(`${BASE_URL}createInitial`, {
 			method: 'POST',
 			body: JSON.stringify(data),
 			headers: {
 					Authorization: "Bearer " + tokenService.getToken(),
 				 'Content-Type': 'application/json', // MUST HAVE OR req.body in Ctrl remains emppty!!!!
 			}
-			
 }).then((res) =>{
 	if(res.ok) return res.json() 
 
@@ -73,19 +70,6 @@ export async function deleteSkill(skillId){
 	throw new Error('Error deleting a skill check the server terminal');
 }
 
-export function getOneSkill(skillName) {
-	
-	return fetch(BASE_URL + skillName, {
-		headers: {
-				Authorization: "Bearer " + tokenService.getToken() 
-				//this is how we grab the token from local storage
-			}
-	}).then(res => {
-		if(res.ok) return res.json() // decoding the json from the server response
-		// so that we can interact with it like a regular javascript object
-		throw new Error('Error from getSkill request, check the server terminal')
-	})
-}
 
 export async function assignUser(user, skillId) {
 	try {
