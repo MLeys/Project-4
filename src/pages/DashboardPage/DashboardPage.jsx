@@ -13,15 +13,12 @@ function DashboardPage() {
   const handleSetActiveSkill = ctx.handleSetActiveSkill;
   const loadSkills = ctx.loadSkills;
   const skills = ctx.skills;
-  const userSkills = ctx.userSkills;
   const getSkills = ctx.getSkills;
 
   const [activeIndex, setActiveIndex] = useState(0)
 
 
   const skillTitlesArray = userSkills?.map((skill) => skill.name)
-
-
 
   
   useEffect(() => {
@@ -32,7 +29,7 @@ function DashboardPage() {
   return (
     <Grid className='fullScreenHeight' p={.5} bgcolor={'accent.dark'} >
       
-      <VerticalTabs titleArray={skillTitlesArray} >
+      <VerticalTabs  >
         <SkillPane />
       </VerticalTabs>
     </Grid>

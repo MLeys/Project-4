@@ -21,7 +21,7 @@ function OptionsButton({ children, color='black', handleClick, handleClose, open
 
   const [isUser, setIsUser] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
+  const open = Boolean(anchorEl) ? Boolean(anchorEl) : false ;
 
   function ifUser() {
     setIsUser(loggedUser)
@@ -54,7 +54,7 @@ function OptionsButton({ children, color='black', handleClick, handleClose, open
           'aria-labelledby': 'fade-button',
         }}
         anchorEl={anchorEl}
-        open={open}
+        open={open ? open : false}
         onClose={handleClose}
         TransitionComponent={Fade}
       >

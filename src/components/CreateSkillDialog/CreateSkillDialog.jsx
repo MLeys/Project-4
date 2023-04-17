@@ -56,7 +56,7 @@ const CreateSkillDialog = ({ open, onClose }) => {
   };
 
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog open={open ? open : false} onClose={onClose}>
       
       <DialogTitle>Create a Skill</DialogTitle>
       <AddSkillForm />

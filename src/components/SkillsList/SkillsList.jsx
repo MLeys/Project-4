@@ -1,6 +1,6 @@
 import React from "react";
 import { useContext, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 
@@ -13,25 +13,27 @@ import Collapse from "@mui/material/Collapse";
 import LinearProgress from "@mui/material/LinearProgress";
 import IconButton from "@mui/material/IconButton";
 
-import { BoxArrowRightIcon, DownArrowBoxed } from "../../customIcons";
+import { BoxArrowRightIcon, DownArrowBoxed, SettingsFilledcon } from "../../customIcons";
 
 
-function SkillsList({ skill, index }) {
+function SkillsList({ skill, index, toggleDrawer}) {
   const ctx = useContext(SkillsContext);
   const skills = ctx.skills;
   const handleSetActiveSkill = ctx.handleSetActiveSkill;
   const handleSetActiveSub = ctx.handleSetActiveSub;
-  const skillId = useParams()?.skillId;
+
+  const navigate = useNavigate();
 
   const [openSkills, setOpenSkills] = useState({});
-
 
 
   const handleClickSkillArrow = ( skillIndex) => {
     toggleDrawer(false);
     handleSkillToggle(skillIndex)
     handleSetActiveSkill(skillIndex);
-    const skillId = skills[skillIndex]?._id
+    const skillId = skills[skillIndex]?._id;
+    console.log(skillId, "<<<<< SKILL ID")
+
     navigate(`/skills/${skillId}`)
   };
 
@@ -63,7 +65,7 @@ function SkillsList({ skill, index }) {
             edge="end"
             onClick={(event) => handleClickSkillArrow(index)}
           >
-            <BoxArrowRightIcon height={20} width={20} fill="white"/>                  
+            <SettingsFilledcon height={20} width={20} fill="white"/>                  
           </IconButton>
         </ListItemSecondaryAction>
       </ListItemButton>

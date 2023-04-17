@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
 
 import PropTypes from 'prop-types';
@@ -46,17 +46,31 @@ function a11yProps(index) {
   };
 }
 
-export default function VerticalTabs({children, titleArray=['default1', 'default2']}) {
+export default function VerticalTabs({children}) {
+  const theme = useTheme();
+
   const ctx = useContext(SkillsContext)
 	const handleSetActiveSkill = ctx.handleSetActiveSkill;
-	const theme = useTheme();
+  const userId = ctx.loggedUser?._id;
+  
+  console.log(userId, "<--- userId")
+  console.log(skills, '<-- skills')
+  const userSkills = skills?.filter((skill => skill.usersAssigned?.some(u => u._id === userId)))
+  console.log(userSkills, "<--- userSkills")
+  const userSkillsTitles = userSkills?.map((skill) => skill.name)
+  console.log(userSkillsTitles, " <=== user skill titles")
 
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
     handleSetActiveSkill(newValue)
   };
+
+  useEffect(() => {
+
+  }, [])
+
 
   return (
     <Box sx={{ display: 'flex'}} className='fullScreenHeight'>
@@ -71,15 +85,15 @@ export default function VerticalTabs({children, titleArray=['default1', 'default
           aria-label="Vertical tabs"
           sx={{ borderRight: 1, borderColor: 'primaryDarker.dark', backgroundColor: 'primary.main', height: '100%' }}
         >
-          {titleArray.map((title, index) => (
-            <Tab label={title} {...a11yProps(index)} sx={{bgcolor: 'primary.dark', color: 'primary.contrastText', border: 1, borderRight: 2,}} />
+          {userSkillsTitles?.map((title, index) => (
+            <Tab key={`titleTab-${index}`} label={title} {...a11yProps(index)} sx={{bgcolor: 'primary.dark', color: 'primary.contrastText', border: 1, borderRight: 2,}} />
           ))}
         </Tabs>
       </Grid>
       <Grid component={Box} xs={10} width={'100%'}  >
-      {titleArray.map((title, index) => (
+      {userSkillsTitles?.map((title, index) => (
        
-          <TabPanel value={value} index={index}  >
+          <TabPanel key={`titleTabPanel-${index}`}  value={value} index={index}  >
             {children}
           </TabPanel>
        

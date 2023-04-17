@@ -33,12 +33,6 @@ export default function SkillDrawer({open, toggleDrawer }) {
     );
   };
 
-
-  const handleSkillIconClick = (event, index) => {
-    event.stopPropagation();
-    toggleDrawer();
-  };
-
   return (
     <>
     
@@ -48,16 +42,15 @@ export default function SkillDrawer({open, toggleDrawer }) {
       disableDiscovery={iOS} 
       allowSwipeInChildren
       anchor={'left'}
-      open={open}
-      onClick={() => toggleDrawer()}
+      open={open ? open : false}
       transitionDuration={400}
       hideBackdrop
       elevation={24}
-      onClose={() => handleSkillIconClick()}
+      onClose={() => toggleDrawer()}
       onOpen={() => toggleDrawer()}
+      onBackdropClick={() => toggleDrawer()}
       ModalProps={{
         keepMounted: false, // Better open performance on mobile.
-        // disableEnforceFocus: true,
       }}
       sx={{
         display: { xs: 'block' },
@@ -87,6 +80,7 @@ export default function SkillDrawer({open, toggleDrawer }) {
               <SkillsList 
                 skill={skill}
                 index={index}
+                toggleDrawer={toggleDrawer}
               />
               <div>{skill.name}</div>
             </div>
@@ -96,8 +90,6 @@ export default function SkillDrawer({open, toggleDrawer }) {
 
       </Suspense>
 
-
-      
     </SwipeableDrawer>
     </>
     

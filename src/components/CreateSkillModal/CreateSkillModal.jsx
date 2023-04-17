@@ -64,7 +64,7 @@ export default function CreateSkillModal({ isOpen, onClose })  {
     : [];
 
   return (
-    <Dialog open={isOpen} onClose={onClose}>
+    <Dialog open={isOpen ? isOpen : false} onClose={onClose}>
       <DialogTitle> Create New Skill </DialogTitle>
       <DialogContent>
         <form onSubmit={handleSubmit}>

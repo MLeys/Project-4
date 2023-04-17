@@ -66,7 +66,7 @@ export default function PageDrawer({children}) {
 
   return (
     <Box sx={{ display: 'flex' }} bgcolor={'grey'} m={0} p={0}>
-      <AppBar position="absolute"  open={open}>
+      <AppBar position="absolute"  open={open ? open : false}>
         <Toolbar />
         <PageHeader >
           <Toolbar>
@@ -107,7 +107,7 @@ export default function PageDrawer({children}) {
         }}
         variant="persistent"
         anchor="left"
-        open={open}
+        open={open ? open : false}
       >
         <Toolbar />
         <DrawerHeader sx={{color: 'white', justifyContent: 'center', bgcolor: 'primary.dark'}} >
@@ -120,7 +120,7 @@ export default function PageDrawer({children}) {
         <Divider />
       </Drawer>
       
-      <Main open={open} >
+      <Main open={open ? open : false } >
         <Toolbar />
         {children}
       </Main>

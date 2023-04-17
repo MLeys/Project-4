@@ -33,7 +33,7 @@ function FixedMenuHeader() {
   const [openSidebar, setOpenSidebar] = useState(false);
 
 	const sections = [
-		{ title: "Home", link: "#", target: '', icon: 'bi bi-house-fill' },
+		{ title: "Home", link: "", icon: 'bi bi-house-fill' },
 		{ title: "Dashboard", link : loggedUser?.username, icon: 'bi bi-compass-fill' }
 	]
 
@@ -69,7 +69,7 @@ function FixedMenuHeader() {
   }
 
   function handleClickIcon(page) {
-    navigate(`/${page.target}`)
+    navigate(`/${page.link}`)
   }
 
 	return (  
@@ -96,7 +96,7 @@ function FixedMenuHeader() {
                 ":hover": {backgroundColor:'accent.dark'}
               }}
             >
-              <i as='a'  class='bi bi-list'></i>
+              <i as='a' className='bi bi-list'></i>
             </IconButton>
             {sections.map((page, index) => (
                 <IconButton
@@ -112,7 +112,7 @@ function FixedMenuHeader() {
                     ":hover": {color:'accent.light'}
                   }}
                 >
-                  <i as='a' class={page.icon}></i>
+                  <i as='a' className={page.icon}></i>
                 </IconButton>
               
             ))}
@@ -153,7 +153,7 @@ function FixedMenuHeader() {
                 horizontal: 'right',
               }}
               
-              open={anchorElUser}
+              open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
               {loggedUser ? (
@@ -194,8 +194,7 @@ function FixedMenuHeader() {
         </Toolbar>
       </AppBar>
       <Toolbar />
-      <SkillDrawer open={openSidebar} toggleDrawer={toggleDrawer} />
-      
+      <SkillDrawer open={openSidebar ? openSidebar : false} toggleDrawer={toggleDrawer} />
 	  </Box>
 	);
  }
