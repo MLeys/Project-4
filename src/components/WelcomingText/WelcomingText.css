@@ -1,0 +1,57 @@
+
+/* Add this rule to style the text */
+.text-shadow {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Add these rules to adjust the background image overlay*/
+.background-overlay {
+  background-color: rgba(4, 4, 4, 0.2);
+  backdrop-filter: blur(2px);
+  height: 100%;
+}
+
+
+/* Add these rules for the letter-by-letter animation */
+.title-animation ,
+.subtitle-animation {
+  opacity: 0;
+  display: inline-block;
+  
+  animation-duration: 1.0s;
+  animation-fill-mode: forwards;
+}
+
+.title-animation {
+  animation-name: slideIn;
+  animation-duration: 2s;
+  animation-delay: 0s;
+}
+
+.subtitle-animation {
+  animation-name: slideInLetter;
+  animation-duration: 2s;
+  animation-delay: 1s;
+}
+
+@keyframes slideInLetter {
+  0% {
+    opacity: 0;
+    transform: translateY(-40px) rotate(360deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

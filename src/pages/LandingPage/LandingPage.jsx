@@ -1,16 +1,17 @@
-import { useEffect, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import mainTheme from "../../themes/mainTheme";
+import {  useState, useContext } from "react";
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
+import '../../components/WelcomingText/WelcomingText.css'
+
+import Typography from "@mui/material/Typography";
 import Button from '@mui/material/Button';
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
-import Card from '@mui/material/Card';
-import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
 
 import CreateSkillDialog from "../../components/CreateSkillDialog/CreateSkillDialog";
 import DisplaySkills from "../../components/DisplaySkills/DisplaySkills";
-import SkillDrawer from "../../components/SkillDrawer/SkillDrawer";
+import WelcomeSection from "../../components/WelcomeSection/WelcomeSection";
 
 function LandingPage() {
   const ctx = useContext(SkillsContext);
@@ -29,6 +30,8 @@ function LandingPage() {
 
   return (
     <>
+      <WelcomeSection />
+
       <section style={{height: '5dvh', width: '100dvw', paddingTop: 10, display: 'flex', justifyContent: 'center'}}>
         <Button  onClick={handleOpenDialog} color="primary">
         Create Skill

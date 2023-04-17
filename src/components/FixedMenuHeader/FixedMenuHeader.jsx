@@ -99,8 +99,8 @@ function FixedMenuHeader() {
               <i as='a'  class='bi bi-list'></i>
             </IconButton>
             {sections.map((page, index) => (
-              <>
                 <IconButton
+                  key={`headerIcon-${index}`}
                   color="inherit"
                   aria-label="open drawer"
                   edge="start"
@@ -114,7 +114,7 @@ function FixedMenuHeader() {
                 >
                   <i as='a' class={page.icon}></i>
                 </IconButton>
-              </>
+              
             ))}
           </Box>
           <Typography
