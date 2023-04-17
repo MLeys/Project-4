@@ -92,9 +92,10 @@ function FixedMenuHeader() {
           zIndex: (theme) => theme.zIndex.drawer + 1,
         }}
       >
-        {/* Small Screen Left Side Toolbar */}
+        
         <Toolbar > 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', sm: 'none' } }}>
+          {/* Small Screen Left Side Toolbar */}
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex'} }}>
             <IconButton
               color="inherit"
               aria-label="open drawer"
@@ -103,12 +104,10 @@ function FixedMenuHeader() {
               sx={{ 
                 mr: 1.5, 
                 my: 1.3, 
-                bgcolor: 'primary.dark',
                 ":hover": {backgroundColor:'accent.dark'}
               }}
-              
             >
-              <ListIcon height={24} width={24}/>
+              <i as='a'  class='bi bi-list'></i>
             </IconButton>
             {sections.map((page, index) => (
               <>
@@ -120,84 +119,27 @@ function FixedMenuHeader() {
                   sx={{ 
                     mr: 1, 
                     my: 1,
-                    display: { xs: 'block', md: 'none' },
+                    display: { xs: 'block'},
                     ":hover": {color:'accent.light'}
                   }}
-                  
                 >
-
                   <i as='a' class={page.icon}></i>
                 </IconButton>
               </>
             ))}
           </Box>
-
-          <Tooltip title="Click for All Skills Menu">
-            <Typography
-              variant="h4"
-              color={mainTheme.palette.common.white}
-              sx={{
-                mr: 5,
-                display: { xs: 'flex', sm: 'none' },
-                flexGrow: 1,
-                fontWeight: 400,
-                letterSpacing: '.2rem',
-              }}
-              aria-label="More Information"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-            >
-              Skill.Map
-            </Typography>
-          </Tooltip>
-          
-          <Tooltip title="Skills Menu">
-            <IconButton 
-              sx={{
-                p: 0, 
-                m: 0,  
-                color: 'accent.contrastText', 
-                display: { xs: 'none', sm: 'flex' },
-                ":hover": {
-                  // backgroundColor:'accent.main',
-                  fillOpacity: 1,
-                  color: 'accent.main',
-                },
-               
-              }}
-              onClick={toggleDrawer()}
-            >
-              <ListIcon height={20} width={20} />
-            </IconButton>
-          </Tooltip>
-
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' } }}>
-            {sections.map((page) => (
-              <Button
-                key={page.title}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-                onClick={() => {
-                  handleCloseNavMenu();
-                  navigate(`/${page.link}`); 
-                }}
-              >
-                {page.title}
-              </Button>
-            ))}
-          </Box>
-
           <Typography
             variant="h4"
+            color={mainTheme.palette.common.white}
             sx={{
-              alignItems: 'center',
-              mr: 12,
-              display: { xs: 'none', sm: 'flex' },
+              mr: 5,
+              display: { xs: 'flex'},
               flexGrow: 1,
-              fontWeight: 700,
+              fontWeight: 400,
               letterSpacing: '.2rem',
             }}
           >
-              Skill.Map
+            Skill.Map
           </Typography>
           <Box sx={{ flexGrow: 0 }} >
             <Stack direction='row'>
@@ -226,7 +168,6 @@ function FixedMenuHeader() {
               onClose={handleCloseUserMenu}
             >
               {loggedUser ? (
-                [
                   <MenuItem
                     key={`logout-user`}
                     sx={{ m: 0 }}
@@ -236,18 +177,7 @@ function FixedMenuHeader() {
                     }}
                   >
                     Logout
-                  </MenuItem>,
-                  <MenuItem
-                    key={`learnpage`}
-                    sx={{ m: 0 }}
-                    onClick={() => {
-                      handleCloseUserMenu(),
-                      handleClickLearnPage();
-                    }}
-                  >
-                    Learn
-                  </MenuItem>,
-                ]
+                  </MenuItem>
               ) : (
                 [
                   <MenuItem
@@ -271,7 +201,6 @@ function FixedMenuHeader() {
                 ]
               )}
             </Menu>
-
           </Box>
         </Toolbar>
       </AppBar>
