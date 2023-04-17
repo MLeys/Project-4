@@ -32,8 +32,6 @@ export default function App() {
   const [error, setError] = useState('');
   const [user, setUser] = useState(userService.getUser());
   const [skills, dispatch] = useImmerReducer(skillsReducer, null)
-  const [userSkills, setUserSkills] = useState([])
-  const [activeSkillIndex, setActiveSkillIndex] = useState(-1)
   const [resources, setResources] = useState([]);  
   const [activeSkill, setActiveSkill] = useState(null);
   const [activeSub, setActiveSub] = useState(null);
@@ -65,7 +63,6 @@ export default function App() {
   }
 
   async function handleSetActiveSkillById(skillId) {
-    getSkills();
     const skillIndex = skills?.findIndex((skill => skill._id === skillId))
     handleSetActiveSkill(skillIndex);
     handleSetActiveSub();
@@ -122,7 +119,6 @@ export default function App() {
         type: 'createSkill',
         data: response.skill,
       })
-      getSkills();
     } catch(err){
       setError(console.log(`*** Error CREATE SKILL ****\n ${err}`))
     }
@@ -138,10 +134,6 @@ export default function App() {
         data: response.skills //COULD BE .skills *****
       })
       handleSetUserSkills(response.userSkills);
-
-      if (!!activeSkill.index === true) {
-        setActiveSkillIndex(response.firstSkillIndex)
-      }
 
       console.log("Updated skills from server... ")
     } catch (err) {
@@ -176,9 +168,10 @@ export default function App() {
           user: user,
           index: index
         })
-        const assignedSkills =skills?.filter((skill => skill.usersAssigned.some(u => u._id === user._id)))
+        console.log(response, "<<<<<< HANDLE ASSIGN SKILL RESPONSE FROM SERVER")
+        const assignedSkills = skills?.filter((skill => skill.usersAssigned.some(u => u._id === user._id)))
         // console.log(assignedSkills, "USERS SKILLS (assignSkill)")
-        setUserSkills(assignedSkills)
+        setUserSkills( await assignedSkills)
         
       } else {
         console.log(`${user.username} already assigned to skill( ${skills[index].name})`)
@@ -188,19 +181,18 @@ export default function App() {
     }
   }
 
-  async function handleUnAssignSkill(skill) {
+  async function handleUnAssignSkill(skillId) {
     try {
-      const skillIndex = skills?.findIndex((s) => s._id === skill._id)
-      if (skills[skillIndex].usersAssigned.some(u => u._id === user._id)) {
-        const userAssignedIndex = skills[skillIndex].usersAssigned?.findIndex((u) => u._id === user._id)
-        const response = await skillsApi.unAssignUser(user, skill._id);
+      const skillIndex = skills?.findIndex((s) => s._id === skillId)
+      if (skills[skillIndex]?.usersAssigned?.some(u => u._id === user._id)) {
+        const userAssignedIndex = skills[skillIndex]?.usersAssigned?.findIndex((u) => u._id === user._id)
+        const response = await skillsApi.unAssignUser(user, skillId);
         // console.log(response, "unassign skill response")
         dispatch({
           type: 'unAssignSkill',
           userIndex: userAssignedIndex,
           skillIndex: skillIndex
         })
-        getSkills();
         const assignedSkills = skills?.filter((skill => skill.usersAssigned.some(u => u._id === user._id)))
         // console.log(assignedSkills, "USERS SKILLS (unassignSkill)")
         setUserSkills(assignedSkills)
@@ -211,10 +203,6 @@ export default function App() {
       setError(console.log(`*** Error UNAssign SKILL ****\n ${err}`))
     }
   }
-
-
-
-
 
   async function handleAddResource(data) {
     console.log(data, "<=== add resource data ")
@@ -239,8 +227,6 @@ export default function App() {
         subIndex: data.subIndex,
         resource: response,
       })
-
-      getSkills();
 
     } catch (err) {
       setError(console.log(`***Error in handleAddResource(message): ${err}`))
@@ -287,7 +273,6 @@ export default function App() {
         skillIndex: activeSkill.index,
         data: response.skill,
       })
-      getSkills();
 
     } catch(err){
       setError(console.log(`*** Error CREATE SKILL ****\n ${err}`))
@@ -298,8 +283,6 @@ export default function App() {
   async function handleEditSubSkill(subskill) {
     try {
         const response = await subSkillsApi.update(subskill);
-        getSkills();        
-        
     } catch(err){
         console.log(err, " Error IN THE HANDLEADDsubskill")
     }
@@ -348,10 +331,8 @@ export default function App() {
           loggedUser: user,
           skills: skills,
           skill: activeSkill?.skill,
-          activeSkillIndex: activeSkillIndex,
           activeSkill: activeSkill,
           activeSubSkills: activeSkill?.subSkills,
-          userSkills: userSkills,
           activeSub: activeSub, 
           youTubeResults: youTubeResults,
 

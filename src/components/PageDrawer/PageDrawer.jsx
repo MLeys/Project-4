@@ -1,6 +1,7 @@
 import * as React from 'react';
 import mainTheme from '../../themes/mainTheme';
 import { useContext, useState, useEffect } from 'react';
+import { useParams } from "react-router-dom";
 
 import { SkillsContext } from '../../context/SkillsContext/SkillsContext';
 
@@ -32,15 +33,26 @@ export default function PageDrawer({children}) {
   const ctx = useContext(SkillsContext);
   const activeSkill = ctx.activeSkill;
   const user = ctx.loggedUser;
-  const isSkillAssigned = activeSkill?.skill?.usersAssigned.some(u => u._id === user._id)
+  const handleAssignSkill = ctx.handleAssignSkill;
+  const handleUnAssignSkill = ctx.handleUnAssignSkill;
+  const skillId = useParams().skillId;
+
+  const isSkillAssigned = activeSkill?.skill?.usersAssigned?.some(u => u._id === user._id)
 
   const [open, setOpen] = useState(false);
   const [checked, setChecked] = useState(false);
 
-  function handleAssignChecked(event) {
-    setChecked(event.target.checked);
+
+  function handleAssignChecked(e) {
+    console.log(`checkedassign ${e.data} < -event \nchecked: ${checked}\n isAssigned: ${isSkillAssigned}`)
+    checked ? handleUnAssignSkill(skillId) : handleAssignSkill(skillId);
+    isSkillAssigned === true ? setChecked(true) : setChecked(false) 
+    setChecked(!checked);
   };
 
+  function handleAssignUser() {
+    console.log('hey')
+  }
 
   function handleDrawerOpen() {
     setOpen(true);
@@ -86,6 +98,7 @@ export default function PageDrawer({children}) {
                 <Switch
                   checked={checked}
                   onChange={handleAssignChecked}
+
                   inputProps={{ 'aria-label': 'controlled' }}
                 />
               } 

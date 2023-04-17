@@ -148,11 +148,13 @@ async function show(req, res) {
 }
 
 async function assignUser(req, res) {
-
+  console.log('=========================')
+  console.log(req.params, '<<<<<<<<< assign reqParams')
+  console.log('=========================')
   try {
     const skill = await Skill.findById(req.params.id)
     
-    await skill.usersAssigned.push(req.body)
+    skill.usersAssigned.push(req.body)
     skill.save()
     
     res.status(201).json({skill})
@@ -164,8 +166,12 @@ async function assignUser(req, res) {
 
 async function unAssignUser(req, res) {
   try {
+    console.log('=========================')
+    console.log(req.body._id)
+    console.log('=========================')
     const skill = await Skill.findById(req.params.id);
-    const index = skill.usersAssigned.indexOf(req.user._id);
+    const userId = (req.body._id)
+    const index = skill.usersAssigned.indexOf(userId);
 
     skill.usersAssigned.splice(index, 1);
 

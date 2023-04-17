@@ -13,52 +13,8 @@ import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
 
-
-
 import VideoCard from "../../components/VideoCard/VideoCard";
 import PageDrawer from "../../components/PageDrawer/PageDrawer";
-
-
-const CustomCard = styled(Card)({
-  width: '100%',
-  height: '50px',
-  marginTop: '.25rem',
-  marginBottom: '.25rem',
-  padding: '1rem',
-  borderRadius: '10px',
-  boxShadow: '4px 4px 4px rgba(0,0,20,0.2)',
-  cursor: 'pointer',
-  transition: 'transform 0.2s ease-in-out',
-  backgroundColor: mainTheme.palette.primaryDarker.light,
-  '&:hover': {
-    transform: 'scale(1.05)',
-    backgroundColor: mainTheme.palette.secondary.main,
-    color: mainTheme.palette.primary.contrastText,
-
-  },
-  '&:active': {
-    backgroundColor: mainTheme.palette.secondary.dark,
-    color: mainTheme.palette.primary.contrastText,
-    boxShadow: '0 5px #666',
-    transform: 'translateY(4px)',
-  },
-})
-
-const MainTitle = styled(Typography)({
-  
-  color: mainTheme.palette.secondary.contrastText,
-  padding: 0,
-  margin: 0,
-
-
-})
-
-const PageHeader = ({title='default', children}) => (
-  <Box component={Paper} display={'flex'} justifyContent={'center'} elevation={12} sx={{backgroundColor: mainTheme.palette.primaryDarker.light}}>
-    <MainTitle  variant="h2">{title}</MainTitle>
-    {children}
-  </Box>
-)
 
 
 function SkillPage() {
@@ -72,10 +28,8 @@ function SkillPage() {
   const skillId = useParams().skillId;
   const skill = skillId ? skills?.find(skill => skill?._id === skillId) : console.log('skill param not found');
   const activeSubIndex = ctx.activeSub?.index;
-  const handleAssignSkill = ctx.handleAssignSkill;
-  const isSkillAssigned = activeSkill?.skill?.complete;
 
-  const [checked, setChecked] = useState(isSkillAssigned);
+
  
   function handleClickSub(index) {
     handleSetActiveSub(index);
@@ -85,10 +39,6 @@ function SkillPage() {
     await getSkills();
     activeSkill ? "" : handleSetActiveSkillById(skillId)
   }
-
-  const handleAssignChecked = (event) => {
-    setChecked(event.target.checked);
-  };
 
 
   useEffect(() => {
