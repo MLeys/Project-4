@@ -13,7 +13,6 @@ import LandingPage from "./pages/LandingPage/LandingPage";
 import SignUpPage from "./pages/SignupPage/SignupPage";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
-import LearnPage from "./pages/LearnPage/LearnPage";
 
 import userService from "./utils/userService";
 import * as skillsApi from "./utils/skillApi.js";
@@ -237,11 +236,11 @@ export default function App() {
       const response = await resourcesApi.deleteResource(id);
       console.log(response.resourceDoc.title, ' <---resource removed from database')
       getResources();
-      // dispatch({
-      //   type: 'deleteSkill',
-      //   id: skillId,
-      //   index: skillIndex,
-      // })
+      dispatch({
+        type: 'deleteSkill',
+        id: skillId,
+        index: skillIndex,
+      })
     } catch (err) {
       setError(console.log(`*** Error DELETE SKILL ****\n ${err}`))
 
@@ -346,7 +345,6 @@ export default function App() {
               {user ? (
                 <Route path="/:username" element={<DashboardPage />} />
               ) : null}
-              <Route path="learn" element={<LearnPage />} />
             </Route>
             <Route path="/login" element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />} />
             <Route path="/signup" element={<SignUpPage handleSignUpOrLogin={handleSignUpOrLogin} />} />

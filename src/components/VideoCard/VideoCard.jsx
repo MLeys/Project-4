@@ -7,7 +7,6 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions'
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import { SkillsContext } from '../../context/SkillsContext/SkillsContext';
 
@@ -21,7 +20,6 @@ function VideoCard({resource, index, children}) {
   const {title, videoId, description, thumbnail, datePublished, skillId, subSkillId } = resource;
 
   const createdAt = resource.formattedCreatedAt;
-  
 
   function ResourceVideo() {
     return (

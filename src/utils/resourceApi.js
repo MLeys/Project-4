@@ -6,8 +6,7 @@ const BASE_URL = '/api/resources/';
 
 export async function create(data) {
 	try {
-		console.log(`Data (resource api Create): ${data}`)
-		console.log(`JSONStringified(data) (create resource api): ${JSON.stringify(data)}`)
+
 
 		return fetch(BASE_URL, {
 			method: 'POST',
@@ -23,7 +22,6 @@ export async function create(data) {
 				return res.json() 
 			}
 			return res.json().then(res => {
-				console.log(`Create Resource Response(api): ${res}`)
 				throw new Error('Something went wrong in create Post'); 
 			})
 		})

@@ -21,8 +21,6 @@ export async function createAllSkillsFromList(data) {
 }
 
 export async function create(data) {
-    console.log(data, 'THS IS DATA')
-    console.log(JSON.stringify(data), " <<< <STRINGIFIED DATA")
     return fetch(BASE_URL, {
         method: 'POST',
         body: JSON.stringify(data),
@@ -36,7 +34,6 @@ export async function create(data) {
 
 		// this is the return if there was an error from the server
 		return res.json().then(res => {
-			console.log(res, ' <- this is the response in Posts create function in your utils folder')
 			throw new Error('Something went wrong in create Post'); // < this goes to the catch block
 			// when you call the create function (in handleAddPost in the feed page)
 		})
