@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { useImmerReducer} from 'use-immer';
 
-import skillsReducer from "./reducers/skillsRedu.js";
+import skillsReducer from "./reducers/skillsReducer.js/index.js";
 
 import { SkillsContext, SkillsDispatchContext } from './context/SkillsContext/SkillsContext.jsx';
 import { testSkillsList } from "./lists/skillTypes";
