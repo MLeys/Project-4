@@ -1,5 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, lazy, Suspense } from "react";
 import {  useNavigate, useParams } from "react-router-dom";
+import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Button from '@mui/material/Button';
@@ -16,7 +17,7 @@ import Toolbar from "@mui/material/Toolbar";
 
 import { BoxArrowRightIcon, DownArrowBoxed } from "../../customIcons";
 
-import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
+const SkillsList = lazy(() => import("../SkillsList/SkillsList"));
 
 const iOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
 const drawerWidth = 260;
@@ -35,6 +36,8 @@ export default function SkillDrawer({open, toggleDrawer }) {
 
   const [openSkills, setOpenSkills] = useState({});
   const [searchValue, setSearchValue] = useState("");
+
+
 
   const handleSearchChange = (event) => {
     setSearchValue(event.target.value);
@@ -112,47 +115,27 @@ export default function SkillDrawer({open, toggleDrawer }) {
         onChange={handleSearchChange}
       />
 
-      <List sx={{ bgcolor: 'primaryDarker.main', color: 'primaryDarker.contrastText'}}>
-        {skills
-        ?.filter(isSkillMatched)
-        .map((skill, index) => (
-          <div key={index}>
-            <ListItemButton onClick={() => handleSkillToggle( index)}>
-              <ListItemText primary={skill.name}  sx={{pr: 2}}/>
-              <ListItemSecondaryAction>
-                <IconButton
-                  edge="start"
-                  size="small"
-                >
-                  {openSkills[index] ? <DownArrowBoxed /> : <BoxArrowRightIcon  />}
-                </IconButton>
-                <IconButton
-                  edge="end"
-                  onClick={(event) => handleClickSkillArrow(index)}
-                >
-                  <BoxArrowRightIcon height={20} width={20} fill="white"/>                  
-                </IconButton>
-              </ListItemSecondaryAction>
-            </ListItemButton>
-            <LinearProgress variant="determinate" value={skill.progress} color="warning" sx={{mb: 1}} />
-            <Collapse in={openSkills[index]} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding sx={{bgcolor: 'primary.dark'}}>
-                {skill.subSkills?.map((subSkill, subIndex) => (
-                  <div key={`sidebar-${index}-${subIndex}`}>
-                    <ListItemButton onClick={() => handleSubSkillClick(index, subIndex)}>
-                      <ListItemText primary={subSkill.title} />
-                    </ListItemButton>
-                    <LinearProgress variant="determinate" value={skill.progress} />
-                  </div>
-                ))}
-                <Divider />
-              </List>
-            </Collapse>
-            <Divider />
-          </div>
-          
-        ))}
-      </List>
+      <Suspense fallback={" Loading skill list "}>
+        <List sx={{ bgcolor: 'primaryDarker.main', color: 'primaryDarker.contrastText'}}>
+          {skills
+          ?.filter(isSkillMatched)
+          .map((skill, index) => (
+            <div key={`skillListIndex-${index}`}>
+              <SkillsList 
+                handleSkillToggle={handleSkillToggle} 
+                handleClickSkillArrow={handleClickSkillArrow} 
+                handleSubSkillClick={handleSubSkillClick}
+                skill={skill}
+                index={index}
+              />
+            </div>
+            
+          ))}
+        </List>
+
+      </Suspense>
+
+
       
     </SwipeableDrawer>
     </>

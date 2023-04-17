@@ -3,11 +3,9 @@ import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 import '../../components/WelcomingText/WelcomingText.css'
 
-import Typography from "@mui/material/Typography";
 import Button from '@mui/material/Button';
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
+
 
 import CreateSkillDialog from "../../components/CreateSkillDialog/CreateSkillDialog";
 import DisplaySkills from "../../components/DisplaySkills/DisplaySkills";

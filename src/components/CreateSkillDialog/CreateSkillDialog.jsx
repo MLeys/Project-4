@@ -14,7 +14,7 @@ import {
   TextField
 } from "@mui/material";
 
-import { programmingSkills } from "../../lists/skillTypes";
+import { stockSkillsList } from "../../lists/skillTypes";
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 import AddSkillForm from "../AddSkillForm/AddSkillForm";
 
@@ -29,7 +29,7 @@ const CreateSkillDialog = ({ open, onClose }) => {
 
   useEffect(() => {
     if (category) {
-      const selectedCategory = programmingSkills.find(
+      const selectedCategory = stockSkillsList?.find(
         (item) => item.category === category
       );
       setSubcategories(selectedCategory.subcategories);
@@ -71,7 +71,7 @@ const CreateSkillDialog = ({ open, onClose }) => {
         <FormControl sx={{ marginBottom: 2, minWidth: 200 }}>
           <InputLabel>Category</InputLabel>
           <Select value={category} onChange={handleCategoryChange}>
-            {programmingSkills.map((skill) => (
+            {stockSkillsList?.map((skill) => (
               <MenuItem key={skill.category} value={skill.category}>
                 {skill.category}
               </MenuItem>

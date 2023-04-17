@@ -23,12 +23,6 @@ function SkillCard({ skill, index }) {
     deleteSkill(skill._id);
   };
 
-  useEffect(() => {
-    const timerId = setTimeout(() => {
-      setLoaded(true);
-    }, index * 200); // Add delay based on card index
-    return () => clearTimeout(timerId);
-  }, [index]);
 
   const chips = skill.subSkills.map((subSkill, index) => (
     <AnimatedChip

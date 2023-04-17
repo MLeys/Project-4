@@ -1,10 +1,12 @@
-import React from "react";
-import { useContext } from "react";
+import React, { Suspense } from "react";
+import { useContext, lazy } from "react";
+
+
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 
-import SkillCard from "../SkillCard/SkillCard";
+const SkillCard = lazy(() => import("../SkillCard/SkillCard"));
 
 
 function DisplaySkills() {
@@ -14,9 +16,12 @@ function DisplaySkills() {
 
   return ( 
     skills?.map((skill, index) => (
-      <Grid xs={12} key={`skillCard-${index}`} display="flex" justifyContent="center" alignItems="center" >
-        <SkillCard skill={skill} index={index} />
-      </Grid>
+      <Suspense fallback={'LOADING'}>
+        <Grid xs={12} key={`skillCard-${index}`} display="flex" justifyContent="center" alignItems="center" >
+          <SkillCard skill={skill} index={index} />
+        </Grid>
+      </Suspense>
+
       ))
    );
 }

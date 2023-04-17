@@ -6,7 +6,7 @@ import skillsReducer from "./reducers/SkillsReducer.js";
 
 
 import { SkillsContext, SkillsDispatchContext } from './context/SkillsContext/SkillsContext.jsx';
-import { testSkillsList } from "./lists/skillTypes";
+import { stockSkillsList, testSkillsList } from "./lists/skillTypes";
 
 import SkillPage from "./pages/SkillPage/SkillPage";
 import Layout from "./pages/Layout/Layout";
