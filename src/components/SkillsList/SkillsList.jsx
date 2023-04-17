@@ -1,10 +1,55 @@
+import React from "react";
+import { useContext, useState } from "react";
+import { useParams } from "react-router-dom";
+import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
+
+
+import Divider from '@mui/material/Divider';
+import List from '@mui/material/List';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction";
+import Collapse from "@mui/material/Collapse";
+import LinearProgress from "@mui/material/LinearProgress";
+import IconButton from "@mui/material/IconButton";
+
+import { BoxArrowRightIcon, DownArrowBoxed } from "../../customIcons";
+
+
+function SkillsList({ skill, index }) {
+  const ctx = useContext(SkillsContext);
+  const skills = ctx.skills;
+  const handleSetActiveSkill = ctx.handleSetActiveSkill;
+  const handleSetActiveSub = ctx.handleSetActiveSub;
+  const skillId = useParams()?.skillId;
+
+  const [openSkills, setOpenSkills] = useState({});
 
 
 
+  const handleClickSkillArrow = ( skillIndex) => {
+    toggleDrawer(false);
+    handleSkillToggle(skillIndex)
+    handleSetActiveSkill(skillIndex);
+    const skillId = skills[skillIndex]?._id
+    navigate(`/skills/${skillId}`)
+  };
 
-function SkillsList({ skill, index, handleSkillToggle, handleClickSkillArrow, handleSubSkillClick }) {
+  const handleSkillToggle = ( skillIndex) => {
+    setOpenSkills({ ...openSkills, [skillIndex]: !openSkills[skillIndex] });
+    handleSetActiveSkill(skillIndex);
+  };
+
+  const handleSubSkillClick = (skillIndex, subSkillIndex) => {
+    if (skillIndex === activePageSkillIndex) {
+      handleSetActiveSub(subSkillIndex);
+    }
+  };
+
+  
+  
   return ( 
-    <>
+    <div key={`skillInList-${index}`}>
       <ListItemButton onClick={() => handleSkillToggle( index)}>
         <ListItemText primary={skill.name}  sx={{pr: 2}}/>
         <ListItemSecondaryAction>
@@ -38,7 +83,7 @@ function SkillsList({ skill, index, handleSkillToggle, handleClickSkillArrow, ha
       </Collapse>
       <Divider />
     
-    </>
+    </div>
 
    );
 }

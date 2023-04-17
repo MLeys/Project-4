@@ -1,21 +1,12 @@
 import React, { useState, useContext, lazy, Suspense } from "react";
-import {  useNavigate, useParams } from "react-router-dom";
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Button from '@mui/material/Button';
 import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction";
-import Collapse from "@mui/material/Collapse";
-import LinearProgress from "@mui/material/LinearProgress";
-import IconButton from "@mui/material/IconButton";
 import TextField from "@mui/material/TextField";
 import Toolbar from "@mui/material/Toolbar";
 
-import { BoxArrowRightIcon, DownArrowBoxed } from "../../customIcons";
 
 const SkillsList = lazy(() => import("../SkillsList/SkillsList"));
 
@@ -23,20 +14,10 @@ const iOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigato
 const drawerWidth = 260;
 
 export default function SkillDrawer({open, toggleDrawer }) {
-  const navigate = useNavigate();
   const ctx = useContext(SkillsContext);
   const skills = ctx.skills;
-
-  const handleSetActiveSkill = ctx.handleSetActiveSkill;
-  const handleSetActiveSub = ctx.handleSetActiveSub;
-
-  const skillId = useParams()?.skillId;
-  const activePageSkillIndex = skillId ? skills?.findIndex(skill => skill?._id === skillId) : "";
-
-
-  const [openSkills, setOpenSkills] = useState({});
+  
   const [searchValue, setSearchValue] = useState("");
-
 
 
   const handleSearchChange = (event) => {
@@ -52,24 +33,6 @@ export default function SkillDrawer({open, toggleDrawer }) {
     );
   };
 
-  const handleClickSkillArrow = ( skillIndex) => {
-    toggleDrawer(false);
-    handleSkillToggle(skillIndex)
-    handleSetActiveSkill(skillIndex);
-    const skillId = skills[skillIndex]?._id
-    navigate(`/skills/${skillId}`)
-  };
-
-  const handleSkillToggle = ( skillIndex) => {
-    setOpenSkills({ ...openSkills, [skillIndex]: !openSkills[skillIndex] });
-    handleSetActiveSkill(skillIndex);
-  };
-
-  const handleSubSkillClick = (skillIndex, subSkillIndex) => {
-    if (skillIndex === activePageSkillIndex) {
-      handleSetActiveSub(subSkillIndex);
-    }
-  };
 
   const handleSkillIconClick = (event, index) => {
     event.stopPropagation();
@@ -120,14 +83,12 @@ export default function SkillDrawer({open, toggleDrawer }) {
           {skills
           ?.filter(isSkillMatched)
           .map((skill, index) => (
-            <div key={`skillListIndex-${index}`}>
+            <div key={`skillDrawerListIndex-${index}`}>
               <SkillsList 
-                handleSkillToggle={handleSkillToggle} 
-                handleClickSkillArrow={handleClickSkillArrow} 
-                handleSubSkillClick={handleSubSkillClick}
                 skill={skill}
                 index={index}
               />
+              <div>{skill.name}</div>
             </div>
             
           ))}
