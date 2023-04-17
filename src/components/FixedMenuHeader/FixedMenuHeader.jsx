@@ -28,8 +28,7 @@ function FixedMenuHeader() {
 	const ctx = useContext(SkillsContext);
 	const loggedUser = ctx.loggedUser;
 	const handleLogout = ctx.handleLogout;
-  
-  const [anchorElNav, setAnchorElNav] = useState(null);
+
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [openSidebar, setOpenSidebar] = useState(false);
 
@@ -49,18 +48,11 @@ function FixedMenuHeader() {
     setOpenSidebar(!openSidebar);
   };
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
+  function handleOpenUserMenu(event) {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
+  function handleCloseUserMenu() {
     setAnchorElUser(null);
   };
 
@@ -77,7 +69,6 @@ function FixedMenuHeader() {
   }
 
   function handleClickIcon(page) {
-    
     navigate(`/${page.target}`)
   }
 
@@ -91,10 +82,8 @@ function FixedMenuHeader() {
           color: mainTheme.palette.primary.contrastText,
           zIndex: (theme) => theme.zIndex.drawer + 1,
         }}
-      >
-        
+      >  
         <Toolbar > 
-          {/* Small Screen Left Side Toolbar */}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex'} }}>
             <IconButton
               color="inherit"
