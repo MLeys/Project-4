@@ -18,30 +18,24 @@ function skillsReducer(draft, action) {
       return updatedSkills;
 		}
 		case 'assignSkill': {
-			console.log("Reducer(assignSkill): ", action)
 			const index = action.index;
 			const user = action.user;
-			console.log(`user: ${user}\nID: ${user._id}`)
-			console.log(draft[index], " skill ")
 			draft[index].usersAssigned.splice(0, 0, user);
 			break;				
 		}
 		case 'unAssignSkill': {
-			console.log("Reducer(unAssignSkill): ", action)
 			const skillIndex = action.skillIndex;
 			const userIndex = action.userIndex;
 			draft[skillIndex].usersAssigned.splice(userIndex, 1);
 			break;
 		}
 		case 'createSubSkill': {
-			console.log(action.data, "=== data")
 			const skillIndex = action.skillIndex;
 			const newSub = action.data.subSkills.at(-1)
 			draft[skillIndex].subSkills.splice(0,0, newSub);
 			break;
 		}
 		case 'addResource': {
-			console.log(action.resource, "resource in reducer for addResource")
 			const skillIndex = action.skillIndex
 			const subIndex = action.subIndex
 			const skill = draft[action.skillIndex]
@@ -50,7 +44,6 @@ function skillsReducer(draft, action) {
 			break;
 		}
 		case 'assignSub': {
-			// console.log("Reducer(assignSkill): ", action)
 			const skillIndex = action.skillIndex;
 			const subIndex = action.subIndex;
 			const user = action.user;
@@ -58,15 +51,12 @@ function skillsReducer(draft, action) {
 			break;
 		}
 		case 'unAssignSub': {
-			// console.log("Reducer(unAssignSkill): ", action)
 			const skillIndex = action.skillIndex;
 			const subIndex = action.subIndex;
 			const userIndex = action.userIndex;
 			draft[skillIndex].usersAssigned.splice(userIndex, 1);
 			break;
 		}
-
-	
 		default: {
 			throw Error (`Error handling action: ${action.type}`)
 		}

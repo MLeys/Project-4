@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { useImmerReducer} from 'use-immer';
 
-import "./App.css";
-
 import skillsReducer from "./reducers/skillsReducer.js";
 
 import { SkillsContext, SkillsDispatchContext } from './context/SkillsContext/SkillsContext.jsx';
@@ -19,7 +17,7 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import LearnPage from "./pages/LearnPage/LearnPage";
 
 import userService from "./utils/userService";
-import * as skillsApi from "/src/utils/skillApi.js";
+import * as skillsApi from "./utils/skillApi.js";
 import * as subSkillsApi from "./utils/subSkillApi.js";
 import * as youTubeApi from "./utils/youTubeApi.js";
 import * as resourcesApi from "./utils/resourceApi.js";
@@ -359,15 +357,3 @@ export default function App() {
     );
     
 }
-
-// async function searchOpenAi(question) {
-  
-//   try {
-//     const response = await chatGPT3Api.searchOpenAi(question)
-//     console.log(response, " <------ response from OPENAI SEARCH");
-
-    
-//   } catch (err) {
-//     console.log(err.message, " <<<<<OPENAI SEARCH ERROR>>>>>");
-//   }
-// }
