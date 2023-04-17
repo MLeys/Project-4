@@ -31,11 +31,8 @@ export async function create(data) {
         
 	}).then((res) =>{
 		if(res.ok) return res.json() // return if everything okay
-
-		// this is the return if there was an error from the server
 		return res.json().then(res => {
 			throw new Error('Something went wrong in create Post'); // < this goes to the catch block
-			// when you call the create function (in handleAddPost in the feed page)
 		})
 	})
 }
