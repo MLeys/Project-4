@@ -67,7 +67,6 @@ export default function App() {
   async function handleSetActiveSkillById(skillId) {
     getSkills();
     const skillIndex = skills?.findIndex((skill => skill._id === skillId))
-    console.log(skillIndex, " SKILL INDEX")
     handleSetActiveSkill(skillIndex);
     handleSetActiveSub();
   }
@@ -79,7 +78,6 @@ export default function App() {
 
   function handleSetActiveSub(subIndex=0){
     if (skills) {
-      console.log("PASSED FUCKER")
       const skillIndex = activeSkill?.index;
       setActiveSub({
         ...activeSub,
@@ -103,7 +101,6 @@ export default function App() {
   }
 
   async function handleSetActiveSkill(index=0){
-    console.log('SetACtiveSkill')
     if (skills) { 
       const skill = skills[index];
       resetActiveSubToFirstIndexActiveSkill(skill?.subSkills);
@@ -114,10 +111,6 @@ export default function App() {
         skill: skills[index],
         subSkills: skills[index]?.subSkills
       })    
-    } else {
-      console.log("FUCKING FAILED FUCK FUCK FUCK")
-      console.log("SKILLS => ", skills)
-
     }
   }
 
@@ -172,18 +165,17 @@ export default function App() {
     }
   }
 
-  async function assignSkillUser(skill) {
+  async function handleAssignSkill(skillId) {
     try {
-      const index = skills?.findIndex((s) => s._id === skill._id)
+      const index = skills?.findIndex((s) => s._id === skillId)
       if (!skills[index].usersAssigned.some(u => u._id === user._id)) {
-        const response = await skillsApi.assignUser(user, skill._id);
+        const response = await skillsApi.assignUser(user, skillId);
         // console.log(response, "assign skill response")
         dispatch({
           type: 'assignSkill',
           user: user,
           index: index
         })
-        getSkills();
         const assignedSkills =skills?.filter((skill => skill.usersAssigned.some(u => u._id === user._id)))
         // console.log(assignedSkills, "USERS SKILLS (assignSkill)")
         setUserSkills(assignedSkills)
@@ -196,7 +188,7 @@ export default function App() {
     }
   }
 
-  async function unAssignSkillUser(skill) {
+  async function handleUnAssignSkill(skill) {
     try {
       const skillIndex = skills?.findIndex((s) => s._id === skill._id)
       if (skills[skillIndex].usersAssigned.some(u => u._id === user._id)) {
@@ -219,6 +211,8 @@ export default function App() {
       setError(console.log(`*** Error UNAssign SKILL ****\n ${err}`))
     }
   }
+
+
 
 
 
@@ -370,8 +364,8 @@ export default function App() {
           createSkill: handleCreateSkill,
           getSkills: getSkills,
           deleteSkill: handleDeleteSkill,
-          assignSkillUser: assignSkillUser,
-          unAssignSkillUser: unAssignSkillUser, 
+          handleAssignSkill: handleAssignSkill,
+          handleUnAssignSkill: handleUnAssignSkill, 
           handleSetActiveSkill: handleSetActiveSkill,
           handleSetActiveSub: handleSetActiveSub,
           handleCreateSubSkill: handleCreateSubSkill,

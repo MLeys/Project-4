@@ -1,23 +1,23 @@
 import React from "react";
 import './SkillPage.css'
 import mainTheme from "../../themes/mainTheme";
-
+import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { styled } from "@mui/system";
 
-import Toolbar from "@mui/material/Toolbar";
-import Container from '@mui/material/Container';
+
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
 
-import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
+
+
 import VideoCard from "../../components/VideoCard/VideoCard";
 import PageDrawer from "../../components/PageDrawer/PageDrawer";
+
 
 const CustomCard = styled(Card)({
   width: '100%',
@@ -72,7 +72,10 @@ function SkillPage() {
   const skillId = useParams().skillId;
   const skill = skillId ? skills?.find(skill => skill?._id === skillId) : console.log('skill param not found');
   const activeSubIndex = ctx.activeSub?.index;
+  const handleAssignSkill = ctx.handleAssignSkill;
+  const isSkillAssigned = activeSkill?.skill?.complete;
 
+  const [checked, setChecked] = useState(isSkillAssigned);
  
   function handleClickSub(index) {
     handleSetActiveSub(index);
@@ -82,6 +85,10 @@ function SkillPage() {
     await getSkills();
     activeSkill ? "" : handleSetActiveSkillById(skillId)
   }
+
+  const handleAssignChecked = (event) => {
+    setChecked(event.target.checked);
+  };
 
 
   useEffect(() => {
@@ -93,7 +100,7 @@ function SkillPage() {
       <Box mx={1}>      
         <Paper elevation={12} sx={{my: 2}} >
           <Typography variant="h4" component="h4"  p={2}>
-            {skill?.subSkills[activeSubIndex]?.title}f
+            {skill?.subSkills[activeSubIndex]?.title}
           </Typography>
         </Paper>
         <Box sx={{ flexGrow: 1 }}>

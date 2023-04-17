@@ -46,9 +46,22 @@ function skillsReducer(draft, action) {
 			console.log(skill, "SFASDDSFA SKILL")
 			const subSkill = skill.subSkills[action.subIndex]
 			draft[skillIndex].subSkills[subIndex].resources.splice(0,0, action.resource)
-			
-
-			
+			break;
+		}
+		case 'assignSub': {
+			// console.log("Reducer(assignSkill): ", action)
+			const skillIndex = action.skillIndex;
+			const subIndex = action.subIndex;
+			const user = action.user;
+			draft[index].usersAssigned.splice(0,0,user);
+			break;
+		}
+		case 'unAssignSub': {
+			// console.log("Reducer(unAssignSkill): ", action)
+			const skillIndex = action.skillIndex;
+			const subIndex = action.subIndex;
+			const userIndex = action.userIndex;
+			draft[skillIndex].usersAssigned.splice(userIndex, 1);
 			break;
 		}
 

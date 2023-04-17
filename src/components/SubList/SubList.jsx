@@ -8,6 +8,8 @@ import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import CommentIcon from '@mui/icons-material/Comment';
+import Box from '@mui/material/Box';
+
 
 import { SkillsContext } from '../../context/SkillsContext/SkillsContext';
 
@@ -15,15 +17,17 @@ export default function SubList() {
   const ctx = useContext(SkillsContext);
   const activeSub = ctx.activeSub;
   const activeSkill = ctx.activeSkill;
+  
 
   const [checked, setChecked] = useState([0]);
 
-  const handleToggle = (value) => () => {
-    const currentIndex = checked.indexOf(value);
+  const handleToggle = (subIndex) => () => {
+    const currentIndex = checked.indexOf(subIndex);
     const newChecked = [...checked];
+    console.log(checked, " <---- checked")
 
     if (currentIndex === -1) {
-      newChecked.push(value);
+      newChecked.push(subIndex);
     } else {
       newChecked.splice(currentIndex, 1);
     }

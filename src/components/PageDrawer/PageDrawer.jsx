@@ -1,6 +1,6 @@
 import * as React from 'react';
 import mainTheme from '../../themes/mainTheme';
-import { useContext } from 'react';
+import { useContext, useState, useEffect } from 'react';
 
 import { SkillsContext } from '../../context/SkillsContext/SkillsContext';
 
@@ -17,98 +17,51 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import Button  from '@mui/material/Button';
-import Paper from '@mui/material/Paper';
+import FormControlLabel from '@mui/material/FormControlLabel';
+
+import Switch from '@mui/material/Switch';
 
 import SubList from "../../components/SubList/SubList";
-
+import { AppBar, Main, MainTitle, PageHeader, DrawerHeader } from './Components';
 
 const drawerWidth = 260;
 
-const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    flexGrow: 1,
-    padding: theme.spacing(0),
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: `-${drawerWidth}px`,
-    ...(open && {
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginLeft: 0,
-    }),
-  }),
-);
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-  transition: theme.transitions.create(['margin', 'width'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: `${drawerWidth}px`,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
-
-const DrawerHeader = styled('Box')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  padding: theme.spacing(0, 0),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-  justifyContent: 'flex-end',  
-}));
-
-const MainTitle = styled(Typography)({
-  color: mainTheme.palette.secondary.contrastText,
-  padding: 0,
-  margin: 0,
-});
-
-
-const PageHeader = ({title, children}) => (
-  <Box component={Paper} display={'flex-start'} elevation={12} sx={{backgroundColor: mainTheme.palette.primaryDarker.light}}>
-    <MainTitle className="firstSlideIn" variant="h2">{title}</MainTitle>
-    {children}
-  </Box>
-)
-
 
 export default function PageDrawer({children}) {
+  const theme = useTheme();
   const ctx = useContext(SkillsContext);
   const activeSkill = ctx.activeSkill;
+  const user = ctx.loggedUser;
+  const isSkillAssigned = activeSkill?.skill?.usersAssigned.some(u => u._id === user._id)
 
-  const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [checked, setChecked] = useState(false);
 
-  const handleDrawerOpen = () => {
+  function handleAssignChecked(event) {
+    setChecked(event.target.checked);
+  };
+
+
+  function handleDrawerOpen() {
     setOpen(true);
   };
 
-  const handleDrawerClose = () => {
+  function handleDrawerClose() {
     setOpen(false);
   };
 
   function toggleDrawer() {
     setOpen(!open);
   }
+
+  function checkAssignStatus() {
+    isSkillAssigned ? setChecked(isSkillAssigned) : setChecked(false);
+    
+  }
+
+  useEffect(() => {
+    checkAssignStatus();
+  }, [!isSkillAssigned]); 
 
   return (
     <Box sx={{ display: 'flex' }} bgcolor={'grey'} m={0} p={0}>
@@ -120,13 +73,24 @@ export default function PageDrawer({children}) {
               color="inherit"
               aria-label="open drawer"
               onClick={() => toggleDrawer()}
-              
             >
             {open ? <ChevronLeftIcon /> : <MenuIcon />}
             </IconButton>
             <Typography variant="h2" noWrap component="h3" pl={5} fontWeight={900}>
               {activeSkill?.skill.name}
             </Typography>
+
+            <FormControlLabel 
+              label="Learn" 
+              control={
+                <Switch
+                  checked={checked}
+                  onChange={handleAssignChecked}
+                  inputProps={{ 'aria-label': 'controlled' }}
+                />
+              } 
+            />
+
           </Toolbar>
         </PageHeader>
       </AppBar>

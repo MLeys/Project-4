@@ -42,8 +42,8 @@ export default function SkillDrawer({open, toggleDrawer }) {
   const handleSetActiveSub = ctx.handleSetActiveSub;
 
   const skillId = useParams()?.skillId;
-  const activePageSkillIndex = skillId ? skills?.findIndex(skill => skill?._id === skillId) : console.log('skill param not found');
-  const activePageSkill = skillId ? skills?.find(skill => skill?._id === skillId) : console.log('skill param not found');
+  const activePageSkillIndex = skillId ? skills?.findIndex(skill => skill?._id === skillId) : "";
+  const activePageSkill = skillId ? skills?.find(skill => skill?._id === skillId) : "";
   const activeSkillId = activePageSkill?._id
 
 
@@ -65,8 +65,8 @@ export default function SkillDrawer({open, toggleDrawer }) {
 
   const handleClickSkillArrow = ( skillIndex) => {
     toggleDrawer(false);
-    console.log('===== HANDLING SKILL CLICK =======-')
-    console.log(`Clicked skill: ${skills[skillIndex].name}`);
+    // console.log('===== HANDLING SKILL CLICK =======-')
+    // console.log(`Clicked skill: ${skills[skillIndex].name}`);
     handleSkillToggle(skillIndex)
     // Navigate to the skill's details screen
     handleSetActiveSkill(skillIndex);
@@ -75,13 +75,13 @@ export default function SkillDrawer({open, toggleDrawer }) {
   };
 
   const handleSkillToggle = ( skillIndex) => {
-    console.log(`Clicked skill: ${skills[skillIndex].name}`);
+    // console.log(`Clicked skill: ${skills[skillIndex].name}`);
     setOpenSkills({ ...openSkills, [skillIndex]: !openSkills[skillIndex] });
     handleSetActiveSkill(skillIndex);
   };
 
   const handleSubSkillClick = (skillIndex, subSkillIndex) => {
-    console.log(`Clicked subSkill: ${skills[skillIndex].subSkills[subSkillIndex].title}`);
+    // console.log(`Clicked subSkill: ${skills[skillIndex].subSkills[subSkillIndex].title}`);
     if (skillIndex === activePageSkillIndex) {
       handleSetActiveSub(subSkillIndex);
     }
@@ -118,8 +118,6 @@ export default function SkillDrawer({open, toggleDrawer }) {
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, minHeight: '100%', bgcolor: 'primaryDarker.dark' },
         zIndex: 1
       }}
-      
-      
     >
       <Toolbar />
       <Button sx={{ mt: 1, bgcolor: 'accent.dark', color: "accent.contrastText" }} onClick={toggleDrawer()}>
