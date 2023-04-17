@@ -168,11 +168,7 @@ export default function App() {
           user: user,
           index: index
         })
-        console.log(response, "<<<<<< HANDLE ASSIGN SKILL RESPONSE FROM SERVER")
-        const assignedSkills = skills?.filter((skill => skill.usersAssigned.some(u => u._id === user._id)))
-        // console.log(assignedSkills, "USERS SKILLS (assignSkill)")
-        setUserSkills( await assignedSkills)
-        
+        // Response from server = response.skill
       } else {
         console.log(`${user.username} already assigned to skill( ${skills[index].name})`)
       }

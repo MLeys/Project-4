@@ -5,28 +5,22 @@ import { useParams } from "react-router-dom";
 
 import { SkillsContext } from '../../context/SkillsContext/SkillsContext';
 
-import { styled, useTheme } from '@mui/material/styles';
+import useTheme from '@mui/material/styles/useTheme';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import CssBaseline from '@mui/material/CssBaseline';
-import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import FormControlLabel from '@mui/material/FormControlLabel';
-
 import Switch from '@mui/material/Switch';
 
+import { ListIcon, ArrowLeftIcon, BoxArrowRightIcon } from '../../customIcons';
+import { AppBar, Main, PageHeader, DrawerHeader } from './Components';
+
 import SubList from "../../components/SubList/SubList";
-import { AppBar, Main, MainTitle, PageHeader, DrawerHeader } from './Components';
 
 const drawerWidth = 260;
-
 
 export default function PageDrawer({children}) {
   const theme = useTheme();
@@ -42,17 +36,12 @@ export default function PageDrawer({children}) {
   const [open, setOpen] = useState(false);
   const [checked, setChecked] = useState(false);
 
-
   function handleAssignChecked(e) {
     console.log(`checkedassign ${e.data} < -event \nchecked: ${checked}\n isAssigned: ${isSkillAssigned}`)
     checked ? handleUnAssignSkill(skillId) : handleAssignSkill(skillId);
     isSkillAssigned === true ? setChecked(true) : setChecked(false) 
     setChecked(!checked);
   };
-
-  function handleAssignUser() {
-    console.log('hey')
-  }
 
   function handleDrawerOpen() {
     setOpen(true);
@@ -86,7 +75,7 @@ export default function PageDrawer({children}) {
               aria-label="open drawer"
               onClick={() => toggleDrawer()}
             >
-            {open ? <ChevronLeftIcon /> : <MenuIcon />}
+            {open ? <ArrowLeftIcon /> : <ListIcon />}
             </IconButton>
             <Typography variant="h2" noWrap component="h3" pl={5} fontWeight={900}>
               {activeSkill?.skill.name}
@@ -98,12 +87,10 @@ export default function PageDrawer({children}) {
                 <Switch
                   checked={checked}
                   onChange={handleAssignChecked}
-
                   inputProps={{ 'aria-label': 'controlled' }}
                 />
               } 
             />
-
           </Toolbar>
         </PageHeader>
       </AppBar>
@@ -125,7 +112,7 @@ export default function PageDrawer({children}) {
         <Toolbar />
         <DrawerHeader sx={{color: 'white', justifyContent: 'center', bgcolor: 'primary.dark'}} >
           <IconButton onClick={handleDrawerClose} >
-            {theme.direction === 'ltr' ? <ChevronLeftIcon sx={{color: 'white'}} /> : <ChevronRightIcon sx={{color: 'white'}}/>}
+            {theme.direction === 'ltr' ? <ArrowLeftIcon sx={{color: 'white'}} /> : <BoxArrowRightIcon sx={{color: 'white'}}/>}
             <Typography fontSize={'20px'} fontWeight={800} color={'white'} > Subskills</Typography>
           </IconButton>
         </DrawerHeader>

@@ -4,13 +4,10 @@ import mainTheme from "../../themes/mainTheme";
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
-import { styled } from "@mui/system";
-
 
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
 
 import VideoCard from "../../components/VideoCard/VideoCard";
@@ -22,13 +19,11 @@ function SkillPage() {
   const getSkills = ctx.getSkills;
   const skills = ctx.skills;
   const handleSetActiveSub = ctx.handleSetActiveSub;
-  const handleSetActiveSkill = ctx.handleSetActiveSkill;
   const handleSetActiveSkillById = ctx.handleSetActiveSkillById;
   const activeSkill = ctx.activeSkill;
   const skillId = useParams().skillId;
   const skill = skillId ? skills?.find(skill => skill?._id === skillId) : console.log('skill param not found');
   const activeSubIndex = ctx.activeSub?.index;
-
 
  
   function handleClickSub(index) {
@@ -39,7 +34,6 @@ function SkillPage() {
     await getSkills();
     activeSkill ? "" : handleSetActiveSkillById(skillId)
   }
-
 
   useEffect(() => {
     ifActiveSkills();
@@ -54,13 +48,13 @@ function SkillPage() {
           </Typography>
         </Paper>
         <Box sx={{ flexGrow: 1 }}>
-            {skill?.subSkills[activeSubIndex]?.resources?.map((resource, index) => (
-              <Grid xs={12} md={6} lg={4} key={`resource-${index}`} >
-                <VideoCard key={`resource-${index}`} resource={resource} index={index} >
-                  <Typography alignContent={'flex-end'}>Added: {resource.createdAt}</Typography>
-                </VideoCard>
-              </Grid>
-            ))}   
+          {skill?.subSkills[activeSubIndex]?.resources?.map((resource, index) => (
+            <Grid xs={12} md={6} lg={4} key={`resource-${index}`} >
+              <VideoCard key={`resource-${index}`} resource={resource} index={index} >
+                <Typography alignContent={'flex-end'}>Added: {resource.createdAt}</Typography>
+              </VideoCard>
+            </Grid>
+          ))}   
         </Box>
       </Box>
 

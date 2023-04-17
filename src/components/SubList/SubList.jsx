@@ -1,5 +1,8 @@
 import * as React from 'react';
 import { useState, useContext } from 'react';
+
+import { SkillsContext } from '../../context/SkillsContext/SkillsContext';
+
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -7,15 +10,11 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
-import CommentIcon from '@mui/icons-material/Comment';
-import Box from '@mui/material/Box';
 
-
-import { SkillsContext } from '../../context/SkillsContext/SkillsContext';
+import { VertDotsIcon } from '../../customIcons';
 
 export default function SubList() {
   const ctx = useContext(SkillsContext);
-  const activeSub = ctx.activeSub;
   const activeSkill = ctx.activeSkill;
   
 
@@ -45,7 +44,7 @@ export default function SubList() {
             key={`subListItem-${subIndex}`}
             secondaryAction={
               <IconButton edge="end" aria-label="comments">
-                <CommentIcon />
+                <VertDotsIcon />
               </IconButton>
             }
             disablePadding

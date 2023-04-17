@@ -1,9 +1,9 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
 import {  useNavigate } from "react-router-dom";
 import { CssBaseline, useTheme } from "@mui/material";
+import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 import mainTheme from "../../themes/mainTheme";
 
-import Cssbaseline from '@mui/material/CssBaseline'
 import Link from '@mui/material/Link';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -11,7 +11,6 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
@@ -19,18 +18,13 @@ import MenuItem from '@mui/material/MenuItem';
 import Stack from '@mui/material/Stack';
 
 
-import {
-  DownArrowBoxed,
-  ListIcon
-} from "../../customIcons";
+import { ListIcon } from "../../customIcons";
 
 import SkillDrawer from "../SkillDrawer/SkillDrawer";
 
-import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
-import { teal } from "@mui/material/colors";
 
 
-function FixedMenuHeader({ sidebarDispatch }) {
+function FixedMenuHeader() {
   const theme = useTheme();
 	const navigate = useNavigate();
 	const ctx = useContext(SkillsContext);
@@ -106,8 +100,7 @@ function FixedMenuHeader({ sidebarDispatch }) {
             sx={{ mr: 2, }}
           >
 
-            {/* <SideDrawer open={openSidebar} toggleDrawer={toggleDrawer}/> */}
-            <DownArrowBoxed />
+            <ListIcon />
           </IconButton>
 
             <Menu
@@ -228,7 +221,7 @@ function FixedMenuHeader({ sidebarDispatch }) {
                 horizontal: 'right',
               }}
               
-              open={Boolean(anchorElUser)}
+              open={anchorElUser}
               onClose={handleCloseUserMenu}
             >
               {loggedUser ? (

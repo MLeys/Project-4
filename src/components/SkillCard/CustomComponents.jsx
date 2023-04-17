@@ -36,7 +36,6 @@ export const StyledCard = styled(Card)(({ theme }) => ({
     transition: "transform 0.5s ease-out, background-color 0.2s ease-out",
     transform: "scale(1)",
     opacity: 0,
-    transform: "scale(0)",
     animation: `$grow 1.5s ease-in forwards`,
     "&.loaded": {
       animationDelay: "0.2s",
