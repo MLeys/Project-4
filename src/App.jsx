@@ -4,7 +4,7 @@ import { useImmerReducer} from 'use-immer';
 
 import "./App.css";
 
-import skillsReducer from "./reducers/skillsReducer";
+import skillsReducer from "./reducers/skillsReducer.js";
 
 import { SkillsContext, SkillsDispatchContext } from './context/SkillsContext/SkillsContext.jsx';
 import { testSkillsList } from "./lists/skillTypes";
@@ -36,8 +36,6 @@ export default function App() {
   const [activeSub, setActiveSub] = useState(null);
   const [youTubeResults, setYouTubeResults] = useState([]);
     
-  const loggedUser = userService.getUser();
-  
 
   async function onStartUploadAllSkillsFromList() {
     (testSkillsList) 
