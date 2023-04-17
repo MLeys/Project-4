@@ -31,6 +31,12 @@ const mainTheme = createTheme({
       dark: '#002b33',
       contrastText: '#ffffff',
     },
+    primarySat: {
+      light: '#a0b8c0',
+      main: '#90c0d0',
+      dark: '#81c8df',
+      contrastText: '#ffffff',
+    },
     green: {
       light: '#81c784',
       main: '#4caf50',
@@ -44,17 +50,30 @@ const mainTheme = createTheme({
       contrastText: '#ffffff',
     },
     teal: {
-      light: '#b3ffe6',
-      main: '#00ffaa',
-      dark: '#009966',
+      light: '#ccebeb',
+      main: '#66c2c2',
+      dark: '#009999',
       contrastText: '#000000',
     },
     teal2: {
-      light: '#bef4e9',
-      main: '#3bdebd',
-      dark: '#16836d',
-      contrastText: '#ffffff',
+      light: '#bfd9d9',
+      main: '#66a3a3',
+      dark: '#006666',
+      contrastText: '#000000',
     },
+    tealGray: {
+      light: '#e0ebeb',
+      main: '#9cbdbd',
+      dark: '#006666',
+      contrastText: '#000000',
+    },
+    blueTeal: {
+      light: '#008a91',
+      main: '#006680',
+      dark: '#003d6b',
+      contrastText: '#FFFFFF',
+    },
+    
   },
   components: {
     MuiListItemButton: {

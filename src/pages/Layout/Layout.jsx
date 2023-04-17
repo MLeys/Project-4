@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { useEffect, useContext} from "react";
 import Container from '@mui/material/Container';
+import Grid2 from "@mui/material/Unstable_Grid2/Grid2.js";
 
 import { SkillsContext, SkillsDispatchContext } from '../../context/SkillsContext/SkillsContext.jsx';
 
@@ -11,17 +12,13 @@ function Layout({ handleLogout }) {
   const getSkills = ctx.getSkills;
 
   useEffect(() => {
-    getSkills();
   }, []); 
 
   return (
-    <Container fluid='true' style={{margin: 0, padding: 0}}>
-      
-    <FixedMenuHeader />
-  
+    <Grid2 container sx={{margin: 0, padding: 0, minHeight: '100dvh'}} bgcolor={'tealGray.light'} >
+      <FixedMenuHeader />
       <Outlet />
-     
-    </Container> 
+    </Grid2> 
   )
 }
 

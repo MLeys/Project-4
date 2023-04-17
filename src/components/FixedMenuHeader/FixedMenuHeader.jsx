@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useRef } from "react";
+import React, { useState, useContext } from "react";
 import {  useNavigate } from "react-router-dom";
 import { CssBaseline, useTheme } from "@mui/material";
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
@@ -17,11 +17,9 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import Stack from '@mui/material/Stack';
 
-
 import { ListIcon } from "../../customIcons";
 
 import SkillDrawer from "../SkillDrawer/SkillDrawer";
-
 
 
 function FixedMenuHeader() {
@@ -36,8 +34,8 @@ function FixedMenuHeader() {
   const [openSidebar, setOpenSidebar] = useState(false);
 
 	const sections = [
-		{ title: "Home", link: "#", target: '' },
-		{ title: "Dashboard", link : loggedUser?.username }
+		{ title: "Home", link: "#", target: '', icon: 'bi bi-house-fill' },
+		{ title: "Dashboard", link : loggedUser?.username, icon: 'bi bi-compass-fill' }
 	]
 
   const toggleDrawer = () => (event) => {
@@ -78,6 +76,10 @@ function FixedMenuHeader() {
     navigate(`/learn`);
   }
 
+  function handleClickIcon(page) {
+    
+    navigate(`/${page.target}`)
+  }
 
 	return (  
 		<Box  sx={{ display: 'flex' }}>
@@ -90,61 +92,60 @@ function FixedMenuHeader() {
           zIndex: (theme) => theme.zIndex.drawer + 1,
         }}
       >
-        <Toolbar >
+        {/* Small Screen Left Side Toolbar */}
+        <Toolbar > 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', sm: 'none' } }}>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={toggleDrawer()}
-            sx={{ mr: 2, }}
-          >
-
-            <ListIcon />
-          </IconButton>
-
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{ display: { xs: 'block', md: 'none' } }}
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={toggleDrawer()}
+              sx={{ 
+                mr: 1.5, 
+                my: 1.3, 
+                bgcolor: 'primary.dark',
+                ":hover": {backgroundColor:'accent.dark'}
+              }}
+              
             >
+              <ListIcon height={24} width={24}/>
+            </IconButton>
             {sections.map((page, index) => (
-              <MenuItem key={`menuItem-${index}`}>
-                <Link
-                  key={page.title}
-                  variant="subtitle1"
-                  underline="hover"
-                  onClick={() => {
-                    handleCloseNavMenu();
-                    navigate(`/${page.link}`);
+              <>
+                <IconButton
+                  color="inherit"
+                  aria-label="open drawer"
+                  edge="start"
+                  onClick={() => handleClickIcon( page)}
+                  sx={{ 
+                    mr: 1, 
+                    my: 1,
+                    display: { xs: 'block', md: 'none' },
+                    ":hover": {color:'accent.light'}
                   }}
+                  
                 >
-                  {page.title}
-                </Link>
-              </MenuItem>
+
+                  <i as='a' class={page.icon}></i>
+                </IconButton>
+              </>
             ))}
-            </Menu>
           </Box>
 
           <Tooltip title="Click for All Skills Menu">
             <Typography
-              variant="h6"
-              as={Button}
+              variant="h4"
               color={mainTheme.palette.common.white}
               sx={{
                 mr: 5,
                 display: { xs: 'flex', sm: 'none' },
                 flexGrow: 1,
-                fontWeight: 700,
+                fontWeight: 400,
                 letterSpacing: '.2rem',
-                ":hover": {backgroundColor:'accent.dark'}
               }}
               aria-label="More Information"
               aria-controls="menu-appbar"
               aria-haspopup="true"
-              onClick={handleOpenNavMenu}
             >
               Skill.Map
             </Typography>

@@ -84,7 +84,7 @@ export default function SkillDrawer({open, toggleDrawer }) {
       anchor={'left'}
       open={open}
       onClick={() => toggleDrawer()}
-      transitionDuration={800}
+      transitionDuration={400}
       hideBackdrop
       elevation={24}
       onClose={() => handleSkillIconClick()}

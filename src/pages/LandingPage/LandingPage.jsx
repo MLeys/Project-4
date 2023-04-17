@@ -28,7 +28,7 @@ function LandingPage() {
   };
 
   return (
-    <Grid container={true} spacing={1} backgroundColor={mainTheme.palette.primaryDarker.main} >
+    <>
       <section style={{height: '5dvh', width: '100dvw', paddingTop: 10, display: 'flex', justifyContent: 'center'}}>
         <Button  onClick={handleOpenDialog} color="primary">
         Create Skill
@@ -38,10 +38,11 @@ function LandingPage() {
           onClose={handleCloseDialog}
         />
       </section>
+
       <Grid xs={12} px={2} >
         <DisplaySkills />
       </Grid>
-    </Grid>
+    </>
   );
 }
 
