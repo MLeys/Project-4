@@ -1,38 +1,26 @@
 import React from "react";
 import mainTheme from "../../themes/mainTheme";
 import { useContext, useEffect, useState } from "react";
-import { styled } from "@mui/system";
-import { useNavigate } from "react-router-dom";
 
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
-import Button from "@mui/material/Button";
-import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
-import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
 import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
-import Chip from "@mui/material/Chip";
-
 import { TrashIcon } from "../../customIcons";
 
-import { AnimatedChip, StyledCard, StyledCardContent, StyledChip } from "./CustomComponents";
+import { AnimatedChip, StyledCard, StyledCardContent } from "./CustomComponents";
 
 
 function SkillCard({ skill, index }) {
-  const navigate = useNavigate();
   const ctx = useContext(SkillsContext);
-  const skills = ctx.skills;
-  const handleSetActiveSkill = ctx.handleSetActiveSkill;
   const deleteSkill = ctx.deleteSkill;
-  const getSkills = ctx.getSkills;
 
   const [loaded, setLoaded] = useState(false);
 
   const handleDeleteClick = () => {
     deleteSkill(skill._id);
-    getSkills();
   };
 
   useEffect(() => {
@@ -43,7 +31,7 @@ function SkillCard({ skill, index }) {
   }, [index]);
 
   const chips = skill.subSkills.map((subSkill, index) => (
-    <StyledChip
+    <AnimatedChip
       key={index}
       label={subSkill.title}
       className={`${loaded ? "loaded" : ""} delay-${index}`}
@@ -74,7 +62,6 @@ function SkillCard({ skill, index }) {
           }}
         >
           {chips}
-
         </Box>
       </StyledCardContent>
     </StyledCard>

@@ -91,51 +91,7 @@ export const StyledCardContent = styled(CardContent)({
   perspective: "800px",
 });
 
-export const StyledChip = styled(Chip)({
-  opacity: 0,
-  transform: "scale(0)",
-  animation: `$grow 1s ease forwards`,
-  "&.loaded": {
-    animationDelay: "1.2s",
-  },
-  "&.delay-1": {
-    animationDelay: "1.4s",
-  },
-  "&.delay-2": {
-    animationDelay: "1.6s",
-  },
-  "&.delay-3": {
-    animationDelay: "1.8s",
-  },
-  "&.delay-4": {
-    animationDelay: "2.0s",
-  },
-  "&.delay-5": {
-    animationDelay: "2.2s",
-  },
-  "&.delay-6": {
-    animationDelay: "2.4s",
-  },
-  "@keyframes grow": {
-    "0%": {
-      opacity: 0,
-      transform: "scale(0)",
-    },
-    "50%": {
-      opacity: 1,
-      transform: "scale(5.3)",
-    },
-    "100%": {
-      opacity: 1,
-      transform: "scale(1)",
-    },
-  },
-  "&:hover": {
-    backgroundColor: `${mainTheme.palette.teal.main} !important`,
-    transition: "background-color 0.2s ease-in-out",
-    transform: "scale(2.9)",
-  },
-});
+
 
 export const AnimatedChip = styled(Chip)(({ theme }) => ({
   position: "relative",
