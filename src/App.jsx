@@ -1,5 +1,5 @@
-import { useEffect, useState, useContext, useReducer } from "react";
-import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import { useImmerReducer} from 'use-immer';
 
 import "./App.css";
@@ -22,9 +22,7 @@ import userService from "./utils/userService";
 import * as skillsApi from "/src/utils/skillApi.js";
 import * as subSkillsApi from "./utils/subSkillApi.js";
 import * as youTubeApi from "./utils/youTubeApi.js";
-import * as chatGPT3Api from "./utils/chatGPT3Api.js";
 import * as resourcesApi from "./utils/resourceApi.js";
-import { createAllSkillsFromList } from "./utils/skillApi";
 
 export default function App() {
   const navigate = useNavigate();
@@ -42,8 +40,6 @@ export default function App() {
       ? await skillsApi.createAllSkillsFromList(testSkillsList) 
       : console.log('prorgammingSkills list is empty')
   }
-
-
 
   function formatDate(timestamp) {
     const date = new Date(timestamp);
@@ -72,7 +68,6 @@ export default function App() {
 
   function handleSetActiveSub(subIndex=0){
     if (skills) {
-      const skillIndex = activeSkill?.index;
       setActiveSub({
         ...activeSub,
         index: subIndex,
