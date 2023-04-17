@@ -28,8 +28,8 @@ function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link color="inherit" href="https:Leys.dev/">
+        www.Leys.dev
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -41,6 +41,7 @@ function Copyright(props) {
 export default function SignUp() {
   const ctx = useContext(SkillsContext)
   const handleSignUpOrLogin = ctx.handleSignUpOrLogin;
+  const navigate = useNavigate()
 
   const [selectedFile, setSelectedFile] = useState("");
   const [error, setError] = useState("");
@@ -53,32 +54,26 @@ export default function SignUp() {
     career: "",
   });
 
-  const navigate = useNavigate()
+
   
   async function handleSubmit(e) {
     e.preventDefault(); 
-
     const formData = new FormData();
     formData.append("photo", selectedFile);
 
     for (let key in state) {
-      console.log(key, "<<<<_KEY")
       formData.append(key, state[key]);
     }
     console.log(formData.forEach((item) => console.log(item)));
+    try {
+      await userService.signup(formData); 
+      handleSignUpOrLogin();
+      navigate('/');
 
-	try {
-		
-		await userService.signup(formData); 
-		
-    handleSignUpOrLogin();
-		navigate('/');
-
-	} catch(err){
-		console.log(err.message, ' this is the error in signup')
-		setError('Check your terminal, there was an error signing up')
-	}
-
+    } catch(err){
+      console.log(err.message, ' this is the error in signup')
+      setError('Check your terminal, there was an error signing up')
+    }
   }
 
   function handleChange(e) {
@@ -89,13 +84,11 @@ export default function SignUp() {
   }
 
   function handleFileInput(e) {
-    console.log("&&&&&&&&&   handlefileInput   &&&&&*&")
-    // e.target.files is an array, we just want the first file uploaded to set in state
     setSelectedFile(e.target.files[0]);
   }
 
   return (
-      <Container component="main" maxWidth="xs" sx={{bgcolor: 'primary.main'}}>
+      <Container component="main" maxWidth="xs" sx={{bgcolor: 'primarySat.light'}}>
         <Box
           sx={{
             marginTop: 8,
@@ -104,10 +97,7 @@ export default function SignUp() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-           
-          </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography mt={5} component="h1" variant="h5">
             Sign up
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
@@ -182,7 +172,7 @@ export default function SignUp() {
             </Grid>
             
             <Button
-              color='secondary'
+              color='primary'
               type="submit"
               fullWidth
               variant="contained"
@@ -190,16 +180,16 @@ export default function SignUp() {
             >
               Sign Up
             </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link onClick={() =>navigate('/login')} variant="body2">
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
+            <Grid container sx={{ backgroundColor: 'blueTeal.dark'}} justifyContent="center" color={'black'}>
+              <Link  component={Button} onClick={() =>navigate('/login')} variant="body2">
+                <Typography component={Button} color={'white'}> 
+                    Already have an account? Sign in
+                </Typography>
+              </Link>
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
+        <Copyright sx={{ my: 5 }} />
       </Container>
   );
 }
