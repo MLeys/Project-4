@@ -26,7 +26,7 @@ const theme = createTheme();
 
 function Copyright(props) {
   return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+    <Typography variant="body2" color="black" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https:Leys.dev/">
         www.Leys.dev
@@ -167,7 +167,8 @@ export default function SignUp() {
                     onChange={handleFileInput}
                   />
                   </FormControl>}
-                label="Upload a photo"
+                label={<Typography width={'100%'} fontSize={'20px'}> Upload a profile Image (optional) </Typography>}
+                labelPlacement='top'
               />
             </Grid>
             
