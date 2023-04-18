@@ -1,13 +1,13 @@
 import { Outlet } from "react-router-dom";
 import { useEffect, useContext} from "react";
-import Container from '@mui/material/Container';
+
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2.js";
 
 import { SkillsContext, SkillsDispatchContext } from '../../context/SkillsContext/SkillsContext.jsx';
 
 import FixedMenuHeader from '../../components/FixedMenuHeader/FixedMenuHeader';
 
-function Layout({ handleLogout }) {
+function Layout() {
   const ctx = useContext(SkillsContext)
   const getSkills = ctx.getSkills;
 

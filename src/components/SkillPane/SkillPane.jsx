@@ -48,61 +48,61 @@ function a11yProps(index) {
 
 function SkillPane() {
   const ctx = useContext(SkillsContext)
-	const subSkills = ctx.activeSkill?.subSkills;
-	const handleSetActiveSub = ctx.handleSetActiveSub;
-	const activeSubIndex = ctx.activeSub?.index;
-	const theme = useTheme();
+  const subSkills = ctx.activeSkill?.subSkills;
+  const handleSetActiveSub = ctx.handleSetActiveSub;
+  const activeSubIndex = ctx.activeSub?.index;
+  const theme = useTheme();
 
-	const [activeTab, setActiveTab] = useState(activeSubIndex);
+  const [activeTab, setActiveTab] = useState(activeSubIndex);
 
   const handleChangeIndex = (index) => {
     setActiveTab(index);
-		handleSetActiveSub(index)
+    handleSetActiveSub(index)
   };
-	
+
   const handleChange = (event, newValue) => {
     setActiveTab(newValue);
-		console.log('CHANGED TAB')
-		const activeIndex = newValue;
-		const activeSubId = subSkills[activeIndex]?._id;
+    console.log('CHANGED TAB')
+    const activeIndex = newValue;
+    const activeSubId = subSkills[activeIndex]?._id;
     const subIndex = subSkills?.findIndex(sub => sub._id === activeSubId);
-    handleSetActiveSub(subIndex)	
+    handleSetActiveSub(subIndex) 
   };
 
-	return (
-		<Box bgcolor={'primary.light'} height={'100dvh'} >
-			<AppBar position="static" sx={{backgroundColor: 'primaryDarker.dark', color: 'primary.contrastText'}}>
-				<Tabs
-					textColor="inherit"
-					indicatorColor="secondary"
-					value={activeSubIndex}
-					onChange={handleChange}
-					variant="scrollable"
-					scrollButtons
-					allowScrollButtonsMobile
-					aria-label="scrollable force subskill tabs"
-				>
-					{subSkills?.map((sub, index) => (
-						<Tab label={sub.title} {...a11yProps({index})} key={`tabKey-${index}`}/>
-					))}
-				</Tabs>
-			</AppBar>
-			<Box bgcolor={'primary.main'} sx={{ display: 'flex', alignItems: 'flex-start', p: 1, mb: 5 }}>
-				<SearchForm />
-			</Box>
-
-				<Box >
-
-
-					{subSkills?.map((sub, index) => (
-					<TabPanel value={activeTab} index={index} key={`panelKey-${index}`} dir={theme.direction}>
-						<SubSkillPane />
-					</TabPanel>
-					))}
-				</Box>
-
-
-	</Box>
-	)
+  return (
+    <Box bgcolor={'tealGray.light'} height={'100vh'}>
+      <AppBar position="static" sx={{width: '100%', backgroundColor: 'primaryDarker.dark', color: 'primary.contrastText'}}>
+        <Tabs
+          textColor="inherit"
+          indicatorColor="primary"
+          value={activeSubIndex}
+          onChange={handleChange}
+          variant="scrollable"
+          scrollButtons
+          allowScrollButtonsMobile
+          aria-label="scrollable force subskill tabs"
+          sx={{width: '100%'}}
+        >
+					<Box width={'100%'}>
+          {subSkills?.map((sub, index) => (
+            <Tab label={sub.title} {...a11yProps({index})} key={`tabKey-${index}`}/>
+          ))}
+					</Box>
+        </Tabs>
+      </AppBar>
+		
+      <Box bgcolor={'primary.main'} sx={{ display: 'flex', alignItems: 'flex-start', p: 1, mb: 5 }}>
+        <SearchForm />
+      </Box>
+      <Box sx={{ flexGrow: 1 }}>
+        {subSkills?.map((sub, index) => (
+        <TabPanel value={activeTab ? activeTab : 0} index={index} key={`panelKey-${index}`} dir={theme.direction}>
+          <SubSkillPane />
+        </TabPanel>
+        ))}
+      </Box>
+    </Box>
+  )
 }
 export default SkillPane;
+

@@ -35,7 +35,6 @@ export default function SkillDrawer({open, toggleDrawer }) {
 
   return (
     <>
-    
     <SwipeableDrawer 
       variant='temporary'
       disableBackdropTransition={!iOS} 
@@ -44,7 +43,7 @@ export default function SkillDrawer({open, toggleDrawer }) {
       anchor={'left'}
       open={open ? open : false}
       transitionDuration={400}
-      hideBackdrop
+      hideBackdrop={true}
       elevation={24}
       onClose={() => toggleDrawer()}
       onOpen={() => toggleDrawer()}
@@ -54,8 +53,13 @@ export default function SkillDrawer({open, toggleDrawer }) {
       }}
       sx={{
         display: { xs: 'block' },
-        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, minHeight: '100%', bgcolor: 'primaryDarker.dark' },
-        zIndex: 1100
+        '& .MuiDrawer-paper': {
+          boxSizing: 'border-box',
+          width: drawerWidth,
+          minHeight: '100%',
+          bgcolor: 'primaryDarker.dark',
+        },
+        zIndex: 1,
       }}
     >
       <Toolbar />
@@ -87,11 +91,8 @@ export default function SkillDrawer({open, toggleDrawer }) {
             
           ))}
         </List>
-
       </Suspense>
-
     </SwipeableDrawer>
     </>
-    
   );
 };

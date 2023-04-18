@@ -22,7 +22,7 @@ import { ListIcon } from "../../customIcons";
 import SkillDrawer from "../SkillDrawer/SkillDrawer";
 
 
-function FixedMenuHeader() {
+function FixedMenuHeader({ children }) {
   const theme = useTheme();
 	const navigate = useNavigate();
 	const ctx = useContext(SkillsContext);
@@ -194,8 +194,9 @@ function FixedMenuHeader() {
         </Toolbar>
       </AppBar>
       <Toolbar />
-      <SkillDrawer open={openSidebar ? openSidebar : false} toggleDrawer={toggleDrawer} />
-	  </Box>
+      <SkillDrawer open={openSidebar ? openSidebar : false} toggleDrawer={toggleDrawer} zIndex={openSidebar ? 1100 : 0} />
+      {children}
+    </Box>
 	);
  }
  

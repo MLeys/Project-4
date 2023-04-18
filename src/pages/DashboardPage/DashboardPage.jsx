@@ -1,39 +1,40 @@
+import React from "react";
 import { useEffect, useContext, useState } from "react";
+import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
+import PropTypes from 'prop-types';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Typography from '@mui/material/Typography';
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import Box from '@mui/material/Box';
+import Toolbar from "@mui/material/Toolbar";
 
-
-import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 import SkillPane from "../../components/SkillPane/SkillPane";
 import VerticalTabs from "../../components/VerticalTabs/VerticalTabs";
+import FixedMenuHeader from "../../components/FixedMenuHeader/FixedMenuHeader";
+
 
 function DashboardPage() {
   const ctx = useContext(SkillsContext);
-  const handleSetActiveSkill = ctx.handleSetActiveSkill;
-  const loadSkills = ctx.loadSkills;
+  const handleSetActiveSkill = ctx.handleSetActiveSkill;0
+  const userId = ctx.loggedUser._id;
   const skills = ctx.skills;
-  const getSkills = ctx.getSkills;
 
-  const [activeIndex, setActiveIndex] = useState(0)
-
-
-  const skillTitlesArray = userSkills?.map((skill) => skill.name)
 
   
   useEffect(() => {
-    handleSetActiveSkill();
-  }, [!skills]); 
-
+ 
+  }, []); 
 
   return (
-    <Grid className='fullScreenHeight' p={.5} bgcolor={'accent.dark'} >
+    <Grid>
       
-      <VerticalTabs  >
-        <SkillPane />
-      </VerticalTabs>
+  
+      <SkillPane />
+   
     </Grid>
-  )
+  );
 }
 
 export default DashboardPage;

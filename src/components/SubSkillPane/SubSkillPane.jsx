@@ -25,22 +25,11 @@ function SubSkillPane() {
 	}, [])
 
 	return (
-		<><Grid container spacing={1}>
-			
-			
-				{resources?.map((resource, index) => (
-					<Grid xs={12} sm={6} lg={4} >
-						<VideoCard key={`resource-${index}`} resource={resource} index={index} />
-					</Grid>
-				))}   
-				
+		<Grid container spacing={1}>
+			{resources?.map((resource, index) => (
+				<VideoCard key={`resource-${index}`} resource={resource} index={index} />
+			))}   
 		</Grid>
-
-		</>
-
-
-    
-
 	)
 }
 export default SubSkillPane;

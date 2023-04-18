@@ -58,11 +58,6 @@ export default function App() {
     handleSetActiveSub();
   }
 
-  function handleSetUserSkills(skillsArray) {
-      const assignedSkills =skillsArray?.filter((skill => skill.usersAssigned.some(u => u._id === user._id)))
-      setUserSkills(assignedSkills)
-  }
-
   function handleSetActiveSub(subIndex=0){
     if (skills) {
       setActiveSub({
