@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import List from '@mui/material/List';
 import TextField from "@mui/material/TextField";
 import Toolbar from "@mui/material/Toolbar";
+import Box from '@mui/material/Box';
 
 
 const SkillsList = lazy(() => import("../SkillsList/SkillsList"));
@@ -62,8 +63,8 @@ export default function SkillDrawer({open, toggleDrawer }) {
         zIndex: 1,
       }}
     >
-
-      <Button sx={{ mt: 1, bgcolor: 'accent.dark', color: "accent.contrastText" }} onClick={toggleDrawer()}>
+      <Toolbar />
+      <Button sx={{ mt: 2, bgcolor: 'accent.dark', color: "accent.contrastText" }} onClick={toggleDrawer()}>
         Close
       </Button>
       <TextField
@@ -93,6 +94,7 @@ export default function SkillDrawer({open, toggleDrawer }) {
         </List>
       </Suspense>
     </SwipeableDrawer>
+    
     </>
   );
 };
