@@ -62,7 +62,7 @@ export default function SkillDrawer({open, toggleDrawer }) {
         zIndex: 1,
       }}
     >
-      <Toolbar />
+
       <Button sx={{ mt: 1, bgcolor: 'accent.dark', color: "accent.contrastText" }} onClick={toggleDrawer()}>
         Close
       </Button>

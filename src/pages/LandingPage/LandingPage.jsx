@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 
 
+
 import CreateSkillDialog from "../../components/CreateSkillDialog/CreateSkillDialog";
 import DisplaySkills from "../../components/DisplaySkills/DisplaySkills";
 import WelcomeSection from "../../components/WelcomeSection/WelcomeSection";
@@ -28,6 +29,7 @@ function LandingPage() {
 
   return (
     <>
+      
       <WelcomeSection />
 
       <section style={{height: '5dvh', width: '100dvw', paddingTop: 10, display: 'flex', justifyContent: 'center'}}>

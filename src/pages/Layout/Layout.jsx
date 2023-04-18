@@ -1,7 +1,8 @@
 import { Outlet } from "react-router-dom";
 import { useEffect, useContext} from "react";
 
-import Grid2 from "@mui/material/Unstable_Grid2/Grid2.js";
+import Grid from "@mui/material/Unstable_Grid2/Grid2.js";
+import Toolbar from '@mui/material/Toolbar';
 
 import { SkillsContext, SkillsDispatchContext } from '../../context/SkillsContext/SkillsContext.jsx';
 
@@ -15,10 +16,13 @@ function Layout() {
   }, []); 
 
   return (
-    <Grid2 container sx={{margin: 0, padding: 0, minHeight: '100dvh'}} bgcolor={'tealGray.light'} >
-      <FixedMenuHeader />
-      <Outlet />
-    </Grid2> 
+    <Grid container  >
+      <Toolbar />
+      <FixedMenuHeader >
+      
+        <Outlet />
+      </FixedMenuHeader>
+    </Grid> 
   )
 }
 

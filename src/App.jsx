@@ -335,7 +335,7 @@ export default function App() {
         }}>
         <SkillsDispatchContext.Provider value={dispatch}>
           <Routes>
-            <Route path="/" element={<Layout handleLogout={handleLogout} />}>
+            <Route path="/" element={<Layout />}>
               <Route index element={<LandingPage />} />
               <Route path="skills/:skillId" element={<SkillPage />} />
               {user ? (

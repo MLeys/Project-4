@@ -29,9 +29,9 @@ function DashboardPage() {
 
   return (
     <Grid>
-      
+      <h1> users dashboard</h1>
   
-      <SkillPane />
+      
    
     </Grid>
   );

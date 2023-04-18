@@ -83,6 +83,7 @@ function FixedMenuHeader({ children }) {
           zIndex: (theme) => theme.zIndex.drawer + 1,
         }}
       >  
+       
         <Toolbar > 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex'} }}>
             <IconButton
@@ -192,10 +193,21 @@ function FixedMenuHeader({ children }) {
             </Menu>
           </Box>
         </Toolbar>
-      </AppBar>
-      <Toolbar />
+      </AppBar>      
       <SkillDrawer open={openSidebar ? openSidebar : false} toggleDrawer={toggleDrawer} zIndex={openSidebar ? 1100 : 0} />
+      <Box
+          component="main"
+          sx={{
+            backgroundColor: 'tealGray.light',
+            flexGrow: 1,
+            minHeight: '100dvh',
+            width: '100dvw',
+            overflow: 'auto',
+          }}
+        >
+         
       {children}
+      </Box>
     </Box>
 	);
  }
