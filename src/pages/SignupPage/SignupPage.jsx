@@ -26,13 +26,12 @@ const theme = createTheme();
 
 function Copyright(props) {
   return (
-    <Typography variant="body2" color="black" align="center" {...props}>
+    <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https:Leys.dev/">
-        www.Leys.dev
+      <Link color="inherit" href="https://leys.dev/">
+        www.Leys.dev 
       </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
+      {2023}
     </Typography>
   );
 }

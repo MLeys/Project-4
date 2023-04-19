@@ -12,12 +12,14 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Unstable_Grid2/Grid2';
+
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
 import useSkillsContext from '../../context/SkillsContext/SkillsContext';
+import WelcomeSection from '../../components/WelcomeSection/WelcomeSection';
 
 import { SkillsContext } from '../../context/SkillsContext/SkillsContext';
 
@@ -25,13 +27,15 @@ function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link color="inherit" href="https://leys.dev/">
+        www.Leys.dev 
       </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
+      {2023}
     </Typography>
   );
+}
+function handleClickForgot() {
+  alert("Sorry! Functionality not currently available :(")
 }
 
 const theme = createTheme();
@@ -45,7 +49,6 @@ export default function LoginPage() {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      
       const data = new FormData(e.currentTarget);
       const credentials = {
         email: data.get('email'),
@@ -69,20 +72,12 @@ export default function LoginPage() {
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid
-          item
           xs={false}
-          sm={4}
+          sm={5}
           md={7}
-          sx={{
-            backgroundImage: 'url(https://source.unsplash.com/random)',
-            backgroundRepeat: 'no-repeat',
-            backgroundColor: (t) =>
-              t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
+          children={<WelcomeSection />}
         />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <Grid item xs={12} sm={7} md={5} component={Paper} elevation={6} square>
           <Box
             sx={{
               my: 8,
@@ -92,9 +87,7 @@ export default function LoginPage() {
               alignItems: 'center',
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-          
-            </Avatar>
+            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }} />
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
@@ -133,12 +126,12 @@ export default function LoginPage() {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="#" variant="body2">
+                  <Link href="#" variant="body2" onClick={handleClickForgot}>
                     Forgot password?
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
+                  <Link href="/signup" variant="body2">
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
