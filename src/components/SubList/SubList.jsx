@@ -43,13 +43,13 @@ export default function SubList() {
   };
 
   function handleIsAssigned(subIndex) {
-    return activeSkill?.subSkills[subIndex]?.usersAssigned?.some((user) => user._id === skillId )
+    return subSkills[subIndex]?.usersAssigned?.some((user) => user._id === skillId )
   }
 
   function handleClickSub(e, sub, subIndex) {
     e.stopPropagation();
     const subId = sub._id;
-    const index = activeSkill?.subSkills?.findIndex((s) => s._id === subId);
+    const index = subSkills?.findIndex((s) => s._id === subId);
     console.log(`Clicked Subskill: ${sub.title} at ${index}`);
     setSelectedIndex(subIndex);
     handleSetActiveSub(index);
@@ -57,7 +57,7 @@ export default function SubList() {
 
   return (
     <List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'blueGrayLight.light' }}>
-      {activeSkill?.subSkills?.map((sub, subIndex) => {
+      {subSkills?.map((sub, subIndex) => {
         const labelId = `checkbox-list-label-${subIndex}`;
 
         return (

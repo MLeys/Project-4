@@ -14,7 +14,6 @@ import LandingPage from "./pages/LandingPage/LandingPage";
 import SignUpPage from "./pages/SignupPage/SignupPage";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
-import SkillDetailsPage from "./pages/SkillDetailsPage/SkillDetailsPage.jsx";
 
 import userService from "./utils/userService";
 import * as skillsApi from "./utils/skillApi.js";

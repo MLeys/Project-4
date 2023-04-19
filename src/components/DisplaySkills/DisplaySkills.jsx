@@ -11,18 +11,14 @@ function DisplaySkills() {
   const skills = ctx.skills;
 
   return ( 
-    
-      skills?.map((skill, index) => (
-        
-          <Grid xs={12} key={`skillCard-${index}`} display="flex" justifyContent="center" alignItems="center" >
-            <Suspense fallback={'LOADING'}>
-              <SkillCard2 skill={skill} index={index} />
-            </Suspense>
-
-          </Grid>
-        ))
-
-   );
+    skills?.map((skill, index) => (
+      <Grid xs={12} key={`skillCard-${index}`} display="flex" justifyContent="center" alignItems="center" >
+        <Suspense fallback={'LOADING'}>
+          <SkillCard2 skill={skill} index={index} />
+        </Suspense>
+      </Grid>
+    ))
+  );
 }
 
 export default DisplaySkills;

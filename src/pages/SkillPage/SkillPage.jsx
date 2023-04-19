@@ -1,5 +1,5 @@
 import React from 'react';
-import './SkillPage.css'
+
 
 import mainTheme from "../../themes/mainTheme";
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
@@ -14,7 +14,7 @@ import Toolbar from '@mui/material/Toolbar';
 
 import VideoCard from "../../components/VideoCard/VideoCard";
 import PageDrawer from "../../components/PageDrawer/PageDrawer";
-
+import SubTable from '../../components/SubTable/SubTable';
 
 function SkillPage() {
   const ctx = useContext(SkillsContext);
@@ -46,21 +46,16 @@ function SkillPage() {
 
   return ( 
     <PageDrawer >
-      <Box mx={0} p={0}>      
-        <Paper elevation={12} sx={{ mt: 1, mb: 2}} >
-          <Typography variant="h4" component="h4"  p={1}>
-            {skill?.subSkills[activeSubIndex]?.title}
-          </Typography>
-        </Paper>
-        <Box sx={{ flexGrow: 1 }}>
-
-        </Box>
+      <Box sx={{ flexGrow: 1 }}>
+        INSERT GRAPH OF ALL SKILLS ASSIGNED TO USER
+        <SubTable />
       </Box>
-
+      <Box component={Paper} elevation={12}  mx={0} p={0}>      
+        <Typography variant="h4" component="h4"  p={1}>
+          {skill?.subSkills[activeSubIndex]?.title}
+        </Typography>
+      </Box>
     </PageDrawer>
-
-
-
   );
 }
 export default SkillPage;
