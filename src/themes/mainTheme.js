@@ -67,10 +67,46 @@ const mainTheme = createTheme({
       dark: '#006666',
       contrastText: '#000000',
     },
+    tealGrayLight: {
+      light: '#d1e0e0',
+      main: '#b3cccc',
+      dark: '#85adad',
+      contrastText: '#000000',
+    },
+    blueGrayLight: {
+      light: '#9cbdbd',
+      main: '#336680',
+      dark: '#144770',
+      contrastText: '#000000',
+    },
+    blueTealGray: {
+      light: '#9cbdbd',
+      main: '#6d96a2',
+      dark: '#528092',
+      contrastText: '#000000',
+    },
     blueTeal: {
       light: '#008a91',
       main: '#006680',
       dark: '#003d6b',
+      contrastText: '#FFFFFF',
+    },
+    blueTealDark: {
+      light: '#009496',
+      main: '#007085',
+      dark: '#004770',
+      contrastText: '#FFFFFF',
+    },
+    blueTealLight: {
+      light: '#2ec7cc',
+      main: '#1cb5cc',
+      dark: '#0da6cc',
+      contrastText: '#FFFFFF',
+    },
+    blueTealBright: {
+      light: '#0af5cc',
+      main: '#1ce3cc',
+      dark: '#33cccc',
       contrastText: '#FFFFFF',
     },
     
