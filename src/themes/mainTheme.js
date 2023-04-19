@@ -73,10 +73,34 @@ const mainTheme = createTheme({
       dark: '#85adad',
       contrastText: '#000000',
     },
+    blue: {
+      light: '#0099cc',
+      main: '#0a709e',
+      dark: '#134b75',
+      contrastText: '#000000',
+    },
+    blue2: {
+      light: '#144770',
+      main: '#079dcd',
+      dark: '#00ccff',
+      contrastText: '#000000',
+    },
+    blueGray: {
+      light: '#6d747c',
+      main: '#4d6176',
+      dark: '#264a6e',
+      contrastText: '#000000',
+    },
     blueGrayLight: {
       light: '#9cbdbd',
       main: '#336680',
       dark: '#144770',
+      contrastText: '#000000',
+    },
+    blueGrayLight2: {
+      light: '#ced3d6',
+      main: '#aec2cc',
+      dark: '#8db1c3',
       contrastText: '#000000',
     },
     blueTealGray: {

@@ -54,7 +54,7 @@ export default function PageDrawer({children}) {
     <Box sx={{ display: 'flex'}} >
       <AppBar position='fixed' sx={{pt: 1}} open={open ? open : false}>
         <Toolbar />
-        <Toolbar >
+        <Toolbar sx={{bgcolor: 'blueGrayLight.main'}}>
           <IconButton
             color="inherit"
             aria-label="open skills"
