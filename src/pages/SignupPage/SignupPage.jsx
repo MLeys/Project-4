@@ -4,29 +4,25 @@ import { useNavigate } from "react-router-dom";
 
 import userService from "../../utils/userService";
 
-
 import Input from '@mui/material/Input';
 import FormControl from '@mui/material/FormControl';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 
 import { SkillsContext } from '../../context/SkillsContext/SkillsContext';
-const theme = createTheme();
+
 
 
 function Copyright(props) {
   return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+    <Typography variant="body2" color="black" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https://leys.dev/">
         www.Leys.dev 
@@ -147,7 +143,7 @@ export default function SignUp() {
                   value={state.passwordConf}
                   label="Confirm Password"
                   type="password"
-                  id="password"
+                  id="passwordConf"
                   placeholder="Confirm Password"
                   onChange={handleChange}
                 />
@@ -180,13 +176,13 @@ export default function SignUp() {
             >
               Sign Up
             </Button>
-            <Grid container sx={{ backgroundColor: 'blueTeal.dark'}} justifyContent="center" color={'black'}>
+   
               <Link  component={Button} onClick={() =>navigate('/login')} variant="body2">
-                <Typography component={Button} color={'white'}> 
+                <Typography color={'black'}> 
                     Already have an account? Sign in
                 </Typography>
               </Link>
-            </Grid>
+
           </Box>
         </Box>
         <Copyright sx={{ my: 5 }} />

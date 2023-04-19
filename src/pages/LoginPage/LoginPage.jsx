@@ -17,8 +17,6 @@ import Grid from '@mui/material/Unstable_Grid2/Grid2';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-
-import useSkillsContext from '../../context/SkillsContext/SkillsContext';
 import WelcomeSection from '../../components/WelcomeSection/WelcomeSection';
 
 import { SkillsContext } from '../../context/SkillsContext/SkillsContext';
@@ -77,7 +75,7 @@ export default function LoginPage() {
           md={7}
           children={<WelcomeSection />}
         />
-        <Grid item xs={12} sm={7} md={5} component={Paper} elevation={6} square>
+        <Grid xs={12} sm={7} md={5} component={Paper} elevation={6} square>
           <Box
             sx={{
               my: 8,
