@@ -33,9 +33,10 @@ export default function App() {
     
 
   async function onStartUploadAllSkillsFromList() {
-    (testSkillsList) 
-      ? await skillsApi.createAllSkillsFromList(testSkillsList) 
-      : console.log('prorgammingSkills list is empty')
+    // (testSkillsList) 
+    //   ? await skillsApi.createAllSkillsFromList(testSkillsList) 
+    //   : console.log('prorgammingSkills list is empty')
+    console.log("Loading initial Skills?")
   }
 
   function formatDate(timestamp) {
