@@ -19,7 +19,6 @@ function Layout() {
     <Grid container  >
       <Toolbar />
       <FixedMenuHeader >
-      
         <Outlet />
       </FixedMenuHeader>
     </Grid> 

@@ -205,7 +205,6 @@ function FixedMenuHeader({ children }) {
             overflow: 'auto',
           }}
         >
-         
       {children}
       </Box>
     </Box>
