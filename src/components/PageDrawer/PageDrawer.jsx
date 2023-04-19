@@ -37,14 +37,9 @@ export default function PageDrawer({children}) {
   const [checked, setChecked] = useState(false);
 
   function handleAssignChecked(e) {
-    console.log(`checkedassign ${e.data} < -event \nchecked: ${checked}\n isAssigned: ${isSkillAssigned}`)
     checked ? handleUnAssignSkill(skillId) : handleAssignSkill(skillId);
     isSkillAssigned === true ? setChecked(true) : setChecked(false) 
     setChecked(!checked);
-  };
-
-  function handleDrawerOpen() {
-    setOpen(true);
   };
 
   function handleDrawerClose() {
@@ -55,44 +50,36 @@ export default function PageDrawer({children}) {
     setOpen(!open);
   }
 
-  function checkAssignStatus() {
-    isSkillAssigned ? setChecked(isSkillAssigned) : setChecked(false);
-    
-  }
-
-  useEffect(() => {
-    checkAssignStatus();
-  }, [!isSkillAssigned]); 
-
   return (
-    <Box sx={{ display: 'flex' }} bgcolor={'grey'} m={0} p={0}>
-      <AppBar position="absolute"  open={open ? open : false}>
+    <Box sx={{ m: 0, p: 0, display: 'flex', flexGrow: 1 }} >
+      <Toolbar />
+      <AppBar position='fixed' sx={{pt: 0, my: 1}} open={open ? open : false}>
         <Toolbar />
-        <PageHeader >
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={() => toggleDrawer()}
-            >
-            {open ? <ArrowLeftIcon /> : <ListIcon />}
-            </IconButton>
-            <Typography variant="h2" noWrap component="h3" pl={5} fontWeight={900}>
-              {activeSkill?.skill.name}
-            </Typography>
+     
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open skills"
+            onClick={() => toggleDrawer()}
+          >
+          {open ? <ArrowLeftIcon /> : <ListIcon height={34} width={34}/>}
+          </IconButton>
 
-            <FormControlLabel 
-              label="Learn" 
-              control={
-                <Switch
-                  checked={checked}
-                  onChange={handleAssignChecked}
-                  inputProps={{ 'aria-label': 'controlled' }}
-                />
-              } 
-            />
-          </Toolbar>
-        </PageHeader>
+          <Typography align='left' variant="h4" noWrap component="div" pl={2} sx={{ flexGrow: 1 }}>
+            {activeSkill?.skill.name}
+          </Typography>
+
+          <FormControlLabel 
+            label="Learn" 
+            control={
+              <Switch
+                checked={checked}
+                onChange={handleAssignChecked}
+                inputProps={{ 'aria-label': 'controlled' }}
+              />
+            } 
+          />
+        </Toolbar>
       </AppBar>
 
       <Drawer
@@ -122,6 +109,7 @@ export default function PageDrawer({children}) {
       
       <Main open={open ? open : false } >
         <Toolbar />
+        
         {children}
       </Main>
     </Box>

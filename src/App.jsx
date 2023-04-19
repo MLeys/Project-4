@@ -339,7 +339,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<LandingPage />} />
-              <Route path="skills/:skillId" element={<SkillDetailsPage />} />
+              <Route path="skills/:skillId" element={<SkillPage />} />
               {user ? (
                 <Route path="/:username" element={<DashboardPage />} />
               ) : null}
