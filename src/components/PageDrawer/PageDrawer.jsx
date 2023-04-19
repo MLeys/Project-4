@@ -16,7 +16,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 
 import { ListIcon, ArrowLeftIcon, BoxArrowRightIcon } from '../../customIcons';
-import { AppBar, Main, PageHeader, DrawerHeader } from './Components';
+import { AppBar, Main, DrawerHeader } from './Components';
 
 import SubList from "../../components/SubList/SubList";
 
@@ -52,11 +52,9 @@ export default function PageDrawer({children}) {
 
   return (
     <Box sx={{ display: 'flex'}} >
-      
       <AppBar position='fixed' sx={{pt: 1}} open={open ? open : false}>
         <Toolbar />
-     
-        <Toolbar disableGutter >
+        <Toolbar >
           <IconButton
             color="inherit"
             aria-label="open skills"
@@ -100,8 +98,6 @@ export default function PageDrawer({children}) {
       </Drawer>
       
       <Main open={open ? open : false } sx={{my: 1}}>
-        
-        
         {children}
       </Main>
     </Box>

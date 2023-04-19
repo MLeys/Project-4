@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import mainTheme from '../../themes/mainTheme';
 
 import { styled } from '@mui/material/styles';
@@ -45,7 +45,7 @@ export const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-export const DrawerHeader = styled('Box')(({ theme }) => ({
+export const DrawerHeader = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   padding: theme.spacing(0, 0),
@@ -61,9 +61,3 @@ export const MainTitle = styled(Typography)({
 });
 
 
-export const PageHeader = ({title, children}) => (
-  <Box component={Paper} display={'flex-start'} elevation={12} sx={{backgroundColor: mainTheme.palette.primaryDarker.light}}>
-    <MainTitle className="firstSlideIn" variant="h2">{title}</MainTitle>
-    {children}
-  </Box>
-)

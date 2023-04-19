@@ -1,5 +1,6 @@
-import React from "react";
+import React from 'react';
 import './SkillPage.css'
+
 import mainTheme from "../../themes/mainTheme";
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 import { useState, useEffect, useContext } from "react";
@@ -34,13 +35,17 @@ function SkillPage() {
   }
 
   useEffect(() => {
-    handleSetActiveSkillById(skillId)
-    setSkill(skills?.find(skill => skill?._id === skillId))
+    
+    if ( skills) { 
+      handleSetActiveSkillById(skillId)
+      setSkill(skills?.find(skill => skill?._id === skillId)) 
+    }
+    
   
-  }, [skill, skills]); 
+  }, [skills]); 
 
   return ( 
-    <PageDrawer key={skill?._id}>
+    <PageDrawer >
       <Toolbar />
       <Box mx={0} p={0}>      
         <Paper elevation={12} sx={{ m: 0,p: 0}} >
