@@ -9,6 +9,7 @@ import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import Toolbar from '@mui/material/Toolbar';
 
 import VideoCard from "../../components/VideoCard/VideoCard";
 import PageDrawer from "../../components/PageDrawer/PageDrawer";
@@ -22,13 +23,10 @@ function SkillPage() {
   const handleSetActiveSkillById = ctx.handleSetActiveSkillById;
   const activeSkill = ctx.activeSkill;
   const skillId = useParams().skillId;
-  const skill = skillId ? skills?.find(skill => skill?._id === skillId) : console.log('skill param not found');
+  const pageSkill = skillId ? skills?.find(skill => skill?._id === skillId) : console.log('skill param not found');
   const activeSubIndex = ctx.activeSub?.index;
 
- 
-  function handleClickSub(index) {
-    handleSetActiveSub(index);
-  }
+  const [skill, setSkill] = useState(pageSkill);
 
   async function ifActiveSkills() {
     await getSkills();
@@ -36,14 +34,17 @@ function SkillPage() {
   }
 
   useEffect(() => {
-    ifActiveSkills();
-  }, [!skills]); 
+    handleSetActiveSkillById(skillId)
+    setSkill(skills?.find(skill => skill?._id === skillId))
+  
+  }, [skill, skills]); 
 
   return ( 
     <PageDrawer key={skill?._id}>
-      <Box mx={1}>      
-        <Paper elevation={12} sx={{my: 2}} >
-          <Typography variant="h4" component="h4"  p={2}>
+      <Toolbar />
+      <Box mx={0} p={0}>      
+        <Paper elevation={12} sx={{ m: 0,p: 0}} >
+          <Typography variant="h4" component="h4"  p={0}>
             {skill?.subSkills[activeSubIndex]?.title}
           </Typography>
         </Paper>

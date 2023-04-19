@@ -51,33 +51,25 @@ export default function PageDrawer({children}) {
   }
 
   return (
-    <Box sx={{ m: 0, p: 0, display: 'flex', flexGrow: 1 }} >
-      <Toolbar />
-      <AppBar position='fixed' sx={{pt: 0, my: 1}} open={open ? open : false}>
+    <Box sx={{ display: 'flex'}} >
+      
+      <AppBar position='fixed' sx={{pt: 1}} open={open ? open : false}>
         <Toolbar />
      
-        <Toolbar>
+        <Toolbar disableGutter >
           <IconButton
             color="inherit"
             aria-label="open skills"
             onClick={() => toggleDrawer()}
           >
-          {open ? <ArrowLeftIcon /> : <ListIcon height={34} width={34}/>}
+            {open ? <ArrowLeftIcon /> : <ListIcon height={34} width={34}/>}
           </IconButton>
-
-          <Typography align='left' variant="h4" noWrap component="div" pl={2} sx={{ flexGrow: 1 }}>
+          <Typography align='left' variant="h5" noWrap component="div" pl={1} sx={{ flexGrow: 1 }}>
             {activeSkill?.skill.name}
           </Typography>
-
           <FormControlLabel 
             label="Learn" 
-            control={
-              <Switch
-                checked={checked}
-                onChange={handleAssignChecked}
-                inputProps={{ 'aria-label': 'controlled' }}
-              />
-            } 
+            control={ <Switch checked={checked} onChange={handleAssignChecked}/> } 
           />
         </Toolbar>
       </AppBar>
@@ -107,8 +99,8 @@ export default function PageDrawer({children}) {
         <Divider />
       </Drawer>
       
-      <Main open={open ? open : false } >
-        <Toolbar />
+      <Main open={open ? open : false } sx={{my: 1}}>
+        
         
         {children}
       </Main>
