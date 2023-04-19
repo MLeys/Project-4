@@ -3,12 +3,14 @@ import React from "react";
 import { useEffect, useContext, useState } from "react";
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 import mainTheme from "../../themes/mainTheme";
-
 import { styled } from '@mui/material/styles';
+
+import Link from "@mui/material/Link";
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
+import CardActionArea from "@mui/material/CardActionArea";
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
@@ -39,6 +41,8 @@ const ExpandMore = styled((props) => {
 function SkillCard3({skill}) {
   const ctx = useContext(SkillsContext);
   const userId = ctx.loggedUser?._id;
+  const skillId = skill._id;
+  const isAssigned = skill?.usersAssigned?.some((user) => user._id === userId);
 
   const [expanded, setExpanded] = useState(false);
 
@@ -47,8 +51,8 @@ function SkillCard3({skill}) {
   };
 
   useEffect(() => {
- 
-  }, []); 
+    
+  }, [skill]); 
 
   return (
     <Card 
@@ -61,28 +65,30 @@ function SkillCard3({skill}) {
         flexDirection: 'column', 
       }} 
     >
-      <CardHeader
-        avatar={ 
-          <ProgressRing value={50} aria-label="skill-progress" /> 
-        }
-        action={
-          <IconButton aria-label="Learn">
-            {(skill?.usersAssigned?.some((user) => user._id === userId)) ? <BookFilledIcon /> : <BookOutlineIcon />}
-          </IconButton>
-        }
-        title={skill.name}
-        titleTypographyProps={{ variant: 'h5'}}
-      />
+      <CardActionArea href={`skills/${skillId}`} >
+        <CardHeader
+          avatar={ 
+            (userId) ?  <ProgressRing value={50} aria-label="skill-progress" /> : <VertDotsIcon />
+          }
+          action={
+            
+              (isAssigned) ? <BookFilledIcon /> : <BookOutlineIcon />
+            
+          }
+          title={skill.name}
+          titleTypographyProps={{ variant: 'h5'}}
+        />
+
+      </CardActionArea>
+
       <Box sx={{ flexGrow: 1 }}>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
             <div>
             {skill?.subSkills?.map((sub, index) => (
               <li key={`subListItem-${index}`}>{sub.title} - {index}</li>
-              
             ))}
             </div>
-
           </CardContent>
         </Collapse>
       </Box>
@@ -94,6 +100,8 @@ function SkillCard3({skill}) {
           width: '100%',
           display: 'flex',
           justifyContent: 'center',
+          p: 0,
+          m: 0,
         }}
       >
         <Typography>Learning X of X Subskills</Typography>
