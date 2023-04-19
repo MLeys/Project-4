@@ -48,7 +48,7 @@ function SkillPage() {
     <PageDrawer >
       <Box mx={0} p={0}>      
         <Paper elevation={12} sx={{ mt: 1, mb: 2}} >
-          <Typography variant="h4" component="h4"  p={0}>
+          <Typography variant="h4" component="h4"  p={1}>
             {skill?.subSkills[activeSubIndex]?.title}
           </Typography>
         </Paper>

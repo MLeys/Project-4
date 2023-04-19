@@ -21,13 +21,15 @@ export default function SubList() {
   const skills = ctx.skills;
   const activeSkill = ctx.activeSkill;
   const skillId = ctx.activeSkill?._id;
+  const handleSetActiveSub = ctx.handleSetActiveSub;
+  const subSkills = ctx.activeSkill?.subSkills;
 
   const handleSetActiveSkillById = ctx.handleSetActiveSkillById;
 
-  
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const [checked, setChecked] = useState([0]);
 
-  const handleToggle = (subIndex) => () => {
+  function handleToggle(subIndex) {
     const currentIndex = checked.indexOf(subIndex);
     const newChecked = [...checked];
     console.log(checked, " <---- checked")
@@ -37,7 +39,6 @@ export default function SubList() {
     } else {
       newChecked.splice(currentIndex, 1);
     }
-
     setChecked(newChecked);
   };
 
@@ -45,6 +46,14 @@ export default function SubList() {
     return activeSkill?.subSkills[subIndex]?.usersAssigned?.some((user) => user._id === skillId )
   }
 
+  function handleClickSub(e, sub, subIndex) {
+    e.stopPropagation();
+    const subId = sub._id;
+    const index = activeSkill?.subSkills?.findIndex((s) => s._id === subId);
+    console.log(`Clicked Subskill: ${sub.title} at ${index}`);
+    setSelectedIndex(subIndex);
+    handleSetActiveSub(index);
+  }
 
   return (
     <List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'blueGrayLight.light' }}>
@@ -54,18 +63,34 @@ export default function SubList() {
         return (
           <ListItem
             key={`subListItem-${subIndex}`}
+            
             secondaryAction={
               <Checkbox
                 edge="end"
-                onChange={handleToggle(subIndex)}
+                onChange={() => handleToggle(subIndex)}
                 checked={handleIsAssigned(subIndex)}
                 inputProps={{ 'aria-labelledby': labelId }}
                 />
             }
             disablePadding
           >
-            <ListItemButton>
-              <ListItemText id={labelId} primary={`${sub.title} ${subIndex + 1}`} />
+            <ListItemButton 
+              onClick={(e) => handleClickSub(e,sub, subIndex)}
+              selected={selectedIndex === subIndex}
+              sx={{
+                backgroundColor: selectedIndex === subIndex ? 'primary.main' : 'transparent',
+                '&:hover': {
+                  backgroundColor: 'primary.light',
+                },
+                '&.Mui-selected': {
+                  backgroundColor: 'primary.main',
+                  '&:hover': {
+                    backgroundColor: 'primary.dark',
+                  },
+                },
+              }}
+            >
+              <ListItemText id={labelId} primary={`${sub.title} ${subIndex}`} />
             </ListItemButton>
             <Divider />
           </ListItem>

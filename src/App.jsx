@@ -68,7 +68,7 @@ export default function App() {
         subSkill: activeSkill?.subSkills[subIndex],
         resources: activeSkill?.subSkills[subIndex]?.resources
       });
-      console.log(`ActiveSub: ${activeSkill?.subSkills[subIndex]} index: ${subIndex} ${activeSkill?.subSkills.length}`)
+      console.log(`ActiveSub: ${activeSkill?.subSkills[subIndex].title} at index: ${subIndex} `)
 
     }
 
