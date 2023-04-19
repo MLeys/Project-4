@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
+
 
 import { SkillsContext } from '../../context/SkillsContext/SkillsContext';
 
@@ -10,14 +11,20 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
-
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+import Divider from '@mui/material/Divider';
 import { VertDotsIcon } from '../../customIcons';
 
 export default function SubList() {
   const ctx = useContext(SkillsContext);
+  const skills = ctx.skills;
   const activeSkill = ctx.activeSkill;
-  
+  const skillId = ctx.activeSkill?._id;
 
+  const handleSetActiveSkillById = ctx.handleSetActiveSkillById;
+
+  
   const [checked, setChecked] = useState([0]);
 
   const handleToggle = (subIndex) => () => {
@@ -34,33 +41,33 @@ export default function SubList() {
     setChecked(newChecked);
   };
 
+  function handleIsAssigned(subIndex) {
+    return activeSkill?.subSkills[subIndex]?.usersAssigned?.some((user) => user._id === skillId )
+  }
+
+
   return (
-    <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-      {activeSkill?.subSkills?.map((value, subIndex) => {
+    <List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'blueGrayLight.light' }}>
+      {activeSkill?.subSkills?.map((sub, subIndex) => {
         const labelId = `checkbox-list-label-${subIndex}`;
 
         return (
           <ListItem
             key={`subListItem-${subIndex}`}
             secondaryAction={
-              <IconButton edge="end" aria-label="comments">
-                <VertDotsIcon />
-              </IconButton>
+              <Checkbox
+                edge="end"
+                onChange={handleToggle(subIndex)}
+                checked={handleIsAssigned(subIndex)}
+                inputProps={{ 'aria-labelledby': labelId }}
+                />
             }
             disablePadding
           >
-            <ListItemButton role={undefined} onClick={handleToggle(subIndex)} dense>
-              <ListItemIcon>
-                <Checkbox
-                  edge="start"
-                  checked={checked.indexOf(subIndex) !== -1}
-                  tabIndex={-1}
-                  disableRipple
-                  inputProps={{ 'aria-labelledby': labelId }}
-                />
-              </ListItemIcon>
-              <ListItemText id={labelId} primary={`${value.title}`} />
+            <ListItemButton>
+              <ListItemText id={labelId} primary={`${sub.title} ${subIndex + 1}`} />
             </ListItemButton>
+            <Divider />
           </ListItem>
         );
       })}

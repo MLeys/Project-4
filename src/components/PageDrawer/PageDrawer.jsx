@@ -79,7 +79,7 @@ export default function PageDrawer({children}) {
           '& .MuiDrawer-paper': {
             width: drawerWidth,
             boxSizing: 'border-box',
-            bgcolor: 'primary.main'
+            bgcolor: 'blueGrayLight2.main'
           },
         }}
         variant="persistent"
@@ -87,17 +87,31 @@ export default function PageDrawer({children}) {
         open={open ? open : false}
       >
         <Toolbar />
-        <DrawerHeader sx={{color: 'white', justifyContent: 'center', bgcolor: 'primary.dark'}} >
-          <IconButton onClick={handleDrawerClose} >
-            {theme.direction === 'ltr' ? <ArrowLeftIcon sx={{color: 'white'}} /> : <BoxArrowRightIcon sx={{color: 'white'}}/>}
-            <Typography fontSize={'20px'} fontWeight={800} color={'white'} > Subskills</Typography>
+        <DrawerHeader 
+          sx={{
+            color: 'white', 
+            justifyContent: 'space-between', 
+            bgcolor: 'blueGrayLight.dark',
+            display: 'flex',
+            alignItems: 'center',
+            padding: 1,
+          }} 
+        >
+          <Typography mt={1} fontSize={'20px'} fontWeight={800} color={'white'} >
+            Subskills
+          </Typography>
+
+          <IconButton onClick={handleDrawerClose} sx={{ display: 'flex', flexFlow: 1}}>
+            <i className="bi bi-arrow-left-square-fill" style={{color: 'white'}}></i>
           </IconButton>
         </DrawerHeader>
+
         <SubList />
         <Divider />
       </Drawer>
       
       <Main open={open ? open : false } sx={{my: 1}}>
+        <DrawerHeader />
         {children}
       </Main>
     </Box>

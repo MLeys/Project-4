@@ -78,7 +78,7 @@ function FixedMenuHeader({ children }) {
 		  <AppBar 
         position="fixed"
         sx={{ 
-          backgroundColor: mainTheme.palette.blueGray.dark, 
+          backgroundColor: mainTheme.palette.blueGrayLight.dark, 
           color: mainTheme.palette.primary.contrastText,
           zIndex: (theme) => theme.zIndex.drawer + 1,
         }}

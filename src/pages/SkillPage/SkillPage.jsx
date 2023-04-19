@@ -46,21 +46,14 @@ function SkillPage() {
 
   return ( 
     <PageDrawer >
-      <Toolbar />
       <Box mx={0} p={0}>      
-        <Paper elevation={12} sx={{ m: 0,p: 0}} >
+        <Paper elevation={12} sx={{ mt: 1, mb: 2}} >
           <Typography variant="h4" component="h4"  p={0}>
             {skill?.subSkills[activeSubIndex]?.title}
           </Typography>
         </Paper>
         <Box sx={{ flexGrow: 1 }}>
-          {skill?.subSkills[activeSubIndex]?.resources?.map((resource, index) => (
-            <Grid xs={12} md={6} lg={4} key={`resource-${index}`} >
-              <VideoCard key={`resource-${index}`} resource={resource} index={index} >
-                <Typography alignContent={'flex-end'}>Added: {resource.createdAt}</Typography>
-              </VideoCard>
-            </Grid>
-          ))}   
+
         </Box>
       </Box>
 
@@ -71,3 +64,10 @@ function SkillPage() {
   );
 }
 export default SkillPage;
+          {/* {skill?.subSkills[activeSubIndex]?.resources?.map((resource, index) => (
+            <Grid xs={12} md={6} lg={4} key={`resource-${index}`} >
+              <VideoCard key={`resource-${index}`} resource={resource} index={index} >
+                <Typography alignContent={'flex-end'}>Added: {resource.createdAt}</Typography>
+              </VideoCard>
+            </Grid>
+          ))}    */}
