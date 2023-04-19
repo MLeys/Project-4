@@ -9,8 +9,6 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 
-import { styled } from '@mui/material/styles';
-
 import SkillCard3 from "../../components/SkillCard3/SkillCard3";
 
 function DashboardPage() {
@@ -32,7 +30,7 @@ function DashboardPage() {
           {/* End hero unit */}
           <Grid container spacing={2} >
             {skills?.map((skill, index) => (
-              <Grid item key={`skillCard-${index}`} xs={12} sm={6} md={4}>
+              <Grid key={`skillCard-${index}`} xs={12} sm={6} md={4}>
                 <SkillCard3 skill={skill} />
               </Grid>
             ))}
