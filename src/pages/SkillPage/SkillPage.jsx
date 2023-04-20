@@ -98,7 +98,7 @@ function SkillPage() {
         </Grid>
 
         <Grid container spacing={1}  flexGrow={1}>
-          <Grid xs={12} my={1}  elevation={12} mx={0} p={0}>      
+          <Grid xs={12} my={1} component={Card} bgcolor={'blueGray.main'} color={'white'} elevation={12} mx={0} p={0}>      
             <Typography variant="h4" component="h4"  p={0}>
               {activeSub?.subSkill?.title}
             </Typography>
