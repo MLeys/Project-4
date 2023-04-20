@@ -35,6 +35,7 @@ export default function PageDrawer({children}) {
 
   const [open, setOpen] = useState(false);
   const [checked, setChecked] = useState(false);
+  const [activeTabSub, setActiveTabSub] = useState(activeSkill?.subSkills[0])
 
   function handleAssignChecked(e) {
     checked ? handleUnAssignSkill(skillId) : handleAssignSkill(skillId);
@@ -107,13 +108,13 @@ export default function PageDrawer({children}) {
           </IconButton>
         </DrawerHeader>
 
-        <SubList />
+        <SubList setActiveTabSub={setActiveTabSub} />
         <Divider />
       </Drawer>
       <Main open={open ? open : false} sx={{width: '100dvw', mt: 2}}>
-        <Box m={1}>
+        
           {children}
-        </Box>
+        
       </Main>
     </Box>
   );

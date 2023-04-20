@@ -12,6 +12,7 @@ export default function LinearProgressWithLabel(props) {
       justifyContent="center"
       alignItems="center"
       spacing={0}
+      width={props.width ? props.width : '100%'}
     >
       <Box width={'60%'}>
         <Typography m={0} p={0} noWrap>{props.title}</Typography>

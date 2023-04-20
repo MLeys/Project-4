@@ -37,6 +37,7 @@ function SkillPage() {
   const handleSetActiveSub = ctx.handleSetActiveSub;
   const handleSetActiveSkillById = ctx.handleSetActiveSkillById;
   const activeSkill = ctx.activeSkill;
+  const activeSub = ctx.activeSub;
   const skillId = useParams().skillId;
   const pageSkill = skillId ? skills?.find(skill => skill?._id === skillId) : console.log('skill param not found');
   const activeSubIndex = ctx.activeSub?.index;
@@ -45,6 +46,7 @@ function SkillPage() {
 
   const [skill, setSkill] = useState(pageSkill);
   const [subSkills, setSubSkills] = useState([]);
+  
 
 
 
@@ -61,20 +63,34 @@ function SkillPage() {
   console.log(subSkills, 'subskills')
   return ( 
     <PageDrawer >
-      <Box sx={{ flexGrow: 1 }}>
-        <Card sx={{ bgcolor: 'blueGrayLight2.light', my: 1}}>
-          {subSkills?.map((sub, index) => (
-            <Box key={`subProg-${index}`} >
-              <LinearProgressWithLabel height={10} key={`subProg-${index}`} title={sub.title} value={35} />
-              <Divider />
-            </Box>
-          ))}     
-        </Card>
+      <Box bgcolor={'red'} sx={{zIndex:500, bgcolor:'blue', display:'flex', width: '100%', justifyContent: 'space-evenly', alignItems: 'center' }}>
+        
+        <Box sx={{ flexGrow: 1 }}>
+          <Card sx={{ bgcolor: 'blueGrayLight2.light', my: 1, pl: 1, maxWidth: 350, textAlign: 'left'}}>
+            {subSkills?.map((sub, index) => (
+              <Box key={`subProg-${index}`} >
+                <LinearProgressWithLabel height={10} key={`subProg-${index}`} title={sub.title} value={35} />
+                <Divider />
+              </Box>
+            ))}     
+          </Card>
+        </Box>
+        <Box sx={{ flexGrow: 1 }}>
+          <Card sx={{ bgcolor: 'blueGrayLight2.light', my: 1, pl: 1, maxWidth: 350, textAlign: 'left'}}>
+            {subSkills?.map((sub, index) => (
+              <Box key={`subProg-${index}`} >
+                <LinearProgressWithLabel height={10} key={`subProg-${index}`} title={sub.title} value={35} />
+                <Divider />
+              </Box>
+            ))}     
+          </Card>
+        </Box>
       </Box>
+
       <Grid container >
         <Grid component={Card} xs={12} elevation={12}  mx={0} p={0}>      
           <Typography variant="h4" component="h4"  p={1}>
-            {skill?.subSkills[activeSubIndex]?.title}
+            {activeSub?.title}
           </Typography>
         </Grid>
         <Grid xs={12} sm={6} md={4} maxWidth={'lg'}>
