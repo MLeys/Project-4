@@ -63,10 +63,10 @@ function SkillPage() {
       <Box sx={{ flexGrow: 1 }}>
         <Card sx={{ bgcolor: 'blueGrayLight2.light', my: 1}}>
           {subSkills?.map((sub, index) => (
-            <>
+            <Box key={`subProg-${index}`} >
               <LinearProgressWithLabel height={10} key={`subProg-${index}`} title={sub.title} value={35} />
               <Divider />
-            </>
+            </Box>
           ))}     
         </Card>
       </Box>
