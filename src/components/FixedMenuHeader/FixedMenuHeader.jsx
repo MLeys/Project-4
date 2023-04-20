@@ -197,7 +197,7 @@ function FixedMenuHeader({ children }) {
       </AppBar>      
       <SkillDrawer open={openSidebar ? openSidebar : false} toggleDrawer={toggleDrawer} zIndex={openSidebar ? 1100 : 0} />
       
-      <Box container width={'100%'} >
+      <Box width={'100%'} >
         <Toolbar />
         {children}
       </Box>
