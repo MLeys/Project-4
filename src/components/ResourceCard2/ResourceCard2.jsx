@@ -5,7 +5,6 @@ import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 import mainTheme from "../../themes/mainTheme";
 import { styled } from '@mui/material/styles';
 
-import Link from "@mui/material/Link";
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
@@ -15,8 +14,7 @@ import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-
-import ProgressRing from "../../components/ProgressRing/ProgressRing";
+import Button from '@mui/material/Button';
 
 
 const CaretDownIcon = () => <i className="bi bi-caret-down" style={{ color: 'black'}} />;
@@ -41,7 +39,7 @@ const ExpandMore = styled((props) => {
 function ResourceCard2({resource}) {
   const ctx = useContext(SkillsContext);
   const userId = ctx.loggedUser?._id;
-  const skillId = skill._id;
+
   const isComplete = false;
 
   const [expanded, setExpanded] = useState(false);
@@ -49,30 +47,49 @@ function ResourceCard2({resource}) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+  const {title, videoId, description, thumbnail, datePublished, skillId, subSkillId } = resource;
 
-  useEffect(() => {
-    
-  }, [skill]); 
+  const createdAt = resource.formattedCreatedAt;
+
+  function ResourceVideo() {
+    return (
+      <iframe
+        style={{
+          maxWidth: '98%',
+          width: 'auto',
+          height: '100%',
+          margin: 0,
+          padding: 0,
+        }}
+        src={`https://www.youtube.com/embed/${videoId}`}
+        allowFullScreen={true}
+        allow='autoplay; encrypted-media'
+        title='video'
+      /> 
+    )
+  }
+  
 
   return (
     <Card 
       raised={true} 
       sx={{ 
-        bgcolor: 'tealGrayLight.light', 
+        bgcolor: 'tealLight.light', 
         display: 'flex', 
         flexDirection: 'column', 
+        m: 0,
+        p: 0,
       }} 
     >
-      <CardActionArea href={`skills/${skillId}`} >
+      <CardActionArea href='#'>
         <CardHeader
           action={
-              (isComplete) ? <BookFilledIcon /> : <BookOutlineIcon />
-            
+            (isComplete) ? <BookFilledIcon /> : <BookOutlineIcon />
           }
           title={resource.title}
-          titleTypographyProps={{ variant: 'h5'}}
+          titleTypographyProps={{pr:1,p: 0, m: 0, variant: 'h6', color: 'black', }}
           subheader={resource.description}
-          subheaderTypographyProps={{ varient: 'subtitle2'}}
+          subheaderTypographyProps={{ varient: 'subtitle2', color: 'black', fontSize: '.75rem'}}
         />
       </CardActionArea>
 
@@ -80,32 +97,47 @@ function ResourceCard2({resource}) {
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
             <div>
-              Card video
+              <ResourceVideo />
             </div>
           </CardContent>
         </Collapse>
       </Box>
       <CardActions
-        disableSpacing
         sx={{
-          alignSelf: 'center',
-          bgcolor: 'tealGray.main',
-          width: '100%',
-          display: 'flex',
+          m: 0, p: 0, pb: 1,
+          alignContent: 'center',
           justifyContent: 'center',
-          p: 0,
-          m: 0,
         }}
       >
-        <Typography>Learning X of X Subskills</Typography>
-        <ExpandMore
-          expand={expanded}
+        <Box 
+          component={Button}
+          p={1}
+          pr={3}
+          m={0}
+          py={0} 
+          bgcolor={'blueGray.dark'} 
           onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
+          sx={{ 
+            borderRadius: 10,
+            '&:hover': {
+              bgcolor: 'primary.main'
+            }
+          
+          }}
         >
-          <CaretDownIcon />
-        </ExpandMore>
+          <ExpandMore
+            expand={expanded}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="watch video"
+          >
+            <CaretUpIcon />
+          </ExpandMore>
+          <Typography color={'white'}>
+            <strong>Watch</strong>
+          </Typography>
+        </Box>
+
       </CardActions>
     </Card>
   );

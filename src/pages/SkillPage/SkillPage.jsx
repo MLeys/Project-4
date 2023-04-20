@@ -15,7 +15,6 @@ import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
-import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -23,12 +22,15 @@ import Toolbar from '@mui/material/Toolbar';
 import LinearProgress from '@mui/material/LinearProgress';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
+import Grid from "@mui/material/Unstable_Grid2/Grid2";
+
 
 
 import VideoCard from "../../components/VideoCard/VideoCard";
 import PageDrawer from "../../components/PageDrawer/PageDrawer";
 import SubTable from '../../components/SubTable/SubTable';
 import LinearProgressWithLabel from '../../components/LinearProgressWithLabel/LinearProgressWithLabel';
+import ResourceCard2 from '../../components/ResourceCard2/ResourceCard2';
 
 function SkillPage() {
   const ctx = useContext(SkillsContext);
@@ -65,7 +67,8 @@ function SkillPage() {
    
     <PageDrawer >
       <Box 
-
+        mr={2.5}
+        ml={1}
         flexWrap={'wrap'}
       >
         <Box 
@@ -94,27 +97,17 @@ function SkillPage() {
           </Box>
         </Box>
 
-        <Grid 
-          container 
-          m={2} 
-        >
-          <Grid xs={12} my={1} width={'100%'} component={Card} elevation={12} mx={0} p={0}>      
-            <Typography variant="h4" component="h4"  p={1}>
+        <Grid container spacing={1}  flexGrow={1}>
+          <Grid xs={12} my={1}  elevation={12} mx={0} p={0}>      
+            <Typography variant="h4" component="h4"  p={0}>
               {activeSub?.subSkill?.title}
             </Typography>
           </Grid>
-          <Grid xs={12} sm={6} md={4} maxWidth={'lg'} >
-            <Card>
-              <CardHeader 
-                title="REsource Title"
-                action={
-                  <IconButton>
-                    <i className="bi bi-check-square"></i>
-                  </IconButton>
-                }
-              />
-            </Card>
+          {activeSub?.resources?.map((resource, index) => (
+          <Grid key={`resourceCard-${index}`} xs={12} sm={6} md={4}>
+            <ResourceCard2 key={`resourceCard-${index}`} resource={resource} />
           </Grid>
+          ))}
         </Grid>
       </Box>
 
@@ -123,10 +116,3 @@ function SkillPage() {
   );
 }
 export default SkillPage;
-          {/* {skill?.subSkills[activeSubIndex]?.resources?.map((resource, index) => (
-            <Grid xs={12} md={6} lg={4} key={`resource-${index}`} >
-              <VideoCard key={`resource-${index}`} resource={resource} index={index} >
-                <Typography alignContent={'flex-end'}>Added: {resource.createdAt}</Typography>
-              </VideoCard>
-            </Grid>
-          ))}    */}

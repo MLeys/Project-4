@@ -61,6 +61,12 @@ const mainTheme = createTheme({
       dark: '#006666',
       contrastText: '#000000',
     },
+    tealLight: {
+      light: '#f7fafa',
+      main: '#c9dbdb',
+      dark: '#a3c2c2',
+      contrastText: '#000000',
+    },
     tealGray: {
       light: '#e0ebeb',
       main: '#9cbdbd',
@@ -83,6 +89,12 @@ const mainTheme = createTheme({
       light: '#144770',
       main: '#079dcd',
       dark: '#00ccff',
+      contrastText: '#000000',
+    },
+    blueLight: {
+      light: '#e6f0f5',
+      main: '#bfd9e6',
+      dark: '#99c2d6',
       contrastText: '#000000',
     },
     blueGray: {

@@ -111,7 +111,7 @@ export default function PageDrawer({children}) {
         <SubList setActiveTabSub={setActiveTabSub} />
         <Divider />
       </Drawer>
-      <Main open={open ? open : false} sx={{width: '100%', mt: 2}}>
+      <Main open={open ? open : false} sx={{ mt: 2}}>
           {children}
       </Main>
     </Box>
