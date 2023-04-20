@@ -65,10 +65,10 @@ export default function PageDrawer({children}) {
           <Typography align='left' variant="h5" noWrap component="div" pl={1} sx={{ flexGrow: 1 }}>
             {activeSkill?.skill.name}
           </Typography>
-          <FormControlLabel 
+          {/* <FormControlLabel 
             label="Learn" 
             control={ <Switch checked={checked} onChange={handleAssignChecked}/> } 
-          />
+          /> */}
         </Toolbar>
       </AppBar>
 
