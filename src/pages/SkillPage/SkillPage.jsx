@@ -64,7 +64,10 @@ function SkillPage() {
   return ( 
    
     <PageDrawer >
-      <Box width={'100%'}>
+      <Box 
+
+        flexWrap={'wrap'}
+      >
         <Box 
           display={'flex'}
           width={'100%'}
@@ -74,6 +77,7 @@ function SkillPage() {
         >
           
           <Box >
+            {/* Change to only show users currently assigned  */}
             <Card sx={{ bgcolor: 'blueGrayLight2.light', my: 1, pl: 1, width: 350, textAlign: 'left'}}>
               {subSkills?.map((sub, index) => (
                 <Box key={`subProg-${index}`} >
@@ -85,19 +89,21 @@ function SkillPage() {
           </Box>
           <Box >
             <Card sx={{ bgcolor: 'blueGrayLight2.light',  textAlign: 'left'}}>
-                <Typography>ACtive sub more detailed stats info</Typography>
-        
+              <Typography>ACtive sub more detailed stats info</Typography>
             </Card>
           </Box>
         </Box>
 
-        <Grid container >
-          <Grid component={Card} xs={12} elevation={12}  mx={0} p={0}>      
+        <Grid 
+          container 
+          m={2} 
+        >
+          <Grid xs={12} my={1} width={'100%'} component={Card} elevation={12} mx={0} p={0}>      
             <Typography variant="h4" component="h4"  p={1}>
               {activeSub?.subSkill?.title}
             </Typography>
           </Grid>
-          <Grid xs={12} sm={6} md={4} >
+          <Grid xs={12} sm={6} md={4} maxWidth={'lg'} >
             <Card>
               <CardHeader 
                 title="REsource Title"
