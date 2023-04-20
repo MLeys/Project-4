@@ -39,11 +39,13 @@ import userRoutes from './routes/api/users.js';
 import skillRoutes from './routes/api/skills.js';
 import subSkillRoutes from './routes/api/subSkills.js'
 import resourceRoutes from './routes/api/resources.js'
+import userProgress from './routes/api/userProgress.js';
 
+app.use('/api/user-progress', userProgress);
 app.use('/api/resources', resourceRoutes);
 app.use('/api/skills', skillRoutes);
 app.use('/api/users', userRoutes);
-app.use('/api', subSkillRoutes);
+app.use('/api', subSkillRoutes); // FIX THIS SO THAT IT uses ssubskills route UNLESS unused
 
 
 // "catch all" route

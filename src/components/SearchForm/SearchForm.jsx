@@ -1,15 +1,16 @@
 import * as React from 'react';
 import { useState, useContext } from 'react';
+import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
+
 import Box from '@mui/material/Box';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
-import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 import ModalFullScreen from '../ModalFullScreen/ModalFullScreen';
 import SearchResultsDisplay from '../SearchResultsDisplay/SearchResultsDisplay';
-import { Typography } from '@mui/material';
 
 
 export default function SearchForm({onSubmit}) {
