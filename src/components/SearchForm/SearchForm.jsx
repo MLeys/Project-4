@@ -40,15 +40,11 @@ export default function SearchForm({onSubmit}) {
         >
           <TextField
             color="secondary"
-            label={`Find resources on ${skillName} - ${subSkillName}`}
+            label={`Find videos for ${skillName} - ${subSkillName}`}
             id="filled-start-adornment"
             sx={{ width: "100%", bgcolor: "primaryDarker.main" }}
             InputProps={{
-              startAdornment: (
-                <InputAdornment position="start" sx={{color: 'grey', fontSize: '10px' }}>
-                 <Typography> Enter keywords ...</Typography>
-                </InputAdornment>
-              ),
+
               style: { color: "white" },
             }}
             variant="filled"
