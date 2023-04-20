@@ -54,15 +54,13 @@ export default function SearchForm({onSubmit}) {
             }}
           />
         </FormControl>
-
         <Button 
-
           color="accent" 
           sx={{ backgroundColor: "black",width: "100%",height: "30px", borderRadius: 0}}
           type="submit"
           onClick={handleOpen}
         > 
-          Go
+          Search
         </Button>
         <ModalFullScreen open={open} handleClose={handleClose}>
             <SearchResultsDisplay handleClose={handleClose}/>
