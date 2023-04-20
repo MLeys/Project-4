@@ -24,13 +24,13 @@ import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 
-
-
 import VideoCard from "../../components/VideoCard/VideoCard";
 import PageDrawer from "../../components/PageDrawer/PageDrawer";
 import SubTable from '../../components/SubTable/SubTable';
 import LinearProgressWithLabel from '../../components/LinearProgressWithLabel/LinearProgressWithLabel';
 import ResourceCard2 from '../../components/ResourceCard2/ResourceCard2';
+import SearchForm from '../../components/SearchForm/SearchForm';
+
 
 function SkillPage() {
   const ctx = useContext(SkillsContext);
@@ -71,7 +71,9 @@ function SkillPage() {
         ml={1}
         flexWrap={'wrap'}
       >
-        <Box 
+
+        <Grid 
+          container
           display={'flex'}
           width={'100%'}
           justifyContent={'space-evenly'}
@@ -79,23 +81,21 @@ function SkillPage() {
           flexWrap={'wrap'}
         >
           
-          <Box >
-            {/* Change to only show users currently assigned  */}
-            <Card sx={{ bgcolor: 'blueGrayLight2.light', my: 1, pl: 1, width: 350, textAlign: 'left'}}>
-              {subSkills?.map((sub, index) => (
-                <Box key={`subProg-${index}`} >
-                  <LinearProgressWithLabel height={10} key={`subProg-${index}`} title={sub.title} value={35} />
-                  <Divider />
-                </Box>
-              ))}     
-            </Card>
-          </Box>
-          <Box >
-            <Card sx={{ bgcolor: 'blueGrayLight2.light',  textAlign: 'left'}}>
-              <Typography>ACtive sub more detailed stats info</Typography>
-            </Card>
-          </Box>
-        </Box>
+            <Grid xs={12} sm={6} display={'flex'} alignItems={'center'} justifyContent={'center'}>
+              {/* Change to only show users currently assigned  */}
+              <Card sx={{ bgcolor: 'blueGrayLight2.light', my: 1, pl: 1, minWidth: 280, maxWidth: 350, textAlign: 'left'}}>
+                {subSkills?.map((sub, index) => (
+                  <Box key={`subProg-${index}`} >
+                    <LinearProgressWithLabel height={10} key={`subProg-${index}`} title={sub.title} value={35} />
+                    <Divider />
+                  </Box>
+                ))}     
+              </Card>
+            </Grid>
+            <Grid xs={12} sm={6} bgcolor={'transparent'}>
+              <SearchForm />
+            </Grid>
+        </Grid>
 
         <Grid container spacing={1}  flexGrow={1}>
           <Grid xs={12} my={1}  elevation={12} mx={0} p={0}>      

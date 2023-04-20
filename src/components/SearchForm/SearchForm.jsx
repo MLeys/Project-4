@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 import ModalFullScreen from '../ModalFullScreen/ModalFullScreen';
 import SearchResultsDisplay from '../SearchResultsDisplay/SearchResultsDisplay';
+import { Typography } from '@mui/material';
 
 
 export default function SearchForm({onSubmit}) {
@@ -30,22 +31,22 @@ export default function SearchForm({onSubmit}) {
   }
 
   return (
-    <Box mb={5} sx={{ display: "flex", alignItems: "center" }}>
+    <Box sx={{ bgcolor: 'blueGrayLight.main', alignItems: "center", borderRadius: 2, border: '2px inset black' }}>
       <form onSubmit={handleSubmit}>
         <FormControl
           label="With normal TextField"
           variant="standard"
-          sx={{ color: "black", m: 0, p: 0 }}
+          sx={{ color: "pink", m: 0, p: 0, width: '100%' }}
         >
           <TextField
             color="secondary"
-            label={`Search YouTube for resources on ${skillName} - ${subSkillName}`}
+            label={`Find resources on ${skillName} - ${subSkillName}`}
             id="filled-start-adornment"
-            sx={{ m: 1, width: "40ch", bgcolor: "primaryDarker.main" }}
+            sx={{ width: "100%", bgcolor: "primaryDarker.main" }}
             InputProps={{
               startAdornment: (
-                <InputAdornment position="start">
-                  Enter Keywords:
+                <InputAdornment position="start" sx={{color: 'grey', fontSize: '10px' }}>
+                 <Typography> Enter keywords ...</Typography>
                 </InputAdornment>
               ),
               style: { color: "white" },
@@ -59,8 +60,9 @@ export default function SearchForm({onSubmit}) {
         </FormControl>
 
         <Button 
+
           color="accent" 
-          sx={{ p: 0, mt: 1,backgroundColor: "black",width: "20px",height: "55px"}}
+          sx={{ backgroundColor: "black",width: "100%",height: "30px", borderRadius: 0}}
           type="submit"
           onClick={handleOpen}
         > 
