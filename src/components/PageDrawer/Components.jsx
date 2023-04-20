@@ -12,19 +12,24 @@ const drawerWidth = 260;
 export const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     flexGrow: 1,
-    padding: theme.spacing(1),
-  
+    padding: theme.spacing(0),
+    marginLeft: 0,
+    width: `calc(100% - ${drawerWidth}px)`, // Add this line
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    marginLeft: `-${drawerWidth}px`,
+    marginLeft: ` -${drawerWidth}px`,
     ...(open && {
+      marginLeft: `${drawerWidth}px`,
+      width: `calc(100% - ${drawerWidth}px)`,
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
-      }),     
+      }),
+      marginLeft: `${drawerWidth}px`,
     }),
+   
   }),
 );
 
@@ -53,11 +58,5 @@ export const DrawerHeader = styled(Box)(({ theme }) => ({
   ...theme.mixins.toolbar,
   justifyContent: 'flex-end',  
 }));
-
-export const MainTitle = styled(Typography)({
-  color: mainTheme.palette.secondary.contrastText,
-  padding: 0,
-  margin: 0,
-});
 
 

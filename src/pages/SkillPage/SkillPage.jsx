@@ -24,6 +24,7 @@ import LinearProgress from '@mui/material/LinearProgress';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 
+
 import VideoCard from "../../components/VideoCard/VideoCard";
 import PageDrawer from "../../components/PageDrawer/PageDrawer";
 import SubTable from '../../components/SubTable/SubTable';
@@ -70,11 +71,26 @@ function SkillPage() {
           ))}     
         </Card>
       </Box>
-      <Box component={Paper} elevation={12}  mx={0} p={0}>      
-        <Typography variant="h4" component="h4"  p={1}>
-          {skill?.subSkills[activeSubIndex]?.title}
-        </Typography>
-      </Box>
+      <Grid container >
+        <Grid component={Card} xs={12} elevation={12}  mx={0} p={0}>      
+          <Typography variant="h4" component="h4"  p={1}>
+            {skill?.subSkills[activeSubIndex]?.title}
+          </Typography>
+        </Grid>
+        <Grid xs={12} sm={6} md={4} maxWidth={'lg'}>
+          <Card>
+            <CardHeader 
+              title="REsource Title"
+              action={
+                <IconButton>
+                  <i class="bi bi-check-square"></i>
+                </IconButton>
+              }
+            />
+          </Card>
+        </Grid>
+      </Grid>
+
     </PageDrawer>
   );
 }

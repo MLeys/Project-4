@@ -16,6 +16,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import Stack from '@mui/material/Stack';
+import Grid from "@mui/material/Unstable_Grid2/Grid2";
 
 import { ListIcon } from "../../customIcons";
 
@@ -195,18 +196,12 @@ function FixedMenuHeader({ children }) {
         </Toolbar>
       </AppBar>      
       <SkillDrawer open={openSidebar ? openSidebar : false} toggleDrawer={toggleDrawer} zIndex={openSidebar ? 1100 : 0} />
-      <Box
-          component="main"
-          sx={{
-            backgroundColor: 'tealGray.light',
-            flexGrow: 1,
-            minHeight: '100dvh',
-            width: '100dvw',
-            overflow: 'auto',
-          }}
-        >
-      {children}
+      
+      <Box container width={'100%'} >
+        <Toolbar />
+        {children}
       </Box>
+
     </Box>
 	);
  }

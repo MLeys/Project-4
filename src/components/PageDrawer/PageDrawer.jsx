@@ -94,7 +94,8 @@ export default function PageDrawer({children}) {
             bgcolor: 'blueGrayLight.dark',
             display: 'flex',
             alignItems: 'center',
-            padding: 1,
+            padding: 0,
+
           }} 
         >
           <Typography mt={1} fontSize={'20px'} fontWeight={800} color={'white'} >
@@ -109,10 +110,10 @@ export default function PageDrawer({children}) {
         <SubList />
         <Divider />
       </Drawer>
-      
-      <Main open={open ? open : false } sx={{my: 1}}>
-        <DrawerHeader />
-        {children}
+      <Main open={open ? open : false} sx={{width: '100dvw', mt: 2}}>
+        <Box m={1}>
+          {children}
+        </Box>
       </Main>
     </Box>
   );
