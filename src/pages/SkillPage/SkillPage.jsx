@@ -90,7 +90,7 @@ function SkillPage() {
       <Grid container >
         <Grid component={Card} xs={12} elevation={12}  mx={0} p={0}>      
           <Typography variant="h4" component="h4"  p={1}>
-            {activeSub?.title}
+            {activeSub?.subSkill?.title}
           </Typography>
         </Grid>
         <Grid xs={12} sm={6} md={4} maxWidth={'lg'}>
