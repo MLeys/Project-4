@@ -13,6 +13,7 @@ export const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open
   ({ theme, open }) => ({
     flexGrow: 1,
     padding: theme.spacing(0),
+  
     marginLeft: ` -${drawerWidth}px`,
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,

@@ -3,6 +3,7 @@ import { useEffect, useContext} from "react";
 
 import Grid from "@mui/material/Unstable_Grid2/Grid2.js";
 import Toolbar from '@mui/material/Toolbar';
+import Box from "@mui/material/Box";
 
 import { SkillsContext, SkillsDispatchContext } from '../../context/SkillsContext/SkillsContext.jsx';
 
@@ -16,12 +17,12 @@ function Layout() {
   }, []); 
 
   return (
-    <Grid container  >
+    <Box width={'100%'} minHeight={'100dvh'} bgcolor={'blueGray.light'} >
       <Toolbar />
       <FixedMenuHeader >
         <Outlet />
       </FixedMenuHeader>
-    </Grid> 
+    </Box> 
   )
 }
 

@@ -14,14 +14,14 @@ export default function LinearProgressWithLabel(props) {
       spacing={0}
       width={props.width ? props.width : '100%'}
     >
-      <Box width={'60%'}>
+      <Box maxWidth={'60%'} minWidth={'40%'}>
         <Typography m={0} p={0} noWrap>{props.title}</Typography>
       </Box>
       
-      <Box sx={{ width: '30%' }}>
+      <Box width={'30%'} >
         <LinearProgress variant="determinate" {...props} />
       </Box>
-      <Box sx={{ width: '10%' }}>
+      <Box width={'10%'} >
         <Typography variant="body2" >{`${Math.round(
           props.value,
         )}%`}</Typography>

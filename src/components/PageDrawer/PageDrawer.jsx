@@ -55,7 +55,7 @@ export default function PageDrawer({children}) {
     <Box sx={{ display: 'flex'}} >
       <AppBar position='fixed' sx={{pt: 1}} open={open ? open : false}>
         <Toolbar />
-        <Toolbar sx={{bgcolor: 'blueGrayLight.main'}}>
+        <Toolbar disableGutters sx={{bgcolor: 'blueGrayLight.main'}}>
           <IconButton
             color="inherit"
             aria-label="open skills"
@@ -111,10 +111,8 @@ export default function PageDrawer({children}) {
         <SubList setActiveTabSub={setActiveTabSub} />
         <Divider />
       </Drawer>
-      <Main open={open ? open : false} sx={{width: '100dvw', mt: 2}}>
-        
+      <Main open={open ? open : false} sx={{width: '100%', mt: 2}}>
           {children}
-        
       </Main>
     </Box>
   );
