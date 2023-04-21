@@ -1,7 +1,11 @@
 function resourcesReducer(draft, action) {
 	switch (action.type) {
 		case 'createResource': {
-			draft.push(action.data)
+			if (!draft) {
+				{[action.data]}
+			} else {
+				draft.push(action.data)
+			}
 			break;
 		}
 		case 'readResources': {
@@ -16,15 +20,15 @@ function resourcesReducer(draft, action) {
 			return draft.filter((s) => s.id !== action.id);
 		}
 		case 'assignResource': {
-			const resourceIndex = resources.findIndex((r) => r._id === action.resourceId)
+			const resourceIndex = draft.findIndex((r) => r._id === action.resourceId)
 			const user = action.user;
 			
 			draft[resourceIndex].usersAssigned.splice(0,0,user);
 			break;				
 		}
 		case 'unAssignResource': {
-			const resourceIndex = resources.findIndex((r) => r._id === action.resourceId)
-			const userIndex = resources[resourceIndex].usersAssigned.findIndex((u) => u._id === action.userId)
+			const resourceIndex = draft.findIndex((r) => r._id === action.resourceId)
+			const userIndex = draft[resourceIndex].usersAssigned.findIndex((u) => u._id === action.userId)
 			
 			draft[resourceIndex].usersAssigned.splice(userIndex, 1);
 			break;
@@ -38,8 +42,6 @@ function resourcesReducer(draft, action) {
 			console.log(skill, "SFASDDSFA SKILL")
 			const subSkill = skill.subSkills[action.subIndex]
 			draft[skillIndex].subSkills[subIndex].resources.splice(0,0, action.resource)
-			
-
 			
 			break;
 		}

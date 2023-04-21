@@ -3,21 +3,22 @@ import tokenService from "./tokenService.js";
 
 const BASE_URL = '/api/resources/';
 
-export function unAssignResource(userId, resourceId) {
-	// const skillId = data.skillId
-	// return fetch(`${BASE_URL}${skillId}`, {
-  //       method: 'PUT',
-	// 	body: JSON.stringify(user),
-  //       headers: {
-  //           Authorization: "Bearer " + tokenService.getToken(),
-  //           'Content-Type': 'application/json', 
-  //       }
-	// }).then(res => {
-	// 	if(res.ok) return res.json()
-	// 	throw new Error('Error UNASSIGN RESOURCE API. check server terminal')
-	// })
+export async function unAssignResource(data) {
+	const skillId = data.skillId
+	return await fetch(`${BASE_URL}${skillId}`, {
+        method: 'PUT',
+		body: JSON.stringify(user),
+        headers: {
+            Authorization: "Bearer " + tokenService.getToken(),
+            'Content-Type': 'application/json', 
+        }
+	}).then(res => {
+		if(res.ok) return res.json()
+		throw new Error('Error UNASSIGN RESOURCE API. check server terminal')
+	})
 }
-export function assignResource(userId, resourceId) {
+export function assignResource(data) {
+	console.log(`Assign- ResourceApi`)
 	// const skillId = data.skillId
 	// return fetch(`${BASE_URL}${skillId}`, {
   //       method: 'PUT',

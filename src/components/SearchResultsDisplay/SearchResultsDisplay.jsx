@@ -15,18 +15,18 @@ function SearchResultsDisplay({handleClose}) {
 	const resources = ctx.resources;
   const youTubeResults = ctx.youTubeResults;
   const setYouTubeResults = ctx.setYouTubeResults;
-  const addResource = ctx.handleAddResource;
+  const createResource = ctx.handleCreateResource;
   const skillId = ctx.activeSkillId;
   const userId = ctx.activeUserId;
   const subId = ctx.activeSubId;
   
 
-  function handleClickAdd( resource ){
+  function handleClickCreate( resource ){
     console.log(resource, "<-resource being added onclick")
     resource.skillId = skillId;
     resource.userId = userId;
     resource.subId = subId;
-    addResource(resource);
+    createResource(resource);
     console.log(`Add Resource: ${resource.videoId}`)
   }
   
@@ -47,7 +47,7 @@ function SearchResultsDisplay({handleClose}) {
             {youTubeResults?.map((resource, index) => (
               <Grid xs={12} md={6} lg={4} key={`searchResult-${index}`}>
                 <VideoCard key={`resource-${index}`} resource={resource} index={index} >
-                  <Button onClick={() => handleClickAdd(resource)}>
+                  <Button onClick={() => handleClickCreate(resource)}>
                     Add
                   </Button>
                   <Button onClick={() => handleClickRemove(resource)}>

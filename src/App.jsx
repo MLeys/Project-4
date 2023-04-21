@@ -5,7 +5,7 @@ import { useImmerReducer} from 'use-immer';
 import skillsReducer from "./reducers/skillsReducer.js";
 import resourcesReducer from "./reducers/resourceReducer.js";
 
-
+import { ResourcesContext, ResourcesDispatchContext } from "./context/ResourcesContext/ResourcesContext.jsx";
 import { SkillsContext, SkillsDispatchContext } from './context/SkillsContext/SkillsContext.jsx';
 import { stockSkillsList, testSkillsList } from "./lists/skillTypes";
 
@@ -232,21 +232,22 @@ export default function App() {
     const sub = skill?.subSkills[subIndex];
     const isAssigned = sub.resources.some((r) => r.videoId === data.videoId)
 
-
     console.log(data, "<=== add resource data ")
     console.log(`Data(before): ${data}`)
     
     if (!isAssigned) {
       try {
         const response = await resourcesApi.create(data);
+        console.log(response, " RESPOMSE FRO< CREATE RESOURCE")
         if (response) {
           handleAssignResourceSubSkill(skillIndex, subIndex, response)
+          dispatchResources({
+            type: 'createResource',
+            data: response,
+          })
         } else {
           console.log(" Reponse invalid ")
-        }
-  
-
-  
+        }  
       } catch (err) {
         setError(console.log(`***Error in handleCreateResource(message): ${err}`))
       }
@@ -262,7 +263,6 @@ export default function App() {
       userId: userId,
       skillId: skillId,
       subId: subId,
-      userId: userId,
     }
 
     try {
@@ -270,9 +270,6 @@ export default function App() {
       dispatchResources({
         type: 'unAssignResource',
         resourceId: resourceId,
-        userId: userId,
-        skillId: skillId,
-        subId: subId,
         userId: userId,
       })
     } catch (err) {
@@ -444,20 +441,27 @@ export default function App() {
           handleDeleteResource: handleDeleteResource,
           handleUnAssignResourceUser: handleUnAssignResourceUser,
           handleAssignResourceUser: handleAssignResourceUser,
-        }}>
-        <SkillsDispatchContext.Provider value={dispatchSkills}>
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<LandingPage />} />
-              <Route path="skills/:skillId" element={<SkillPage />} />
-              {user ? (
-                <Route path="/:username" element={<DashboardPage />} />
-              ) : null}
-            </Route>
-            <Route path="/login" element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />} />
-            <Route path="/signup" element={<SignUpPage handleSignUpOrLogin={handleSignUpOrLogin} />} />
-          </Routes>
-        </SkillsDispatchContext.Provider>
+        }}
+      >
+        <ResourcesContext.Provider
+          value={{
+            resources: resources,
+          }}
+        >
+          <SkillsDispatchContext.Provider value={dispatchSkills}>
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route index element={<LandingPage />} />
+                <Route path="skills/:skillId" element={<SkillPage />} />
+                {user ? (
+                  <Route path="/:username" element={<DashboardPage />} />
+                ) : null}
+              </Route>
+              <Route path="/login" element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />} />
+              <Route path="/signup" element={<SignUpPage handleSignUpOrLogin={handleSignUpOrLogin} />} />
+            </Routes>
+          </SkillsDispatchContext.Provider>
+        </ResourcesContext.Provider>
       </SkillsContext.Provider>
     );
     
