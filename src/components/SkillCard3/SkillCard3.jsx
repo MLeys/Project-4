@@ -63,7 +63,6 @@ function SkillCard3({skill}) {
       sx={{ 
         width: '100%',
         bgcolor: 'tealGrayLight.light', 
-        // height: '100%', 
         display: 'flex', 
         flexDirection: 'column', 
       }} 
