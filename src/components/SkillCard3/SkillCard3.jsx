@@ -24,7 +24,8 @@ const CaretUpIcon = () => <i className="bi bi-caret-up" style={{ color: 'white'}
 const BookOutlineIcon = () => <i className="bi bi-book" style={{ color: 'black'}}/>;
 const BookFilledIcon = () => <i className="bi bi-book-fill" style={{ color: mainTheme.palette.blueTealLight.main}}/>;
 const VertDotsIcon = () => <i className="bi bi-three-dots-vertical" style={{ color: 'white'}}/>;
-
+const PlusSquareIcon = () => <i className="bi bi-plus-square" style={{ color: 'white'}}/>;
+const PlusSquareFilledIcon = () => <i className="bi bi-plus-square-fill" style={{ color: 'white'}}/>;
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -43,6 +44,7 @@ function SkillCard3({skill}) {
   const userId = ctx.loggedUser?._id;
   const skillId = skill._id;
   const isAssigned = skill?.usersAssigned?.some((user) => user._id === userId);
+  const assignSkill = ctx.handleAssignSkill;
 
   const [expanded, setExpanded] = useState(false);
 

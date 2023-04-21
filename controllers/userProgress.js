@@ -1,9 +1,16 @@
-import UserProgress from '../models/userProgress';
-import Skill from '../models/skill';
+import UserProgress from '../models/userProgress.js';
+import Skill from '../models/skill.js';
 
-import UserProgress from "../models/userProgress.js";
 
-export async function getAccumulatedUserProgress(req, res) {
+export default {
+  getAccumulatedUserProgress,
+  getUserProgress,
+  assignSkill,
+  updateResourceCompletion
+};
+
+
+async function getAccumulatedUserProgress(req, res) {
   try {
     const userId = req.user._id;
     const accumulatedProgress = await UserProgress.getAccumulatedProgress(userId);
@@ -14,7 +21,7 @@ export async function getAccumulatedUserProgress(req, res) {
 }
 
 
-export const getUserProgress = async (req, res) => {
+async function getUserProgress(req, res) {
   try {
     const userProgress = await UserProgress.findOne({ userId: req.params.userId }).populate('skills.skill');
     res.json(userProgress);
@@ -24,7 +31,7 @@ export const getUserProgress = async (req, res) => {
   }
 };
 
-export const assignSkill = async (req, res) => {
+async function assignSkill(req, res) {
   try {
     const { userId, skillId } = req.params;
     const skill = await Skill.findById(skillId);
@@ -63,7 +70,7 @@ export const assignSkill = async (req, res) => {
   }
 };
 
-export const updateResourceCompletion = async (req, res) => {
+async function updateResourceCompletion(req, res) {
   try {
     const { userId, subSkillId, resourceId } = req.params;
     const complete = req.body.complete;

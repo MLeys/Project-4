@@ -1,12 +1,12 @@
 import express from 'express';
-import * as userProgress from '../controllers/userProgress';
+import userProgressCtrl from '../../controllers/userProgress.js'
 
 const router = express.Router();
 
-router.get('/:userId', userProgressController.getUserProgress);
-router.post('/assign-skill/:userId/:skillId', userProgressController.assignSkill);
-router.patch('/update-resource-completion/:userId/:subSkillId/:resourceId', userProgressController.updateResourceCompletion);
-router.get("/accumulated-progress", userProgressController.getAccumulatedUserProgress);
+router.get('/:userId', userProgressCtrl.getUserProgress);
+router.post('/assign-skill/:userId/:skillId', userProgressCtrl.assignSkill);
+router.patch('/update-resource-completion/:userId/:subSkillId/:resourceId', userProgressCtrl.updateResourceCompletion);
+router.get("/accumulated-progress", userProgressCtrl.getAccumulatedUserProgress);
 
 
 export default router;
