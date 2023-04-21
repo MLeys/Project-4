@@ -1,5 +1,6 @@
 import UserProgress from '../models/userProgress.js';
 import Skill from '../models/skill.js';
+import User from '../models/user.js';
 
 
 export default {
@@ -32,6 +33,7 @@ async function getUserProgress(req, res) {
 };
 
 async function assignSkill(req, res) {
+  console.log(`Assign Skill Controller`);
   try {
     const { userId, skillId } = req.params;
     const skill = await Skill.findById(skillId);
@@ -41,34 +43,34 @@ async function assignSkill(req, res) {
       return;
     }
 
-    let userProgress = await UserProgress.findOne({ userId });
+    let userProgress = await UserProgress.findOne({ user: userId, skill: skillId });
 
     if (!userProgress) {
-      userProgress = new UserProgress({ userId });
+      const subSkillProgress = skill.subSkills.map(subSkill => ({
+        subSkillId: subSkill._id,
+        progress: 0,
+        complete: false,
+        resources: []
+      }));
+
+      userProgress = await UserProgress.create({
+        user: userId,
+        skill: skillId,
+        subSkillProgress,
+        skillProgress: 0,
+        skillComplete: false,
+      });
+
+      res.json(userProgress);
+    } else {
+      res.status(400).json({ error: 'User has already been assigned this skill' });
     }
-
-    const subSkillProgress = skill.subSkills.map(subSkill => ({
-      subSkillId: subSkill._id,
-      progress: 0,
-      complete: false,
-      resources: []
-    }));
-
-    userProgress.skills.push({
-      skill: skill._id,
-      progress: 0,
-      complete: false,
-      subSkills: subSkillProgress
-    });
-
-    await userProgress.save();
-
-    res.json(userProgress);
   } catch (error) {
     console.error('Error assigning skill:', error);
     res.status(500).json({ error: 'Error assigning skill' });
   }
-};
+}
+
 
 async function updateResourceCompletion(req, res) {
   try {

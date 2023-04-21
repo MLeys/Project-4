@@ -44,7 +44,8 @@ function SkillCard3({skill}) {
   const userId = ctx.loggedUser?._id;
   const skillId = skill._id;
   const isAssigned = skill?.usersAssigned?.some((user) => user._id === userId);
-  const assignSkill = ctx.handleAssignSkill;
+  const handleAssignSkill = ctx.handleAssignSkill;
+  const handleUnAssignSkill = ctx.handleUnAssignSkill;
 
   const [expanded, setExpanded] = useState(false);
 
@@ -106,6 +107,9 @@ function SkillCard3({skill}) {
           m: 0,
         }}
       >
+        <IconButton onClick={() => (isAssigned) ? handleUnAssignSkill(skillId) : handleAssignSkill(skillId)}>
+          <BookOutlineIcon />
+        </IconButton>
         <Typography>Learning X of X Subskills</Typography>
         <ExpandMore
           expand={expanded}

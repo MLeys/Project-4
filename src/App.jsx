@@ -35,10 +35,35 @@ export default function App() {
   
   const userId = user?._id;
 
+
   async function handleAssignSkill(skillId) {
     try {
-      const res = await assignSkill(userId, skillId);
+      await handleAssignUserProgress(skillId);
+      const index = skills?.findIndex((s) => s._id === skillId)
+      if (!skills[index].usersAssigned.some(u => u._id === user._id)) {
+        const response = await skillsApi.assignUser(user, skillId);
+        // console.log(response, "assign skill response")
+        dispatch({
+          type: 'assignSkill',
+          user: user,
+          index: index
+        })
+        // Response from server = response.skill
+      } else {
+        console.log(`${user.username} already assigned to skill( ${skills[index].name})`)
+      }
+    } catch (err) {
+      setError(console.log(`*** Error Assign SKILL ****\n ${err}`))
+    }
+  }
+
+  async function handleAssignUserProgress(skillId) {
+    const userId = user?._id;
+    console.log(`Handle Assgn Skill ${skillId}\nUserId: ${userId}`)
+    try {
+      const res = await userProgressApi.assignSkill(userId, skillId);
       setProgressData(res.data);
+      console.log(res.data, " <-- Data fro assign skill")
     } catch (error) {
       console.error('Error assigning skill:', error);
     }
@@ -163,25 +188,6 @@ export default function App() {
     }
   }
 
-  async function handleAssignSkill2(skillId) {
-    try {
-      const index = skills?.findIndex((s) => s._id === skillId)
-      if (!skills[index].usersAssigned.some(u => u._id === user._id)) {
-        const response = await skillsApi.assignUser(user, skillId);
-        // console.log(response, "assign skill response")
-        dispatch({
-          type: 'assignSkill',
-          user: user,
-          index: index
-        })
-        // Response from server = response.skill
-      } else {
-        console.log(`${user.username} already assigned to skill( ${skills[index].name})`)
-      }
-    } catch (err) {
-      setError(console.log(`*** Error Assign SKILL ****\n ${err}`))
-    }
-  }
 
   async function handleUnAssignSkill(skillId) {
     try {

@@ -30,14 +30,23 @@ export async function getUserProgress(userId) {
 }
 
 export async function assignSkill(userId, skillId) {
-  return fetch(`/assign-skill/${userId}/${skillId}`, {
+  return fetch(`${BASE_URL}/assign-skill/${userId}/${skillId}`, {
     method: 'POST',
     headers: {
       Authorization: 'Bearer ' + tokenService.getToken(),
       'Content-Type': 'application/json'
     }
   }).then((res) => {
-    if (res.ok) return res.json();
+    if (res.ok) {
+      return res.json()
+      .then(console.log('UserProgress Created For Skill'))
+    } 
+
+    if (res.status === 400) {
+      return res.json().then((data) => {
+        throw new Error(data.error, " USER ALREADY ASSIGNED");
+      });
+    }
     throw new Error('Error assigning skill');
   });
 }
