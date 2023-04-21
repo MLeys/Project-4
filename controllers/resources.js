@@ -1,5 +1,6 @@
 import Resource from '../models/resource.js';
 import Skill from '../models/skill.js';
+import User from '../models/user.js';
 
 
 export default {
@@ -10,51 +11,88 @@ export default {
 };
 
 async function create(req, res) {
-	const skillId = req.body.skillId;
-	const subId = req.body.subId
-	const subIndex = req.body.subIndex;
-	const resourceData = {
-		title: req.body.title,
-		videoId: req.body.videoId,
-		description: req.body.description,
-		thumbnail: req.body.thumbnail,
-		datePublished: req.body.datePublished,
-		skillId: req.body.skillId,
-		userId: req.body.userId,
-		source: req.body.source,
-	}
-	try {
-		const newResource = await Resource.create(resourceData)
-		const skillDoc = await Skill.findById(skillId)
-		.populate("usersAssigned")
-		.populate("resources")
-		.populate({
-			path: 'subSkills',
-			populate: [
-				{
-					path: 'resources-m "',
-					model: 'Resource'
-				},
-				{
-					path: 'usersAssigned',
-					model: 'User'
-				}
-			]
-		});
-	
-		const subDoc = await skillDoc.subSkills[subIndex]
-	
-		skillDoc.resources.splice(0,0, newResource);
-		await skillDoc.subSkills[subIndex].resources.splice(0,0, newResource)
+	const user = await User.findById(req.body.userId)
+	// const resourceData = {
+	// 	title: req.body.title,
+	// 	videoId: req.body.videoId,
+	// 	description: req.body.description,
+	// 	thumbnail: req.body.thumbnail,
+	// 	datePublished: req.body.datePublished,
+	// 	skillId: req.body.skillId,
+	// 	subSkillId: req.body.subId,
+	// 	user: user,
+	// 	source: req.body.source,
+	// }
+  const skillId = req.body.skillId;
+  const subId = req.body.subId;
+  const resourceData = {
+    title: req.body.title,
+    videoId: req.body.videoId,
+    description: req.body.description,
+    thumbnail: req.body.thumbnail,
+    datePublished: req.body.datePublished,
+    skillId: req.body.skillId,
+    userId: req.body.userId,
+    source: req.body.source,
+  };
+  try {
+    const newResource = await Resource.create(resourceData);
+    const skillDoc = await Skill.findById(skillId)
+      .populate("usersAssigned")
+      .populate("resources")
+      .populate({
+        path: "subSkills",
+        populate: [
+          {
+            path: "resources",
+            model: "Resource",
+          },
+          {
+            path: "usersAssigned",
+            model: "User",
+          },
+        ],
+      });
 
-		await skillDoc.save();
-		
-		res.status(201).json(newResource.toJSON());
-	} catch (error) {
-		console.error("Error creating resource:", error);
-		res.status(500).json({ message: "Error creating resource" });
-	}
-};
+    // Check if skillDoc is null and return an error message
+    if (!skillDoc) {
+      res.status(404).json({ message: "Skill not found" });
+      return;
+    }
+
+    // Find the index of the subSkill using subId
+    const subIndex = skillDoc.subSkills.findIndex(
+      (subSkill) => subSkill._id.toString() === subId
+    );
+
+    // Check if the subSkill is found
+    if (subIndex === -1) {
+      res.status(404).json({ message: "SubSkill not found" });
+      return;
+    }
+
+    // Check if the resource is already included in the subSkill
+    const resourceExists = skillDoc.subSkills[subIndex].resources.some(
+      (resource) => resource._id.toString() === newResource._id.toString()
+    );
+
+    // If the resource is not included, add it to the subSkill
+    if (!resourceExists) {
+      skillDoc.subSkills[subIndex].resources.push(newResource);
+    } else {
+      res.status(400).json({ message: "Resource already exists in subSkill" });
+      return;
+    }
+
+    await skillDoc.save();
+
+    res.status(201).json(newResource.toJSON());
+  } catch (error) {
+    console.error("Error creating resource:", error);
+    res.status(500).json({ message: "Error creating resource" });
+  }
+}
+
 
 
 async function allResources(req, res) {

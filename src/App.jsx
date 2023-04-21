@@ -34,28 +34,10 @@ export default function App() {
   const [progressData, setProgressData] = useState(null);
   
   const userId = user?._id;
+  const skillId = activeSkill?.skill._id;
+  const subId = activeSub?.subSkill?._id;
 
 
-  async function handleAssignSkill(skillId) {
-    try {
-      await handleAssignUserProgress(skillId);
-      const index = skills?.findIndex((s) => s._id === skillId)
-      if (!skills[index].usersAssigned.some(u => u._id === user._id)) {
-        const response = await skillsApi.assignUser(user, skillId);
-        // console.log(response, "assign skill response")
-        dispatch({
-          type: 'assignSkill',
-          user: user,
-          index: index
-        })
-        // Response from server = response.skill
-      } else {
-        console.log(`${user.username} already assigned to skill( ${skills[index].name})`)
-      }
-    } catch (err) {
-      setError(console.log(`*** Error Assign SKILL ****\n ${err}`))
-    }
-  }
 
   async function handleAssignUserProgress(skillId) {
     const userId = user?._id;
@@ -188,6 +170,27 @@ export default function App() {
     }
   }
 
+  async function handleAssignSkill(skillId) {
+    try {
+      await handleAssignUserProgress(skillId);
+      const index = skills?.findIndex((s) => s._id === skillId)
+      if (!skills[index].usersAssigned.some(u => u._id === user._id)) {
+        const response = await skillsApi.assignUser(user, skillId);
+        // console.log(response, "assign skill response")
+        dispatch({
+          type: 'assignSkill',
+          user: user,
+          index: index
+        })
+        // Response from server = response.skill
+      } else {
+        console.log(`${user.username} already assigned to skill( ${skills[index].name})`)
+      }
+    } catch (err) {
+      setError(console.log(`*** Error Assign SKILL ****\n ${err}`))
+    }
+  }
+
 
   async function handleUnAssignSkill(skillId) {
     try {
@@ -213,37 +216,41 @@ export default function App() {
   }
 
   async function handleAddResource(data) {
+    const skillIndex = skills?.findIndex((s) => s._id === data.skillId)
+    const skill = skills[skillIndex];
+    const subIndex = skill?.subSkills.findIndex((s) => s._id === data.subId)
+    const sub = skill?.subSkills[subIndex];
+
+    const isAssigned = sub.resources.some((r) => r.videoId === data.videoId)
+
     console.log(data, "<=== add resource data ")
     console.log(`Data(before): ${data}`)
-    /// ADD LOGIC TO NOT ADD OF ALREADY ADDED
-    const resource = ({
-      title: data.title,
-      videoId: data.videoId,
-      description: data.description,
-      thumbnail: data.thumbnail,
-      datePublished: data.datePublished,
-      skillId: data.skillId,
-      userId: data.userId,
-      source: data.source
-    })
-    try {
-      const response = await resourcesApi.create(data);
-      console.log("RESPONSE", response)
-      dispatch({
-        type: 'addResource',
-        skillIndex: data.skillIndex,
-        subIndex: data.subIndex,
-        resource: response,
-      })
-
-    } catch (err) {
-      setError(console.log(`***Error in handleAddResource(message): ${err}`))
+    
+    if (!isAssigned) {
+      try {
+        const response = await resourcesApi.create(data);
+        console.log("RESPONSE", response)
+  
+        dispatch({
+          type: 'addResource',
+          skillIndex: skillIndex,
+          subIndex: subIndex,
+          resource: response,
+        })
+  
+      } catch (err) {
+        setError(console.log(`***Error in handleAddResource(message): ${err}`))
+      }
+    } else {
+      console.log(`VideoId: ${data.videoId} already assigned to subSkill`)
     }
+
   }
 
   async function getResources() {
     console.log("getting resources")
     try {
+      
       const response = await resourcesApi.getAll();
       setResources( await response.data)
     } catch(err) {
@@ -251,6 +258,10 @@ export default function App() {
     }
 
   } 
+
+  async function handleAssignResource(userId) {
+
+  }
 
   async function handleDeleteResource(id) {
     try {
@@ -297,7 +308,7 @@ export default function App() {
 
   async function searchYouTube(search) {
 		try {
-			const response = await youTubeApi.searchYouTube(search, activeSkill?.name, activeSub?.title);
+			const response = await youTubeApi.searchYouTube(search, activeSkill?.skill?.name, activeSub?.subSkill?.title);
 			console.log(response, " <------ response from YOUTUBE SEARCH");
 		
 			setYouTubeResults([...response])
@@ -320,7 +331,7 @@ export default function App() {
   useEffect(() => {
     (async () => {
       try {
-        const res = await getUserProgress(userId);
+        const res = await userProgressApi.getUserProgress(userId);
         setProgressData(res.data);
       } catch (error) {
         console.error('Error fetching user progress data:', error);
@@ -351,6 +362,9 @@ export default function App() {
           activeSubSkills: activeSkill?.subSkills,
           activeSub: activeSub, 
           youTubeResults: youTubeResults,
+          activeSkillId: activeSkill?.skill?._id,
+          activeSubId: activeSub?.subSkill?._id,
+          activeUserId: user?._id,
 
           setYouTubeResults: setYouTubeResults,
           searchYouTube: searchYouTube,

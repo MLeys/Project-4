@@ -4,7 +4,9 @@ import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions'
+import CardActions from '@mui/material/CardActions';
+import CardHeader from '@mui/material/CardHeader';
+import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 
@@ -48,29 +50,34 @@ function VideoCard({resource, index, children}) {
   return (
 
     <Card 
+      
       sx={{ 
+        flexGrow: 1,
         position: 'relative', 
-        width: '290px',
-        height: '400px' , 
-        m: 0, 
-        px: .5, 
-        pt: .5,
-        backgroundColor: grey[100]
+        maxWidth: '330px',
+        minWidth: '290px',
+        px: .5,
+        backgroundColor: grey[100],
+        color: 'blueGrayLight2.contrastText'
       }} 
     >
-      <CardActions 
-        sx={{
-          position: 'absolute',
-          top: 0,
-          right: 0,
-          p: 0,
-          m: 0,
-        }}
-      >
-        <OptionsButton />
-      </CardActions>
-      <CardContent sx={{width: '100%', height: '100%', p: 0, m: 0,}} >
-        <Box sx={{overflow: 'hidden', display: 'flex', height: '16%', m: 1, pt: 1  }}>            
+      <CardHeader
+        title={title}
+        titleTypographyProps={{ fontSize: 14, fontWeight: 600, color: 'inherit'}}
+        subheader={description}
+        subheaderTypographyProps={{ fontSize: 10, fontWeight: 200, color: 'inherit' }}
+      />
+
+      <CardMedia
+        component={"iframe"}
+        src={`https://www.youtube.com/embed/${videoId}`}
+        allow='autoplay, encrypted-media'
+        allowFullScreen ={true}
+      />
+
+
+      <CardContent sx={{width: '100%', p: 0, m: 0,}} >
+        {/* <Box sx={{overflow: 'hidden', display: 'flex', height: '16%', m: 1, pt: 1  }}>            
           <Typography whiteSpace='normal' variant="h6" sx={{ fontWeight: 900, alignSelf: 'flex-start' }}>
             {title}
           </Typography>
@@ -82,10 +89,10 @@ function VideoCard({resource, index, children}) {
         </Box>
         <Box height={'40%'} >
           <ResourceVideo />
-        </Box>
-        <Box height={'30%'}>
+        </Box> */}
+     
           {children}
-        </Box>
+   
       </CardContent>
     </Card>
 
