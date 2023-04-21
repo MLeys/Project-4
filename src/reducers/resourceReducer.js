@@ -16,17 +16,17 @@ function resourcesReducer(draft, action) {
 			return draft.filter((s) => s.id !== action.id);
 		}
 		case 'assignResource': {
-			// console.log("Reducer(assignSkill): ", action)
-			const index = action.index;
+			const resourceIndex = resources.findIndex((r) => r._id === action.resourceId)
 			const user = action.user;
-			draft[index].usersAssigned.splice(0,0,user);
+			
+			draft[resourceIndex].usersAssigned.splice(0,0,user);
 			break;				
 		}
 		case 'unAssignResource': {
-			// console.log("Reducer(unAssignSkill): ", action)
-			const skillIndex = action.skillIndex;
-			const userIndex = action.userIndex;
-			draft[skillIndex].usersAssigned.splice(userIndex, 1);
+			const resourceIndex = resources.findIndex((r) => r._id === action.resourceId)
+			const userIndex = resources[resourceIndex].usersAssigned.findIndex((u) => u._id === action.userId)
+			
+			draft[resourceIndex].usersAssigned.splice(userIndex, 1);
 			break;
 		}
 

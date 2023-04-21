@@ -3,6 +3,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import { useImmerReducer} from 'use-immer';
 
 import skillsReducer from "./reducers/skillsReducer.js";
+import resourcesReducer from "./reducers/resourceReducer.js";
 
 
 import { SkillsContext, SkillsDispatchContext } from './context/SkillsContext/SkillsContext.jsx';
@@ -26,8 +27,8 @@ export default function App() {
   const navigate = useNavigate();
   const [error, setError] = useState('');
   const [user, setUser] = useState(userService.getUser());
-  const [skills, dispatch] = useImmerReducer(skillsReducer, null)
-  const [resources, setResources] = useState([]);  
+  const [skills, dispatchSkills] = useImmerReducer(skillsReducer, null);
+  const [resources, dispatchResources] = useImmerReducer(resourcesReducer, null);
   const [activeSkill, setActiveSkill] = useState(null);
   const [activeSub, setActiveSub] = useState(null);
   const [youTubeResults, setYouTubeResults] = useState([]);
@@ -128,7 +129,7 @@ export default function App() {
   async function handleCreateSkill(data) {
     try {
       const response = await skillsApi.create(data);
-      dispatch({
+      dispatchSkills({
         type: 'createSkill',
         data: response.skill,
       })
@@ -142,7 +143,7 @@ export default function App() {
     try {
       console.log("GET SKILLS")
       const response = await skillsApi.getAll(user._id);
-      dispatch({
+      dispatchSkills({
         type: 'readSkills',
         data: response.skills //COULD BE .skills *****
       })
@@ -160,7 +161,7 @@ export default function App() {
     try {
       const skillIndex = skills.findIndex((skill) => skill._id === skillId)
       const response = await skillsApi.deleteSkill(skillId);
-      dispatch({
+      dispatchSkills({
         type: 'deleteSkill',
         id: skillId,
         index: skillIndex,
@@ -177,7 +178,7 @@ export default function App() {
       if (!skills[index].usersAssigned.some(u => u._id === user._id)) {
         const response = await skillsApi.assignUser(user, skillId);
         // console.log(response, "assign skill response")
-        dispatch({
+        dispatchSkills({
           type: 'assignSkill',
           user: user,
           index: index
@@ -199,7 +200,7 @@ export default function App() {
         const userAssignedIndex = skills[skillIndex]?.usersAssigned?.findIndex((u) => u._id === user._id)
         const response = await skillsApi.unAssignUser(user, skillId);
         // console.log(response, "unassign skill response")
-        dispatch({
+        dispatchSkills({
           type: 'unAssignSkill',
           userIndex: userAssignedIndex,
           skillIndex: skillIndex
@@ -215,13 +216,22 @@ export default function App() {
     }
   }
 
-  async function handleAddResource(data) {
+  function handleAssignResourceSubSkill(skillIndex, subIndex, response) {
+    dispatchSkills({
+      type: 'addResource',
+      skillIndex: skillIndex,
+      subIndex: subIndex,
+      resource: response,
+    })
+  }
+
+  async function handleCreateResource(data) {
     const skillIndex = skills?.findIndex((s) => s._id === data.skillId)
     const skill = skills[skillIndex];
     const subIndex = skill?.subSkills.findIndex((s) => s._id === data.subId)
     const sub = skill?.subSkills[subIndex];
-
     const isAssigned = sub.resources.some((r) => r.videoId === data.videoId)
+
 
     console.log(data, "<=== add resource data ")
     console.log(`Data(before): ${data}`)
@@ -229,22 +239,68 @@ export default function App() {
     if (!isAssigned) {
       try {
         const response = await resourcesApi.create(data);
-        console.log("RESPONSE", response)
+        if (response) {
+          handleAssignResourceSubSkill(skillIndex, subIndex, response)
+        } else {
+          console.log(" Reponse invalid ")
+        }
   
-        dispatch({
-          type: 'addResource',
-          skillIndex: skillIndex,
-          subIndex: subIndex,
-          resource: response,
-        })
+
   
       } catch (err) {
-        setError(console.log(`***Error in handleAddResource(message): ${err}`))
+        setError(console.log(`***Error in handleCreateResource(message): ${err}`))
       }
     } else {
       console.log(`VideoId: ${data.videoId} already assigned to subSkill`)
     }
 
+  }
+
+  async function handleUnAssignResourceUser(resourceId, skillId, subId, userId ) {
+    const data = {
+      resourceId: resourceId,
+      userId: userId,
+      skillId: skillId,
+      subId: subId,
+      userId: userId,
+    }
+
+    try {
+      const response = await resourcesApi.unAssignResource(data);
+      dispatchResources({
+        type: 'unAssignResource',
+        resourceId: resourceId,
+        userId: userId,
+        skillId: skillId,
+        subId: subId,
+        userId: userId,
+      })
+    } catch (err) {
+      setError(console.log(`*** Error Unassigning Resource ${err}`))
+    }
+  }
+
+  async function handleAssignResourceUser(resourceId, skillId, subId, userId) {
+    const data = {
+      resourceId: resourceId,
+      userId: userId,
+      skillId: skillId,
+      subId: subId,
+      userId: userId,
+    }
+    try {
+      const response = await resourcesApi.assignResource(data);
+      dispatchResources({
+        type: 'assignResource',
+        resourceId: resourceId,
+        userId: userId,
+        skillId: skillId,
+        subId: subId,
+        userId: userId,
+      })
+    } catch (err) {
+      setError(console.log(`*** Error Unassigning Resource ${err}`))
+    }
   }
 
   async function getResources() {
@@ -259,18 +315,12 @@ export default function App() {
 
   } 
 
-  async function handleAssignResource(userId) {
-
-  }
-
   async function handleDeleteResource(resource) {
-    console.log(resource, "<<<< RESOURCE IN HANDLE DELETE")
     const resourceId = resource._id
     const skillId = resource.skillId;
     const skillIndex = skills?.findIndex((s) => s._id === skillId)
     const skill = skills[skillIndex];
     const subId = resource.subSkillId;
-    console.log(subId)
     const subIndex = skill.subSkills.findIndex((s) => s._id === subId);
     
 
@@ -279,13 +329,13 @@ export default function App() {
       const response = await resourcesApi.deleteResource(resourceId);
       console.log(response.resourceDoc.title, ' <---resource removed from database')
 
-      dispatch({
+      dispatchSkills({
         type: 'deleteResource',
         skillIndex: skillIndex,
         subIndex: subIndex,
         resourceId: resourceId,
       })
-      
+
     } catch (err) {
       setError(console.log(`*** Error DELETE SKILL ****\n ${err}`))
 
@@ -295,7 +345,7 @@ export default function App() {
   async function handleCreateSubSkill(data) {
     try {
       const response = await subSkillsApi.create(data);
-      dispatch({
+      dispatchSkills({
         type: 'createSubSkill',
         skillIndex: activeSkill.index,
         data: response.skill,
@@ -390,10 +440,12 @@ export default function App() {
           handleSetActiveSkill: handleSetActiveSkill,
           handleSetActiveSub: handleSetActiveSub,
           handleCreateSubSkill: handleCreateSubSkill,
-          handleAddResource: handleAddResource,
+          handleCreateResource: handleCreateResource,
           handleDeleteResource: handleDeleteResource,
+          handleUnAssignResourceUser: handleUnAssignResourceUser,
+          handleAssignResourceUser: handleAssignResourceUser,
         }}>
-        <SkillsDispatchContext.Provider value={dispatch}>
+        <SkillsDispatchContext.Provider value={dispatchSkills}>
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<LandingPage />} />

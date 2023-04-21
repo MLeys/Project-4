@@ -69,6 +69,18 @@ function skillsReducer(draft, action) {
 			subSkill.resources = subSkill.resources.filter(resource => resource._id !== resourceId);
 			break;
 		}
+		case 'assignResource': {
+			const index = action.index;
+			const user = action.user;
+			draft[index].usersAssigned.splice(0, 0, user);
+			break;				
+		}
+		case 'unAssignResource': {
+			const skillIndex = action.skillIndex;
+			const userIndex = action.userIndex;
+			draft[skillIndex].usersAssigned.splice(userIndex, 1);
+			break;
+		}
 		
 		case 'assignSub': {
 			const skillIndex = action.skillIndex;

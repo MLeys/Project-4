@@ -98,6 +98,6 @@ export function unAssignUser(user, skillId) {
         }
 	}).then(res => {
 		if(res.ok) return res.json()
-		throw new Error('Error creating a subSkill, check server terminal')
+		throw new Error('Error in UNASSIGN SKILL API. Check Terminal')
 	})
 }

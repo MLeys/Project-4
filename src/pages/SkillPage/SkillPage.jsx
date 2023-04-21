@@ -32,6 +32,9 @@ import ResourceCard2 from '../../components/ResourceCard2/ResourceCard2';
 import SearchForm from '../../components/SearchForm/SearchForm';
 
 const TrashFilledIcon = ({color='white'}) => <i className="bi bi-trash3-fill" color={color}/>;
+const BookFilledIcon = ({color='white'}) => <i className="bi bi-book-fill" color={color}/>;
+const BookOutlinedIcon = ({color='white'}) => <i className="bi bi-book" color={color}/>;
+
 
 function SkillPage() {
   const ctx = useContext(SkillsContext);
@@ -41,21 +44,38 @@ function SkillPage() {
   const handleSetActiveSkillById = ctx.handleSetActiveSkillById;
   const activeSkill = ctx.activeSkill;
   const activeSub = ctx.activeSub;
+  const subId = ctx.activeSub?._id;
   const skillId = useParams().skillId;
   const pageSkill = skillId ? skills?.find(skill => skill?._id === skillId) : console.log('skill param not found');
   const activeSubIndex = ctx.activeSub?.index;
   const activeSubSkills = ctx.activeSkill?.subSkills ? ctx.activeSkill?.subSkills : console.log(' Unable to store subskills')
-  const userId = ctx.loggedUser._id;
+  const userId = ctx.loggedUser?._id;
   const deleteResource = ctx.handleDeleteResource;
+  const assignResource = ctx.handleAssignResourceUser;
+  const unAssignResource = ctx.handleUnAssignResourceUser;
 
   const [skill, setSkill] = useState(pageSkill);
   const [subSkills, setSubSkills] = useState([]);
+  const [isAssigned, setIsAssign] = useState(false)
   
   function handleDeleteResource(resource) {
     deleteResource(resource)
   }
-  
 
+
+
+  function checkAssigned(resource) {
+    const isAssigned = resource.usersAssigned.some((u)=> u._id === userId)
+    setIsAssign(isAssigned)
+  }
+
+
+  function handleClickAssigned(resource) {
+    const resourceId = resource._id;
+    (isAssigned) 
+      ? unAssignResource(skillId, subId, resourceId, userId)
+      : assignResource(skillId, subId, resourceId, userId); 
+  }
 
   useEffect(() => {
     
@@ -75,7 +95,6 @@ function SkillPage() {
         ml={1}
         flexWrap={'wrap'}
       >
-
         <Grid 
           container
           display={'flex'}
@@ -84,21 +103,20 @@ function SkillPage() {
           alignItems={'center'}
           flexWrap={'wrap'}
         >
-          
-            <Grid xs={12} sm={6} display={'flex'} alignItems={'center'} justifyContent={'center'}>
-              {/* Change to only show users currently assigned  */}
-              <Card sx={{ bgcolor: 'blueGrayLight2.light', my: 1, pl: 1, minWidth: 280, maxWidth: 350, textAlign: 'left'}}>
-                {subSkills?.map((sub, index) => (
-                  <Box key={`subProg-${index}`} >
-                    <LinearProgressWithLabel height={10} key={`subProg-${index}`} title={sub.title} value={35} />
-                    <Divider />
-                  </Box>
-                ))}     
-              </Card>
-            </Grid>
-            <Grid xs={12} sm={6} bgcolor={'transparent'}>
-              <SearchForm />
-            </Grid>
+          <Grid xs={12} sm={6} display={'flex'} alignItems={'center'} justifyContent={'center'}>
+            {/* Change to only show users currently assigned  */}
+            <Card sx={{ bgcolor: 'blueGrayLight2.light', my: 1, pl: 1, minWidth: 280, maxWidth: 350, textAlign: 'left'}}>
+              {subSkills?.map((sub, index) => (
+                <Box key={`subProg-${index}`} >
+                  <LinearProgressWithLabel height={10} key={`subProg-${index}`} title={sub.title} value={35} />
+                  <Divider />
+                </Box>
+              ))}     
+            </Card>
+          </Grid>
+          <Grid xs={12} sm={6} bgcolor={'transparent'}>
+            <SearchForm />
+          </Grid>
         </Grid>
 
         <Grid container spacing={1}  flexGrow={1}>
@@ -117,13 +135,18 @@ function SkillPage() {
                 >
                   <TrashFilledIcon />
                 </IconButton>
+                <IconButton 
+                  aria-label="Delete resource"
+                  onClick={() => handleClickAssigned(resource)}
+                >
+                  {isAssigned ? <BookFilledIcon /> : <BookOutlinedIcon />}
+                </IconButton>
               </CardActions>
             </VideoCard>
           </Grid>
           ))}
         </Grid>
       </Box>
-
     </PageDrawer>
 
   );
