@@ -20,6 +20,7 @@ import * as skillsApi from "./utils/skillApi.js";
 import * as subSkillsApi from "./utils/subSkillApi.js";
 import * as youTubeApi from "./utils/youTubeApi.js";
 import * as resourcesApi from "./utils/resourceApi.js";
+import * as userProgressApi from "./utils/userProgressApi.js"
 
 export default function App() {
   const navigate = useNavigate();
@@ -30,7 +31,27 @@ export default function App() {
   const [activeSkill, setActiveSkill] = useState(null);
   const [activeSub, setActiveSub] = useState(null);
   const [youTubeResults, setYouTubeResults] = useState([]);
-    
+  const [progressData, setProgressData] = useState(null);
+  
+  const userId = user?._id;
+
+  async function handleAssignSkill(skillId) {
+    try {
+      const res = await assignSkill(userId, skillId);
+      setProgressData(res.data);
+    } catch (error) {
+      console.error('Error assigning skill:', error);
+    }
+  };
+
+  async function handleResourceCompletion(subSkillId, resourceId, complete)  {
+    try {
+      const res = await updateResourceCompletion(userId, subSkillId, resourceId, complete);
+      setProgressData(res.data);
+    } catch (error) {
+      console.error('Error updating resource completion:', error);
+    }
+  };
 
   async function onStartUploadAllSkillsFromList() {
     // (testSkillsList) 
@@ -142,7 +163,7 @@ export default function App() {
     }
   }
 
-  async function handleAssignSkill(skillId) {
+  async function handleAssignSkill2(skillId) {
     try {
       const index = skills?.findIndex((s) => s._id === skillId)
       if (!skills[index].usersAssigned.some(u => u._id === user._id)) {
@@ -244,8 +265,6 @@ export default function App() {
     }
   }
 
-
-
   async function handleCreateSubSkill(data) {
     try {
       const response = await subSkillsApi.create(data);
@@ -281,7 +300,6 @@ export default function App() {
 		}
 	}
 
-
   function handleSignUpOrLogin() {
     setUser(userService.getUser());
   }
@@ -292,6 +310,17 @@ export default function App() {
     userService.logout();
     setUser(null);
   }
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await getUserProgress(userId);
+        setProgressData(res.data);
+      } catch (error) {
+        console.error('Error fetching user progress data:', error);
+      }
+    })();
+  }, [userId]);
 
   useEffect(() => {
     async function start() {

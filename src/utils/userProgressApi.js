@@ -4,15 +4,12 @@ const BASE_URL = '/api/user-progress';
 
 
 export async function getAccumulatedProgress() {
-  const options = {
-    method: 'GET',
+  const response = await fetch(BASE_URL + 'accumulated-progress', {
     headers: {
       Authorization: 'Bearer ' + tokenService.getToken(),
       'Content-Type': 'application/json',
     },
-  };
-
-  const response = await fetch(BASE_URL + 'accumulated-progress', options);
+  });
 
   if (!response.ok) {
     throw new Error('Error fetching accumulated progress data');
