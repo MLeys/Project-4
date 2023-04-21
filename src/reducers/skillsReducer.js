@@ -43,6 +43,33 @@ function skillsReducer(draft, action) {
 			draft[skillIndex].subSkills[subIndex].resources.splice(0,0, action.resource)
 			break;
 		}
+		case 'deleteResource': {
+			const skillIndex = action.skillIndex;
+			const subIndex = action.subIndex;
+			console.log(subIndex, " SUBINDEX IN REDUCER")
+			const resourceId = action.resourceId;
+		
+			// Check if the skill exists
+			if (!draft[skillIndex]) {
+				console.error(`Skill with index ${skillIndex} not found.`);
+				break;
+			}
+		
+			const skill = draft[skillIndex];
+		
+			// Check if the subSkill exists
+			if (!skill.subSkills || !skill.subSkills[subIndex]) {
+				console.error(`SubSkill with index ${subIndex} not found.`);
+				break;
+			}
+		
+			const subSkill = skill.subSkills[subIndex];
+		
+			// Filter out the resource with the specified ID
+			subSkill.resources = subSkill.resources.filter(resource => resource._id !== resourceId);
+			break;
+		}
+		
 		case 'assignSub': {
 			const skillIndex = action.skillIndex;
 			const subIndex = action.subIndex;

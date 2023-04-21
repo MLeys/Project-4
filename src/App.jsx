@@ -34,7 +34,7 @@ export default function App() {
   const [progressData, setProgressData] = useState(null);
   
   const userId = user?._id;
-  const skillId = activeSkill?.skill._id;
+  const skillId = activeSkill?.skill?._id;
   const subId = activeSub?.subSkill?._id;
 
 
@@ -263,19 +263,29 @@ export default function App() {
 
   }
 
-  async function handleDeleteResource(id) {
+  async function handleDeleteResource(resource) {
+    console.log(resource, "<<<< RESOURCE IN HANDLE DELETE")
+    const resourceId = resource._id
+    const skillId = resource.skillId;
+    const skillIndex = skills?.findIndex((s) => s._id === skillId)
+    const skill = skills[skillIndex];
+    const subId = resource.subSkillId;
+    console.log(subId)
+    const subIndex = skill.subSkills.findIndex((s) => s._id === subId);
+    
+
     try {
-      const name = resources.find((r => r._id === id))
-      const index = resources.indexOf((r => r._id === id));
-      console.log(`HandleDeleteResource: ${name.title} at index: ${index}`)
-      const response = await resourcesApi.deleteResource(id);
+
+      const response = await resourcesApi.deleteResource(resourceId);
       console.log(response.resourceDoc.title, ' <---resource removed from database')
-      getResources();
+
       dispatch({
-        type: 'deleteSkill',
-        id: skillId,
-        index: skillIndex,
+        type: 'deleteResource',
+        skillIndex: skillIndex,
+        subIndex: subIndex,
+        resourceId: resourceId,
       })
+      
     } catch (err) {
       setError(console.log(`*** Error DELETE SKILL ****\n ${err}`))
 

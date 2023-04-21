@@ -32,6 +32,7 @@ async function create(req, res) {
     thumbnail: req.body.thumbnail,
     datePublished: req.body.datePublished,
     skillId: req.body.skillId,
+		subSkillId: req.body.subId,
     userId: req.body.userId,
     source: req.body.source,
   };

@@ -31,6 +31,7 @@ import LinearProgressWithLabel from '../../components/LinearProgressWithLabel/Li
 import ResourceCard2 from '../../components/ResourceCard2/ResourceCard2';
 import SearchForm from '../../components/SearchForm/SearchForm';
 
+const TrashFilledIcon = ({color='white'}) => <i className="bi bi-trash3-fill" color={color}/>;
 
 function SkillPage() {
   const ctx = useContext(SkillsContext);
@@ -45,11 +46,15 @@ function SkillPage() {
   const activeSubIndex = ctx.activeSub?.index;
   const activeSubSkills = ctx.activeSkill?.subSkills ? ctx.activeSkill?.subSkills : console.log(' Unable to store subskills')
   const userId = ctx.loggedUser._id;
+  const deleteResource = ctx.handleDeleteResource;
 
   const [skill, setSkill] = useState(pageSkill);
   const [subSkills, setSubSkills] = useState([]);
   
-
+  function handleDeleteResource(resource) {
+    deleteResource(resource)
+  }
+  
 
 
   useEffect(() => {
@@ -60,9 +65,8 @@ function SkillPage() {
       setSubSkills(skills?.find(skill => skill?._id === skillId)?.subSkills)
     }
     
-  }, [skills]); 
+  }, [skills, subSkills]); 
 
-  console.log(subSkills, 'subskills')
   return ( 
    
     <PageDrawer >
@@ -105,7 +109,16 @@ function SkillPage() {
           </Grid>
           {activeSub?.resources?.map((resource, index) => (
           <Grid key={`resourceCard-${index}`} xs={12} sm={6} md={4}>
-            <ResourceCard2 key={`resourceCard-${index}`} resource={resource} />
+            <VideoCard key={`resourceCard-${index}`} resource={resource} >
+              <CardActions disableSpacing>
+                <IconButton 
+                  aria-label="Delete resource"
+                  onClick={() => handleDeleteResource(resource)}
+                >
+                  <TrashFilledIcon />
+                </IconButton>
+              </CardActions>
+            </VideoCard>
           </Grid>
           ))}
         </Grid>
