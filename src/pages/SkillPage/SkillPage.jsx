@@ -39,49 +39,36 @@ const BookOutlinedIcon = ({color='white'}) => <i className="bi bi-book" color={c
 
 function SkillPage() {
   const ctx = useContext(SkillsContext);
-  const getSkills = ctx.getSkills;
   const skills = ctx.skills;
-  const handleSetActiveSub = ctx.handleSetActiveSub;
   const handleSetActiveSkillById = ctx.handleSetActiveSkillById;
-  const activeSkill = ctx.activeSkill;
   const activeSub = ctx.activeSub;
   const subId = ctx.activeSub?._id;
   const skillId = useParams().skillId;
   const pageSkill = skillId ? skills?.find(skill => skill?._id === skillId) : console.log('skill param not found');
-  const activeSubIndex = ctx.activeSub?.index;
-  const activeSubSkills = ctx.activeSkill?.subSkills ? ctx.activeSkill?.subSkills : console.log(' Unable to store subskills')
   const userId = ctx.loggedUser?._id;
   const deleteResource = ctx.handleDeleteResource;
   const assignResource = ctx.handleAssignResourceUser;
   const unAssignResource = ctx.handleUnAssignResourceUser;
-  const deleteResourcesByVideoId = ctx.handleDeleteResourcesByVideoId;
 
   const [skill, setSkill] = useState(pageSkill);
   const [subSkills, setSubSkills] = useState([]);
   const [isAssigned, setIsAssign] = useState(false)
   
+
   function handleDeleteResource(resource) {
     deleteResource(resource)
   }
-
-
 
   function checkAssigned(resource) {
     const isAssigned = resource.usersAssigned.some((u)=> u._id === userId)
     setIsAssign(isAssigned)
   }
 
-
   function handleClickAssigned(resource) {
     const resourceId = resource._id;
     (isAssigned) 
       ? unAssignResource(skillId, subId, resourceId, userId)
       : assignResource(skillId, subId, resourceId, userId); 
-  }
-
-  function handleClickDeleteAllByVideoId() {
-    console.log('Clicked Delete all videos by VideoId')
-    deleteResourcesByVideoId();
   }
 
   useEffect(() => {

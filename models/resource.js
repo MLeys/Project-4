@@ -8,7 +8,8 @@ const resourceSchema = new Schema(
     description: String,
     thumbnail: String,
     datePublished: String,
-    subSkill: { type: Schema.Types.ObjectId, ref: "SubSkill" },    
+    subSkillId: String,
+    skillId: String,
     source: { type: String, default: "youtube" },
     usersAssigned: [
       { type: Schema.Types.ObjectId, ref: "User", autopopulate: true },

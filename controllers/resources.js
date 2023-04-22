@@ -22,6 +22,7 @@ async function create(req, res) {
     description: req.body.description,
     thumbnail: req.body.thumbnail,
     datePublished: req.body.datePublished,
+    skillId: req.body.skillId,
 		subSkillId: req.body.subId,
     userId: req.body.userId,
     source: req.body.source,
@@ -76,12 +77,15 @@ async function create(req, res) {
     }
 
     await skillDoc.save();
+
     res.status(201).json(newResource.toJSON());
   } catch (error) {
     console.error("Error creating resource:", error);
     res.status(500).json({ message: "Error creating resource" });
   }
 }
+
+
 
 async function allResources(req, res) {
   try {

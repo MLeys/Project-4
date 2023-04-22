@@ -5,7 +5,7 @@ const subSkillSchema = Schema({
     parentSkill: String,
     title: String,
     details: String,
-    resources: [{type: Schema.Types.ObjectId, ref: 'Resource', autopopulate: true}],
+    resources: [{type: Schema.Types.ObjectId, ref: 'Resource'}],
     usersAssigned: [{type: Schema.Types.ObjectId, ref: 'User'}],
 }, {
     timestamps: true

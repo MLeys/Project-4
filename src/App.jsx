@@ -35,9 +35,17 @@ export default function App() {
   const [progressData, setProgressData] = useState(null);
   
   const userId = user?._id;
-  const skillId = activeSkill?.skill?._id;
-  const subId = activeSub?.subSkill?._id;
+  const activeSkillId = activeSkill?.skill?._id;
+  const activeSubId = activeSub?.subSkill?._id;
 
+
+  function getSkillIndexById(skillId){
+    return skills?.findIndex((skill) => skill._id === skillId)
+  }
+
+  function getSubIndexById(subId) {
+    return activeSkill?.subSkills?.findIndex((sub) => sub._id === subId)
+  }
 
   async function handleAssignUserProgress(skillId) {
     const userId = user?._id;
@@ -88,12 +96,12 @@ export default function App() {
   }
 
   function handleSetActiveSub(subIndex=0){
-    if (activeSkill) {
+    if (activeSkill?.subSkills ) {
       setActiveSub({
         ...activeSub,
         index: subIndex,
-        subSkill: activeSkill?.subSkills[subIndex],
-        resources: activeSkill?.subSkills[subIndex]?.resources
+        subSkill: activeSkill?.subSkills?.[subIndex],
+        resources: activeSkill?.subSkills?.[subIndex]?.resources
       });
       console.log(`ActiveSub: ${activeSkill?.subSkills[subIndex]?.title} at index: ${subIndex} `)
 
@@ -125,7 +133,6 @@ export default function App() {
       })    
     }
   }
-
 
   async function handleCreateSkill(data) {
     try {
@@ -220,7 +227,6 @@ export default function App() {
     }
   }
 
-
   async function handleUnAssignSkill(skillId) {
     try {
       const skillIndex = skills?.findIndex((s) => s._id === skillId)
@@ -244,33 +250,17 @@ export default function App() {
     }
   }
 
-  async function handleAssignResourceSubSkill(skillId, subId, response) {
+  async function handleAssignResourceToSubSkillInReducer(skillId, subId, resource) {
+    console.log(`skillId: ${skillId}\nsubId: ${subId}`)
+  
     const skillIndex = getSkillIndexById(skillId);
     const subIndex = getSubIndexById(subId);
     dispatchSkills({
-      type: 'addResourceToSub',
+      type: 'assignResourceToSubSkill',
       skillIndex: skillIndex,
-      subIndex: subIndex,
-      resource: response,
+      subSkillIndex: subIndex,
+      resource: resource,
     })
-    dispatchResources({
-      type: 'updateResource',
-      resourceId: resourceId,
-      subId: subId,
-      skillId: skillId,
-    })
-    try {
-      // API CALL TO SERVER TO ASSIGN RESOURCE TO USER!!!!!! ************
-
-    } catch (err) {
-      throw new Error(
-        console.log(err, ' <--- Error assigning resesource to subskill'),
-        `${err} <-- Error assigning Resource to SubSkill`
-      )
-      
-    }
-
-    
   }
 
   async function handleAssignResourceUser(resource, skillId, subId, userId) {
@@ -282,7 +272,7 @@ export default function App() {
       userId: userId,
       skillId: skillId,
       subId: subId,
-      userId: userId,
+
     }
     try {
       const response = resourcesApi.assignResource(data);
@@ -292,42 +282,27 @@ export default function App() {
         userId: userId,
         skillId: skillId,
         subId: subId,
-        userId: userId,
+    
       })
     } catch (err) {
       setError(console.log(`*** Error Unassigning Resource ${err}`))
     }
   }
 
-  function getSkillIndexById(skillId){
-    return skills?.findIndex((skill) => skill._id === skillId)
-  }
-
-  function getSubIndexById(subId) {
-    return activeSkill?.subSkills?.findIndex((sub) => sub._id === subId)
-  }
-
-
   async function handleCreateResource(data) {
-    const skillIndex = skills?.findIndex((s) => s._id === data.skillId)
-    const skill = skills[skillIndex];
-    const subIndex = skill?.subSkills.findIndex((s) => s._id === data.subId)
-    const sub = skill?.subSkills[subIndex];
-    const isAssigned = sub?.resources?.some((r) => r.videoId === data.videoId)
-
+    const skillId = data.skillId;
+    const subId = data.subId;
     
+    const isAssigned = activeSub?.resources?.some((r) => r.videoId === data.videoId)
+
     if (!isAssigned) {
       try {
         const response = await resourcesApi.create(data);
-        console.log(response, " RESPOMSE FROM CREATE RESOURCE")
+        console.log(response, " RESPONSE FROM CREATE RESOURCE")
         if (response) {
-          dispatchResources({
-            type: 'createResource',
-            data: response,
-          })
-        } else {
-          console.log(" Reponse invalid ")
-        }  
+          const resource = await response;
+          handleAssignResourceToSubSkillInReducer(skillId, subId, resource)
+        } 
       } catch (err) {
         setError(console.log(`***Error in handleCreateResource(message): ${err}`))
       }
@@ -356,8 +331,6 @@ export default function App() {
       setError(console.log(`*** Error Unassigning Resource ${err}`))
     }
   }
-
-
 
   async function handleDeleteResource(resource) {
     const resourceId = resource._id
@@ -409,7 +382,6 @@ export default function App() {
     }
   } // END handleAddSubSkill Function
 
-
   async function searchYouTube(search) {
 		try {
 			const response = await youTubeApi.searchYouTube(search, activeSkill?.skill?.name, activeSub?.subSkill?.title);
@@ -432,16 +404,16 @@ export default function App() {
     setUser(null);
   }
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await userProgressApi.getUserProgress(userId);
-        setProgressData(res.data);
-      } catch (error) {
-        console.error('Error fetching user progress data:', error);
-      }
-    })();
-  }, [userId]);
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const res = await userProgressApi.getUserProgress(userId);
+  //       setProgressData(res.data);
+  //     } catch (error) {
+  //       console.error('Error fetching user progress data:', error);
+  //     }
+  //   })();
+  // }, [userId]);
 
   useEffect(() => {
     async function start() {
@@ -470,6 +442,8 @@ export default function App() {
           activeSubId: activeSub?.subSkill?._id,
           activeUserId: user?._id,
           resources: resources,
+          activeSkillId: activeSkillId,
+          activeSubId: activeSubId,
 
           handleDeleteResourcesByVideoId: handleDeleteResourcesByVideoId,
           setYouTubeResults: setYouTubeResults,
@@ -490,7 +464,7 @@ export default function App() {
           handleDeleteResource: handleDeleteResource,
           handleUnAssignResourceUser: handleUnAssignResourceUser,
           handleAssignResourceUser: handleAssignResourceUser,
-          handleAssignResourceSubSkill: handleAssignResourceSubSkill,
+          handleAssignResourceToSubSkillInReducer: handleAssignResourceToSubSkillInReducer,
         }}
       >
         <ResourcesContext.Provider

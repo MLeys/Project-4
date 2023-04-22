@@ -52,7 +52,9 @@ const skillsReducer = produce((draft, action) => {
     }
     case 'assignResourceToSubSkill': {
       const skillIndex = action.skillIndex;
+			console.log(skillIndex, "SKILL INdex in reducer")
       const subSkillIndex = action.subSkillIndex;
+			console.log(subSkillIndex, "SKILL INdex in reducer")
       const resource = action.resource;
       draft[skillIndex].subSkills[subSkillIndex].resources.unshift(resource);
       break;

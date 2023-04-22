@@ -3,7 +3,7 @@ const router = express.Router();
 import skillsCtrl  from '../../controllers/skills.js';
 
 // *================= PUBLIC ROUTES ================*
-router.get('/', skillsCtrl.index)
+// router.get('/', skillsCtrl.index)
 router.post('/createInitial', skillsCtrl.createInitial)
 router.post('/', skillsCtrl.create)
 
