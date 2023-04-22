@@ -13,7 +13,7 @@ const resourceSchema = new Schema(
     usersAssigned: [
       { type: Schema.Types.ObjectId, ref: "User", autopopulate: true },
     ],
-    //
+    
   },
   {
     timestamps: true,

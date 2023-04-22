@@ -12,24 +12,6 @@ export default {
 };
 
 
-async function deleteAllByVideoId(req, res) {
-  console.log(req, " <-- Delete all by video id in resource Controller")
-  const videoId = req.params.videoId;
-
-  try {
-    const result = await Resource.deleteMany({ title: undefined });
-
-    if (result.deletedCount === 0) {
-      res.status(404).json({ message: "No resources found with the specified videoId" });
-    } else {
-      res.status(200).json({ message: `Deleted ${result.deletedCount} resources with videoId: ${videoId}` });
-    }
-  } catch (error) {
-    console.error("Error deleting resources:", error);
-    res.status(500).json({ error: "Error deleting resources" });
-  }
-}
-
 async function create(req, res) {
 	const user = await User.findById(req.body.userId)
   const skillId = req.body.skillId;
@@ -40,7 +22,6 @@ async function create(req, res) {
     description: req.body.description,
     thumbnail: req.body.thumbnail,
     datePublished: req.body.datePublished,
-    skillId: req.body.skillId,
 		subSkillId: req.body.subId,
     userId: req.body.userId,
     source: req.body.source,
@@ -95,15 +76,12 @@ async function create(req, res) {
     }
 
     await skillDoc.save();
-
     res.status(201).json(newResource.toJSON());
   } catch (error) {
     console.error("Error creating resource:", error);
     res.status(500).json({ message: "Error creating resource" });
   }
 }
-
-
 
 async function allResources(req, res) {
   try {
@@ -116,17 +94,29 @@ async function allResources(req, res) {
 
 async function deleteResources(req, res) {
   try {
-    console.log(req.params, "Resource doc params for delete")
     const resourceDoc = await Resource.findById(req.params.id)
-    console.log(resourceDoc, "<--- Resource on Delete")
-    // resourceDoc.remove(req.params.id)
-		
-		await Resource.deleteOne({_id: req.params.id})
-    
 
+		await Resource.deleteOne({_id: req.params.id})
     res.status(201).json({resourceDoc})
   } catch (err) {
     console.log(err, '<-- Error in deleteResource.Ctrl')
     res.status(400).json({err})
+  }
+}
+
+// TEMP for cleaning up unused old resources with duplicates
+async function deleteAllByVideoId(req, res) {
+  const videoId = req.params.videoId;
+  try {
+    const result = await Resource.deleteMany({ title: undefined });
+
+    if (result.deletedCount === 0) {
+      res.status(404).json({ message: "No resources found with the specified videoId" });
+    } else {
+      res.status(200).json({ message: `Deleted ${result.deletedCount} resources with videoId: ${videoId}` });
+    }
+  } catch (error) {
+    console.error("Error deleting resources:", error);
+    res.status(500).json({ error: "Error deleting resources" });
   }
 }
