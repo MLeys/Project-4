@@ -3,7 +3,6 @@ import Skill from '../models/skill.js';
 
 export default {
   create,
-  index,
   delete: deleteSkill,
   show,
   all: allSkills,
@@ -12,6 +11,7 @@ export default {
   createInitial
 };
 
+// TEMP for creating initial skills from hard coded list
 async function createInitial(req, res) {
   const data = req.body;
   try {
@@ -47,7 +47,6 @@ async function createInitial(req, res) {
       // Save the skill to the database
       await skill.save();
     }
-
     res.status(201).json({ message: "Skills created/updated successfully" });
   } catch (err) {
     console.error(err);
@@ -57,12 +56,10 @@ async function createInitial(req, res) {
 
 async function deleteSkill(req, res) {
   try {
-    console.log(req.params, "Skill doc params for delete")
     const skillDoc = await Skill.findById(req.params.id)
     console.log(skillDoc, "<--- SkillDoC on Delete")
     skillDoc.remove(req.params.id)
     
-
     res.status(201).json({skillDoc})
   } catch (err) {
     console.log(err, '<-- Error in deleteSkill.Ctrl')
@@ -75,27 +72,14 @@ async function create(req, res) {
       const skill = await Skill.create({
         name: req.body.name,
         type: req.body.type,
-        // usersAssigned: req.user._id,
-        
       })
 
-      // await skill.populate('usersAssigned')// populating on a document "skill"
       res.status(201).json({skill})
     } catch(err){
       res.status(400).json({err})
     }
   }
 
-async function index(req, res) {
-  try {
-    console.log(" HITTING INDEX NOT ALL SKILLS")
-    // this populates the user when you find the skills
-    const skills = await Skill.find({}).populate("usersAssigned").exec(); // populating on the model
-    res.status(200).json({ data: skills });
-  } catch (err) {
-    res.status(400).json({ err });
-  }
-}
 async function allSkills(req, res) {
   try {
     console.log("allskills ctrl");
@@ -133,13 +117,9 @@ async function allSkills(req, res) {
   }
 }
 
-
 async function show(req, res) {
   try {
     const skillDoc = await Skill.findOne({'name': req.params.id}).exec()
-
-  
-
     res.status(201).json({skillDoc})
   } catch (err) {
     console.log(err, '<-- Error in SHOW Ctrl')
@@ -148,36 +128,28 @@ async function show(req, res) {
 }
 
 async function assignUser(req, res) {
-  console.log('=========================')
-  console.log(req.params, '<<<<<<<<< assign reqParams')
-  console.log('=========================')
   try {
     const skill = await Skill.findById(req.params.id)
     
     skill.usersAssigned.push(req.body)
     skill.save()
-    
+    console.log(req.body, "<--assigned user in skills controler")
     res.status(201).json({skill})
   } catch(err) {
-    console.log(err, "<-- assign user controller error")
+    console.log(err, "<-- assign user in skills controller error")
     res.status(400).json({err})
   }
 }
 
 async function unAssignUser(req, res) {
   try {
-    console.log('=========================')
-    console.log(req.body._id)
-    console.log('=========================')
     const skill = await Skill.findById(req.params.id);
     const userId = (req.body._id)
     const index = skill.usersAssigned.indexOf(userId);
 
     skill.usersAssigned.splice(index, 1);
-
     skill.save()
-    
-    console.log(skill.usersAssigned, "<--UNassigned user in controler")
+    console.log(skill.usersAssigned, "<--UNassigned user in skills controler")
     res.status(201).json({skill})
   } catch(err) {
     console.log(err, "<-- assign user controller error")
