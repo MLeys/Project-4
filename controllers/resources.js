@@ -32,17 +32,6 @@ async function deleteAllByVideoId(req, res) {
 
 async function create(req, res) {
 	const user = await User.findById(req.body.userId)
-	// const resourceData = {
-	// 	title: req.body.title,
-	// 	videoId: req.body.videoId,
-	// 	description: req.body.description,
-	// 	thumbnail: req.body.thumbnail,
-	// 	datePublished: req.body.datePublished,
-	// 	skillId: req.body.skillId,
-	// 	subSkillId: req.body.subId,
-	// 	user: user,
-	// 	source: req.body.source,
-	// }
   const skillId = req.body.skillId;
   const subId = req.body.subId;
   const resourceData = {

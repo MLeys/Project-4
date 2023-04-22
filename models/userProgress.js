@@ -19,11 +19,14 @@ const userProgressSchema = new Schema({
     timestamps: true
 });
 
-userProgressSchema.virtual('subSkillProgressPercentage').get(function() {
-    if (!this.subSkillProgress) return 0;
-    const completedResources = this.subSkillProgress.resources.filter(resource => resource.complete).length;
-    const totalResources = this.subSkillProgress.resources.length;
-    return (completedResources / totalResources) * 100;
+userProgressSchema.virtual('subSkillProgressPercentages').get(async function() {
+  const subSkillProgress = await Promise.all(this.subSkillProgress.map(async subSkill => {
+    const completedResources = await Resource.countDocuments({ subSkillId: subSkill.subSkillId, complete: true, usersAssigned: this.user });
+    const totalResources = await Resource.countDocuments({ subSkillId: subSkill.subSkillId, usersAssigned: this.user });
+    const percentage = totalResources > 0 ? (completedResources / totalResources) * 100 : 0;
+    return { subSkillId: subSkill.subSkillId, percentage };
+  }));
+  return subSkillProgress;
 });
 
 userProgressSchema.virtual('resourceProgressPercentage').get(function() {
@@ -49,10 +52,14 @@ userProgressSchema.statics.getAccumulatedProgress = async function (userId) {
   let accumulatedProgress = 0;
 
   for (const userProgress of userProgressDocuments) {
+    const subSkillPercentages = await userProgress.subSkillProgressPercentages;
+    const skillProgress = subSkillPercentages.reduce((acc, subSkill) => acc + subSkill.percentage, 0) / subSkillPercentages.length;
+
     if (userProgress.skillComplete) {
       completedSkills += 1;
     }
-    accumulatedProgress += userProgress.skillProgress;
+
+    accumulatedProgress += skillProgress;
   }
 
   const averageProgress = accumulatedProgress / totalSkills;
@@ -65,5 +72,6 @@ userProgressSchema.statics.getAccumulatedProgress = async function (userId) {
     completionPercentage,
   };
 };
+
 
 export default mongoose.model('UserProgress', userProgressSchema);
