@@ -35,7 +35,7 @@ function skillsReducer(draft, action) {
 			draft[skillIndex].subSkills.splice(0,0, newSub);
 			break;
 		}
-		case 'addResource': {
+		case 'addResourceToSub': {
 			const skillIndex = action.skillIndex
 			const subIndex = action.subIndex
 			const skill = draft[action.skillIndex]

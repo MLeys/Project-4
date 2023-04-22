@@ -16,7 +16,7 @@ import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
 import { VertDotsIcon } from '../../customIcons';
 
-export default function SubList({setActiveTabSub}) {
+export default function SubList() {
   const ctx = useContext(SkillsContext);
   const skills = ctx.skills;
   const activeSkill = ctx.activeSkill;
@@ -53,7 +53,7 @@ export default function SubList({setActiveTabSub}) {
     console.log(`Clicked Subskill: ${sub.title} at ${index}`);
     setSelectedIndex(subIndex);
     handleSetActiveSub(index);
-    setActiveTabSub(sub)
+    // setActiveTabSub(sub)
   }
 
   return (

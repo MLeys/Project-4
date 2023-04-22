@@ -16,17 +16,20 @@ function SearchResultsDisplay({handleClose}) {
   const youTubeResults = ctx.youTubeResults;
   const setYouTubeResults = ctx.setYouTubeResults;
   const createResource = ctx.handleCreateResource;
+  const assignResourceSubSkill = ctx.handleAssignResourceSubSkill;
+
   const skillId = ctx.activeSkillId;
   const userId = ctx.activeUserId;
   const subId = ctx.activeSubId;
   
 
-  function handleClickCreate( resource ){
+  async function handleClickCreate( resource ){
     console.log(resource, "<-resource being added onclick")
     resource.skillId = skillId;
     resource.userId = userId;
     resource.subId = subId;
-    createResource(resource);
+    await createResource(resource);
+    
     console.log(`Add Resource: ${resource.videoId}`)
   }
   

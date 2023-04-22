@@ -35,7 +35,7 @@ export default function PageDrawer({children}) {
 
   const [open, setOpen] = useState(false);
   const [checked, setChecked] = useState(false);
-  const [activeTabSub, setActiveTabSub] = useState(activeSkill?.subSkills[0])
+  // const [activeTabSub, setActiveTabSub] = useState(activeSkill?.subSkills[0])
 
   function handleAssignChecked(e) {
     checked ? handleUnAssignSkill(skillId) : handleAssignSkill(skillId);
@@ -64,7 +64,7 @@ export default function PageDrawer({children}) {
             {open ? <ArrowLeftIcon /> : <ListIcon height={34} width={34}/>}
           </IconButton>
           <Typography align='left' variant="h5" noWrap component="div" pl={1} sx={{ flexGrow: 1 }}>
-            {activeSkill?.skill.name}
+            {activeSkill?.skill?.name}
           </Typography>
           {/* <FormControlLabel 
             label="Learn" 
@@ -108,7 +108,7 @@ export default function PageDrawer({children}) {
           </IconButton>
         </DrawerHeader>
 
-        <SubList setActiveTabSub={setActiveTabSub} />
+        <SubList  />
         <Divider />
       </Drawer>
       <Main open={open ? open : false} sx={{ mt: 2}}>

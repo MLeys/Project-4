@@ -27,8 +27,8 @@ export default function App() {
   const navigate = useNavigate();
   const [error, setError] = useState('');
   const [user, setUser] = useState(userService.getUser());
-  const [skills, dispatchSkills] = useImmerReducer(skillsReducer, null);
-  const [resources, dispatchResources] = useImmerReducer(resourcesReducer, null);
+  const [skills, dispatchSkills] = useImmerReducer(skillsReducer, []);
+  const [resources, dispatchResources] = useImmerReducer(resourcesReducer, []);
   const [activeSkill, setActiveSkill] = useState(null);
   const [activeSub, setActiveSub] = useState(null);
   const [youTubeResults, setYouTubeResults] = useState([]);
@@ -37,7 +37,6 @@ export default function App() {
   const userId = user?._id;
   const skillId = activeSkill?.skill?._id;
   const subId = activeSub?.subSkill?._id;
-
 
 
   async function handleAssignUserProgress(skillId) {
@@ -89,33 +88,35 @@ export default function App() {
   }
 
   function handleSetActiveSub(subIndex=0){
-    if (skills) {
+    if (activeSkill) {
       setActiveSub({
         ...activeSub,
         index: subIndex,
         subSkill: activeSkill?.subSkills[subIndex],
         resources: activeSkill?.subSkills[subIndex]?.resources
       });
-      console.log(`ActiveSub: ${activeSkill?.subSkills[subIndex].title} at index: ${subIndex} `)
+      console.log(`ActiveSub: ${activeSkill?.subSkills[subIndex]?.title} at index: ${subIndex} `)
 
     }
 
   };
 
   function resetActiveSubToFirstIndexActiveSkill(subSkills) {
-    setActiveSub({
-      ...activeSub,
-      index: 0,
-      subSkill: subSkills[0],
-      resources: subSkills[0]?.resources
-    });
+    if (subSkills) {
+      setActiveSub({
+        ...activeSub,
+        index: 0,
+        subSkill: subSkills[0],
+        resources: subSkills[0]?.resources
+      });
+    }
   }
 
   async function handleSetActiveSkill(index=0){
     if (skills) { 
       const skill = skills[index];
       resetActiveSubToFirstIndexActiveSkill(skill?.subSkills);
-      console.log(`ActiveSkill: ${skills[index].name}`)
+      console.log(`ActiveSkill: ${skills[index]?.name}`)
       setActiveSkill({
         ...activeSkill,
         index: index,
@@ -243,31 +244,83 @@ export default function App() {
     }
   }
 
-  function handleAssignResourceSubSkill(skillIndex, subIndex, response) {
+  async function handleAssignResourceSubSkill(skillId, subId, response) {
+    const skillIndex = getSkillIndexById(skillId);
+    const subIndex = getSubIndexById(subId);
     dispatchSkills({
-      type: 'addResource',
+      type: 'addResourceToSub',
       skillIndex: skillIndex,
       subIndex: subIndex,
       resource: response,
     })
+    dispatchResources({
+      type: 'updateResource',
+      resourceId: resourceId,
+      subId: subId,
+      skillId: skillId,
+    })
+    try {
+      // API CALL TO SERVER TO ASSIGN RESOURCE TO USER!!!!!! ************
+
+    } catch (err) {
+      throw new Error(
+        console.log(err, ' <--- Error assigning resesource to subskill'),
+        `${err} <-- Error assigning Resource to SubSkill`
+      )
+      
+    }
+
+    
   }
+
+  async function handleAssignResourceUser(resource, skillId, subId, userId) {
+    console.log(" ASSIGN RESOURCE TO USER")
+    const skillIndex = getSkillIndexById(skillId);
+    const subIndex = getSubIndexById(subId);
+    const data = {
+      resource: resource,
+      userId: userId,
+      skillId: skillId,
+      subId: subId,
+      userId: userId,
+    }
+    try {
+      const response = resourcesApi.assignResource(data);
+      dispatchResources({
+        type: 'assignResource',
+        resourceId: resourceId,
+        userId: userId,
+        skillId: skillId,
+        subId: subId,
+        userId: userId,
+      })
+    } catch (err) {
+      setError(console.log(`*** Error Unassigning Resource ${err}`))
+    }
+  }
+
+  function getSkillIndexById(skillId){
+    return skills?.findIndex((skill) => skill._id === skillId)
+  }
+
+  function getSubIndexById(subId) {
+    return activeSkill?.subSkills?.findIndex((sub) => sub._id === subId)
+  }
+
 
   async function handleCreateResource(data) {
     const skillIndex = skills?.findIndex((s) => s._id === data.skillId)
     const skill = skills[skillIndex];
     const subIndex = skill?.subSkills.findIndex((s) => s._id === data.subId)
     const sub = skill?.subSkills[subIndex];
-    const isAssigned = sub.resources.some((r) => r.videoId === data.videoId)
+    const isAssigned = sub?.resources?.some((r) => r.videoId === data.videoId)
 
-    console.log(data, "<=== add resource data ")
-    console.log(`Data(before): ${data}`)
     
     if (!isAssigned) {
       try {
         const response = await resourcesApi.create(data);
-        console.log(response, " RESPOMSE FRO< CREATE RESOURCE")
+        console.log(response, " RESPOMSE FROM CREATE RESOURCE")
         if (response) {
-          handleAssignResourceSubSkill(skillIndex, subIndex, response)
           dispatchResources({
             type: 'createResource',
             data: response,
@@ -297,29 +350,6 @@ export default function App() {
       dispatchResources({
         type: 'unAssignResource',
         resourceId: resourceId,
-        userId: userId,
-      })
-    } catch (err) {
-      setError(console.log(`*** Error Unassigning Resource ${err}`))
-    }
-  }
-
-  async function handleAssignResourceUser(resourceId, skillId, subId, userId) {
-    const data = {
-      resourceId: resourceId,
-      userId: userId,
-      skillId: skillId,
-      subId: subId,
-      userId: userId,
-    }
-    try {
-      const response = await resourcesApi.assignResource(data);
-      dispatchResources({
-        type: 'assignResource',
-        resourceId: resourceId,
-        userId: userId,
-        skillId: skillId,
-        subId: subId,
         userId: userId,
       })
     } catch (err) {
@@ -439,6 +469,7 @@ export default function App() {
           activeSkillId: activeSkill?.skill?._id,
           activeSubId: activeSub?.subSkill?._id,
           activeUserId: user?._id,
+          resources: resources,
 
           handleDeleteResourcesByVideoId: handleDeleteResourcesByVideoId,
           setYouTubeResults: setYouTubeResults,
@@ -459,6 +490,7 @@ export default function App() {
           handleDeleteResource: handleDeleteResource,
           handleUnAssignResourceUser: handleUnAssignResourceUser,
           handleAssignResourceUser: handleAssignResourceUser,
+          handleAssignResourceSubSkill: handleAssignResourceSubSkill,
         }}
       >
         <ResourcesContext.Provider
@@ -466,19 +498,21 @@ export default function App() {
             resources: resources,
           }}
         >
-          <SkillsDispatchContext.Provider value={dispatchSkills}>
-            <Routes>
-              <Route path="/" element={<Layout />}>
-                <Route index element={<LandingPage />} />
-                <Route path="skills/:skillId" element={<SkillPage />} />
-                {user ? (
-                  <Route path="/:username" element={<DashboardPage />} />
-                ) : null}
-              </Route>
-              <Route path="/login" element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />} />
-              <Route path="/signup" element={<SignUpPage handleSignUpOrLogin={handleSignUpOrLogin} />} />
-            </Routes>
-          </SkillsDispatchContext.Provider>
+          <ResourcesDispatchContext.Provider value={dispatchResources}>
+            <SkillsDispatchContext.Provider value={dispatchSkills}>
+              <Routes>
+                <Route path="/" element={<Layout />}>
+                  <Route index element={<LandingPage />} />
+                  <Route path="skills/:skillId" element={<SkillPage />} />
+                  {user ? (
+                    <Route path="/:username" element={<DashboardPage />} />
+                  ) : null}
+                </Route>
+                <Route path="/login" element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />} />
+                <Route path="/signup" element={<SignUpPage handleSignUpOrLogin={handleSignUpOrLogin} />} />
+              </Routes>
+            </SkillsDispatchContext.Provider>
+          </ResourcesDispatchContext.Provider>
         </ResourcesContext.Provider>
       </SkillsContext.Provider>
     );
