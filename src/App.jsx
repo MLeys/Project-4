@@ -145,7 +145,7 @@ export default function App() {
       const response = await skillsApi.getAll(user._id);
       dispatchSkills({
         type: 'readSkills',
-        data: response.skills //COULD BE .skills *****
+        data: response.skills 
       })
       handleSetUserSkills(response.userSkills);
 
@@ -156,6 +156,33 @@ export default function App() {
     // console.log(skills, "End of getSkills")
   }
 
+  async function getResources() {
+    console.log("getting resources")
+    try {
+      const response = await resourcesApi.getAll();
+      console.log(response, "<--- resources response! from API")
+      dispatchResources({
+        type: 'readResources',
+        data: response.resources
+      })
+    } catch(err) {
+      setError(console.log(err, '<-- Error getting all Resources! '));
+      throw new Error(console.log(`${err} <-- Error getting all resources`),
+        `${err} <- Error getting all resources`)
+      
+    }
+  } 
+
+  async function handleDeleteResourcesByVideoId() {
+    console.log("DELETE ALL IN APP")
+    try {
+    const response = await resourcesApi.deleteAllResourcesByVideoId("I-k-iTUMQAY")
+    console.log(response, "<-- response from delete all by video Id")
+    } catch (err) {
+      throw new Error(console.log(`${err} <- Error getting Deleting all resources by id`), 
+        `${err} <- Error getting Deleting all resources by id`)
+    }
+  }
 
   async function handleDeleteSkill(skillId) {
     try {
@@ -300,17 +327,7 @@ export default function App() {
     }
   }
 
-  async function getResources() {
-    console.log("getting resources")
-    try {
-      
-      const response = await resourcesApi.getAll();
-      setResources( await response.data)
-    } catch(err) {
-      setError(console.log('^^^^ getSkills Error!!! ^^^^'));
-    }
 
-  } 
 
   async function handleDeleteResource(resource) {
     const resourceId = resource._id
@@ -423,6 +440,7 @@ export default function App() {
           activeSubId: activeSub?.subSkill?._id,
           activeUserId: user?._id,
 
+          handleDeleteResourcesByVideoId: handleDeleteResourcesByVideoId,
           setYouTubeResults: setYouTubeResults,
           searchYouTube: searchYouTube,
           handleSetActiveSkillById: handleSetActiveSkillById,

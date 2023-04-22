@@ -23,6 +23,7 @@ import LinearProgress from '@mui/material/LinearProgress';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
+import Button from '@mui/material/Button';
 
 import VideoCard from "../../components/VideoCard/VideoCard";
 import PageDrawer from "../../components/PageDrawer/PageDrawer";
@@ -53,6 +54,7 @@ function SkillPage() {
   const deleteResource = ctx.handleDeleteResource;
   const assignResource = ctx.handleAssignResourceUser;
   const unAssignResource = ctx.handleUnAssignResourceUser;
+  const deleteResourcesByVideoId = ctx.handleDeleteResourcesByVideoId;
 
   const [skill, setSkill] = useState(pageSkill);
   const [subSkills, setSubSkills] = useState([]);
@@ -75,6 +77,11 @@ function SkillPage() {
     (isAssigned) 
       ? unAssignResource(skillId, subId, resourceId, userId)
       : assignResource(skillId, subId, resourceId, userId); 
+  }
+
+  function handleClickDeleteAllByVideoId() {
+    console.log('Clicked Delete all videos by VideoId')
+    deleteResourcesByVideoId();
   }
 
   useEffect(() => {
@@ -103,6 +110,10 @@ function SkillPage() {
           alignItems={'center'}
           flexWrap={'wrap'}
         >
+          <Button onClick={() => handleClickDeleteAllByVideoId()}>
+            Delete All by Video Id
+          </Button>
+
           <Grid xs={12} sm={6} display={'flex'} alignItems={'center'} justifyContent={'center'}>
             {/* Change to only show users currently assigned  */}
             <Card sx={{ bgcolor: 'blueGrayLight2.light', my: 1, pl: 1, minWidth: 280, maxWidth: 350, textAlign: 'left'}}>
@@ -141,6 +152,7 @@ function SkillPage() {
                 >
                   {isAssigned ? <BookFilledIcon /> : <BookOutlinedIcon />}
                 </IconButton>
+                
               </CardActions>
             </VideoCard>
           </Grid>

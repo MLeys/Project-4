@@ -59,8 +59,8 @@ export async function create(data) {
 
 }
 
-export function getAll() {
-    return fetch(`${BASE_URL}all`, {
+export  async function getAll() {
+    return await fetch(`${BASE_URL}all`, {
         headers: {
           Authorization: "Bearer " + tokenService.getToken(),
         }
@@ -70,9 +70,22 @@ export function getAll() {
 	  })
 }
 
-export function deleteResource(id){
+export async function deleteResource(id){
 	console.log(`ResourceApi-Delete: ${id}`)
 	return fetch(`${BASE_URL}/${id}`, {
+		method: 'DELETE',
+		headers: {
+			Authorization: "Bearer " + tokenService.getToken() 
+		}	
+	}).then(res => {
+		if(res.ok) return res.json() 
+		throw new Error('Error deleting a resource check the server terminal')
+	})
+}
+
+export async function deleteAllResourcesByVideoId(videoId) {
+	console.log(`Video ID for delete all >> ${videoId}`)
+	return fetch(`${BASE_URL}deleteAllByVideoId/${videoId}`, {
 		method: 'DELETE',
 		headers: {
 			Authorization: "Bearer " + tokenService.getToken() 

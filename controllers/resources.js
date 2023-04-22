@@ -7,8 +7,28 @@ export default {
   create,
 	all: allResources,
 	delete: deleteResources,
+  deleteAllByVideoId: deleteAllByVideoId,
 
 };
+
+
+async function deleteAllByVideoId(req, res) {
+  console.log(req, " <-- Delete all by video id in resource Controller")
+  const videoId = req.params.videoId;
+
+  try {
+    const result = await Resource.deleteMany({ title: undefined });
+
+    if (result.deletedCount === 0) {
+      res.status(404).json({ message: "No resources found with the specified videoId" });
+    } else {
+      res.status(200).json({ message: `Deleted ${result.deletedCount} resources with videoId: ${videoId}` });
+    }
+  } catch (error) {
+    console.error("Error deleting resources:", error);
+    res.status(500).json({ error: "Error deleting resources" });
+  }
+}
 
 async function create(req, res) {
 	const user = await User.findById(req.body.userId)
