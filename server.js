@@ -45,7 +45,7 @@ app.use('/api/user-progress', userProgress);
 app.use('/api/resources', resourceRoutes);
 app.use('/api/skills', skillRoutes);
 app.use('/api/users', userRoutes);
-app.use('/api', subSkillRoutes); // FIX THIS SO THAT IT uses ssubskills route UNLESS unused
+app.use('/api', subSkillRoutes);
 
 
 // "catch all" route

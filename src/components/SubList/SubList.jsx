@@ -19,28 +19,27 @@ import { VertDotsIcon } from '../../customIcons';
 export default function SubList() {
   const ctx = useContext(SkillsContext);
   const skills = ctx.skills;
-  const activeSkill = ctx.activeSkill;
   const skillId = ctx.activeSkill?._id;
-  const handleSetActiveSub = ctx.handleSetActiveSub;
+  const setActiveSub = ctx.handleSetActiveSub;
   const subSkills = ctx.activeSkill?.subSkills;
-
-  const handleSetActiveSkillById = ctx.handleSetActiveSkillById;
+  const assignUserToSubSkill = ctx.handleAssignUserToSubSkill;
+  const unAssignUserFromSubSkill = ctx.handleUnAssignUserFromSubSkill;
+  const checkIfUserAssigned = ctx.checkIfUserAssigned;
 
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [checked, setChecked] = useState([0]);
+
+  function handleSetActiveSub(index) {
+    index ? setActiveSub(index) : setActiveSub(selectedIndex)
+  }
 
   function handleToggle(subIndex) {
-    const currentIndex = checked.indexOf(subIndex);
-    const newChecked = [...checked];
-    console.log(checked, " <---- checked")
-
-    if (currentIndex === -1) {
-      newChecked.push(subIndex);
+    const subSkill = subSkills[subIndex];
+    if (handleIsAssigned(subIndex)) {
+      unAssignUserFromSubSkill(subSkill);
     } else {
-      newChecked.splice(currentIndex, 1);
+      assignUserToSubSkill(subSkill);
     }
-    setChecked(newChecked);
-  };
+  }
 
   function handleIsAssigned(subIndex) {
     return subSkills[subIndex]?.usersAssigned?.some((user) => user._id === skillId )
@@ -50,33 +49,33 @@ export default function SubList() {
     e.stopPropagation();
     const subId = sub._id;
     const index = subSkills?.findIndex((s) => s._id === subId);
-    console.log(`Clicked Subskill: ${sub.title} at ${index}`);
     setSelectedIndex(subIndex);
     handleSetActiveSub(index);
-    // setActiveTabSub(sub)
   }
 
+  function handleClickCheckbox(e, subIndex) {
+    e.stopPropagation();
+    const subSkill = subSkills?.[subIndex];
+    const isAssigned = checkIfUserAssigned(subSkill?.usersAssigned)
+   
+    console.log(`clicked check for sub: ${subIndex}`);
+
+    (isAssigned) ? unAssignUserFromSubSkill(subSkill) : assignUserToSubSkill(subSkill);
+  }
+
+  useEffect(() => {
+    handleSetActiveSub()
+  }, [selectedIndex]); 
+
   return (
-    <List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'blueGrayLight.light' }}>
+    <List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', borderRadius: '8px', boxShadow: 1 }}>
       {subSkills?.map((sub, subIndex) => {
         const labelId = `checkbox-list-label-${subIndex}`;
 
         return (
-          <ListItem
-            key={`subListItem-${subIndex}`}
-            
-            secondaryAction={
-              <Checkbox
-                edge="end"
-                onChange={() => handleToggle(subIndex)}
-                checked={handleIsAssigned(subIndex)}
-                inputProps={{ 'aria-labelledby': labelId }}
-                />
-            }
-            disablePadding
-          >
-            <ListItemButton 
-              onClick={(e) => handleClickSub(e,sub, subIndex)}
+          <ListItem key={`subListItem-${subIndex}`} disablePadding>
+            <ListItemButton
+              onClick={(e) => handleClickSub(e, sub, subIndex)}
               selected={selectedIndex === subIndex}
               sx={{
                 backgroundColor: selectedIndex === subIndex ? 'primary.main' : 'transparent',
@@ -89,8 +88,17 @@ export default function SubList() {
                     backgroundColor: 'primary.dark',
                   },
                 },
+                width: '100%',
               }}
             >
+              <Checkbox
+                edge="start"
+                onChange={() => handleToggle(subIndex)}
+                checked={handleIsAssigned(subIndex)}
+                inputProps={{ 'aria-labelledby': labelId }}
+                sx={{ '&.Mui-checked': { color: 'primary.main' } }}
+                onClick={(e) => handleClickCheckbox(e, subIndex)}
+              />
               <ListItemText id={labelId} primary={`${sub.title} ${subIndex}`} />
             </ListItemButton>
             <Divider />

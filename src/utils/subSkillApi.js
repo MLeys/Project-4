@@ -2,6 +2,31 @@ import tokenService from "./tokenService";
 
 const BASE_URL= '/api/'
 
+export async function assignUser(data) {
+	console.log(data, ' data coming iinto assign api subskill')
+	const subId = data.subSkill._id;
+	console.log(subId, " subid from data in assing sub api")
+	try {
+		return fetch(`${BASE_URL}subskills/${subId}`, {
+			method: 'POST',
+			body: JSON.stringify(data),
+			headers: {
+				Authorization: "Bearer " + tokenService.getToken(),
+				'Content-Type': 'application/json', // MUST HAVE OR req.body in Ctrl remains emppty!!!!
+			}
+		}).then(res => {
+			if(res.ok) return res.json()
+			throw new Error('Error creating a subSkill, check server terminal')
+		})
+	} catch (err) {
+		throw new Error(`*** Error Assigning Skill to user *** \n${err}`)
+	}
+
+}
+
+
+
+
 export function create(skill){
     console.log(skill, "<--- create subskillAPI param")
 	
