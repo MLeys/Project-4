@@ -42,36 +42,43 @@ function SkillPage() {
   const skills = ctx.skills;
   const handleSetActiveSkillById = ctx.handleSetActiveSkillById;
   const activeSub = ctx.activeSub;
-  const subId = ctx.activeSub?._id;
+  const subId = ctx.activeSubId;
   const skillId = useParams().skillId;
   const pageSkill = skillId ? skills?.find(skill => skill?._id === skillId) : console.log('skill param not found');
   const userId = ctx.loggedUser?._id;
+  const user = ctx.loggedUser;
   const deleteResource = ctx.handleDeleteResource;
   const assignUserToResource = ctx.handleAssignUserToResource;
   const unAssignUserFromResource = ctx.handleUnAssignUserFromResource;
+  const handleDeleteResourcesByVideoId = ctx.handleDeleteResourcesByVideoId;
 
   const [skill, setSkill] = useState(pageSkill);
   const [subSkills, setSubSkills] = useState([]);
-  const [isAssigned, setIsAssign] = useState(false)
   
+  function handleClickDeleteAllByVideoId() {
+    handleDeleteResourcesByVideoId()
+  }
 
   function handleDeleteResource(resource) {
     deleteResource(resource)
   }
 
   function checkAssigned(resource) {
-    const isAssigned = resource?.usersAssigned?.some((u)=> u._id === userId)
-    setIsAssign(isAssigned)
-    return isAssigned
+    console.log(resource, "<--- users assigned to " ,resource.videoId)
+    return resource?.usersAssigned?.some((u) => u._id === userId);
+  }
+
+  function renderIcon(resource) {
+    return checkAssigned(resource) ? <BookFilledIcon /> : <BookOutlinedIcon />;
   }
 
   function handleClickAssigned(resource) {
-    checkAssigned(resource);
+    const isUserAssigned = checkAssigned(resource);
     console.log(resource, " skillpage resource");
-
-    (isAssigned) 
-      ? unAssignUserFromResource(resource)
-      : assignUserToResource(resource); 
+    console.log(" SUB ID <<<<<<<<<<<", subId);
+    isUserAssigned
+      ? unAssignUserFromResource(resource, skillId, subId)
+      : assignUserToResource(resource, skillId, subId);
   }
 
   useEffect(() => {
@@ -141,8 +148,9 @@ function SkillPage() {
                   aria-label="Delete resource"
                   onClick={() => handleClickAssigned(resource)}
                 >
-                  {isAssigned ? <BookFilledIcon /> : <BookOutlinedIcon />}
+                  {renderIcon(resource)}
                 </IconButton>
+                <Typography bgcolor={'pink'}>f{checkAssigned(resource) ? 'true' : 'false'} </Typography>
                 
               </CardActions>
             </VideoCard>

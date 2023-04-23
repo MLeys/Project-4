@@ -59,22 +59,22 @@ const skillsReducer = produce((draft, action) => {
       draft[skillIndex].subSkills[subSkillIndex].resources.splice(0, 0, resource);
       break;
     }
-    case 'assignUserToResource': {
-      const skillIndex = action.skillIndex;
-      const subSkillIndex = action.subSkillIndex;
-      const resourceIndex = action.resourceIndex;
-      const user = action.user;
-      draft[skillIndex].subSkills[subSkillIndex].resources[resourceIndex].usersAssigned.splice(0, 0, user);
-      break;
-    }
-    case 'unAssignUserFromResource': {
-      const skillIndex = action.skillIndex;
-      const subSkillIndex = action.subSkillIndex;
-      const resourceIndex = action.resourceIndex;
-      const userIndex = action.userIndex;
-      draft[skillIndex].subSkills[subSkillIndex].resources[resourceIndex].usersAssigned.splice(userIndex, 1);
-      break;
-    }
+		case 'assignUserToResource': {
+			const updatedResource = action.updatedResource;
+			const skillIndex = action.skillIndex;
+			const subSkillIndex = action.subSkillIndex;
+			const resourceIndex = action.resourceIndex;
+			draft[skillIndex].subSkills[subSkillIndex].resources[resourceIndex] = {...updatedResource};
+			break;
+		}
+		case 'unAssignUserFromResource': {
+			const updatedResource = action.updatedResource;
+			const skillIndex = action.skillIndex;
+			const subSkillIndex = action.subSkillIndex;
+			const resourceIndex = action.resourceIndex;
+			draft[skillIndex].subSkills[subSkillIndex].resources[resourceIndex] = {...updatedResource};
+			break;
+		}
     case 'deleteResource': {
       const skillIndex = action.skillIndex;
       const subIndex = action.subIndex;

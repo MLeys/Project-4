@@ -13,14 +13,14 @@ export default {
 };
 
 async function assignUser(req, res) {
-  console.log(req.body, " resource controller assign")
-  console.log(req.params.id, " <- aparams id for resource")
   try {
-    const resource = await Resource.findById(req.params.id)
+    const resource = await Resource.findById(req.params.id).populate("usersAssigned")
+    const user = await User.findById(req.body._id)
     
-    resource.usersAssigned.push(req.body)
+    resource.usersAssigned.splice(0,0, user);
     await resource.populate("usersAssigned");
-    resource.save()
+    await resource.save();
+    console.log(resource, " REsource doc after assigning user")
 
     res.status(201).json({resource})
   } catch(err) {
@@ -129,7 +129,7 @@ async function deleteResources(req, res) {
 async function deleteAllByVideoId(req, res) {
   const videoId = req.params.videoId;
   try {
-    const result = await Resource.deleteMany({ title: undefined });
+    const result = await Resource.deleteMany({ videoId });
 
     if (result.deletedCount === 0) {
       res.status(404).json({ message: "No resources found with the specified videoId" });

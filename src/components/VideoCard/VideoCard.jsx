@@ -15,10 +15,9 @@ import { SkillsContext } from '../../context/SkillsContext/SkillsContext';
 import OptionsButton from '../OptionsButton/OptionsButton';
 import { grey } from '@mui/material/colors';
 
-function VideoCard({resource, index, children}) {
+const VideoCard = React.memo(function VideoCard({ resource, children }) {  
   const theme = useTheme();
 	const ctx = useContext(SkillsContext);
-
   const {title, videoId, description, thumbnail, datePublished, skillId, subSkillId } = resource;
 
   const createdAt = resource.formattedCreatedAt;
@@ -97,6 +96,6 @@ function VideoCard({resource, index, children}) {
     </Card>
 
   );
-}
+});
 
 export default VideoCard;

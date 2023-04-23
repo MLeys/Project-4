@@ -71,7 +71,7 @@ export default function App() {
     console.log("getting resources")
     try {
       const response = await resourcesApi.getAll();
-      setResources(response)
+      setResources(response.data)
     } catch(err) {
       setError(console.log(err, '<-- Error getting all Resources! '));
       throw new Error(console.log(`${err} <-- Error getting all resources`),
@@ -181,7 +181,7 @@ export default function App() {
   async function handleDeleteResourcesByVideoId() {
     console.log("DELETE ALL IN APP")
     try {
-    const response = await resourcesApi.deleteAllResourcesByVideoId("I-k-iTUMQAY")
+    const response = await resourcesApi.deleteAllResourcesByVideoId("aWIrN50hVTo")
     console.log(response, "<-- response from delete all by video Id")
     } catch (err) {
       throw new Error(console.log(`${err} <- Error getting Deleting all resources by id`), 
@@ -232,36 +232,55 @@ export default function App() {
     }
   }
 
-  async function handleAssignUserToResource(resource, skillId, subId, userId) {
-    console.log(" ASSIGN RESOURCE TO USER")
+  function checkIfUserAssigned(model) {
+    return model?.usersAssigned?.some((u) => u._id === user._id)
+  }
 
+  async function handleAssignUserToResource(resource, skillId, subId, userId) {
+    const isAssigned = checkIfUserAssigned(resource);
+    console.log(" ASSIGN RESOURCE TO USER");
+    console.log(skillId, " skillId");
+    console.log(subId, " SubId");
     const skillIndex = getSkillIndexById(skillId);
     const subIndex = getSubIndexById(subId);
-    const resourceIndex = getResourceIndexById(resource._id)
-    console.log(resource, "<- resource assignrestouser")
-    console.log(resourceIndex, ' <-- resourceIndex')
+    const resourceIndex = getResourceIndexById(resource._id);
+    console.log(skills[skillIndex].subSkills[subIndex].resources[resourceIndex], " <--- BEFORE CHANGE Resource with user assigned");
+  
+    console.log(resourceIndex, ' <-- resourceIndex');
     const data = {
       resource: resource,
       userId: userId,
       skillId: skillId,
       subId: subId,
       user: user,
+    };
+  
+    if (!isAssigned) {
+      try {
+        console.log("Starting assign resource to user before api");
+        const response = await resourcesApi.assignUserToResource(data);
+        console.log(await response.resource, "<- resource assignrestouser");
+        // Update the resource object with the user object
+        const updatedResource = {
+          ...response.resource,
+          usersAssigned: [...response.resource.usersAssigned, user],
+        };
+        dispatchSkills({
+          type: 'assignUserToResource',
+          skillIndex: skillIndex,
+          subSkillIndex: subIndex,
+          resourceIndex: resourceIndex,
+          updatedResource: updatedResource,
+        });
+      } catch (err) {
+        setError(console.log(`*** Error assigning User to Resource -> ${err}`));
+      }
+    } else {
+      console.log("Resource already assigned to user");
     }
-    try {
-      console.log("Starting assign resource to user before api")
-      const response = resourcesApi.assignUserToResource(data);
-      dispatchSkills({
-        type: 'assignUserToResource',
-        skillIndex: skillIndex,
-        subSkillIndex: subIndex,
-        resourceIndex: resourceIndex,
-        user: user
-    
-      })
-    } catch (err) {
-      setError(console.log(`*** Error assigning User to Resource -> ${err}`))
-    }
+    console.log(skills[skillIndex].subSkills[subIndex].resources[resourceIndex], " <--- UPDATED Resource with user assigned");
   }
+  
 
   async function handleUnAssignUserFromResource(resourceId, skillId, subId, userId ) {
     const data = {
@@ -460,6 +479,7 @@ export default function App() {
           handleDeleteResource: handleDeleteResource,
           handleUnAssignUserFromResource: handleUnAssignUserFromResource,
           handleAssignUserToResource: handleAssignUserToResource,
+          handleDeleteResourcesByVideoId: handleDeleteResourcesByVideoId,
 
         }}
       >
