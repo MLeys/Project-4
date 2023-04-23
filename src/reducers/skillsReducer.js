@@ -3,7 +3,7 @@ import produce from 'immer';
 const skillsReducer = produce((draft, action) => {
   switch (action.type) {
     case 'createSkill': {
-      draft.push(action.data);
+      draft.splice(0,0,action.data);
       break;
     }
     case 'readSkills': {
@@ -21,7 +21,7 @@ const skillsReducer = produce((draft, action) => {
     case 'assignSkill': {
       const index = action.index;
       const user = action.user;
-      draft[index].usersAssigned.unshift(user);
+      draft[index].usersAssigned.splice(0,0, user);
       break;
     }
     case 'unAssignSkill': {
@@ -50,6 +50,7 @@ const skillsReducer = produce((draft, action) => {
       draft[skillIndex].subSkills[subSkillIndex].usersAssigned.splice(userIndex, 1);
       break;
     }
+		
     case 'assignResourceToSubSkill': {
       const skillIndex = action.skillIndex;
 			console.log(skillIndex, "SKILL INdex in reducer")
@@ -63,12 +64,15 @@ const skillsReducer = produce((draft, action) => {
       const user = action.user;
       const skillIndex = action.skillIndex;
       const subSkillIndex = action.subSkillIndex;
-      const resourceIndex = action.resourceIndex;
+			const resources = draft[skillIndex].subSkills[subSkillIndex].resources;
+			const resourceIndex = resources.findIndex((r) => r._id === action.resource._id)
+			console.log(resourceIndex, ' index resource in assign user to resource')
 
       // Ensure usersAssigned is an array of objects, and add the user.
       const resource = draft[skillIndex].subSkills[subSkillIndex].resources[resourceIndex];
-      resource.usersAssigned = resource.usersAssigned.map((user) => (typeof user === 'string' ? { _id: user } : user));
-      resource.usersAssigned.unshift(user);
+			console.log(resource, ' assign reducer user to resource, resource object')
+      resource.usersAssigned = resource?.usersAssigned.map((u) => (typeof u === 'string' ? { _id: user } : user));
+      resource?.usersAssigned.splice(0, 0, user);
 
       break;
     }

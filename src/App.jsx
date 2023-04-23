@@ -237,33 +237,28 @@ export default function App() {
     return usersAssigned?.some((u) => u._id === user._id);
   }
 
-  async function handleAssignUserToResource(resource, skillId, subId, userId) {
+  async function handleAssignUserToResource(resource) {
     const isAssigned = checkIfUserAssigned(resource.usersAssigned);    
-    const skillIndex = getSkillIndexById(skillId);
-    const subIndex = getSubIndexById(subId);
+    const skillIndex = getSkillIndexById(resource.skillId);
+    const subIndex = getSubIndexById(resource.subSkillId);
     const resourceIndex = getResourceIndexById(resource._id);
   
     const data = {
       resource: resource,
       userId: userId,
-      skillId: skillId,
-      subId: subId,
-      user
+      skillId: resource.skillId,
+      subId: resource.subSkillId,
+      user: user,
     };
   
     if (!isAssigned) {
       try {
         const response = await resourcesApi.assignUserToResource(data);
-        console.log(response)
-        const updatedResource = {
-          ...response.resource,
-          usersAssigned: [...response.resource.usersAssigned, user],
-        };
         dispatchSkills({
           type: 'assignUserToResource',
           skillIndex: skillIndex,
           subSkillIndex: subIndex,
-          resourceIndex: resourceIndex,
+          resource,
           user: user,
         });
       } catch (err) {
@@ -276,24 +271,20 @@ export default function App() {
   
   async function handleUnAssignUserFromResource(resource, skillId, subId) {
     const isAssigned = checkIfUserAssigned(resource.usersAssigned);    
-    const skillIndex = getSkillIndexById(skillId);
-    const subIndex = getSubIndexById(subId);
+    const skillIndex = getSkillIndexById(resource.skillId);
+    const subIndex = getSubIndexById(resource.subSkillId);
     const resourceIndex = getResourceIndexById(resource._id);
-    console.log('unassign function fuck')
     const data = {
       resource: resource,
+      userId: userId,
+      skillId: resource.skillId,
+      subId: resource.subSkillId,
       user: user,
-      skillId: skillId,
-      subId: subId,
     };
   
     if (isAssigned) {
       try {
         const response = await resourcesApi.unAssignUserFromResource(data);
-        const updatedResource = {
-          ...response.resource,
-          usersAssigned: response.resource.usersAssigned.filter((foundUser) => foundUser._id !== userId),
-        };
         dispatchSkills({
           type: 'unAssignUserFromResource',
           skillIndex,

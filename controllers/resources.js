@@ -107,7 +107,7 @@ async function create(req, res) {
 
     // If the resource is not included, add it to the subSkill
     if (!resourceExists) {
-      skillDoc.subSkills[subIndex].resources.push(newResource);
+      skillDoc.subSkills[subIndex].resources.splice(0,0, newResource);
     } else {
       res.status(400).json({ message: "Resource already exists in subSkill" });
       return;

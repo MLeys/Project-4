@@ -23,20 +23,13 @@ import Divider from '@mui/material/Divider';
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import Button from '@mui/material/Button';
 
-import SkillCardActions from '../../components/SkillCardActions/SkillCardActions';
-import VideoCard from "../../components/VideoCard/VideoCard";
-import PageDrawer from "../../components/PageDrawer/PageDrawer";
-import SubTable from '../../components/SubTable/SubTable';
-import LinearProgressWithLabel from '../../components/LinearProgressWithLabel/LinearProgressWithLabel';
-import ResourceCard2 from '../../components/ResourceCard2/ResourceCard2';
-import SearchForm from '../../components/SearchForm/SearchForm';
 
 const TrashFilledIcon = ({color='white'}) => <i className="bi bi-trash3-fill" color={color}/>;
 const BookFilledIcon = ({color='white'}) => <i className="bi bi-book-fill" color={color}/>;
 const BookOutlinedIcon = ({color='white'}) => <i className="bi bi-book" color={color}/>;
 
 
-function SkillPage() {
+export default function SkillCardActions({resource, index}) {
   const ctx = useContext(SkillsContext);
   const skills = ctx.skills;
   const handleSetActiveSkillById = ctx.handleSetActiveSkillById;
@@ -82,58 +75,21 @@ function SkillPage() {
   }, []); 
 
   return ( 
-   
-    <PageDrawer >
-      <Box 
-        mr={2.5}
-        ml={1}
-        flexWrap={'wrap'}
+    <CardActions disableSpacing>
+      <IconButton 
+        aria-label="Delete resource"
+        onClick={() => handleDeleteResource(resource, index)}
       >
-        <Grid 
-          container
-          display={'flex'}
-          width={'100%'}
-          justifyContent={'space-evenly'}
-          alignItems={'center'}
-          flexWrap={'wrap'}
-        >
-          <Button onClick={() => handleClickDeleteAllByVideoId()}>
-            Delete All by Video Id
-          </Button>
-
-          <Grid xs={12} sm={6} display={'flex'} alignItems={'center'} justifyContent={'center'}>
-            {/* Change to only show users currently assigned  */}
-            <Card sx={{ bgcolor: 'blueGrayLight2.light', my: 1, pl: 1, minWidth: 280, maxWidth: 350, textAlign: 'left'}}>
-              {subSkills?.map((sub, index) => (
-                <Box key={`subProg-${index}`} >
-                  <LinearProgressWithLabel height={10} key={`subProg-${index}`} title={sub.title} value={35} />
-                  <Divider />
-                </Box>
-              ))}     
-            </Card>
-          </Grid>
-          <Grid xs={12} sm={6} bgcolor={'transparent'}>
-            <SearchForm />
-          </Grid>
-        </Grid>
-
-        <Grid container spacing={1}  flexGrow={1}>
-          <Grid xs={12} my={1} component={Card} bgcolor={'blueGray.main'} color={'white'} elevation={12} mx={0} p={0}>      
-            <Typography variant="h4" component="h4"  p={0}>
-              {activeSub?.subSkill?.title}
-            </Typography>
-          </Grid>
-          {resources?.map((resource, index) => (
-            <Grid key={`resourceCard-${index}`} xs={12} sm={6} md={4}>
-              <VideoCard key={`resourceCard-${index}`} resource={resource} >
-                <SkillCardActions resource index />
-              </VideoCard>
-            </Grid>
-      ))}
-        </Grid>
-      </Box>
-    </PageDrawer>
-
+        <TrashFilledIcon />
+      </IconButton>
+      <IconButton 
+        aria-label="Delete resource"
+        onClick={() => handleClickAssigned(resource, index)}
+      >
+        {renderIcon(resource)}{index}
+      </IconButton>
+      <Typography bgcolor={'pink'}>{checkIfUserAssigned(resource.usersAssigned) ? 'true' : 'false'} </Typography>
+      
+    </CardActions>
   );
 }
-export default SkillPage;
