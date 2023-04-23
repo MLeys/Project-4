@@ -27,6 +27,7 @@ import Button from '@mui/material/Button';
 const TrashFilledIcon = ({color='white'}) => <i className="bi bi-trash3-fill" color={color}/>;
 const BookFilledIcon = ({color='white'}) => <i className="bi bi-book-fill" color={color}/>;
 const BookOutlinedIcon = ({color='white'}) => <i className="bi bi-book" color={color}/>;
+const FileMinusOutlinedIcon = ({color='white'}) => <i className="bi bi-file-minus" color={color}/>;
 
 
 export default function SkillCardActions({resource, index}) {
@@ -42,6 +43,7 @@ export default function SkillCardActions({resource, index}) {
   const handleDeleteResourcesByVideoId = ctx.handleDeleteResourcesByVideoId;
   const checkIfUserAssigned = ctx.checkIfUserAssigned;
 
+
   const skillIndex = skills?.findIndex((skill) => skill._id === skillId)
   const subIndex = skills[skillIndex]?.subSkills?.findIndex((sub) => sub._id === activeSub?.subSkill._id)
   const subSkills = skills[skillIndex]?.subSkills;
@@ -52,7 +54,7 @@ export default function SkillCardActions({resource, index}) {
     handleDeleteResourcesByVideoId()
   }
 
-  function handleDeleteResource(resource) {
+  function handleClickDeleteResource(resource) {
     deleteResource(resource)
   }
 
@@ -69,6 +71,9 @@ export default function SkillCardActions({resource, index}) {
       : assignUserToResource(resource );
   }
 
+  function handleClickRemoveFromSubSkill(resource, index) {
+    console.log(`Click Remove resource index: ${index}`)
+  }
 
   useEffect(() => {
     handleSetActiveSkillById(skillId)
@@ -78,18 +83,24 @@ export default function SkillCardActions({resource, index}) {
     <CardActions disableSpacing>
       <IconButton 
         aria-label="Delete resource"
-        onClick={() => handleDeleteResource(resource, index)}
+        onClick={() => handleClickDeleteResource(resource, index)}
       >
         <TrashFilledIcon />
-      </IconButton>
+      </IconButton>Delete
       <IconButton 
-        aria-label="Delete resource"
+        aria-label="Assign user to resource"
         onClick={() => handleClickAssigned(resource, index)}
       >
-        {renderIcon(resource)}{index}
-      </IconButton>
-      <Typography bgcolor={'pink'}>{checkIfUserAssigned(resource.usersAssigned) ? 'true' : 'false'} </Typography>
-      
+        {renderIcon(resource)}
+        
+      </IconButton>{checkIfUserAssigned(resource.usersAssigned) ? 'unAssign' : 'Assign'}
+      <IconButton 
+        aria-label="Remove resource from subSkill"
+        onClick={() => handleClickRemoveFromSubSkill(resource, index)}
+      >
+        <FileMinusOutlinedIcon />
+      </IconButton>Remove
+
     </CardActions>
   );
 }

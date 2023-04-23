@@ -18,12 +18,20 @@ export default function SearchForm({onSubmit}) {
   const skillName = ctx.activeSkill?.skill?.name;
   const subSkillName = ctx.activeSub?.subSkill?.title;
   const searchYouTube = ctx.searchYouTube;
+  const setYouTubeResults = ctx.setYouTubeResults;
 
   const [search, setSearch] = useState("");
   const [open, setOpen] = useState(false);
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  function handleOpen() {
+    setOpen(true)
+  }
+
+  function handleClose() {
+    setYouTubeResults([])
+    setOpen(false)
+  }
+
 
   function handleSubmit(e) {
     handleOpen

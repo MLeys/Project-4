@@ -28,6 +28,7 @@ function SearchResultsDisplay({handleClose}) {
     resource.subId = subId;
     console.log(resource, "<-resource being added onclick")
     await createResource(resource);
+    handleClickRemove(resource)
   }
   
   function handleClickRemove( resource ){

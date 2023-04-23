@@ -21,35 +21,9 @@ const VideoCard = React.memo(function VideoCard({ resource, children }) {
   const {title, videoId, description, thumbnail, datePublished, skillId, subSkillId } = resource;
 
   const createdAt = resource.formattedCreatedAt;
-
-  function ResourceVideo() {
-    return (
-      <iframe
-        style={{
-          maxWidth: '98%',
-          width: 'auto',
-          height: '100%',
-          margin: 0,
-          padding: 0,
-        }}
-        src={`https://www.youtube.com/embed/${videoId}`}
-        allowFullScreen={true}
-        allow='autoplay; encrypted-media'
-        title='video'
-      /> 
-    )
-  }
   
-
-  useEffect(() => {
-
-    
-  }, []); 
-
   return (
-
     <Card 
-      
       sx={{ 
         flexGrow: 1,
         position: 'relative', 
@@ -66,32 +40,14 @@ const VideoCard = React.memo(function VideoCard({ resource, children }) {
         subheader={description}
         subheaderTypographyProps={{ fontSize: 10, fontWeight: 200, color: 'inherit' }}
       />
-
       <CardMedia
         component={"iframe"}
         src={`https://www.youtube.com/embed/${videoId}`}
         allow='autoplay, encrypted-media'
         allowFullScreen ={true}
       />
-
-
       <CardContent sx={{width: '100%', p: 0, m: 0,}} >
-        {/* <Box sx={{overflow: 'hidden', display: 'flex', height: '16%', m: 1, pt: 1  }}>            
-          <Typography whiteSpace='normal' variant="h6" sx={{ fontWeight: 900, alignSelf: 'flex-start' }}>
-            {title}
-          </Typography>
-        </Box>
-        <Box sx={{overflow: 'hidden', height: '14%', my: 1, }} >
-          <Typography whiteSpace='normal' variant="subtitle2" color="secondary.contrastText">
-            {resource.description}
-          </Typography>
-        </Box>
-        <Box height={'40%'} >
-          <ResourceVideo />
-        </Box> */}
-     
-          {children}
-   
+        {children}
       </CardContent>
     </Card>
 

@@ -334,7 +334,6 @@ export default function App() {
 		try {
 			const response = await youTubeApi.searchYouTube(search, activeSkill?.skill?.name, activeSub?.subSkill?.title);
 			console.log(response, " <------ response from YOUTUBE SEARCH");
-		
 			setYouTubeResults([...response])
 		} catch (err) {
 			console.log(err.message, " <<<<<YouTube SEARCH ERROR>>>>>");
@@ -355,16 +354,20 @@ export default function App() {
   async function handleSetActiveSkillById(skillId) {
     const skillIndex = skills?.findIndex((skill => skill._id === skillId))
     handleSetActiveSkill(skillIndex);
-    handleSetActiveSub();
+    if (activeSub === null) {
+      handleSetActiveSub(0);
+    }
+    
   }
 
-  function handleSetActiveSub(subIndex=0){
+  function handleSetActiveSub(subIndex){
+    const index = subIndex ? subIndex : 0;
     if (activeSkill?.subSkills ) {
       setActiveSub({
         ...activeSub,
-        index: subIndex,
-        subSkill: activeSkill?.subSkills?.[subIndex],
-        resources: activeSkill?.subSkills?.[subIndex]?.resources
+        index: index,
+        subSkill: activeSkill?.subSkills?.[index],
+        resources: activeSkill?.subSkills?.[index]?.resources
       });
       console.log(`ActiveSub: ${activeSkill?.subSkills[subIndex]?.title} at index: ${subIndex} `)
 
@@ -385,8 +388,6 @@ export default function App() {
 
   async function handleSetActiveSkill(index=0){
     if (skills) { 
-      const skill = skills[index];
-      resetActiveSubToFirstIndexActiveSkill(skill?.subSkills);
       console.log(`ActiveSkill: ${skills[index]?.name}`)
       setActiveSkill({
         ...activeSkill,
@@ -394,6 +395,9 @@ export default function App() {
         skill: skills[index],
         subSkills: skills[index]?.subSkills
       })    
+      if (activeSub === null) {
+        handleSetActiveSub(0);
+      }
     }
   }
 

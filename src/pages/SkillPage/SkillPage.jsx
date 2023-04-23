@@ -42,6 +42,10 @@ function SkillPage() {
   const handleSetActiveSkillById = ctx.handleSetActiveSkillById;
   const activeSub = ctx.activeSub;
   const skillId = useParams().skillId;
+  const subSkills = ctx.activeSubSkills;
+  const subIndex = subSkills?.findIndex((sub) => sub._id === activeSub?.subSkill._id)
+  const resources = subSkills?.[subIndex]?.resources;
+
 
   const deleteResource = ctx.handleDeleteResource;
   const assignUserToResource = ctx.handleAssignUserToResource;
@@ -49,10 +53,8 @@ function SkillPage() {
   const handleDeleteResourcesByVideoId = ctx.handleDeleteResourcesByVideoId;
   const checkIfUserAssigned = ctx.checkIfUserAssigned;
 
-  const skillIndex = skills?.findIndex((skill) => skill._id === skillId)
-  const subIndex = skills[skillIndex]?.subSkills?.findIndex((sub) => sub._id === activeSub?.subSkill._id)
-  const subSkills = skills[skillIndex]?.subSkills;
-  const resources = skills[skillIndex]?.subSkills[subIndex]?.resources;
+
+  // const [subIndex, setSubIndex] = useState(subSkillIndex)
   
 
   function handleClickDeleteAllByVideoId() {
@@ -79,10 +81,10 @@ function SkillPage() {
 
   useEffect(() => {
     handleSetActiveSkillById(skillId)
-  }, []); 
+    
+  }, [!skills, !subSkills]); 
 
   return ( 
-   
     <PageDrawer >
       <Box 
         mr={2.5}

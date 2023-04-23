@@ -50,7 +50,7 @@ const skillsReducer = produce((draft, action) => {
       draft[skillIndex].subSkills[subSkillIndex].usersAssigned.splice(userIndex, 1);
       break;
     }
-		
+
     case 'assignResourceToSubSkill': {
       const skillIndex = action.skillIndex;
 			console.log(skillIndex, "SKILL INdex in reducer")
@@ -66,11 +66,9 @@ const skillsReducer = produce((draft, action) => {
       const subSkillIndex = action.subSkillIndex;
 			const resources = draft[skillIndex].subSkills[subSkillIndex].resources;
 			const resourceIndex = resources.findIndex((r) => r._id === action.resource._id)
-			console.log(resourceIndex, ' index resource in assign user to resource')
 
       // Ensure usersAssigned is an array of objects, and add the user.
       const resource = draft[skillIndex].subSkills[subSkillIndex].resources[resourceIndex];
-			console.log(resource, ' assign reducer user to resource, resource object')
       resource.usersAssigned = resource?.usersAssigned.map((u) => (typeof u === 'string' ? { _id: user } : user));
       resource?.usersAssigned.splice(0, 0, user);
 
