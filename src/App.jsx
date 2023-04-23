@@ -4,6 +4,7 @@ import { useImmerReducer} from 'use-immer';
 
 import skillsReducer from "./reducers/skillsReducer.js";
 import resourcesReducer from "./reducers/resourceReducer.js";
+import { useSkills, useSkillsDispatch } from "./context/SkillsContext/SkillsContext.jsx";
 
 import { SkillsContext, SkillsDispatchContext } from './context/SkillsContext/SkillsContext.jsx';
 import { stockSkillsList, testSkillsList } from "./lists/skillTypes";
@@ -26,7 +27,7 @@ export default function App() {
   const navigate = useNavigate();
   const [error, setError] = useState('');
   const [user, setUser] = useState(userService.getUser());
-  const [skills, dispatchSkills] = useImmerReducer(skillsReducer, []);
+  const [skills, dispatchSkills] = useImmerReducer(skillsReducer, useSkills());
   const [resources, setResources] = useState([]);
   const [activeSkill, setActiveSkill] = useState(null);
   const [activeSub, setActiveSub] = useState(null);
@@ -54,11 +55,11 @@ export default function App() {
     try {
       console.log("GET SKILLS")
       const response = await skillsApi.getAll(user._id);
-      dispatchSkills({
-        type: 'readSkills',
-        data: response.skills 
-      })
-      handleSetUserSkills(response.userSkills);
+      // dispatchSkills({
+      //   type: 'readSkills',
+      //   data: response.skills 
+      // })
+      // handleSetUserSkills(response.userSkills);
 
       console.log("Updated skills from server... ")
     } catch (err) {
@@ -406,13 +407,6 @@ export default function App() {
   }
 
 
-  async function onStartUploadAllSkillsFromList() {
-    // (testSkillsList) 
-    //   ? await skillsApi.createAllSkillsFromList(testSkillsList) 
-    //   : console.log('prorgammingSkills list is empty')
-    console.log("Loading initial Skills?")
-  }
-
   function formatDate(timestamp) {
     const date = new Date(timestamp);
     const year = date.getFullYear().toString().slice(2);
@@ -439,16 +433,9 @@ export default function App() {
   // }, [userId]);
 
   useEffect(() => {
-    async function start() {
-      await onStartUploadAllSkillsFromList();
-      await getSkills();
-      await getResources();
-      
-    }
-    start();
 
     
-  }, [!skills, !activeSkill]); 
+  }, []); 
 
   
     return (

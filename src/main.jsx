@@ -1,6 +1,5 @@
 import "vite/modulepreload-polyfill";
 import React from "react";
-
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import { BrowserRouter as Router } from "react-router-dom";
@@ -9,12 +8,15 @@ import mainTheme from "./themes/mainTheme";
 
 import { ThemeProvider } from "@mui/material/styles";
 
+import { SkillsProvider } from "./context/SkillsContext/SkillsContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Router>
       <ThemeProvider theme={mainTheme}>
-        <App />
+        <SkillsProvider>
+          <App />
+        </SkillsProvider>
       </ThemeProvider>
     </Router>
   </React.StrictMode>
