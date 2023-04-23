@@ -126,7 +126,7 @@ function SkillPage() {
           {resources?.map((resource, index) => (
             <Grid key={`resourceCard-${index}`} xs={12} sm={6} md={4}>
               <VideoCard key={`resourceCard-${index}`} resource={resource} >
-                <SkillCardActions resource index />
+                <SkillCardActions resource={resource} index={index} />
               </VideoCard>
             </Grid>
       ))}
