@@ -42,47 +42,17 @@ function SkillPage() {
   const handleSetActiveSkillById = ctx.handleSetActiveSkillById;
   const activeSub = ctx.activeSub;
   const skillId = useParams().skillId;
+  const skillIndex = skills?.findIndex((s) => s._id === skillId)
   const subSkills = ctx.activeSubSkills;
   const subIndex = subSkills?.findIndex((sub) => sub._id === activeSub?.subSkill._id)
   const resources = subSkills?.[subIndex]?.resources;
 
 
-  const deleteResource = ctx.handleDeleteResource;
-  const assignUserToResource = ctx.handleAssignUserToResource;
-  const unAssignUserFromResource = ctx.handleUnAssignUserFromResource;
-  const handleDeleteResourcesByVideoId = ctx.handleDeleteResourcesByVideoId;
-  const checkIfUserAssigned = ctx.checkIfUserAssigned;
-
-
-  // const [subIndex, setSubIndex] = useState(subSkillIndex)
-  
-
-  function handleClickDeleteAllByVideoId() {
-    handleDeleteResourcesByVideoId()
-  }
-
-  function handleDeleteResource(resource) {
-    deleteResource(resource)
-  }
-
-
-  function renderIcon(resource) {
-    // console.log(resource, "THIS IS THE FUCKING RESOURCE FOR THE CARD")
-    return checkIfUserAssigned(resource.usersAssigned) ? <BookFilledIcon /> : <BookOutlinedIcon />;
-  }
-
-  function handleClickAssigned(resource, index) {
-    const isUserAssigned = checkIfUserAssigned(resource.usersAssigned);
-    isUserAssigned
-      ? unAssignUserFromResource(resource )
-      : assignUserToResource(resource );
-  }
-
 
   useEffect(() => {
     handleSetActiveSkillById(skillId)
     
-  }, [!skills, !subSkills]); 
+  }, [skills, subSkills, resources]); 
 
   return ( 
     <PageDrawer >
@@ -99,10 +69,6 @@ function SkillPage() {
           alignItems={'center'}
           flexWrap={'wrap'}
         >
-          <Button onClick={() => handleClickDeleteAllByVideoId()}>
-            Delete All by Video Id
-          </Button>
-
           <Grid xs={12} sm={6} display={'flex'} alignItems={'center'} justifyContent={'center'}>
             {/* Change to only show users currently assigned  */}
             <Card sx={{ bgcolor: 'blueGrayLight2.light', my: 1, pl: 1, minWidth: 280, maxWidth: 350, textAlign: 'left'}}>

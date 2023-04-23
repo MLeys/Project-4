@@ -26,9 +26,9 @@ function SearchResultsDisplay({handleClose}) {
     resource.skillId = skillId;
     resource.userId = userId;
     resource.subId = subId;
-    console.log(resource, "<-resource being added onclick")
     await createResource(resource);
     handleClickRemove(resource)
+    console.log(`Added ${resource.title} to ${subId}`)
   }
   
   function handleClickRemove( resource ){

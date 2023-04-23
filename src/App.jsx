@@ -112,13 +112,11 @@ export default function App() {
   async function handleCreateResource(data) {
     const skillId = data.skillId;
     const subId = data.subId;
-    
     const isAssigned = activeSub?.resources?.some((r) => r.videoId === data.videoId)
 
     if (!isAssigned) {
       try {
         const response = await resourcesApi.create(data);
-        console.log(response, " RESPONSE FROM CREATE RESOURCE")
         if (response) {
           const resource = await response;
           const skillIndex = getSkillIndexById(skillId);
