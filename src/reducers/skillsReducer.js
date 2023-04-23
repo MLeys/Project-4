@@ -56,7 +56,7 @@ const skillsReducer = produce((draft, action) => {
       const subSkillIndex = action.subSkillIndex;
 			console.log(subSkillIndex, "SKILL INdex in reducer")
       const resource = action.resource;
-      draft[skillIndex].subSkills[subSkillIndex].resources.unshift(resource);
+      draft[skillIndex].subSkills[subSkillIndex].resources.splice(0, 0, resource);
       break;
     }
     case 'assignUserToResource': {
@@ -64,7 +64,7 @@ const skillsReducer = produce((draft, action) => {
       const subSkillIndex = action.subSkillIndex;
       const resourceIndex = action.resourceIndex;
       const user = action.user;
-      draft[skillIndex].subSkills[subSkillIndex].resources[resourceIndex].usersAssigned.unshift(user);
+      draft[skillIndex].subSkills[subSkillIndex].resources[resourceIndex].usersAssigned.splice(0, 0, user);
       break;
     }
     case 'unAssignUserFromResource': {

@@ -8,9 +8,26 @@ export default {
 	all: allResources,
 	delete: deleteResources,
   deleteAllByVideoId: deleteAllByVideoId,
+  assignUser: assignUser,
 
 };
 
+async function assignUser(req, res) {
+  console.log(req.body, " resource controller assign")
+  console.log(req.params.id, " <- aparams id for resource")
+  try {
+    const resource = await Resource.findById(req.params.id)
+    
+    resource.usersAssigned.push(req.body)
+    await resource.populate("usersAssigned");
+    resource.save()
+
+    res.status(201).json({resource})
+  } catch(err) {
+    console.log(err, "<-- assign user to resource controller error")
+    res.status(400).json({err})
+  }
+}
 
 async function create(req, res) {
 	const user = await User.findById(req.body.userId)

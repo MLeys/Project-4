@@ -5,7 +5,6 @@ import { useImmerReducer} from 'use-immer';
 import skillsReducer from "./reducers/skillsReducer.js";
 import resourcesReducer from "./reducers/resourceReducer.js";
 
-import { ResourcesContext, ResourcesDispatchContext } from "./context/ResourcesContext/ResourcesContext.jsx";
 import { SkillsContext, SkillsDispatchContext } from './context/SkillsContext/SkillsContext.jsx';
 import { stockSkillsList, testSkillsList } from "./lists/skillTypes";
 
@@ -28,7 +27,7 @@ export default function App() {
   const [error, setError] = useState('');
   const [user, setUser] = useState(userService.getUser());
   const [skills, dispatchSkills] = useImmerReducer(skillsReducer, []);
-  const [resources, dispatchResources] = useImmerReducer(resourcesReducer, []);
+  const [resources, setResources] = useState([]);
   const [activeSkill, setActiveSkill] = useState(null);
   const [activeSub, setActiveSub] = useState(null);
   const [youTubeResults, setYouTubeResults] = useState([]);
@@ -44,7 +43,244 @@ export default function App() {
   }
 
   function getSubIndexById(subId) {
-    return activeSkill?.subSkills?.findIndex((sub) => sub._id === subId)
+    return activeSkill?.subSkills?.findIndex((sub) => sub._id === subId);
+  }
+
+  function getResourceIndexById(resourceId) {
+    return activeSub?.resources?.findIndex((r) => r._id === resourceId);
+  }
+
+  async function getSkills() {
+    try {
+      console.log("GET SKILLS")
+      const response = await skillsApi.getAll(user._id);
+      dispatchSkills({
+        type: 'readSkills',
+        data: response.skills 
+      })
+      handleSetUserSkills(response.userSkills);
+
+      console.log("Updated skills from server... ")
+    } catch (err) {
+      setError(`*** Error READ SKILL ****\n ${err}`)
+    }
+    // console.log(skills, "End of getSkills")
+  }
+
+  async function getResources() {
+    console.log("getting resources")
+    try {
+      const response = await resourcesApi.getAll();
+      setResources(response)
+    } catch(err) {
+      setError(console.log(err, '<-- Error getting all Resources! '));
+      throw new Error(console.log(`${err} <-- Error getting all resources`),
+        `${err} <- Error getting all resources`)
+      
+    }
+  } 
+
+  async function handleCreateSkill(data) {
+    try {
+      const response = await skillsApi.create(data);
+      dispatchSkills({
+        type: 'createSkill',
+        data: response.skill,
+      })
+    } catch(err){
+      setError(console.log(`*** Error CREATE SKILL ****\n ${err}`))
+    }
+    // console.log(skills, "<<<<<< skills")
+  } 
+
+  async function handleCreateSubSkill(data) {
+    try {
+      const response = await subSkillsApi.create(data);
+      dispatchSkills({
+        type: 'createSubSkill',
+        skillIndex: activeSkill.index,
+        data: response.skill,
+      })
+
+    } catch(err){
+      setError(console.log(`*** Error CREATE SKILL ****\n ${err}`))
+    }
+
+  } 
+
+  async function handleCreateResource(data) {
+    const skillId = data.skillId;
+    const subId = data.subId;
+    
+    const isAssigned = activeSub?.resources?.some((r) => r.videoId === data.videoId)
+
+    if (!isAssigned) {
+      try {
+        const response = await resourcesApi.create(data);
+        console.log(response, " RESPONSE FROM CREATE RESOURCE")
+        if (response) {
+          const resource = await response;
+          const skillIndex = getSkillIndexById(skillId);
+          const subIndex = getSubIndexById(subId);
+          dispatchSkills({
+            type: 'assignResourceToSubSkill',
+            skillIndex: skillIndex,
+            subSkillIndex: subIndex,
+            resource: resource,
+          })
+        } 
+      } catch (err) {
+        setError(console.log(`***Error in handleCreateResource(message): ${err}`))
+      }
+    } else {
+      console.log(`VideoId: ${data.videoId} already assigned to subSkill`)
+    }
+
+  }
+
+  async function handleDeleteSkill(skillId) {
+    try {
+      const skillIndex = skills.findIndex((skill) => skill._id === skillId)
+      const response = await skillsApi.deleteSkill(skillId);
+      dispatchSkills({
+        type: 'deleteSkill',
+        id: skillId,
+        index: skillIndex,
+      })
+    } catch (err) {
+      setError(console.log(`*** Error DELETE SKILL ****\n ${err}`))
+    }
+  }
+
+  async function handleDeleteResource(resource) {
+    const resourceId = resource._id
+    const skillId = resource.skillId;
+    const skillIndex = skills?.findIndex((s) => s._id === skillId)
+    const skill = skills[skillIndex];
+    const subId = resource.subSkillId;
+    const subIndex = skill.subSkills.findIndex((s) => s._id === subId);
+    
+    try {
+
+      const response = await resourcesApi.deleteResource(resourceId);
+      console.log(response.resourceDoc.title, ' <---resource removed from database')
+
+      dispatchSkills({
+        type: 'deleteResource',
+        skillIndex: skillIndex,
+        subIndex: subIndex,
+        resourceId: resourceId,
+      })
+
+    } catch (err) {
+      setError(console.log(`*** Error DELETE SKILL ****\n ${err}`))
+
+    }
+  }
+
+  async function handleDeleteResourcesByVideoId() {
+    console.log("DELETE ALL IN APP")
+    try {
+    const response = await resourcesApi.deleteAllResourcesByVideoId("I-k-iTUMQAY")
+    console.log(response, "<-- response from delete all by video Id")
+    } catch (err) {
+      throw new Error(console.log(`${err} <- Error getting Deleting all resources by id`), 
+        `${err} <- Error getting Deleting all resources by id`)
+    }
+  }
+
+  async function handleAssignSkill(skillId) {
+    try {
+      await handleAssignUserProgress(skillId);
+      const index = skills?.findIndex((s) => s._id === skillId)
+      if (!skills[index].usersAssigned.some(u => u._id === user._id)) {
+        const response = await skillsApi.assignUser(user, skillId);
+        // console.log(response, "assign skill response")
+        dispatchSkills({
+          type: 'assignSkill',
+          user: user,
+          index: index
+        })
+        // Response from server = response.skill
+      } else {
+        console.log(`${user.username} already assigned to skill( ${skills[index].name})`)
+      }
+    } catch (err) {
+      setError(console.log(`*** Error Assign SKILL ****\n ${err}`))
+    }
+  }
+
+  async function handleUnAssignSkill(skillId) {
+    try {
+      const skillIndex = skills?.findIndex((s) => s._id === skillId)
+      if (skills[skillIndex]?.usersAssigned?.some(u => u._id === user._id)) {
+        const userAssignedIndex = skills[skillIndex]?.usersAssigned?.findIndex((u) => u._id === user._id)
+        const response = await skillsApi.unAssignUser(user, skillId);
+        // console.log(response, "unassign skill response")
+        dispatchSkills({
+          type: 'unAssignSkill',
+          userIndex: userAssignedIndex,
+          skillIndex: skillIndex
+        })
+        const assignedSkills = skills?.filter((skill => skill.usersAssigned.some(u => u._id === user._id)))
+        setUserSkills(assignedSkills)
+      } else {
+        console.log(`${user.username} Not alaready Assigned to skill( ${skills[skillIndex].name})`)
+      }
+    } catch (err) {
+      setError(console.log(`*** Error UNAssign SKILL ****\n ${err}`))
+    }
+  }
+
+  async function handleAssignUserToResource(resource, skillId, subId, userId) {
+    console.log(" ASSIGN RESOURCE TO USER")
+
+    const skillIndex = getSkillIndexById(skillId);
+    const subIndex = getSubIndexById(subId);
+    const resourceIndex = getResourceIndexById(resource._id)
+    console.log(resource, "<- resource assignrestouser")
+    console.log(resourceIndex, ' <-- resourceIndex')
+    const data = {
+      resource: resource,
+      userId: userId,
+      skillId: skillId,
+      subId: subId,
+      user: user,
+    }
+    try {
+      console.log("Starting assign resource to user before api")
+      const response = resourcesApi.assignUserToResource(data);
+      dispatchSkills({
+        type: 'assignUserToResource',
+        skillIndex: skillIndex,
+        subSkillIndex: subIndex,
+        resourceIndex: resourceIndex,
+        user: user
+    
+      })
+    } catch (err) {
+      setError(console.log(`*** Error assigning User to Resource -> ${err}`))
+    }
+  }
+
+  async function handleUnAssignUserFromResource(resourceId, skillId, subId, userId ) {
+    const data = {
+      resourceId: resourceId,
+      userId: userId,
+      skillId: skillId,
+      subId: subId,
+    }
+
+    try {
+      const response = await resourcesApi.unAssignResource(data);
+      dispatchResources({
+        type: 'unAssignResource',
+        resourceId: resourceId,
+        userId: userId,
+      })
+    } catch (err) {
+      setError(console.log(`*** Error Unassigning Resource ${err}`))
+    }
   }
 
   async function handleAssignUserProgress(skillId) {
@@ -68,25 +304,34 @@ export default function App() {
     }
   };
 
-  async function onStartUploadAllSkillsFromList() {
-    // (testSkillsList) 
-    //   ? await skillsApi.createAllSkillsFromList(testSkillsList) 
-    //   : console.log('prorgammingSkills list is empty')
-    console.log("Loading initial Skills?")
+  async function handleEditSubSkill(subskill) {
+    try {
+        const response = await subSkillsApi.update(subskill);
+    } catch(err){
+        console.log(err, " Error IN THE HANDLEADDsubskill")
+    }
+  } // END handleAddSubSkill Function
+
+  async function searchYouTube(search) {
+		try {
+			const response = await youTubeApi.searchYouTube(search, activeSkill?.skill?.name, activeSub?.subSkill?.title);
+			console.log(response, " <------ response from YOUTUBE SEARCH");
+		
+			setYouTubeResults([...response])
+		} catch (err) {
+			console.log(err.message, " <<<<<YouTube SEARCH ERROR>>>>>");
+		}
+	}
+
+  function handleSignUpOrLogin() {
+    setUser(userService.getUser());
   }
 
-  function formatDate(timestamp) {
-    const date = new Date(timestamp);
-    const year = date.getFullYear().toString().slice(2);
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const day = date.getDate().toString().padStart(2, '0');
-    const hours = date.getHours();
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-    const formattedHours = hours % 12 || 12;
-    const formattedDate = `${month}/${day}/${year}`;
-    const formattedTime = `${formattedHours}:${minutes} ${ampm}`;
-    return `${formattedDate} ${formattedTime}`;
+  function handleLogout() {
+    console.log("+++++ SIGNOUT USER +++++")
+    navigate('/');
+    userService.logout();
+    setUser(null);
   }
 
   async function handleSetActiveSkillById(skillId) {
@@ -134,274 +379,26 @@ export default function App() {
     }
   }
 
-  async function handleCreateSkill(data) {
-    try {
-      const response = await skillsApi.create(data);
-      dispatchSkills({
-        type: 'createSkill',
-        data: response.skill,
-      })
-    } catch(err){
-      setError(console.log(`*** Error CREATE SKILL ****\n ${err}`))
-    }
-    // console.log(skills, "<<<<<< skills")
-  } 
 
-  async function getSkills() {
-    try {
-      console.log("GET SKILLS")
-      const response = await skillsApi.getAll(user._id);
-      dispatchSkills({
-        type: 'readSkills',
-        data: response.skills 
-      })
-      handleSetUserSkills(response.userSkills);
-
-      console.log("Updated skills from server... ")
-    } catch (err) {
-      setError(`*** Error READ SKILL ****\n ${err}`)
-    }
-    // console.log(skills, "End of getSkills")
+  async function onStartUploadAllSkillsFromList() {
+    // (testSkillsList) 
+    //   ? await skillsApi.createAllSkillsFromList(testSkillsList) 
+    //   : console.log('prorgammingSkills list is empty')
+    console.log("Loading initial Skills?")
   }
 
-  async function getResources() {
-    console.log("getting resources")
-    try {
-      const response = await resourcesApi.getAll();
-      console.log(response, "<--- resources response! from API")
-      dispatchResources({
-        type: 'readResources',
-        data: response.resources
-      })
-    } catch(err) {
-      setError(console.log(err, '<-- Error getting all Resources! '));
-      throw new Error(console.log(`${err} <-- Error getting all resources`),
-        `${err} <- Error getting all resources`)
-      
-    }
-  } 
-
-  async function handleDeleteResourcesByVideoId() {
-    console.log("DELETE ALL IN APP")
-    try {
-    const response = await resourcesApi.deleteAllResourcesByVideoId("I-k-iTUMQAY")
-    console.log(response, "<-- response from delete all by video Id")
-    } catch (err) {
-      throw new Error(console.log(`${err} <- Error getting Deleting all resources by id`), 
-        `${err} <- Error getting Deleting all resources by id`)
-    }
-  }
-
-  async function handleDeleteSkill(skillId) {
-    try {
-      const skillIndex = skills.findIndex((skill) => skill._id === skillId)
-      const response = await skillsApi.deleteSkill(skillId);
-      dispatchSkills({
-        type: 'deleteSkill',
-        id: skillId,
-        index: skillIndex,
-      })
-    } catch (err) {
-      setError(console.log(`*** Error DELETE SKILL ****\n ${err}`))
-    }
-  }
-
-  async function handleAssignSkill(skillId) {
-    try {
-      await handleAssignUserProgress(skillId);
-      const index = skills?.findIndex((s) => s._id === skillId)
-      if (!skills[index].usersAssigned.some(u => u._id === user._id)) {
-        const response = await skillsApi.assignUser(user, skillId);
-        // console.log(response, "assign skill response")
-        dispatchSkills({
-          type: 'assignSkill',
-          user: user,
-          index: index
-        })
-        // Response from server = response.skill
-      } else {
-        console.log(`${user.username} already assigned to skill( ${skills[index].name})`)
-      }
-    } catch (err) {
-      setError(console.log(`*** Error Assign SKILL ****\n ${err}`))
-    }
-  }
-
-  async function handleUnAssignSkill(skillId) {
-    try {
-      const skillIndex = skills?.findIndex((s) => s._id === skillId)
-      if (skills[skillIndex]?.usersAssigned?.some(u => u._id === user._id)) {
-        const userAssignedIndex = skills[skillIndex]?.usersAssigned?.findIndex((u) => u._id === user._id)
-        const response = await skillsApi.unAssignUser(user, skillId);
-        // console.log(response, "unassign skill response")
-        dispatchSkills({
-          type: 'unAssignSkill',
-          userIndex: userAssignedIndex,
-          skillIndex: skillIndex
-        })
-        const assignedSkills = skills?.filter((skill => skill.usersAssigned.some(u => u._id === user._id)))
-        // console.log(assignedSkills, "USERS SKILLS (unassignSkill)")
-        setUserSkills(assignedSkills)
-      } else {
-        console.log(`${user.username} Not alaready Assigned to skill( ${skills[skillIndex].name})`)
-      }
-    } catch (err) {
-      setError(console.log(`*** Error UNAssign SKILL ****\n ${err}`))
-    }
-  }
-
-  async function handleAssignResourceToSubSkillInReducer(skillId, subId, resource) {
-    console.log(`skillId: ${skillId}\nsubId: ${subId}`)
-  
-    const skillIndex = getSkillIndexById(skillId);
-    const subIndex = getSubIndexById(subId);
-    dispatchSkills({
-      type: 'assignResourceToSubSkill',
-      skillIndex: skillIndex,
-      subSkillIndex: subIndex,
-      resource: resource,
-    })
-  }
-
-  async function handleAssignResourceUser(resource, skillId, subId, userId) {
-    console.log(" ASSIGN RESOURCE TO USER")
-    const skillIndex = getSkillIndexById(skillId);
-    const subIndex = getSubIndexById(subId);
-    const data = {
-      resource: resource,
-      userId: userId,
-      skillId: skillId,
-      subId: subId,
-
-    }
-    try {
-      const response = resourcesApi.assignResource(data);
-      dispatchResources({
-        type: 'assignResource',
-        resourceId: resourceId,
-        userId: userId,
-        skillId: skillId,
-        subId: subId,
-    
-      })
-    } catch (err) {
-      setError(console.log(`*** Error Unassigning Resource ${err}`))
-    }
-  }
-
-  async function handleCreateResource(data) {
-    const skillId = data.skillId;
-    const subId = data.subId;
-    
-    const isAssigned = activeSub?.resources?.some((r) => r.videoId === data.videoId)
-
-    if (!isAssigned) {
-      try {
-        const response = await resourcesApi.create(data);
-        console.log(response, " RESPONSE FROM CREATE RESOURCE")
-        if (response) {
-          const resource = await response;
-          handleAssignResourceToSubSkillInReducer(skillId, subId, resource)
-        } 
-      } catch (err) {
-        setError(console.log(`***Error in handleCreateResource(message): ${err}`))
-      }
-    } else {
-      console.log(`VideoId: ${data.videoId} already assigned to subSkill`)
-    }
-
-  }
-
-  async function handleUnAssignResourceUser(resourceId, skillId, subId, userId ) {
-    const data = {
-      resourceId: resourceId,
-      userId: userId,
-      skillId: skillId,
-      subId: subId,
-    }
-
-    try {
-      const response = await resourcesApi.unAssignResource(data);
-      dispatchResources({
-        type: 'unAssignResource',
-        resourceId: resourceId,
-        userId: userId,
-      })
-    } catch (err) {
-      setError(console.log(`*** Error Unassigning Resource ${err}`))
-    }
-  }
-
-  async function handleDeleteResource(resource) {
-    const resourceId = resource._id
-    const skillId = resource.skillId;
-    const skillIndex = skills?.findIndex((s) => s._id === skillId)
-    const skill = skills[skillIndex];
-    const subId = resource.subSkillId;
-    const subIndex = skill.subSkills.findIndex((s) => s._id === subId);
-    
-
-    try {
-
-      const response = await resourcesApi.deleteResource(resourceId);
-      console.log(response.resourceDoc.title, ' <---resource removed from database')
-
-      dispatchSkills({
-        type: 'deleteResource',
-        skillIndex: skillIndex,
-        subIndex: subIndex,
-        resourceId: resourceId,
-      })
-
-    } catch (err) {
-      setError(console.log(`*** Error DELETE SKILL ****\n ${err}`))
-
-    }
-  }
-
-  async function handleCreateSubSkill(data) {
-    try {
-      const response = await subSkillsApi.create(data);
-      dispatchSkills({
-        type: 'createSubSkill',
-        skillIndex: activeSkill.index,
-        data: response.skill,
-      })
-
-    } catch(err){
-      setError(console.log(`*** Error CREATE SKILL ****\n ${err}`))
-    }
-
-  } 
-
-  async function handleEditSubSkill(subskill) {
-    try {
-        const response = await subSkillsApi.update(subskill);
-    } catch(err){
-        console.log(err, " Error IN THE HANDLEADDsubskill")
-    }
-  } // END handleAddSubSkill Function
-
-  async function searchYouTube(search) {
-		try {
-			const response = await youTubeApi.searchYouTube(search, activeSkill?.skill?.name, activeSub?.subSkill?.title);
-			console.log(response, " <------ response from YOUTUBE SEARCH");
-		
-			setYouTubeResults([...response])
-		} catch (err) {
-			console.log(err.message, " <<<<<YouTube SEARCH ERROR>>>>>");
-		}
-	}
-
-  function handleSignUpOrLogin() {
-    setUser(userService.getUser());
-  }
-
-  function handleLogout() {
-    console.log("+++++ SIGNOUT USER +++++")
-    navigate('/');
-    userService.logout();
-    setUser(null);
+  function formatDate(timestamp) {
+    const date = new Date(timestamp);
+    const year = date.getFullYear().toString().slice(2);
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    const hours = date.getHours();
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const formattedHours = hours % 12 || 12;
+    const formattedDate = `${month}/${day}/${year}`;
+    const formattedTime = `${formattedHours}:${minutes} ${ampm}`;
+    return `${formattedDate} ${formattedTime}`;
   }
 
   // useEffect(() => {
@@ -442,8 +439,7 @@ export default function App() {
           activeSubId: activeSub?.subSkill?._id,
           activeUserId: user?._id,
           resources: resources,
-          activeSkillId: activeSkillId,
-          activeSubId: activeSubId,
+    
 
           handleDeleteResourcesByVideoId: handleDeleteResourcesByVideoId,
           setYouTubeResults: setYouTubeResults,
@@ -462,32 +458,24 @@ export default function App() {
           handleCreateSubSkill: handleCreateSubSkill,
           handleCreateResource: handleCreateResource,
           handleDeleteResource: handleDeleteResource,
-          handleUnAssignResourceUser: handleUnAssignResourceUser,
-          handleAssignResourceUser: handleAssignResourceUser,
-          handleAssignResourceToSubSkillInReducer: handleAssignResourceToSubSkillInReducer,
+          handleUnAssignUserFromResource: handleUnAssignUserFromResource,
+          handleAssignUserToResource: handleAssignUserToResource,
+
         }}
       >
-        <ResourcesContext.Provider
-          value={{
-            resources: resources,
-          }}
-        >
-          <ResourcesDispatchContext.Provider value={dispatchResources}>
-            <SkillsDispatchContext.Provider value={dispatchSkills}>
-              <Routes>
-                <Route path="/" element={<Layout />}>
-                  <Route index element={<LandingPage />} />
-                  <Route path="skills/:skillId" element={<SkillPage />} />
-                  {user ? (
-                    <Route path="/:username" element={<DashboardPage />} />
-                  ) : null}
-                </Route>
-                <Route path="/login" element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />} />
-                <Route path="/signup" element={<SignUpPage handleSignUpOrLogin={handleSignUpOrLogin} />} />
-              </Routes>
-            </SkillsDispatchContext.Provider>
-          </ResourcesDispatchContext.Provider>
-        </ResourcesContext.Provider>
+        <SkillsDispatchContext.Provider value={dispatchSkills}>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<LandingPage />} />
+              <Route path="skills/:skillId" element={<SkillPage />} />
+              {user ? (
+                <Route path="/:username" element={<DashboardPage />} />
+              ) : null}
+            </Route>
+            <Route path="/login" element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />} />
+            <Route path="/signup" element={<SignUpPage handleSignUpOrLogin={handleSignUpOrLogin} />} />
+          </Routes>
+        </SkillsDispatchContext.Provider>
       </SkillsContext.Provider>
     );
     

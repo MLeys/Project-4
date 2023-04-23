@@ -47,8 +47,8 @@ function SkillPage() {
   const pageSkill = skillId ? skills?.find(skill => skill?._id === skillId) : console.log('skill param not found');
   const userId = ctx.loggedUser?._id;
   const deleteResource = ctx.handleDeleteResource;
-  const assignResource = ctx.handleAssignResourceUser;
-  const unAssignResource = ctx.handleUnAssignResourceUser;
+  const assignUserToResource = ctx.handleAssignUserToResource;
+  const unAssignUserFromResource = ctx.handleUnAssignUserFromResource;
 
   const [skill, setSkill] = useState(pageSkill);
   const [subSkills, setSubSkills] = useState([]);
@@ -60,15 +60,18 @@ function SkillPage() {
   }
 
   function checkAssigned(resource) {
-    const isAssigned = resource.usersAssigned.some((u)=> u._id === userId)
+    const isAssigned = resource?.usersAssigned?.some((u)=> u._id === userId)
     setIsAssign(isAssigned)
+    return isAssigned
   }
 
   function handleClickAssigned(resource) {
-    const resourceId = resource._id;
+    checkAssigned(resource);
+    console.log(resource, " skillpage resource");
+
     (isAssigned) 
-      ? unAssignResource(skillId, subId, resourceId, userId)
-      : assignResource(skillId, subId, resourceId, userId); 
+      ? unAssignUserFromResource(resource)
+      : assignUserToResource(resource); 
   }
 
   useEffect(() => {
@@ -77,6 +80,7 @@ function SkillPage() {
       handleSetActiveSkillById(skillId)
       setSkill(skills?.find(skill => skill?._id === skillId)) 
       setSubSkills(skills?.find(skill => skill?._id === skillId)?.subSkills)
+     
     }
     
   }, [skills, subSkills]); 

@@ -17,20 +17,20 @@ export async function unAssignResource(data) {
 		throw new Error('Error UNASSIGN RESOURCE API. check server terminal')
 	})
 }
-export function assignResource(data) {
-	console.log(`Assign- ResourceApi`)
-	// const skillId = data.skillId
-	// return fetch(`${BASE_URL}${skillId}`, {
-  //       method: 'PUT',
-	// 	body: JSON.stringify(user),
-  //       headers: {
-  //           Authorization: "Bearer " + tokenService.getToken(),
-  //           'Content-Type': 'application/json', 
-  //       }
-	// }).then(res => {
-	// 	if(res.ok) return res.json()
-	// 	throw new Error('Error UNASSIGN RESOURCE API. check server terminal')
-	// })
+export async function assignUserToResource(data) {
+	console.log(`Assign- ResourceApi - DATA: ${data.resource}`)
+	const resourceId = data.resource._id
+	return await fetch(`${BASE_URL}${resourceId}`, {
+		method: 'POST',
+		body: JSON.stringify(data.user),
+		headers: {
+				Authorization: "Bearer " + tokenService.getToken(),
+				'Content-Type': 'application/json', 
+		}
+	}).then(res => {
+		if(res.ok) return res.json()
+		throw new Error('Error ASSIGN RESOURCE API. check server terminal')
+	})
 }
 
 export async function create(data) {
