@@ -90,12 +90,12 @@ export function unAssignUser(user, skillId) {
 	// console.log(skillId, "<- skill")
 	// console.log(user, "<- user")
 	return fetch(`${BASE_URL}${skillId}`, {
-        method: 'PUT',
+		method: 'PUT',
 		body: JSON.stringify(user),
-        headers: {
-            Authorization: "Bearer " + tokenService.getToken(),
-            'Content-Type': 'application/json', // MUST HAVE OR req.body in Ctrl remains emppty!!!!
-        }
+		headers: {
+			Authorization: "Bearer " + tokenService.getToken(),
+			'Content-Type': 'application/json', // MUST HAVE OR req.body in Ctrl remains emppty!!!!
+		}
 	}).then(res => {
 		if(res.ok) return res.json()
 		throw new Error('Error in UNASSIGN SKILL API. Check Terminal')

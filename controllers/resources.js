@@ -9,8 +9,28 @@ export default {
 	delete: deleteResources,
   deleteAllByVideoId: deleteAllByVideoId,
   assignUser: assignUser,
+  unAssignUser: unAssignUser,
 
 };
+
+async function unAssignUser(req, res) {
+  console.log(req.body._id, " unassign req body._id")
+  console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+  try {
+    const resource = await Resource.findById(req.params.id).populate("usersAssigned")
+
+    // const userAssignedIndex = resource.usersAssigned.Of(req.body._id)
+    
+    // resource.usersAssigned.splice(userAssignedIndex, 1);
+    // await resource.save();
+
+    console.log(resource, " REsource doc after Unassigning user")
+    res.status(201).json({resource})
+  } catch(err) {
+    console.log(err, "<-- assign user to resource controller error")
+    res.status(400).json({err})
+  }
+}
 
 async function assignUser(req, res) {
   try {
@@ -103,13 +123,12 @@ async function create(req, res) {
 }
 
 
-
 async function allResources(req, res) {
   try {
 	const resources = await Resource.find({}).populate("usersAssigned").exec(); // populating on the model
 	res.status(200).json({ data: resources });
   } catch (err) {
-	res.status(400).json({ err });
+	res.status(400).json({ err }, " ERROR GETTING ALL RESOURCES (ctrl)");
   }
 }
 

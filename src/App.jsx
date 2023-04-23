@@ -232,35 +232,28 @@ export default function App() {
     }
   }
 
-  function checkIfUserAssigned(model) {
-    return model?.usersAssigned?.some((u) => u._id === user._id)
+  function checkIfUserAssigned(usersAssigned) {
+    return usersAssigned?.some((u) => u._id === user._id);
   }
 
   async function handleAssignUserToResource(resource, skillId, subId, userId) {
-    const isAssigned = checkIfUserAssigned(resource);
-    console.log(" ASSIGN RESOURCE TO USER");
-    console.log(skillId, " skillId");
-    console.log(subId, " SubId");
+    const isAssigned = checkIfUserAssigned(resource.usersAssigned);    
     const skillIndex = getSkillIndexById(skillId);
     const subIndex = getSubIndexById(subId);
     const resourceIndex = getResourceIndexById(resource._id);
-    console.log(skills[skillIndex].subSkills[subIndex].resources[resourceIndex], " <--- BEFORE CHANGE Resource with user assigned");
   
-    console.log(resourceIndex, ' <-- resourceIndex');
     const data = {
       resource: resource,
       userId: userId,
       skillId: skillId,
       subId: subId,
-      user: user,
+      user
     };
   
     if (!isAssigned) {
       try {
-        console.log("Starting assign resource to user before api");
         const response = await resourcesApi.assignUserToResource(data);
-        console.log(await response.resource, "<- resource assignrestouser");
-        // Update the resource object with the user object
+        console.log(response)
         const updatedResource = {
           ...response.resource,
           usersAssigned: [...response.resource.usersAssigned, user],
@@ -270,7 +263,7 @@ export default function App() {
           skillIndex: skillIndex,
           subSkillIndex: subIndex,
           resourceIndex: resourceIndex,
-          updatedResource: updatedResource,
+          user: user,
         });
       } catch (err) {
         setError(console.log(`*** Error assigning User to Resource -> ${err}`));
@@ -278,29 +271,43 @@ export default function App() {
     } else {
       console.log("Resource already assigned to user");
     }
-    console.log(skills[skillIndex].subSkills[subIndex].resources[resourceIndex], " <--- UPDATED Resource with user assigned");
   }
   
-
-  async function handleUnAssignUserFromResource(resourceId, skillId, subId, userId ) {
+  async function handleUnAssignUserFromResource(resource, skillId, subId) {
+    const isAssigned = checkIfUserAssigned(resource.usersAssigned);    
+    const skillIndex = getSkillIndexById(skillId);
+    const subIndex = getSubIndexById(subId);
+    const resourceIndex = getResourceIndexById(resource._id);
+    console.log('unassign function fuck')
     const data = {
-      resourceId: resourceId,
-      userId: userId,
+      resource: resource,
+      user: user,
       skillId: skillId,
       subId: subId,
-    }
-
-    try {
-      const response = await resourcesApi.unAssignResource(data);
-      dispatchResources({
-        type: 'unAssignResource',
-        resourceId: resourceId,
-        userId: userId,
-      })
-    } catch (err) {
-      setError(console.log(`*** Error Unassigning Resource ${err}`))
+    };
+  
+    if (isAssigned) {
+      try {
+        const response = await resourcesApi.unAssignUserFromResource(data);
+        const updatedResource = {
+          ...response.resource,
+          usersAssigned: response.resource.usersAssigned.filter((foundUser) => foundUser._id !== userId),
+        };
+        dispatchSkills({
+          type: 'unAssignUserFromResource',
+          skillIndex,
+          subSkillIndex: subIndex,
+          resourceIndex,
+          user: user,
+        });
+      } catch (err) {
+        setError(console.log(`*** Error unassigning User from Resource -> ${err}`));
+      }
+    } else {
+      console.log("Resource not assigned to user");
     }
   }
+  
 
   async function handleAssignUserProgress(skillId) {
     const userId = user?._id;
@@ -458,8 +465,9 @@ export default function App() {
           activeSubId: activeSub?.subSkill?._id,
           activeUserId: user?._id,
           resources: resources,
-    
 
+
+          checkIfUserAssigned: checkIfUserAssigned,
           handleDeleteResourcesByVideoId: handleDeleteResourcesByVideoId,
           setYouTubeResults: setYouTubeResults,
           searchYouTube: searchYouTube,
@@ -479,8 +487,6 @@ export default function App() {
           handleDeleteResource: handleDeleteResource,
           handleUnAssignUserFromResource: handleUnAssignUserFromResource,
           handleAssignUserToResource: handleAssignUserToResource,
-          handleDeleteResourcesByVideoId: handleDeleteResourcesByVideoId,
-
         }}
       >
         <SkillsDispatchContext.Provider value={dispatchSkills}>

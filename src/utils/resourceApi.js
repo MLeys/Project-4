@@ -3,35 +3,40 @@ import tokenService from "./tokenService.js";
 
 const BASE_URL = '/api/resources/';
 
-export async function unAssignResource(data) {
-	const skillId = data.skillId
-	return await fetch(`${BASE_URL}${skillId}`, {
-        method: 'PUT',
-		body: JSON.stringify(user),
-        headers: {
-            Authorization: "Bearer " + tokenService.getToken(),
-            'Content-Type': 'application/json', 
-        }
+export async function unAssignUserFromResource(data) {
+	const resourceId = data.resource._id
+	console.log('resource api before fetch')
+	return await fetch(`${BASE_URL}${resourceId}`, {
+		method: 'PUT',
+		body: JSON.stringify(data.user),
+		headers: {
+			Authorization: "Bearer " + tokenService.getToken(),
+			'Content-Type': 'application/json', 
+		}
 	}).then(res => {
 		if(res.ok) return res.json()
 		throw new Error('Error UNASSIGN RESOURCE API. check server terminal')
 	})
 }
+
+
 export async function assignUserToResource(data) {
-	console.log(`Assign- ResourceApi - DATA: ${data.resource}`)
+	console.log(`Assign- ResourceApi - DATA: ${data.user._id}`)
 	const resourceId = data.resource._id
 	return await fetch(`${BASE_URL}${resourceId}`, {
 		method: 'POST',
 		body: JSON.stringify(data.user),
 		headers: {
-				Authorization: "Bearer " + tokenService.getToken(),
-				'Content-Type': 'application/json', 
+			Authorization: "Bearer " + tokenService.getToken(),
+			'Content-Type': 'application/json', 
 		}
 	}).then(res => {
 		if(res.ok) return res.json()
 		throw new Error('Error ASSIGN RESOURCE API. check server terminal')
 	})
 }
+
+
 
 export async function create(data) {
 	try {

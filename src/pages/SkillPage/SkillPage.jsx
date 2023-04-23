@@ -42,6 +42,7 @@ function SkillPage() {
   const skills = ctx.skills;
   const handleSetActiveSkillById = ctx.handleSetActiveSkillById;
   const activeSub = ctx.activeSub;
+ 
   const subId = ctx.activeSubId;
   const skillId = useParams().skillId;
   const pageSkill = skillId ? skills?.find(skill => skill?._id === skillId) : console.log('skill param not found');
@@ -51,10 +52,16 @@ function SkillPage() {
   const assignUserToResource = ctx.handleAssignUserToResource;
   const unAssignUserFromResource = ctx.handleUnAssignUserFromResource;
   const handleDeleteResourcesByVideoId = ctx.handleDeleteResourcesByVideoId;
+  const checkIfUserAssigned = ctx.checkIfUserAssigned;
 
   const [skill, setSkill] = useState(pageSkill);
-  const [subSkills, setSubSkills] = useState([]);
   
+  const skillIndex = skills?.findIndex((skill) => skill._id === skillId)
+  const subIndex = skills[skillIndex]?.subSkills?.findIndex((sub) => sub._id === activeSub?.subSkill._id)
+  const subSkills = skills[skillIndex]?.subSkills;
+  const resources = skills[skillIndex]?.subSkills[subIndex]?.resources;
+  
+
   function handleClickDeleteAllByVideoId() {
     handleDeleteResourcesByVideoId()
   }
@@ -63,31 +70,24 @@ function SkillPage() {
     deleteResource(resource)
   }
 
-  function checkAssigned(resource) {
-    console.log(resource, "<--- users assigned to " ,resource.videoId)
-    return resource?.usersAssigned?.some((u) => u._id === userId);
-  }
 
   function renderIcon(resource) {
-    return checkAssigned(resource) ? <BookFilledIcon /> : <BookOutlinedIcon />;
+    // console.log(resource, "THIS IS THE FUCKING RESOURCE FOR THE CARD")
+    return checkIfUserAssigned(resource.usersAssigned) ? <BookFilledIcon /> : <BookOutlinedIcon />;
   }
 
-  function handleClickAssigned(resource) {
-    const isUserAssigned = checkAssigned(resource);
-    console.log(resource, " skillpage resource");
-    console.log(" SUB ID <<<<<<<<<<<", subId);
+  function handleClickAssigned(resource, index) {
+    const isUserAssigned = checkIfUserAssigned(resource.usersAssigned);
     isUserAssigned
-      ? unAssignUserFromResource(resource, skillId, subId)
-      : assignUserToResource(resource, skillId, subId);
+      ? unAssignUserFromResource(resource, skillId, subId, userId)
+      : assignUserToResource(resource, skillId, subId, userId);
   }
+
 
   useEffect(() => {
-    
     if ( skills) { 
       handleSetActiveSkillById(skillId)
       setSkill(skills?.find(skill => skill?._id === skillId)) 
-      setSubSkills(skills?.find(skill => skill?._id === skillId)?.subSkills)
-     
     }
     
   }, [skills, subSkills]); 
@@ -134,28 +134,28 @@ function SkillPage() {
               {activeSub?.subSkill?.title}
             </Typography>
           </Grid>
-          {activeSub?.resources?.map((resource, index) => (
-          <Grid key={`resourceCard-${index}`} xs={12} sm={6} md={4}>
-            <VideoCard key={`resourceCard-${index}`} resource={resource} >
-              <CardActions disableSpacing>
-                <IconButton 
-                  aria-label="Delete resource"
-                  onClick={() => handleDeleteResource(resource)}
-                >
-                  <TrashFilledIcon />
-                </IconButton>
-                <IconButton 
-                  aria-label="Delete resource"
-                  onClick={() => handleClickAssigned(resource)}
-                >
-                  {renderIcon(resource)}
-                </IconButton>
-                <Typography bgcolor={'pink'}>f{checkAssigned(resource) ? 'true' : 'false'} </Typography>
-                
-              </CardActions>
-            </VideoCard>
-          </Grid>
-          ))}
+          {resources?.map((resource, index) => (
+            <Grid key={`resourceCard-${index}`} xs={12} sm={6} md={4}>
+              <VideoCard key={`resourceCard-${index}`} resource={resource} >
+                <CardActions disableSpacing>
+                  <IconButton 
+                    aria-label="Delete resource"
+                    onClick={() => handleDeleteResource(resource, index)}
+                  >
+                    <TrashFilledIcon />
+                  </IconButton>
+                  <IconButton 
+                    aria-label="Delete resource"
+                    onClick={() => handleClickAssigned(resource, index)}
+                  >
+                    {renderIcon(resource)}
+                  </IconButton>
+                  <Typography bgcolor={'pink'}>{checkIfUserAssigned(resource.usersAssigned) ? 'true' : 'false'} </Typography>
+                  
+                </CardActions>
+              </VideoCard>
+            </Grid>
+      ))}
         </Grid>
       </Box>
     </PageDrawer>
