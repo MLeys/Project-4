@@ -1,4 +1,4 @@
-import React, {useContext, createContext, useReducer} from "react";
+import React, {useContext, createContext, useEffect, useState} from "react";
 import { useImmerReducer } from 'use-immer';
 
 import skillsReducer from "../../reducers/skillsReducer";
@@ -6,8 +6,10 @@ import skillsReducer from "../../reducers/skillsReducer";
 import userService from "../../utils/userService";
 import * as skillsApi from "../../utils/skillApi.js";
 
-const response = await skillsApi.getAll(userService.getUser()._id);
-const initialSkills = await response.skills
+async function getSkillsFromServer(){
+  const response = await skillsApi.getAll(userService.getUser()._id);
+  return await response.skills
+}
 
 
 export const SkillsContext = createContext(null);
@@ -19,17 +21,28 @@ export function useSkillsContext() {
 } 
 
 export function SkillsProvider({ children }) {
-  const [skills, dispatch] = useImmerReducer(
-    skillsReducer,
-    initialSkills
-  );
+  const [skills, dispatch] = useImmerReducer(skillsReducer, null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchInitialSkills() {
+      const initialSkills = await getSkillsFromServer();
+      dispatch({ type: 'INITIALIZE_SKILLS', payload: initialSkills });
+      setIsLoading(false);
+    }
+
+    fetchInitialSkills();
+  }, [dispatch]);
+
 
   return (
-    <SkillsContext.Provider value={skills}>
-      <SkillsDispatchContext.Provider value={dispatch}>
-        {children}
-      </SkillsDispatchContext.Provider>
-    </SkillsContext.Provider>
+    !isLoading && (
+      <SkillsContext.Provider value={skills}>
+        <SkillsDispatchContext.Provider value={dispatch}>
+          {children}
+        </SkillsDispatchContext.Provider>
+      </SkillsContext.Provider>
+    )
   );
 }
 

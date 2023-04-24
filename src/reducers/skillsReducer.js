@@ -2,6 +2,10 @@ import produce from 'immer';
 
 const skillsReducer = produce((draft, action) => {
   switch (action.type) {
+		case 'INITIALIZE_SKILLS':{
+			return action.payload;
+		}
+    
     case 'createSkill': {
       draft.splice(0,0,action.data);
       break;
@@ -43,7 +47,6 @@ const skillsReducer = produce((draft, action) => {
 			const subSkill = draft[skillIndex].subSkills[subSkillIndex];
 			
       // Ensure usersAssigned is an array of objects, and add the user.
-
       subSkill.usersAssigned = subSkill?.usersAssigned.map((u) => (typeof u === 'string' ? { _id: user } : user));
       subSkill.usersAssigned.splice(0, 0, user);
       break;
@@ -55,8 +58,6 @@ const skillsReducer = produce((draft, action) => {
       draft[skillIndex].subSkills[subSkillIndex].usersAssigned.splice(userIndex, 1);
       break;
     }
-
-
     case 'assignUserToResource': {
       const user = action.user;
       const skillIndex = action.skillIndex;
