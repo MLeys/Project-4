@@ -41,6 +41,7 @@ const theme = createTheme();
 export default function LoginPage() {
   const ctx = useContext(SkillsContext)
   const handleSignUpOrLogin = ctx.handleSignUpOrLogin;
+  const setUser = ctx.setUser;
 
   const navigate = useNavigate();
 
@@ -56,8 +57,9 @@ export default function LoginPage() {
         email: data.get('email'),
         password: data.get('password'),
       });
-      await userService.login(credentials);
-      // Route to wherever you want!
+      
+      const loggedInUser = await userService.login(credentials);
+      setUser(loggedInUser)
       handleSignUpOrLogin();
       navigate("/");
     } catch (err) {

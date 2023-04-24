@@ -546,8 +546,8 @@ export default function App() {
           activeSubId: activeSub?.subSkill?._id,
           activeUserId: user?._id,
           resources: resources,
-
-
+          
+          setUser: setUser,
           checkIfUserAssigned: checkIfUserAssigned,
           handleDeleteResourcesByVideoId: handleDeleteResourcesByVideoId,
           setYouTubeResults: setYouTubeResults,
