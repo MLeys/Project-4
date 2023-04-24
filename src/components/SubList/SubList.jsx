@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, useContext, useEffect } from 'react';
-
+import { useTheme } from '@mui/material';
 
 import { SkillsContext } from '../../context/SkillsContext/SkillsContext';
 
@@ -17,11 +17,13 @@ import Divider from '@mui/material/Divider';
 import { VertDotsIcon } from '../../customIcons';
 
 export default function SubList() {
+  const theme = useTheme()
   const ctx = useContext(SkillsContext);
   const skills = ctx.skills;
-  const skillId = ctx.activeSkill?._id;
+  const skillId = ctx.activeSkill?.skill?._id;
   const setActiveSub = ctx.handleSetActiveSub;
-  const subSkills = ctx.activeSkill?.subSkills;
+  const skillIndex = skills?.findIndex((s) => s._id === skillId)
+  const subSkills = skills[skillIndex]?.subSkills;
   const assignUserToSubSkill = ctx.handleAssignUserToSubSkill;
   const unAssignUserFromSubSkill = ctx.handleUnAssignUserFromSubSkill;
   const checkIfUserAssigned = ctx.checkIfUserAssigned;
@@ -32,19 +34,6 @@ export default function SubList() {
     index ? setActiveSub(index) : setActiveSub(selectedIndex)
   }
 
-  function handleToggle(subIndex) {
-    const subSkill = subSkills[subIndex];
-    if (handleIsAssigned(subIndex)) {
-      unAssignUserFromSubSkill(subSkill);
-    } else {
-      assignUserToSubSkill(subSkill);
-    }
-  }
-
-  function handleIsAssigned(subIndex) {
-    return subSkills[subIndex]?.usersAssigned?.some((user) => user._id === skillId )
-  }
-
   function handleClickSub(e, sub, subIndex) {
     e.stopPropagation();
     const subId = sub._id;
@@ -53,51 +42,75 @@ export default function SubList() {
     handleSetActiveSub(index);
   }
 
-  function handleClickCheckbox(e, subIndex) {
+  async function handleClickCheckbox(e, subIndex, sub) {
     e.stopPropagation();
-    const subSkill = subSkills?.[subIndex];
-    const isAssigned = checkIfUserAssigned(subSkill?.usersAssigned)
+    
+    const subSkill = sub;
+    const isAssigned = await checkIfUserAssigned(sub.usersAssigned)
    
     console.log(`clicked check for sub: ${subIndex}`);
+    console.log(isAssigned, "< isAssigned")
 
-    (isAssigned) ? unAssignUserFromSubSkill(subSkill) : assignUserToSubSkill(subSkill);
+    if (isAssigned) {
+      unAssignUserFromSubSkill(subSkill)
+    } else {
+      assignUserToSubSkill(subSkill)
+    }
+    
   }
 
   useEffect(() => {
     handleSetActiveSub()
-  }, [selectedIndex]); 
+  }, [selectedIndex, subSkills]); 
 
   return (
-    <List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', borderRadius: '8px', boxShadow: 1 }}>
+    <List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'tealGray.light', borderRadius: '8px', boxShadow: 1 }}>
       {subSkills?.map((sub, subIndex) => {
-        const labelId = `checkbox-list-label-${subIndex}`;
+        const labelId = `checkbox-list-label-${sub._id}`;
 
         return (
-          <ListItem key={`subListItem-${subIndex}`} disablePadding>
+          <ListItem key={`subListItem-${subIndex}-${sub._id}`} disablePadding>
             <ListItemButton
               onClick={(e) => handleClickSub(e, sub, subIndex)}
               selected={selectedIndex === subIndex}
               sx={{
-                backgroundColor: selectedIndex === subIndex ? 'primary.main' : 'transparent',
+                backgroundColor: selectedIndex === subIndex ? 'blueTealGray.dark' : 'transparent',
                 '&:hover': {
-                  backgroundColor: 'primary.light',
+                  backgroundColor: 'tealLight.main',
                 },
                 '&.Mui-selected': {
-                  backgroundColor: 'primary.main',
+                  backgroundColor: 'blueTealGray.light',
                   '&:hover': {
-                    backgroundColor: 'primary.dark',
+                    backgroundColor: 'tealLight.light',
                   },
                 },
                 width: '100%',
               }}
             >
               <Checkbox
+                
                 edge="start"
-                onChange={() => handleToggle(subIndex)}
-                checked={handleIsAssigned(subIndex)}
-                inputProps={{ 'aria-labelledby': labelId }}
-                sx={{ '&.Mui-checked': { color: 'primary.main' } }}
-                onClick={(e) => handleClickCheckbox(e, subIndex)}
+                
+                checked={checkIfUserAssigned(sub.usersAssigned)}
+                inputProps={{ 
+                  'aria-labelledby': labelId,
+                  
+                }}
+                sx={{ 
+                  '& .MuiSvgIcon-root': { fontSize: 28 },
+                  color: 'black',
+                  // backgroundColor: 'tealGray.main',
+                  '&.Mui-checked': { 
+                    color: 'blueTeal.dark',
+                    // backgroundColor: 'tealGray.light' 
+                  },
+                  '&:hover': {
+                    color: 'blueGray.dark',
+                    backgroundColor: 'tealGray.light',
+                  },
+
+                }}
+                onClick={(e) => handleClickCheckbox(e, subIndex, sub)}
               />
               <ListItemText id={labelId} primary={`${sub.title} ${subIndex}`} />
             </ListItemButton>

@@ -236,74 +236,75 @@ export default function App() {
   }
 
   async function handleAssignUserToSubSkill(subSkill) {
-    console.log('assign user to subskill, ')
-    const isAssigned = subSkill.usersAssigned;
-    const parentSkillId = skills?.[activeSkill?.index]._id
-    console.log(parentSkillId, "<--- parent skill ID")
+    console.log(subSkill?.usersAssigned, 'assigning to subskill')
+    const isAssigned = await checkIfUserAssigned(subSkill?.usersAssigned);
+    console.log(isAssigned, " IS ASSIGNED in assign user to sub")
+    const parentSkillId = skills?.[activeSkill?.index]?._id;
+    const skillIndex = getSkillIndexById(parentSkillId);
+    const subIndex = getSubIndexById(subSkill?._id);
+
     const data = {
-      subSkill: subSkill,
+      subSkill: {
+        ...subSkill,
+        parentSkill: parentSkillId,
+      },
       user: user,
-      parentSkill: parentSkillId,
-    }
-
-    if (isAssigned) {
-      try {
-        const response = await subSkillsApi.assignUser(data, );
-        console.log(response, ' resoinse from assinging use to subskills')
-        
-      } catch (err) {
-        setError(console.log(`*** Error assigning User to Subskill -> ${err}`));
-      }
-    } 
-
-  }
-
-  async function handleUnAssignUserFromSubSkill(subSkill) {
-    const isAssigned = subSkill.usersAssigned;
-    console.log('unassign user from subskill')
-    // if (!isAssigned) {
-    //   try {
-    //     const response = await subSkillsApi.assignUser(data);
-    //     console.log(response, ' resoinse from assinging use to subskills')
-        
-    //   } catch (err) {
-    //     setError(console.log(`*** Error assigning User to Subskill -> ${err}`));
-    //   }
-    // } 
-  }
-
-
-  async function handleAssignUserToResource(resource) {
-    const isAssigned = checkIfUserAssigned(resource.usersAssigned);    
-    const skillIndex = getSkillIndexById(resource.skillId);
-    const subIndex = getSubIndexById(resource.subSkillId);
-    const resourceIndex = getResourceIndexById(resource._id);
-  
-    const data = {
-      resource: resource,
-      userId: userId,
-      skillId: resource.skillId,
-      subId: resource.subSkillId,
-      user: user,
+      parentSkillId: parentSkillId,
     };
   
     if (!isAssigned) {
+
       try {
-        const response = await resourcesApi.assignUserToResource(data);
+        const response = await subSkillsApi.assignUser(data);
+        console.log(response, 'response from assigning user to subskills');
         dispatchSkills({
-          type: 'assignUserToResource',
+          type: 'assignUserToSubSkill',
           skillIndex: skillIndex,
           subSkillIndex: subIndex,
-          resource,
+          user: user,
+        });
+
+      } catch (err) {
+        setError(console.log(`*** Error assigning User to Subskill -> ${err}`));
+      }
+    }
+  }
+  
+
+  async function handleUnAssignUserFromSubSkill(subSkill) {
+    console.log(subSkill?.usersAssigned, 'users in UNassigning to subskill')
+    const isAssigned = await checkIfUserAssigned(subSkill?.usersAssigned);
+    console.log(isAssigned, " IS ASSIGNED in unassign from sub")
+    const parentSkillId = skills?.[activeSkill?.index]?._id;
+    const skillIndex = getSkillIndexById(parentSkillId);
+    const subIndex = getSubIndexById(subSkill?._id);
+    const data = {
+      userId: userId,
+      parentSkillId: parentSkillId,
+      subId: subSkill?._id,
+      user: user,
+    };
+  
+    if (isAssigned) {
+
+      try {
+        const response = await subSkillsApi.unAssignUser(data);
+        console.log(response, ' reponse from server unassign user from subskill')
+        dispatchSkills({
+          type: 'unAssignUserFromSubSkill',
+          skillIndex,
+          subSkillIndex: subIndex,
           user: user,
         });
       } catch (err) {
-        setError(console.log(`*** Error assigning User to Resource -> ${err}`));
+        setError(console.log(`*** Error unassigning User from SubSkill -> ${err}`));
       }
     } else {
-      console.log("Resource already assigned to user");
+      console.log("SubSkill not assigned to user. CANNOT unassign from subskill");
     }
   }
+
+
 
   async function handleAssignUserToResource(resource) {
     const isAssigned = checkIfUserAssigned(resource.usersAssigned);    

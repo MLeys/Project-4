@@ -37,10 +37,15 @@ const skillsReducer = produce((draft, action) => {
       break;
     }
     case 'assignUserToSubSkill': {
+			const user = action.user;
       const skillIndex = action.skillIndex;
       const subSkillIndex = action.subSkillIndex;
-      const user = action.user;
-      draft[skillIndex].subSkills[subSkillIndex].usersAssigned.unshift(user);
+			const subSkill = draft[skillIndex].subSkills[subSkillIndex];
+			
+      // Ensure usersAssigned is an array of objects, and add the user.
+
+      subSkill.usersAssigned = subSkill?.usersAssigned.map((u) => (typeof u === 'string' ? { _id: user } : user));
+      subSkill.usersAssigned.splice(0, 0, user);
       break;
     }
     case 'unAssignUserFromSubSkill': {
@@ -51,15 +56,7 @@ const skillsReducer = produce((draft, action) => {
       break;
     }
 
-    case 'assignResourceToSubSkill': {
-      const skillIndex = action.skillIndex;
-			console.log(skillIndex, "SKILL INdex in reducer")
-      const subSkillIndex = action.subSkillIndex;
-			console.log(subSkillIndex, "SKILL INdex in reducer")
-      const resource = action.resource;
-      draft[skillIndex].subSkills[subSkillIndex].resources.splice(0, 0, resource);
-      break;
-    }
+
     case 'assignUserToResource': {
       const user = action.user;
       const skillIndex = action.skillIndex;
@@ -70,7 +67,7 @@ const skillsReducer = produce((draft, action) => {
       // Ensure usersAssigned is an array of objects, and add the user.
       const resource = draft[skillIndex].subSkills[subSkillIndex].resources[resourceIndex];
       resource.usersAssigned = resource?.usersAssigned.map((u) => (typeof u === 'string' ? { _id: user } : user));
-      resource?.usersAssigned.splice(0, 0, user);
+      resource.usersAssigned.splice(0, 0, user);
 
       break;
     }
@@ -82,8 +79,8 @@ const skillsReducer = produce((draft, action) => {
 
       // Ensure usersAssigned is an array of objects, and remove the user.
       const resource = draft[skillIndex].subSkills[subSkillIndex].resources[resourceIndex];
-      resource.usersAssigned = resource.usersAssigned.map((user) => (typeof user === 'string' ? { _id: user } : user));
-      resource.usersAssigned = resource.usersAssigned.filter((foundUser) => foundUser._id !== user._id);
+      resource.usersAssigned = resource?.usersAssigned.map((user) => (typeof user === 'string' ? { _id: user } : user));
+      resource.usersAssigned = resource?.usersAssigned.filter((foundUser) => foundUser._id !== user._id);
 
       break;
     }

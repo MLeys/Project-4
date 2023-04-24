@@ -3,27 +3,55 @@ import tokenService from "./tokenService";
 const BASE_URL= '/api/'
 
 export async function assignUser(data) {
-	console.log(data, ' data coming iinto assign api subskill')
-	const subId = data.subSkill._id;
-	console.log(subId, " subid from data in assing sub api")
-	try {
-		return fetch(`${BASE_URL}subskills/${subId}`, {
-			method: 'POST',
+  const subId = data.subSkill._id;
+
+  try {
+    const response = await fetch(`${BASE_URL}subskills/${subId}/assign`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        Authorization: "Bearer " + tokenService.getToken(),
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.ok) {
+      return response.json();
+    }
+
+    throw new Error('Error assigning user to subskill, check server terminal');
+
+  } catch (err) {
+    console.log(`*** Error Assigning user to subskill *** \n${err}`);
+    throw err;
+  }
+}
+
+
+
+export async function unAssignUser(data) {
+  const subId = data.subId;
+  try {
+		const response = await fetch(`${BASE_URL}subskills/${subId}/unassign`, {
+			method: 'PUT',
 			body: JSON.stringify(data),
 			headers: {
 				Authorization: "Bearer " + tokenService.getToken(),
-				'Content-Type': 'application/json', // MUST HAVE OR req.body in Ctrl remains emppty!!!!
+				'Content-Type': 'application/json', 
 			}
-		}).then(res => {
-			if(res.ok) return res.json()
-			throw new Error('Error creating a subSkill, check server terminal')
-		})
-	} catch (err) {
-		throw new Error(`*** Error Assigning Skill to user *** \n${err}`)
-	}
+		});
 
+    if (response.ok) {
+      return response.json();
+    }
+
+    throw new Error('Error assigning user to subskill, check server terminal');
+
+  } catch (err) {
+    console.log(`*** Error Assigning user to subskill *** \n${err}`);
+    throw err;
+  }
 }
-
 
 
 

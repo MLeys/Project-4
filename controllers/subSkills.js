@@ -3,47 +3,157 @@ import User from '../models/user.js';
 
 
 export default {
-    create,
-    update,
-    assignUser,
-    unAssignUser,
+  create,
+  assignUser,
+  unAssignUser,
+  updateSubSkill,
+  deleteSubSkill,
 }
 
+
+async function assignUser(req, res) {
+  const subSkillId = req.params.id;
+  const skillId = req.body.parentSkillId;
+  const user = await User.findById(req.body.user._id);
+
+  try {
+    const skillDoc = await Skill.findById(skillId)
+      .populate("usersAssigned", "User")
+      .populate({
+        path: "subSkills.resources",
+        model: "Resource",
+      })
+      .populate({
+        path: "subSkills.usersAssigned",
+        model: "User",
+      })
+      .populate("resources", "Resource")
+      .exec();
+
+    // Find the index of the subSkill
+    const subSkillIndex = skillDoc.subSkills.findIndex((sub) => sub._id.equals(subSkillId));
+
+    if (subSkillIndex === -1) {
+      return res.status(404).json({ error: "Sub-skill not found" });
+    }
+
+    // Check if the user is already assigned
+    const isUserAssigned = await skillDoc.subSkills[subSkillIndex].usersAssigned.some((assignedUser) => assignedUser._id.equals(user._id));
+
+    // Update the usersAssigned array for the subSkill if the user is not already assigned
+    if (!isUserAssigned) {
+      skillDoc.subSkills[subSkillIndex].usersAssigned = [user, ...skillDoc.subSkills[subSkillIndex].usersAssigned];
+      await skillDoc.save();
+    }
+
+    res.status(201).json({ subSkill: skillDoc.subSkills[subSkillIndex] });
+
+  } catch (err) {
+    console.log(err, "<-- assign user to resource controller error");
+    res.status(400).json({ error: err.message });
+  }
+}
+
+
+
+
+
+// Data needed: parentSkillId, user, subSkillId
 async function unAssignUser(req, res) {
-    console.log(req.body._id, " unassign req body._id")
-    console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
-    try {
-      const resource = await Resource.findById(req.params.id).populate("usersAssigned")
-  
-      // const userAssignedIndex = resource.usersAssigned.Of(req.body._id)
-      
-      // resource.usersAssigned.splice(userAssignedIndex, 1);
-      // await resource.save();
-  
-      console.log(resource, " REsource doc after Unassigning user")
-      res.status(201).json({resource})
-    } catch(err) {
-      console.log(err, "<-- assign user to resource controller error")
-      res.status(400).json({err})
+  const subSkillId = req.params.id;
+  const skillId = req.body.parentSkillId;
+  const user = req.body.user;
+  console.log('unassign controller')
+  try {
+    const skillDoc = await Skill.findById(skillId)
+    .populate("usersAssigned", "User")
+    .populate({
+      path: "subSkills.resources",
+      model: "Resource",
+    })
+    .populate({
+      path: "subSkills.usersAssigned",
+      model: "User",
+    })
+    .populate("resources", "Resource")
+    .exec();
+
+    const subSkillIndex = skillDoc.subSkills.findIndex((sub) => sub._id.equals(subSkillId));
+
+    if (subSkillIndex === -1) {
+      return res.status(404).json({ error: "Sub-skill not found" });
     }
-  }
+
   
-  async function assignUser(req, res) {
-    try {
-      const resource = await Resource.findById(req.params.id).populate("usersAssigned")
-      const user = await User.findById(req.body._id)
-      
-      resource.usersAssigned.splice(0,0, user);
-      await resource.populate("usersAssigned");
-      await resource.save();
-      console.log(resource, " REsource doc after assigning user")
-  
-      res.status(201).json({resource})
-    } catch(err) {
-      console.log(err, "<-- assign user to resource controller error")
-      res.status(400).json({err})
+    // Check if the user is already assigned
+    const isUserAssigned = await skillDoc.subSkills[subSkillIndex].usersAssigned.some((assignedUser) => assignedUser._id.equals(user._id));
+
+    if (isUserAssigned) {
+      skillDoc.subSkills[subSkillIndex].usersAssigned.splice(user, 1)
+      await skillDoc.save();   
     }
+    const subSkillDoc =  await skillDoc.subSkills[subSkillIndex];
+
+
+
+    res.status(200).json({ subSkill: subSkillDoc });
+  } catch (err) {
+    console.log(err, "<-- unassign user from subSkill controller error");
+    res.status(400).json({ error: err.message });
   }
+}
+
+// Data needed: parentSkillId, subSkillId, updatedSubSkill
+async function updateSubSkill(req, res) {
+  const subSkillId = req.params.id;
+  const skillId = req.body.parentSkillId;
+  const updatedSubSkill = req.body.updatedSubSkill;
+
+  try {
+    const skillDoc = await Skill.findById(skillId);
+
+    const subSkillDoc = skillDoc.subSkills.find((sub) => sub._id === subSkillId);
+
+    if (!subSkillDoc) {
+      return res.status(404).json({ error: "Sub-skill not found" });
+    }
+
+    subSkillDoc.set(updatedSubSkill);
+
+    await skillDoc.save();
+
+    res.status(200).json({ subSkill: subSkillDoc });
+  } catch (err) {
+    console.log(err, "<-- update subSkill controller error");
+    res.status(400).json({ error: err.message });
+  }
+}
+
+// Data needed: parentSkillId, subSkillId
+async function deleteSubSkill(req, res) {
+  const subSkillId = req.params.id;
+  const skillId = req.body.parentSkillId;
+
+  try {
+    const skillDoc = await Skill.findById(skillId);
+
+    const subSkillIndex = skillDoc.subSkills.findIndex((sub) => sub._id === subSkillId);
+
+    if (subSkillIndex === -1) {
+      return res.status(404).json({ error: "Sub-skill not found" });
+    }
+
+    skillDoc.subSkills.splice(subSkillIndex, 1);
+
+    await skillDoc.save();
+
+    res.status(200).json({ message: "Sub-skill deleted successfully" });
+  } catch (err) {
+    console.log(err, "<-- delete subSkill controller error");
+    res.status(400).json({ error: err.message });
+  }
+}
+
 
 async function create(req, res){
     try {
@@ -58,17 +168,17 @@ async function create(req, res){
     }
 }
 
-async function update(req, res){
-    try {
-        const skill = await Skill.findOne({'subSkills._id': req.params.id})
-        const subIndex =skill.subSkills.findIndex(s =>  s.id === req.params.id)
+// async function update(req, res){
+//     try {
+//         const skill = await Skill.findOne({'subSkills._id': req.params.id})
+//         const subIndex =skill.subSkills.findIndex(s =>  s.id === req.params.id)
         
-        skill.subSkills[subIndex].title = req.body.title
-        skill.subSkills[subIndex].details = req.body.details
+//         skill.subSkills[subIndex].title = req.body.title
+//         skill.subSkills[subIndex].details = req.body.details
 
-        await skill.save();
-        res.status(201).json({skill})
-    } catch(err){
-        res.status(400).json({err})
-    }
-}
+//         await skill.save();
+//         res.status(201).json({skill})
+//     } catch(err){
+//         res.status(400).json({err})
+//     }
+// }

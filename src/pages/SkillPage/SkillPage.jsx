@@ -73,7 +73,7 @@ function SkillPage() {
             {/* Change to only show users currently assigned  */}
             <Card sx={{ bgcolor: 'blueGrayLight2.light', my: 1, pl: 1, minWidth: 280, maxWidth: 350, textAlign: 'left'}}>
               {subSkills?.map((sub, index) => (
-                <Box key={`subProg-${index}`} >
+                <Box key={`subProg-${sub._id}`} >
                   <LinearProgressWithLabel height={10} key={`subProg-${index}`} title={sub.title} value={35} />
                   <Divider />
                 </Box>

@@ -1,6 +1,7 @@
 import User from "../models/user.js";
 import Skill from '../models/skill.js';
 
+
 export default {
   create,
   delete: deleteSkill,

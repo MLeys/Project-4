@@ -2,10 +2,10 @@ import express from 'express';
 const router = express.Router();
 import subSkillsCrtl from '../../controllers/subSkills.js'
 
-router.post('/subskills/:id', skillsCtrl.assignUser)
-router.put('/subskills/:id', skillsCtrl.unAssignUser)
+router.post('/subskills/:id/assign', subSkillsCrtl.assignUser)
+router.put('/subskills/:id/unassign', subSkillsCrtl.unAssignUser)
 router.post('/skills/:id/subskills', subSkillsCrtl.create)
-router.put('/subskills/:id/update', subSkillsCrtl.update)
+// router.put('/subskills/:id/update', subSkillsCrtl.update)
 
 export default router;
 
