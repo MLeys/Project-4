@@ -6,33 +6,39 @@ import skillsReducer from "../../reducers/skillsReducer";
 import userService from "../../utils/userService";
 import * as skillsApi from "../../utils/skillApi.js";
 
-async function getSkillsFromServer(){
-  const response = await skillsApi.getAll(userService.getUser()._id);
-  return await response.skills
-}
-
+import { getSkillsFromServer } from "../../App";
 
 export const SkillsContext = createContext(null);
 export const SkillsDispatchContext = createContext(null);
-
 
 export function useSkillsContext() {
   return useContext(SkillsContext)
 } 
 
-export function SkillsProvider({ children }) {
+export function SkillsProvider({ children, loggedUser }) {
   const [skills, dispatch] = useImmerReducer(skillsReducer, null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchInitialSkills() {
-      const initialSkills = await getSkillsFromServer();
-      dispatch({ type: 'INITIALIZE_SKILLS', payload: initialSkills });
+    if (!loggedUser) {
       setIsLoading(false);
+      return;
     }
-
-    fetchInitialSkills();
-  }, [dispatch]);
+  
+    const fetchSkills = async () => {
+      setIsLoading(true);
+      try {
+        const response = await getSkillsFromServer();
+        dispatch({ type: 'INITIALIZE_SKILLS', payload: response });
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error fetching skills:', error);
+        setIsLoading(false);
+      }
+    };
+  
+    fetchSkills();
+  }, [loggedUser]);
 
 
   return (
@@ -47,7 +53,11 @@ export function SkillsProvider({ children }) {
 }
 
 export function useSkills() {
-  return useContext(SkillsContext);
+  const context = useContext(SkillsContext);
+  if (context === undefined) {
+    throw new Error('useSkills must be used within a SkillsProvider');
+  }
+  return context;
 }
 
 export function useSkillsDispatch() {

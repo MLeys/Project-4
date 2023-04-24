@@ -23,6 +23,15 @@ import * as youTubeApi from "./utils/youTubeApi.js";
 import * as resourcesApi from "./utils/resourceApi.js";
 import * as userProgressApi from "./utils/userProgressApi.js"
 
+export async function getSkillsFromServer() {
+  const user = userService.getUser();
+  if (!user) {
+    return null;
+  }
+  const response = await skillsApi.getAll(user._id);
+  return await response.skills;
+}
+
 export default function App() {
   const navigate = useNavigate();
   const [error, setError] = useState('');
@@ -485,6 +494,8 @@ export default function App() {
     return `${formattedDate} ${formattedTime}`;
   }
 
+ 
+
   // useEffect(() => {
   //   (async () => {
   //     try {
@@ -502,8 +513,27 @@ export default function App() {
   }, [skills, activeSkill, activeSub]); 
 
   
+  useEffect(() => {
+    if (!user) {
+      return;
+    }
+  
+    const fetchSkills = async () => {
+      try {
+        const response = await getSkillsFromServer();
+        dispatchSkills({ type: "INITIALIZE_SKILLS", payload: response });
+      } catch (error) {
+        console.error("Error fetching skills:", error);
+      }
+    };
+  
+    fetchSkills();
+  }, [user]);
+  
+
     return (
       <SkillsContext.Provider 
+        
         value={{
           loggedUser: user,
           skills: skills,
