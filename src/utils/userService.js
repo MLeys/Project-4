@@ -2,14 +2,14 @@ import tokenService from './tokenService';
 
 const BASE_URL = '/api/users/';
 
-function signup(user) {
+async function signup(user) {
+  console.log(user, '<-- user in signup api call')
   
-  return fetch(BASE_URL + 'signup', {
+  return await fetch(BASE_URL + 'signup', {
     method: 'POST',
-    // headers: new Headers({'Content-Type': 'application/json'}),  // If you are sending a file/photo over
-    // what do datatype do you need to change this too?
-    // body: JSON.stringify(user)
-    body: user
+    headers: new Headers({'Content-Type': 'application/json'}),  // If you are sending a file/photo over
+    body: JSON.stringify(user)
+ 
   })
   .then(res => {
     // THis is handling the response from our express server after we submit our form and get a response from the server

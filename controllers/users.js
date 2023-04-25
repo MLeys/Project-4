@@ -38,35 +38,38 @@ async function profile(req, res){
 
 
 async function signup(req, res) {
-  console.log(req.body, " <- contents of the form", req.file, ' <- this is req.file')
+  console.log(req.body.user, " <- contents of the form", req.file, ' <- this is req.file')
 
-  if(!req.file) return res.status(400).json({error: "Please Submit a Photo"})
+  let photoUrl = '';
 
-  // where we will store our image on aws s3 bucket
-  const filePath = `skillmap/${uuidv4()}-${req.file.originalname}`
-  const params = {Bucket: BUCKET_NAME, Key: filePath, Body: req.file.buffer}; // req.file.buffer is the actually from the form when it was sent to our express server
-  // s3.upload is making the request to s3
-  s3.upload(params, async function(err, data){ // < inside the function in the response from aws
-    if(err){
-      console.log('===============================')
-      console.log(err, ' <- error from aws, Probably telling you your keys arent correct')
-      console.log('===============================')
-      res.status(400).json({error: 'error from aws, check your terminal'})
-    }
+  if (req.file) {
+    // where we will store our image on aws s3 bucket
+    const filePath = `skillmap/${uuidv4()}-${req.file.originalname}`
+    const params = {Bucket: BUCKET_NAME, Key: filePath, Body: req.file.buffer}; // req.file.buffer is the actually from the form when it was sent to our express server
+    // s3.upload is making the request to s3
+    s3.upload(params, function(err, data){ // < inside the function in the response from aws
+      if(err){
+        console.log('===============================')
+        console.log(err, ' <- error from aws, Probably telling you your keys arent correct')
+        console.log('===============================')
+        res.status(400).json({error: 'error from aws, check your terminal'})
+      } else {
+        photoUrl = data.Location; // data.Location is the url for your image on aws
+      }
+    }) // end of the s3 callback
+  }
 
+  const user = new User({...req.body, photoUrl});
+  try {
+    await user.save(); // user model .pre('save') function is running which hashes the password
+    const token = createJWT(user);
+    res.json({ token }); // set('toJSON',) in user model is being called, and deleting the users password from the token
+  } catch (err) {
+    // Probably a duplicate email
+    res.status(400).json(err);
+  }
+}
 
-    const user = new User({...req.body, photoUrl: data.Location}); // data.Location is the url for your image on aws
-    try {
-      await user.save(); // user model .pre('save') function is running which hashes the password
-      const token = createJWT(user);
-      res.json({ token }); // set('toJSON',) in user model is being called, and deleting the users password from the token
-    } catch (err) {
-      // Probably a duplicate email
-      res.status(400).json(err);
-    }
-
-  }) // end of the s3 callback
-} // end of signup
 
 
 async function login(req, res) {

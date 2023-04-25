@@ -419,8 +419,9 @@ export default function App() {
 		}
 	}
 
-  function handleSignUpOrLogin() {
-    setUser(userService.getUser());
+  async function handleSignUpOrLogin() {
+    setUser(await userService.getUser());
+    await getSkillsFromServer();
   }
 
   function handleLogout() {
@@ -508,13 +509,9 @@ export default function App() {
   //   })();
   // }, [userId]);
 
-  useEffect(() => {
-
-    
-  }, [skills, activeSkill, activeSub]); 
-
   
   useEffect(() => {
+    console.log('useEffect for user change in app')
     if (!user) {
       return;
     }

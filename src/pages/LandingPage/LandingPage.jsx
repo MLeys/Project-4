@@ -17,6 +17,7 @@ import WelcomeSection from "../../components/WelcomeSection/WelcomeSection";
 function LandingPage() {
   const navigate = useNavigate();
   const ctx = useContext(SkillsContext);
+  const user = ctx.loggedUser;
   const handleSetActiveSkill = ctx.handleSetActiveSkill;
   const [openDialog, setOpenDialog] = useState(false);
 

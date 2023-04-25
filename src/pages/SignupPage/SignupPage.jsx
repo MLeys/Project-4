@@ -17,7 +17,7 @@ import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 
 
-
+import { getSkillsFromServer } from '../../App';
 import { SkillsContext } from '../../context/SkillsContext/SkillsContext';
 import { FormLabel, InputLabel } from '@mui/material';
 
@@ -35,42 +35,68 @@ function Copyright(props) {
   );
 }
 
-export default function SignUpPage({ children, onSubmit }) {
+export default function SignUpPage({ children, handleNext}) {
   const ctx = useContext(SkillsContext)
-  const handleSignUpOrLogin = ctx.handleSignUpOrLogin;
+  const handleSignUpOrLogin = ctx?.handleSignUpOrLogin;
+  const user = ctx.loggedUser;
+  const logout = ctx.handleLogout;
   const navigate = useNavigate()
 
+  const [imageURL, setImageURL] = useState("");
   const [selectedFile, setSelectedFile] = useState("");
   const [error, setError] = useState("");
   const [state, setState] = useState({
-    username: "",
     email: "",
     password: "",
     passwordConf: "",
     name: "",
-    career: "",
   });
 
 
   async function handleSubmit(e) {
     e.preventDefault(); 
-    const formData = new FormData();
-    formData.append("photo", selectedFile);
-
-    const updatedState = {
-      ...state,
-      username: state.email, // Set the username as the email by default
-    };  
-
-    for (let key in state) {
-      formData.append(key, updatedState[key]);
+    console.log('pressed submit signup')
+    if (user) {
+      console.log('A User is already logged in, logging out to signup new user')
+      handleLogout();
     }
+    const formData = new FormData();
+    if (selectedFile) {
+      formData.append("photo", selectedFile);
+    }
+
+    formData.append("username", state.email)
+    for (let key in state) {
+      formData.append(key, state[key]);
+    }
+    console.log(formData, "<--- FORM DATA")
     console.log(formData.forEach((item) => console.log(item)));
+
     try {
-      await userService.signup(formData);
-      handleSignUpOrLogin();
-      navigate('/');
-      onSubmit && onSubmit(); // Call the onSubmit callback if it is provided
+      let photoUrl = '';
+      if (selectedFile) {
+        // Upload the file to AWS S3
+        const filePath = `skillmap/${uuidv4()}-${selectedFile.name}`
+        const params = {Bucket: BUCKET_NAME, Key: filePath, Body: selectedFile};
+        const response = await s3.upload(params).promise();
+        photoUrl = response.Location;
+      } else {
+        // Set a default image URL
+        photoUrl = 'https://imgur.com/KRDEo6m.png';
+      }
+
+      const userData = {
+        ...state,
+        photoUrl,
+      };
+      console.log('here in handle submit before userservice')
+      await userService.signup(userData);
+      console.log('after userservice')
+      await handleSignUpOrLogin();
+      console.log('aftrer handlesignuoporlogin')
+      await handleNext();
+      // navigate('/');
+      
     } catch (err) {
       console.log(err.message, ' this is the error in signup');
       setError('Check your terminal, there was an error signing up');
@@ -86,6 +112,7 @@ export default function SignUpPage({ children, onSubmit }) {
 
   function handleFileInput(e) {
     setSelectedFile(e.target.files[0]);
+    setImageURL(URL.createObjectURL(e.target.files[0]));
   }
 
   return (
@@ -155,6 +182,13 @@ export default function SignUpPage({ children, onSubmit }) {
                 />
               </Grid>
               <Grid item xs={12}>
+              {imageURL && (
+                <Avatar
+                  alt="Uploaded Profile Image"
+                  src={imageURL}
+                  sx={{ width: 56, height: 56, marginBottom: 1 }}
+                />
+              )}
                 <FormControlLabel
                   sx={{ width: '100%', ml: 0.2 }}
                   control={
@@ -176,11 +210,10 @@ export default function SignUpPage({ children, onSubmit }) {
                 />
                 <label htmlFor="photo-input">
                   <Button
-                    
                     variant="outlined"
                     name="photo"
                     type="file"
-                    accept
+                    // accept="image/*"
                     component="span" // Add this line
                     title="Upload Profile Image"
                     aria-label="upload profile image"
@@ -201,7 +234,18 @@ export default function SignUpPage({ children, onSubmit }) {
                 </label>
               </Grid>
             </Grid>
-            {children}
+            <Button
+              color='primary'
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              
+            >
+              Next
+            </Button>
+            {children && React.cloneElement(children, { handleSubmit })}
+
             <Typography color={'white'} variant="body2" sx={{ my: 1 }}>
               Already have an account?{' '}
               <Link
