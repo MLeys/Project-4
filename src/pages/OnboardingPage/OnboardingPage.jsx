@@ -23,6 +23,8 @@ import {
 
 } from '@mui/material';
 
+import SignUpPage from '../SignupPage/SignupPage';
+
 
 
 const AddCircleOutline = () => <i className="bi bi-plus-circle"></i>;
@@ -62,23 +64,13 @@ export default function OnboardingPage() {
       case 0:
         return (
           <>
-            <TextField
-              label="Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              fullWidth
-              margin="normal" />
-            <input
-              accept="image/*"
-              style={{ display: 'none' }}
-              id="raised-button-file"
-              type="file"
-              onChange={(e) => setProfileImage(e.target.files[0])} />
-            <label htmlFor="raised-button-file">
-              <Button variant="outlined" component="span">
-                Upload Profile Image
-              </Button>
-            </label>
+          <SignUpPage
+            onSubmit={() => {
+              setActiveStep((prevActiveStep) => prevActiveStep + 1);
+            }}
+          >
+
+          </SignUpPage>
             {profileImage && (
               <Avatar src={URL.createObjectURL(profileImage)} sx={{ ml: 1 }} />
             )}
@@ -195,7 +187,6 @@ export default function OnboardingPage() {
           <StepLabel>Finish</StepLabel>
         </Step>
       </Stepper>
-      {getStepContent(activeStep)}
       <div>
         <Button
           disabled={activeStep === 0}
@@ -208,6 +199,8 @@ export default function OnboardingPage() {
           {activeStep === 2 ? 'Finish' : 'Next'}
         </Button>
       </div>
+      {getStepContent(activeStep)}
+
       <Dialog open={openAddSkillDialog} onClose={() => setOpenAddSkillDialog(false)}>
         <DialogTitle>
           Add Custom Skill

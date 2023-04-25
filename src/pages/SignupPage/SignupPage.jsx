@@ -22,18 +22,18 @@ import { SkillsContext } from '../../context/SkillsContext/SkillsContext';
 
 function Copyright(props) {
   return (
-    <Typography variant="body2" color="black" align="center" {...props}>
+    <Box pb={1} color={'whitesmoke'} variant="body2" align="center" >
       {'Copyright © '}
-      <Link color="inherit" href="https://leys.dev/">
+      <Link color={'inherit'} href="https://leys.dev/">
         www.Leys.dev 
       </Link>{' '}
       {2023}
-    </Typography>
+    </Box> 
   );
 }
 
 
-export default function SignUp() {
+export default function SignUpPage({ children, onSubmit }) {
   const ctx = useContext(SkillsContext)
   const handleSignUpOrLogin = ctx.handleSignUpOrLogin;
   const navigate = useNavigate()
@@ -50,24 +50,28 @@ export default function SignUp() {
   });
 
 
-  
   async function handleSubmit(e) {
     e.preventDefault(); 
     const formData = new FormData();
     formData.append("photo", selectedFile);
 
+    const updatedState = {
+      ...state,
+      username: state.email, // Set the username as the email by default
+    };  
+
     for (let key in state) {
-      formData.append(key, state[key]);
+      formData.append(key, updatedState[key]);
     }
     console.log(formData.forEach((item) => console.log(item)));
     try {
-      await userService.signup(formData); 
+      await userService.signup(formData);
       handleSignUpOrLogin();
       navigate('/');
-
-    } catch(err){
-      console.log(err.message, ' this is the error in signup')
-      setError('Check your terminal, there was an error signing up')
+      onSubmit && onSubmit(); // Call the onSubmit callback if it is provided
+    } catch (err) {
+      console.log(err.message, ' this is the error in signup');
+      setError('Check your terminal, there was an error signing up');
     }
   }
 
@@ -83,29 +87,26 @@ export default function SignUp() {
   }
 
   return (
-      <Container component="main" maxWidth="xs" sx={{bgcolor: 'primarySat.light'}}>
+      <Container component="main" maxWidth="xs" sx={{bgcolor: 'blueGray.dark', borderRadius: '4%'}}>
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 2,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}
         >
-          <Typography mt={5} component="h1" variant="h5">
-            Sign up
-          </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 2,bgcolor: 'blueGray.dark'}}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
                   color='secondary'
                   required
                   fullWidth
-                  id="username"
-                  label="username"
-                  name="username"
-                  autoComplete="family-name"
+                  id="name"
+                  label="Name"
+                  name="name"
+                  autoComplete="name"
                   onChange={handleChange}
                 />
               </Grid>
@@ -148,40 +149,54 @@ export default function SignUp() {
                   onChange={handleChange}
                 />
               </Grid>
-              
-
-              <FormControlLabel
-                sx={{mt: 5, pl: 5}}
-                control={
-                  <FormControl fullWidth error={Boolean(error)}>               
-                  <Input
-                    color='secondary'
-                    id="photo-input"
-                    type="file"
-                    name="photo"
-                    onChange={handleFileInput}
-                  />
-                  </FormControl>}
-                label={<Typography width={'100%'} fontSize={'20px'}> Upload a profile Image (optional) </Typography>}
-                labelPlacement='top'
-              />
+              <Grid item xs={12}>
+                <FormControlLabel
+                  sx={{width: '100%', ml: .2}}
+                  control={
+                    <FormControl fullWidth error={Boolean(error)}>         
+                      <Button 
+                        variant='outlined'
+                        name='photo'
+                        onClick={handleFileInput}
+                        title='Upload Profile Image'
+                        aria-label='upload profile image'
+                        sx={{
+                          border: '1px solid black',
+                          backgroundColor: 'blueGrayLight2.main',
+                          color: 'black',
+                          '&:hover': {
+                            textDecoration: 'none',
+                            backgroundColor: 'blueGrayLight2.light',
+                            border: '4px',
+                          },
+                        }}
+                      >
+                        Upload Profile Image
+                      </Button>
+                    </FormControl>
+                  }
+                />
+              </Grid>
             </Grid>
-            
-            <Button
-              color='primary'
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign Up
-            </Button>
-   
-              <Link  component={Button} onClick={() =>navigate('/login')} variant="body2">
-                <Typography color={'black'}> 
-                    Already have an account? Sign in
-                </Typography>
+            {children}
+            <Typography color={'white'} variant="body2" sx={{ my: 1 }}>
+              Already have an account?{' '}
+              <Link
+                component="button"
+                onClick={() => navigate('/login')}
+                sx={{
+                  textDecoration: 'underline',
+                  color: 'white',
+                  '&:hover': {
+                    textDecoration: 'none',
+                    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                    borderRadius: '4px',
+                  },
+                }}
+              >
+                Sign in
               </Link>
+            </Typography>
 
           </Box>
         </Box>
