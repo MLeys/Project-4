@@ -14,9 +14,12 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import Avatar from '@mui/material/Avatar';
+
 
 
 import { SkillsContext } from '../../context/SkillsContext/SkillsContext';
+import { FormLabel, InputLabel } from '@mui/material';
 
 
 
@@ -31,7 +34,6 @@ function Copyright(props) {
     </Box> 
   );
 }
-
 
 export default function SignUpPage({ children, onSubmit }) {
   const ctx = useContext(SkillsContext)
@@ -108,6 +110,7 @@ export default function SignUpPage({ children, onSubmit }) {
                   name="name"
                   autoComplete="name"
                   onChange={handleChange}
+                  inputProps={{ style: { color: 'white' } }} 
                 />
               </Grid>
               <Grid item xs={12}>
@@ -121,6 +124,7 @@ export default function SignUpPage({ children, onSubmit }) {
                   value={state.email}
                   autoComplete="email"
                   onChange={handleChange}
+                  inputProps={{ style: { color: 'white' } }} 
                 />
               </Grid>
               <Grid item  xs={6}>
@@ -134,6 +138,7 @@ export default function SignUpPage({ children, onSubmit }) {
                   id="password"
                   autoComplete="new-password"
                   onChange={handleChange}
+                  inputProps={{ style: { color: 'white' } }} 
                 />
               </Grid>
               <Grid item xs={6}>
@@ -151,31 +156,49 @@ export default function SignUpPage({ children, onSubmit }) {
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
-                  sx={{width: '100%', ml: .2}}
+                  sx={{ width: '100%', ml: 0.2 }}
                   control={
-                    <FormControl fullWidth error={Boolean(error)}>         
-                      <Button 
-                        variant='outlined'
-                        name='photo'
-                        onClick={handleFileInput}
-                        title='Upload Profile Image'
-                        aria-label='upload profile image'
-                        sx={{
-                          border: '1px solid black',
-                          backgroundColor: 'blueGrayLight2.main',
-                          color: 'black',
-                          '&:hover': {
-                            textDecoration: 'none',
-                            backgroundColor: 'blueGrayLight2.light',
-                            border: '4px',
-                          },
-                        }}
-                      >
+                    <FormControl fullWidth error={Boolean(error)}>
+                      <InputLabel htmlFor="photo-input" sx={{ display: 'none' }}>
                         Upload Profile Image
-                      </Button>
+                      </InputLabel>
+                      <Input
+                        color="secondary"
+                        id="photo-input"
+                        type="file"
+                        name="photo"
+                        onChange={handleFileInput}
+                        sx={{ display: 'none' }}
+                        title="fgff"
+                      />
                     </FormControl>
                   }
                 />
+                <label htmlFor="photo-input">
+                  <Button
+                    
+                    variant="outlined"
+                    name="photo"
+                    type="file"
+                    accept
+                    component="span" // Add this line
+                    title="Upload Profile Image"
+                    aria-label="upload profile image"
+                    sx={{
+                      width: '100%',
+                      border: '1px solid black',
+                      backgroundColor: 'blueGrayLight2.main',
+                      color: 'black',
+                      '&:hover': {
+                        textDecoration: 'none',
+                        backgroundColor: 'blueGrayLight2.light',
+                        border: '4px',
+                      },
+                    }}
+                  >
+                    Upload Profile Image
+                  </Button>
+                </label>
               </Grid>
             </Grid>
             {children}

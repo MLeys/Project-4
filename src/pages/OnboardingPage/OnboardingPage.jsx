@@ -71,6 +71,24 @@ export default function OnboardingPage() {
           >
 
           </SignUpPage>
+            <TextField
+              label="Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              fullWidth
+              margin="normal" />
+            <input
+              accept="image/*"
+              style={{ display: 'none' }}
+              id="raised-button-file"
+              type="file"
+              onChange={(e) => setProfileImage(e.target.files[0])} />
+            <label htmlFor="raised-button-file">
+              <Button variant="outlined" component="span">
+                Upload Profile Image
+              </Button>
+            </label>
+
             {profileImage && (
               <Avatar src={URL.createObjectURL(profileImage)} sx={{ ml: 1 }} />
             )}
