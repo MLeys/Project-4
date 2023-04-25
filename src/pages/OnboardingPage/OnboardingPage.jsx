@@ -18,7 +18,8 @@ import {
   IconButton,
   Avatar,
   Input,
-  InputLabel
+  InputLabel,
+  Collapse
 
 } from '@mui/material';
 
@@ -36,19 +37,27 @@ export default function OnboardingPage() {
   const [activeStep, setActiveStep] = useState(0);
   const [name, setName] = useState('');
   const [profileImage, setProfileImage] = useState(null);
-  const [skills, setSkills] = useState(ctx.skills);
+  const [skills, setSkills] = useState([]);
   const [subskills, setSubskills] = useState([]);
   const [openAddSkillDialog, setOpenAddSkillDialog] = useState(false);
   const [customSkill, setCustomSkill] = useState({ name: '', subskills: [] });
   const navigate = useNavigate();
 
-  // Simulated list of skills and subskills
-  // const skillList = [
-  //   { id: 1, name: 'Skill 1', subskills: ['Subskill 1.1', 'Subskill 1.2'] },
-  //   { id: 2, name: 'Skill 2', subskills: ['Subskill 2.1', 'Subskill 2.2'] },
-  // ];
+ const checkProps = {
+  backgroundColor: 'transparent',
+  color: 'black',
+  '&:hover': {
+    backgroundColor: 'tealLight.main',
+  },
+  '&.Mui-selected': {
+    backgroundColor: 'blueTealGray.light',
+    '&:hover': {
+      backgroundColor: 'tealLight.light',
+    },
+  },
+}
 
-  const getStepContent = (step) => {
+  function getStepContent(step) {
     switch (step) {
       case 0:
         return (
@@ -58,15 +67,13 @@ export default function OnboardingPage() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               fullWidth
-              margin="normal"
-            />
+              margin="normal" />
             <input
               accept="image/*"
               style={{ display: 'none' }}
               id="raised-button-file"
               type="file"
-              onChange={(e) => setProfileImage(e.target.files[0])}
-            />
+              onChange={(e) => setProfileImage(e.target.files[0])} />
             <label htmlFor="raised-button-file">
               <Button variant="outlined" component="span">
                 Upload Profile Image
@@ -80,7 +87,7 @@ export default function OnboardingPage() {
       case 1:
         return (
           <Grid container spacing={2}>
-            {skillList?.map((skill, index) => (
+            {skillList.map((skill) => (
               <Grid item key={skill._id} xs={12}>
                 <FormControlLabel
                   control={
@@ -88,25 +95,12 @@ export default function OnboardingPage() {
                       checked={skills.includes(skill)}
                       onChange={(e) => handleSkillSelection(e, skill)}
                       color="primary"
-                      sx={{
-                        backgroundColor: 'transparent' ,
-                        color: 'black',
-                        '&:hover': {
-                          backgroundColor: 'tealLight.main',
-                        },
-                        '&.Mui-selected': {
-                          backgroundColor: 'blueTealGray.light',
-                          '&:hover': {
-                            backgroundColor: 'tealLight.light',
-                          },
-                        },
-                        
-                      }}
-                    />
-                  }
-                  label={`${skill.name}`}
-                />
-                {skill?.subskills?.map((subskill) => (
+                      sx={checkProps}
+                  />}
+
+                  label={`${skill.name}`} />
+                <Collapse in={skills.includes(skill)}>
+                  {skill.subSkills.map((subskill) => (
                     <FormControlLabel
                       key={subskill._id}
                       control={
@@ -114,12 +108,13 @@ export default function OnboardingPage() {
                           checked={subskills.includes(subskill)}
                           onChange={(e) => handleSubskillSelection(e, subskill)}
                           color="primary"
+                          sx={checkProps}
                         />
                       }
-                      label={subskill}
-                      sx={{ ml: 3 }}
-                    />
+                      label={subskill.title}
+                      sx={{ ml: 3 }} />
                   ))}
+                </Collapse>
               </Grid>
             ))}
             <Grid item xs={12}>
@@ -136,12 +131,12 @@ export default function OnboardingPage() {
         return (
           <Typography variant="h6" align="center">
             Congratulations! You're all set to start your learning journey.
-            </Typography>
+          </Typography>
         );
       default:
         return 'Unknown step';
     }
-  };
+  }
 
   const handleNext = () => {
     if (activeStep === 2) {
