@@ -38,25 +38,26 @@ async function profile(req, res){
 
 
 async function signup(req, res) {
-  console.log(req.body.user, " <- contents of the form", req.file, ' <- this is req.file')
+  console.log(req.body, " <- contents of the form")
 
-  let photoUrl = '';
+  let photoUrl = 'https://imgur.com/KRDEo6m';
 
   if (req.file) {
     // where we will store our image on aws s3 bucket
+    console.log(' this says there is a req file')
     const filePath = `skillmap/${uuidv4()}-${req.file.originalname}`
-    const params = {Bucket: BUCKET_NAME, Key: filePath, Body: req.file.buffer}; // req.file.buffer is the actually from the form when it was sent to our express server
-    // s3.upload is making the request to s3
-    s3.upload(params, function(err, data){ // < inside the function in the response from aws
-      if(err){
-        console.log('===============================')
-        console.log(err, ' <- error from aws, Probably telling you your keys arent correct')
-        console.log('===============================')
-        res.status(400).json({error: 'error from aws, check your terminal'})
-      } else {
-        photoUrl = data.Location; // data.Location is the url for your image on aws
-      }
-    }) // end of the s3 callback
+    const params = {Bucket: BUCKET_NAME, Key: filePath, Body: req.file.buffer};
+    try {
+      const response = await s3.upload(params).promise();
+      photoUrl = response.Location;
+    } catch (err) {
+      console.log('===============================')
+      console.log(err, ' <- error from aws, Probably telling you your keys arent correct')
+      console.log('===============================')
+      return res.status(400).json({error: 'error from aws, check your terminal'})
+    }
+  } else {
+    photoUrl = 'https://imgur.com/KRDEo6m'
   }
 
   const user = new User({...req.body, photoUrl});

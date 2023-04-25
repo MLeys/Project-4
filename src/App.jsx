@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import { useImmerReducer} from 'use-immer';
 
 import skillsReducer from "./reducers/skillsReducer.js";
@@ -35,6 +35,8 @@ export async function getSkillsFromServer() {
 
 export default function App() {
   const navigate = useNavigate();
+  const location = useLocation();
+
   const [error, setError] = useState('');
   const [user, setUser] = useState(userService.getUser());
   const [skills, dispatchSkills] = useImmerReducer(skillsReducer, useSkills());
@@ -44,6 +46,8 @@ export default function App() {
   const [youTubeResults, setYouTubeResults] = useState([]);
   const [progressData, setProgressData] = useState(null);
   
+
+
   const userId = user?._id;
   const activeSkillId = activeSkill?.skill?._id;
   const activeSubId = activeSub?.subSkill?._id;
@@ -426,7 +430,9 @@ export default function App() {
 
   function handleLogout() {
     console.log("+++++ SIGNOUT USER +++++")
-    navigate('/');
+    if (location.pathname !== "/onboarding") {
+      navigate('/');
+    }
     userService.logout();
     setUser(null);
   }

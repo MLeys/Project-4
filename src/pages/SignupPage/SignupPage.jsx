@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import userService from "../../utils/userService";
 
@@ -41,6 +41,7 @@ export default function SignUpPage({ children, handleNext}) {
   const user = ctx.loggedUser;
   const logout = ctx.handleLogout;
   const navigate = useNavigate()
+  const location = useLocation();
 
   const [imageURL, setImageURL] = useState("");
   const [selectedFile, setSelectedFile] = useState("");
@@ -56,16 +57,19 @@ export default function SignUpPage({ children, handleNext}) {
   async function handleSubmit(e) {
     e.preventDefault(); 
     console.log('pressed submit signup')
+    console.log(location, "< -- location")
+    console.log(location.pathname, " location pathname")
+
     if (user) {
       console.log('A User is already logged in, logging out to signup new user')
-      handleLogout();
+      logout();
     }
     const formData = new FormData();
     if (selectedFile) {
       formData.append("photo", selectedFile);
     }
-
     formData.append("username", state.email)
+
     for (let key in state) {
       formData.append(key, state[key]);
     }
@@ -73,24 +77,9 @@ export default function SignUpPage({ children, handleNext}) {
     console.log(formData.forEach((item) => console.log(item)));
 
     try {
-      let photoUrl = '';
-      if (selectedFile) {
-        // Upload the file to AWS S3
-        const filePath = `skillmap/${uuidv4()}-${selectedFile.name}`
-        const params = {Bucket: BUCKET_NAME, Key: filePath, Body: selectedFile};
-        const response = await s3.upload(params).promise();
-        photoUrl = response.Location;
-      } else {
-        // Set a default image URL
-        photoUrl = 'https://imgur.com/KRDEo6m.png';
-      }
 
-      const userData = {
-        ...state,
-        photoUrl,
-      };
       console.log('here in handle submit before userservice')
-      await userService.signup(userData);
+      await userService.signup(formData);
       console.log('after userservice')
       await handleSignUpOrLogin();
       console.log('aftrer handlesignuoporlogin')
