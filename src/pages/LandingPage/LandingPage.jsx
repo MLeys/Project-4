@@ -1,4 +1,6 @@
-import {  useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
+
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 import '../../components/WelcomingText/WelcomingText.css'
@@ -13,8 +15,8 @@ import DisplaySkills from "../../components/DisplaySkills/DisplaySkills";
 import WelcomeSection from "../../components/WelcomeSection/WelcomeSection";
 
 function LandingPage() {
+  const navigate = useNavigate();
   const ctx = useContext(SkillsContext);
-
   const handleSetActiveSkill = ctx.handleSetActiveSkill;
   const [openDialog, setOpenDialog] = useState(false);
 
@@ -27,9 +29,20 @@ function LandingPage() {
     setOpenDialog(false);
   };
 
+  useEffect(() => {
+    const isNewUser = localStorage.getItem('isNewUser');
+
+    if (isNewUser === null) {
+      navigate('/onboarding');
+      localStorage.setItem('isNewUser', false);
+    }
+  }, [history]);
+
   return (
     <>
-      
+      <Button color="secondary" contextMenu="Test" onClick={() => navigate('/onboarding')} >
+        Onboarding
+      </Button>
       <WelcomeSection />
 
       <section style={{height: '5dvh', width: '100dvw', paddingTop: 10, display: 'flex', justifyContent: 'center'}}>
@@ -40,6 +53,7 @@ function LandingPage() {
           open={openDialog}
           onClose={handleCloseDialog}
         />
+       
       </section>
 
       <Grid xs={12} px={2} >

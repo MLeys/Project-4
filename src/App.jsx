@@ -15,6 +15,7 @@ import LandingPage from "./pages/LandingPage/LandingPage";
 import SignUpPage from "./pages/SignupPage/SignupPage";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
+import OnboardingPage from "./pages/OnboardingPage/OnboardingPage.jsx";
 
 import userService from "./utils/userService";
 import * as skillsApi from "./utils/skillApi.js";
@@ -546,7 +547,7 @@ export default function App() {
           activeSubId: activeSub?.subSkill?._id,
           activeUserId: user?._id,
           resources: resources,
-          
+
           setUser: setUser,
           checkIfUserAssigned: checkIfUserAssigned,
           handleDeleteResourcesByVideoId: handleDeleteResourcesByVideoId,
@@ -581,6 +582,7 @@ export default function App() {
                 <Route path="/:username" element={<DashboardPage />} />
               ) : null}
             </Route>
+            <Route path="/onboarding" element={<OnboardingPage />} />
             <Route path="/login" element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />} />
             <Route path="/signup" element={<SignUpPage handleSignUpOrLogin={handleSignUpOrLogin} />} />
           </Routes>
