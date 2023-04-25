@@ -136,7 +136,7 @@ function FixedMenuHeader({ children }) {
             <Stack direction='row'>
               <Tooltip title="logout">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 1 }}>
-                  <Avatar alt="MyAvatar" src={loggedUser?.photoUrl? loggedUser?.photoUrl : ""} />
+                  <Avatar alt={loggedUser?.name} src={loggedUser?.photoUrl? loggedUser?.photoUrl : ""} />
                 </IconButton>
               </Tooltip>
             </Stack>

@@ -40,7 +40,7 @@ async function profile(req, res){
 async function signup(req, res) {
   console.log(req.body, " <- contents of the form")
 
-  let photoUrl = 'https://imgur.com/KRDEo6m';
+  let photoUrl = 'https://imgur.com/KRDEo6m.png';
 
   if (req.file) {
     // where we will store our image on aws s3 bucket
@@ -56,9 +56,7 @@ async function signup(req, res) {
       console.log('===============================')
       return res.status(400).json({error: 'error from aws, check your terminal'})
     }
-  } else {
-    photoUrl = 'https://imgur.com/KRDEo6m'
-  }
+  } 
 
   const user = new User({...req.body, photoUrl});
   try {
