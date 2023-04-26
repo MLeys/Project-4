@@ -30,7 +30,7 @@ function DashboardPage() {
           {/* End hero unit */}
           <Grid container spacing={2} >
             {skills?.map((skill, index) => (
-              <Grid key={`skillCard-${index}`} xs={12} sm={6} md={4}>
+              <Grid key={`skillCard-${index}`} xs={12} sm={6} md={4} >
                 <SkillCard3 skill={skill} />
               </Grid>
             ))}

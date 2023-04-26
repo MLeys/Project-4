@@ -1,6 +1,7 @@
 
 import React from "react";
 import { useEffect, useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 import mainTheme from "../../themes/mainTheme";
 import { styled } from '@mui/material/styles';
@@ -40,6 +41,7 @@ const ExpandMore = styled((props) => {
 
 
 function SkillCard3({skill}) {
+  const navigate = useNavigate();
   const ctx = useContext(SkillsContext);
   const skills = ctx.skills;
   const userId = ctx.loggedUser?._id;
@@ -47,6 +49,7 @@ function SkillCard3({skill}) {
   const isAssigned = skill?.usersAssigned?.some((user) => user._id === userId);
   const handleAssignSkill = ctx.handleAssignUserToSkill;
   const handleUnAssignSkill = ctx.handleUnAssignUserFromSkill;
+  const setActiveSkillById = ctx.handleSetActiveSkillById;
 
   const [expanded, setExpanded] = useState(false);
 
@@ -54,9 +57,10 @@ function SkillCard3({skill}) {
     setExpanded(!expanded);
   };
 
-  useEffect(() => {
-    
-  }, [skills, isAssigned]); 
+  function handleClickSkillCard() {
+    setActiveSkillById(skillId)
+    navigate(`../skills/${skillId}`)
+  }
 
   return (
     <Card 
@@ -68,7 +72,7 @@ function SkillCard3({skill}) {
         flexDirection: 'column', 
       }} 
     >
-      <CardActionArea href={`skills/${skillId}`} >
+      <CardActionArea  onClick={handleClickSkillCard} >
         <CardHeader
           avatar={ 
             (userId) ?  <ProgressRing value={50} aria-label="skill-progress" /> : <VertDotsIcon />

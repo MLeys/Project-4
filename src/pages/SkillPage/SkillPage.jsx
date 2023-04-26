@@ -40,6 +40,7 @@ function SkillPage() {
   const ctx = useContext(SkillsContext);
   const skills = ctx.skills;
   const handleSetActiveSkillById = ctx.handleSetActiveSkillById;
+  const activeSkill = ctx.activeSkill;
   const activeSub = ctx.activeSub;
   const skillId = useParams().skillId;
   const skillIndex = skills?.findIndex((s) => s._id === skillId)
@@ -47,13 +48,9 @@ function SkillPage() {
   const subIndex = subSkills?.findIndex((sub) => sub._id === activeSub?.subSkill._id)
   const subId = subSkills?.[subIndex]?._id;
   const resources = ctx.resources.filter((r) => r.subSkillId === subId);
+  
 
 
-
-  useEffect(() => {
-    handleSetActiveSkillById(skillId)
-    
-  }, [skills, subSkills, resources]); 
 
   return ( 
     <PageDrawer >
