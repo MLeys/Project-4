@@ -35,7 +35,7 @@ function FixedMenuHeader({ children }) {
 
 	const sections = [
 		{ title: "Home", link: "", icon: 'bi bi-house-fill' },
-		{ title: "Dashboard", link : loggedUser?.username, icon: 'bi bi-compass-fill' }
+		{ title: "Dashboard", link : loggedUser?._id, icon: 'bi bi-compass-fill' }
 	]
 
   const toggleDrawer = () => (event) => {
