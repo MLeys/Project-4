@@ -39,7 +39,7 @@ const BookOutlinedIcon = ({color='white'}) => <i className="bi bi-book" color={c
 function SkillPage() {
   const ctx = useContext(SkillsContext);
   const skills = ctx.skills;
-  const handleSetActiveSkillById = ctx.handleSetActiveSkillById;
+  const setActiveSkillById = ctx.handleSetActiveSkillById;
   const activeSkill = ctx.activeSkill;
   const activeSub = ctx.activeSub;
   const skillId = useParams().skillId;
@@ -49,7 +49,10 @@ function SkillPage() {
   const subId = subSkills?.[subIndex]?._id;
   const resources = ctx.resources.filter((r) => r.subSkillId === subId);
   
-
+  useEffect(() => {
+    setActiveSkillById(skillId)
+    
+  }, [!activeSkill]); 
 
 
   return ( 
