@@ -12,50 +12,46 @@ export default {
   createInitial
 };
 
+
 // TEMP for creating initial skills from hard coded list
 async function createInitial(req, res) {
-  const data = req.body;
+  const { skillsList } = req.body;
+  console.log(skillsList, ' skill list crtl')
+
   try {
-    for (const item of data) {
-      // console.log(item.category, " <- item category");
+    const createdSkills = [];
 
-      // Check if the skill already exists in the database
-      let skill = await Skill.findOne({ name: item.category });
+    for (const skillData of skillsList) {
+      const skill = new Skill({
+        name: skillData.category,
+        type: skillData.category,
+        usersAssigned: [],
+        subSkills: [],
+        resources: [],
+      });
 
-      if (!skill) {
-        // Create a new skill if it doesn't exist
-        skill = new Skill({
-          name: item.category,
-          type: item.category,
-          subSkills: [],
-        });
-      }
+      const savedSkill = await skill.save();
+      createdSkills.push(savedSkill);
 
-      // Iterate over subcategories and create subskills
-      for (const subcategory of item.subcategories) {
-        const subSkillExists = skill.subSkills.some(
-          (subSkill) => subSkill.title === subcategory
-        );
-      
-        // If the subskill doesn't exist and its title is not null or an empty string, add it
-        if (!subSkillExists && subcategory) {
-          skill.subSkills.push({
-            parentSkill: skill._id,
-            title: subcategory,
-          });
-        }
-      }
-      
+      const subSkills = skillData.subcategories.map((subSkillData) => ({
+        parentSkill: savedSkill._id,
+        title: subSkillData,
+        details: '',
+        resources: [],
+        usersAssigned: [],
+      }));
 
-      // Save the skill to the database
-      await skill.save();
+      savedSkill.subSkills = subSkills;
+      await savedSkill.save();
+      console.log(savedSkill, ' saved skill')
     }
-    res.status(201).json({ message: "Skills created/updated successfully" });
-  } catch (err) {
-    console.error(err);
-    res.status(400).json({ error: err.message });
+
+    console.log('created skills')
+    res.status(201).json({createdSkills});
+  } catch (error) {
+    res.status(400).json({ message: 'Error creating skills and subskills', error });
   }
-}
+};
 
 
 

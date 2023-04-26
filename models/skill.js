@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const subSkillSchema = Schema({
     parentSkill: [{type: Schema.Types.ObjectId, ref: 'Skill'}],
-    title: { type: String, required: true },
+    title: String,
     details: String,
     resources: [{type: Schema.Types.ObjectId, ref: 'Resource'}],
     usersAssigned: [{type: Schema.Types.ObjectId, ref: 'User'}],

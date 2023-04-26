@@ -23,20 +23,7 @@ function LandingPage() {
   const [openDialog, setOpenDialog] = useState(false);
 
   async function handleClickCreateInitialSkillsFromList(){
-    console.log(initialSkillsList, 'Initial skills list')
-    // const skillsList = []
-    // initialSkillsList.map((skill) => {
-    //   const skillData = [{
-    //     title: skill.category,
-    //     type: skill.category
-    //   }]
-    //   skillsList.push(skillData)
-
-    // })
-    createInitialSkillsFromList(initialSkillsList)
-    // console.log(initialSkills, '-- initial skills')
-    // console.log(skillsList, ' --- create skills')
-
+    createInitialSkillsFromList();
   }
   
 

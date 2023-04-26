@@ -35,7 +35,7 @@ function SkillCard2({ skill, index }) {
 
 
   return (
-    <Card >
+    <Card sx={{width: '100%'}} >
       <CardHeader
         title={skill.name}
         action={

@@ -98,16 +98,16 @@ export default function App() {
   } 
 
 
-  async function handleCreateInitialSkillsFromList(data) {
+  async function handleCreateInitialSkillsFromList() {
     try {
-      const response = await skillsApi.createInitialSkillsFromList(data);
+      const response = await skillsApi.createInitialSkillsFromList(initialSkillsList);
       console.log(response, " RESPONSE FROM CREATE")
-      dispatchSkills({
-        type: 'createSkill',
-        data: response.skill,
-      })
-      console.log(response.skill, '<------- skillCreated')
-      return response.skill;
+      // dispatchSkills({
+      //   type: 'createSkill',
+      //   data: response.skill,
+      // })
+      // console.log(response.skill, '<------- skillCreated')
+      return response;
     } catch(err){
       setError(console.log(`*** Error CREATE SKILL ****\n ${err}`))
     }

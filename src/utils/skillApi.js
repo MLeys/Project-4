@@ -3,22 +3,26 @@ import tokenService from "./tokenService";
 
 const BASE_URL = '/api/skills/';
 
-export async function createInitialSkillsFromList(data) {
-	return await fetch(`${BASE_URL}createInitial`, {
+export async function createInitialSkillsFromList(skillsList) {
+	console.log(skillsList, ' list data in api')
+	const response = await fetch(`${BASE_URL}createInitial`, {
 			method: 'POST',
-			body: JSON.stringify(data),
 			headers: {
-					Authorization: "Bearer " + tokenService.getToken(),
+					// Authorization: "Bearer " + tokenService.getToken(),
 				 'Content-Type': 'application/json', // MUST HAVE OR req.body in Ctrl remains emppty!!!!
-			}
-}).then((res) =>{
-	if(res.ok) return res.json() 
+			},
+			body: JSON.stringify({ skillsList }),
 
-	return res.json().then(res => {
-		throw new Error('Error creating all skills from list in skillsApi'); 
-	})
-})
+	});
+
+	if (!response.ok) {
+		throw new Error('Error creating skills and subskills');
+	}
+
+	const createdSkills = await response.json();
+	return createdSkills;
 }
+
 
 export async function create(data) {
 	console.log(data, 'data in create skill api')
