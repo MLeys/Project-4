@@ -25,7 +25,7 @@ export async function assignUserToResource(data) {
 	const resourceId = data.resource._id
 	return await fetch(`${BASE_URL}${resourceId}`, {
 		method: 'POST',
-		body: JSON.stringify(data.user),
+		body: JSON.stringify(data),
 		headers: {
 			Authorization: "Bearer " + tokenService.getToken(),
 			'Content-Type': 'application/json', 

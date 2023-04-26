@@ -111,6 +111,21 @@ const skillsReducer = produce((draft, action) => {
       subSkill.resources = subSkill.resources.filter(resource => resource._id !== resourceId);
       break;
     }
+    case 'assignResourceToSubSkill': {
+      const skillIndex = action.skillIndex;
+      const subSkillIndex = action.subSkillIndex;
+      const resource = action.resource;
+      const user = action.user;
+
+      if (!draft[skillIndex].subSkills[subSkillIndex]) {
+        console.error(`Skill with index ${skillIndex} ans subskill index: ${subSkillIndex} not found. - assign resource to sub`);
+        break;
+      }
+      
+      draft[skillIndex].subSkills[subSkillIndex].resources.splice(0,0, resource)
+      break;
+    }
+
     default: {
       throw Error(`Error handling action: ${action.type}`);
     }

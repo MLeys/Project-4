@@ -22,6 +22,7 @@ const VideoCard = React.memo(function VideoCard({ resource, children }) {
 
   const createdAt = resource.formattedCreatedAt;
   
+  
   return (
     <Card 
       sx={{ 

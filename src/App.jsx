@@ -38,6 +38,7 @@ export default function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const [fetchResources, setFetchResources] = useState(true);
   const [error, setError] = useState('');
   const [user, setUser] = useState(userService.getUser());
   const [skills, dispatchSkills] = useImmerReducer(skillsReducer, useSkills());
@@ -83,20 +84,6 @@ export default function App() {
     }
     // console.log(skills, "End of getSkills")
   } 
-
-  async function getResources() {
-    console.log("getting resources")
-    try {
-      const response = await resourcesApi.getAll();
-      setResources(response.data)
-    } catch(err) {
-      setError(console.log(err, '<-- Error getting all Resources! '));
-      throw new Error(console.log(`${err} <-- Error getting all resources`),
-        `${err} <- Error getting all resources`)
-      
-    }
-  } 
-
 
   async function handleCreateInitialSkillsFromList() {
     try {
@@ -155,6 +142,7 @@ export default function App() {
           const resource = await response;
           const skillIndex = getSkillIndexById(skillId);
           const subIndex = getSubIndexById(subId);
+
           dispatchSkills({
             type: 'assignResourceToSubSkill',
             skillIndex: skillIndex,
@@ -338,7 +326,7 @@ export default function App() {
 
 
   async function handleAssignUserToResource(resource) {
-    const isAssigned = checkIfUserAssigned(resource.usersAssigned);    
+    const isAssigned = resource.usersAssigned.some((u) => u === userId);    
     const skillIndex = getSkillIndexById(resource.skillId);
     const subIndex = getSubIndexById(resource.subSkillId);
     const resourceIndex = getResourceIndexById(resource._id);
@@ -370,7 +358,7 @@ export default function App() {
   }
   
   async function handleUnAssignUserFromResource(resource, skillId, subId) {
-    const isAssigned = checkIfUserAssigned(resource.usersAssigned);    
+    const isAssigned = resource.usersAssigned.some((u) => u === userId);    
     const skillIndex = getSkillIndexById(resource.skillId);
     const subIndex = getSubIndexById(resource.subSkillId);
     const resourceIndex = getResourceIndexById(resource._id);
@@ -526,17 +514,38 @@ export default function App() {
       return;
     }
   
-    const fetchSkills = async () => {
+    async function fetchSkills() {
       try {
         const response = await getSkillsFromServer();
         dispatchSkills({ type: "INITIALIZE_SKILLS", payload: response });
       } catch (error) {
         console.error("Error fetching skills:", error);
       }
-    };
+    }
   
     fetchSkills();
   }, [user]);
+
+  useEffect(() => {
+    async function getResources() {
+      console.log("getting resources");
+      try {
+        const response = await resourcesApi.getAll();
+        setResources(response.data);
+      } catch (err) {
+        console.error(err, '<-- Error getting all Resources! ');
+        setError(err);
+        throw new Error(`${err} <-- Error getting all resources`);
+      }
+    }
+
+    if (fetchResources) {
+      getResources();
+      setFetchResources(false);
+    }
+  }, [fetchResources]);
+
+
   
 
     return (

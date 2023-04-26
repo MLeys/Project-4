@@ -45,7 +45,8 @@ function SkillPage() {
   const skillIndex = skills?.findIndex((s) => s._id === skillId)
   const subSkills = ctx.activeSubSkills;
   const subIndex = subSkills?.findIndex((sub) => sub._id === activeSub?.subSkill._id)
-  const resources = subSkills?.[subIndex]?.resources;
+  const subId = subSkills?.[subIndex]?._id;
+  const resources = ctx.resources.filter((r) => r.subSkillId === subId);
 
 
 

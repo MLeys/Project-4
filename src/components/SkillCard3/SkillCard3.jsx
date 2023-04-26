@@ -41,11 +41,12 @@ const ExpandMore = styled((props) => {
 
 function SkillCard3({skill}) {
   const ctx = useContext(SkillsContext);
+  const skills = ctx.skills;
   const userId = ctx.loggedUser?._id;
   const skillId = skill._id;
   const isAssigned = skill?.usersAssigned?.some((user) => user._id === userId);
-  const handleAssignSkill = ctx.handleAssignSkill;
-  const handleUnAssignSkill = ctx.handleUnAssignSkill;
+  const handleAssignSkill = ctx.handleAssignUserToSkill;
+  const handleUnAssignSkill = ctx.handleUnAssignUserFromSkill;
 
   const [expanded, setExpanded] = useState(false);
 
@@ -55,7 +56,7 @@ function SkillCard3({skill}) {
 
   useEffect(() => {
     
-  }, [skill]); 
+  }, [skills, isAssigned]); 
 
   return (
     <Card 
@@ -107,7 +108,7 @@ function SkillCard3({skill}) {
         }}
       >
         <IconButton onClick={() => (isAssigned) ? handleUnAssignSkill(skillId) : handleAssignSkill(skillId)}>
-          <BookOutlineIcon />
+          {(isAssigned) ? <BookFilledIcon /> : <BookOutlineIcon />}
         </IconButton>
         <Typography>Learning X of X Subskills</Typography>
         <ExpandMore

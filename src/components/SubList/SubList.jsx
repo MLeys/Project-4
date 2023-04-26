@@ -23,7 +23,7 @@ export default function SubList() {
   const skillId = ctx.activeSkill?.skill?._id;
   const setActiveSub = ctx.handleSetActiveSub;
   const skillIndex = skills?.findIndex((s) => s._id === skillId)
-  const subSkills = skills[skillIndex]?.subSkills;
+  const subSkills = skills?.[skillIndex]?.subSkills;
   const assignUserToSubSkill = ctx.handleAssignUserToSubSkill;
   const unAssignUserFromSubSkill = ctx.handleUnAssignUserFromSubSkill;
   const checkIfUserAssigned = ctx.checkIfUserAssigned;
@@ -46,7 +46,7 @@ export default function SubList() {
     e.stopPropagation();
     
     const subSkill = sub;
-    const isAssigned = await checkIfUserAssigned(sub.usersAssigned)
+    const isAssigned = await checkIfUserAssigned(sub.usersAssigned, sub.title)
    
     console.log(`clicked check for sub: ${subIndex}`);
     console.log(isAssigned, "< isAssigned")
