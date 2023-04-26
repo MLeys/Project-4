@@ -23,7 +23,7 @@ export const testSkillsList = [
   },
 ]
 
-export const stockSkillsList = [
+export const initialSkillsList = [
   {
     category: "Programming Languages",
     subcategories: [

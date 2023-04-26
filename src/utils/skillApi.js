@@ -3,7 +3,7 @@ import tokenService from "./tokenService";
 
 const BASE_URL = '/api/skills/';
 
-export async function createAllSkillsFromList(data) {
+export async function createInitialSkillsFromList(data) {
 	return await fetch(`${BASE_URL}createInitial`, {
 			method: 'POST',
 			body: JSON.stringify(data),
@@ -21,7 +21,8 @@ export async function createAllSkillsFromList(data) {
 }
 
 export async function create(data) {
-    return fetch(BASE_URL, {
+	console.log(data, 'data in create skill api')
+    return await fetch(BASE_URL, {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {

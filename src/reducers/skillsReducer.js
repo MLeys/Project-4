@@ -2,6 +2,9 @@ import produce from 'immer';
 
 const skillsReducer = produce((draft, action) => {
   switch (action.type) {
+    case 'createInitial': {
+      console.log(action.data, 'data in reducer for creating initial skills')
+    }
 		case 'INITIALIZE_SKILLS':{
 			return action.payload;
 		}

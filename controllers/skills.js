@@ -36,14 +36,16 @@ async function createInitial(req, res) {
         const subSkillExists = skill.subSkills.some(
           (subSkill) => subSkill.title === subcategory
         );
-
-        if (!subSkillExists) {
+      
+        // If the subskill doesn't exist and its title is not null or an empty string, add it
+        if (!subSkillExists && subcategory) {
           skill.subSkills.push({
-            parentSkill: item.category,
+            parentSkill: skill._id,
             title: subcategory,
           });
         }
       }
+      
 
       // Save the skill to the database
       await skill.save();
@@ -54,6 +56,8 @@ async function createInitial(req, res) {
     res.status(400).json({ error: err.message });
   }
 }
+
+
 
 async function deleteSkill(req, res) {
   try {
@@ -71,7 +75,7 @@ async function deleteSkill(req, res) {
 async function create(req, res) {
     try {
       const skill = await Skill.create({
-        name: req.body.name,
+        title: req.body.title,
         type: req.body.type,
       })
 
@@ -120,7 +124,7 @@ async function allSkills(req, res) {
 
 async function show(req, res) {
   try {
-    const skillDoc = await Skill.findOne({'name': req.params.id}).exec()
+    const skillDoc = await Skill.findOne({'title': req.params.id}).exec()
     res.status(201).json({skillDoc})
   } catch (err) {
     console.log(err, '<-- Error in SHOW Ctrl')

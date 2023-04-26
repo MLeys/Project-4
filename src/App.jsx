@@ -7,7 +7,7 @@ import resourcesReducer from "./reducers/resourceReducer.js";
 import { useSkills, useSkillsDispatch } from "./context/SkillsContext/SkillsContext.jsx";
 
 import { SkillsContext, SkillsDispatchContext } from './context/SkillsContext/SkillsContext.jsx';
-import { stockSkillsList, testSkillsList } from "./lists/skillTypes";
+import { initialSkillsList, testSkillsList } from "./lists/skillTypes";
 
 import SkillPage from "./pages/SkillPage/SkillPage";
 import Layout from "./pages/Layout/Layout";
@@ -25,6 +25,7 @@ import * as resourcesApi from "./utils/resourceApi.js";
 import * as userProgressApi from "./utils/userProgressApi.js"
 
 export async function getSkillsFromServer() {
+
   const user = userService.getUser();
   if (!user) {
     return null;
@@ -46,11 +47,7 @@ export default function App() {
   const [youTubeResults, setYouTubeResults] = useState([]);
   const [progressData, setProgressData] = useState(null);
   
-
-
   const userId = user?._id;
-  const activeSkillId = activeSkill?.skill?._id;
-  const activeSubId = activeSub?.subSkill?._id;
 
 
   function checkIfUserAssigned(usersAssigned) {
@@ -100,6 +97,23 @@ export default function App() {
     }
   } 
 
+
+  async function handleCreateInitialSkillsFromList(data) {
+    try {
+      const response = await skillsApi.createInitialSkillsFromList(data);
+      console.log(response, " RESPONSE FROM CREATE")
+      dispatchSkills({
+        type: 'createSkill',
+        data: response.skill,
+      })
+      console.log(response.skill, '<------- skillCreated')
+      return response.skill;
+    } catch(err){
+      setError(console.log(`*** Error CREATE SKILL ****\n ${err}`))
+    }
+    // console.log(skills, "<<<<<< skills")
+  } 
+
   async function handleCreateSkill(data) {
     try {
       const response = await skillsApi.create(data);
@@ -107,6 +121,8 @@ export default function App() {
         type: 'createSkill',
         data: response.skill,
       })
+      console.log(response.skill, '<------- skillCreated')
+      return response.skill;
     } catch(err){
       setError(console.log(`*** Error CREATE SKILL ****\n ${err}`))
     }
@@ -503,20 +519,6 @@ export default function App() {
     const formattedTime = `${formattedHours}:${minutes} ${ampm}`;
     return `${formattedDate} ${formattedTime}`;
   }
-
- 
-
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       const res = await userProgressApi.getUserProgress(userId);
-  //       setProgressData(res.data);
-  //     } catch (error) {
-  //       console.error('Error fetching user progress data:', error);
-  //     }
-  //   })();
-  // }, [userId]);
-
   
   useEffect(() => {
     console.log('useEffect for user change in app')
@@ -571,11 +573,13 @@ export default function App() {
           handleUnAssignUserFromSubSkill: handleUnAssignUserFromSubSkill,
           handleSetActiveSkill: handleSetActiveSkill,
           handleSetActiveSub: handleSetActiveSub,
+          handleCreateSkill: handleCreateSkill,
           handleCreateSubSkill: handleCreateSubSkill,
           handleCreateResource: handleCreateResource,
           handleDeleteResource: handleDeleteResource,
           handleUnAssignUserFromResource: handleUnAssignUserFromResource,
           handleAssignUserToResource: handleAssignUserToResource,
+          handleCreateInitialSkillsFromList: handleCreateInitialSkillsFromList,
         }}
       >
         <SkillsDispatchContext.Provider value={dispatchSkills}>
