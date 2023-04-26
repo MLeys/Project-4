@@ -11,10 +11,8 @@ const resourceSchema = new Schema(
     subSkillId: String,
     skillId: String,
     source: { type: String, default: "youtube" },
-    usersAssigned: [
-      { type: Schema.Types.ObjectId, ref: "User", autopopulate: true },
-    ],
-    
+    usersAssigned: [{type: Schema.Types.ObjectId, ref: "User", autopopulate: true }],
+    usersComplete: [String],
   },
   {
     timestamps: true,
@@ -23,7 +21,6 @@ const resourceSchema = new Schema(
 );
 
 resourceSchema.virtual("formattedCreatedAt").get(function () {
-  console.log("Resource:", this); // Add this line to log the resource object
 
   if (!this.createdAt) {
     return ""; // or return a specific message like "Not available"

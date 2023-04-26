@@ -86,10 +86,10 @@ export async function assignUser(user, skillId) {
 
 }
 
-export function unAssignUser(user, skillId) {
+export async function unAssignUser(user, skillId) {
 	// console.log(skillId, "<- skill")
 	// console.log(user, "<- user")
-	return fetch(`${BASE_URL}${skillId}`, {
+	return await fetch(`${BASE_URL}${skillId}`, {
 		method: 'PUT',
 		body: JSON.stringify(user),
 		headers: {

@@ -12,9 +12,15 @@ export default {
 
 
 async function assignUser(req, res) {
-  const subSkillId = req.params.id;
+  const subSkillId = req.body.subSkill?._id;
   const skillId = req.body.parentSkillId;
   const user = await User.findById(req.body.user._id);
+  console.log(subSkillId, ' subskillid')
+  console.log(req.body.id, ' req body id')
+  console.log(req.body.parentSkillId, ' req body bodyskillid')
+  console.log(user.username, "users username being assigned")
+  console.log(req.body, " - req body")
+  
 
   try {
     const skillDoc = await Skill.findById(skillId)
@@ -31,14 +37,14 @@ async function assignUser(req, res) {
       .exec();
 
     // Find the index of the subSkill
-    const subSkillIndex = skillDoc.subSkills.findIndex((sub) => sub._id.equals(subSkillId));
+    const subSkillIndex = skillDoc?.subSkills?.findIndex((sub) => sub._id.equals(subSkillId));
 
     if (subSkillIndex === -1) {
       return res.status(404).json({ error: "Sub-skill not found" });
     }
 
     // Check if the user is already assigned
-    const isUserAssigned = await skillDoc.subSkills[subSkillIndex].usersAssigned.some((assignedUser) => assignedUser._id.equals(user._id));
+    const isUserAssigned = await skillDoc.subSkills[subSkillIndex]?.usersAssigned.some((assignedUser) => assignedUser._id.equals(user._id));
 
     // Update the usersAssigned array for the subSkill if the user is not already assigned
     if (!isUserAssigned) {

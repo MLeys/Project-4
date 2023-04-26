@@ -17,7 +17,7 @@ async function createInitial(req, res) {
   const data = req.body;
   try {
     for (const item of data) {
-      console.log(item.category, " <- item category");
+      // console.log(item.category, " <- item category");
 
       // Check if the skill already exists in the database
       let skill = await Skill.findOne({ name: item.category });
@@ -58,7 +58,7 @@ async function createInitial(req, res) {
 async function deleteSkill(req, res) {
   try {
     const skillDoc = await Skill.findById(req.params.id)
-    console.log(skillDoc, "<--- SkillDoC on Delete")
+    // console.log(skillDoc, "<--- SkillDoC on Delete")
     skillDoc.remove(req.params.id)
     
     res.status(201).json({skillDoc})
@@ -134,7 +134,7 @@ async function assignUser(req, res) {
     
     skill.usersAssigned.push(req.body)
     skill.save()
-    console.log(req.body, "<--assigned user in skills controler")
+    // console.log(req.body, "<--assigned user in skills controler")
     res.status(201).json({skill})
   } catch(err) {
     console.log(err, "<-- assign user in skills controller error")
@@ -150,7 +150,7 @@ async function unAssignUser(req, res) {
 
     skill.usersAssigned.splice(index, 1);
     skill.save()
-    console.log(skill.usersAssigned, "<--UNassigned user in skills controler")
+    // console.log(skill.usersAssigned, "<--UNassigned user in skills controler")
     res.status(201).json({skill})
   } catch(err) {
     console.log(err, "<-- assign user controller error")

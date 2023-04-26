@@ -53,6 +53,10 @@ export default function App() {
   const activeSubId = activeSub?.subSkill?._id;
 
 
+  function checkIfUserAssigned(usersAssigned) {
+    return usersAssigned?.some((u) => u._id === user._id);
+  }
+
   function getSkillIndexById(skillId){
     return skills?.findIndex((skill) => skill._id === skillId)
   }
@@ -65,6 +69,7 @@ export default function App() {
     return activeSub?.resources?.findIndex((r) => r._id === resourceId);
   }
 
+  // NO LONGER IN USE instead using getSkillsFromServer
   async function getSkills() {
     try {
       console.log("GET SKILLS")
@@ -80,7 +85,7 @@ export default function App() {
       setError(`*** Error READ SKILL ****\n ${err}`)
     }
     // console.log(skills, "End of getSkills")
-  }
+  } 
 
   async function getResources() {
     console.log("getting resources")
@@ -120,7 +125,6 @@ export default function App() {
     } catch(err){
       setError(console.log(`*** Error CREATE SKILL ****\n ${err}`))
     }
-
   } 
 
   async function handleCreateResource(data) {
@@ -202,9 +206,10 @@ export default function App() {
     }
   }
 
-  async function handleAssignSkill(skillId) {
+  async function handleAssignUserToSkill(skill) {
+    const skillId = skill?._id
     try {
-      await handleAssignUserProgress(skillId);
+      // await handleAssignUserProgress(skillId);
       const index = skills?.findIndex((s) => s._id === skillId)
       if (!skills[index].usersAssigned.some(u => u._id === user._id)) {
         const response = await skillsApi.assignUser(user, skillId);
@@ -223,7 +228,8 @@ export default function App() {
     }
   }
 
-  async function handleUnAssignSkill(skillId) {
+  async function handleUnAssignUserFromSkill(skill) {
+    const skillId = skill?._id;
     try {
       const skillIndex = skills?.findIndex((s) => s._id === skillId)
       if (skills[skillIndex]?.usersAssigned?.some(u => u._id === user._id)) {
@@ -245,14 +251,9 @@ export default function App() {
     }
   }
 
-  function checkIfUserAssigned(usersAssigned) {
-    return usersAssigned?.some((u) => u._id === user._id);
-  }
-
   async function handleAssignUserToSubSkill(subSkill) {
-    console.log(subSkill?.usersAssigned, 'assigning to subskill')
+    console.log(subSkill, '< subskill assigning user to')
     const isAssigned = await checkIfUserAssigned(subSkill?.usersAssigned);
-    console.log(isAssigned, " IS ASSIGNED in assign user to sub")
     const parentSkillId = skills?.[activeSkill?.index]?._id;
     const skillIndex = getSkillIndexById(parentSkillId);
     const subIndex = getSubIndexById(subSkill?._id);
@@ -416,7 +417,7 @@ export default function App() {
   async function searchYouTube(search) {
 		try {
 			const response = await youTubeApi.searchYouTube(search, activeSkill?.skill?.name, activeSub?.subSkill?.title);
-			console.log(response, " <------ response from YOUTUBE SEARCH");
+			// console.log(response, " <------ response from YOUTUBE SEARCH");
 			setYouTubeResults([...response])
 		} catch (err) {
 			console.log(err.message, " <<<<<YouTube SEARCH ERROR>>>>>");
@@ -430,6 +431,7 @@ export default function App() {
 
   function handleLogout() {
     console.log("+++++ SIGNOUT USER +++++")
+    setUser();
     if (location.pathname !== "/onboarding") {
       navigate('/');
     }
@@ -563,8 +565,8 @@ export default function App() {
           createSkill: handleCreateSkill,
           getSkills: getSkills,
           deleteSkill: handleDeleteSkill,
-          handleAssignSkill: handleAssignSkill,
-          handleUnAssignSkill: handleUnAssignSkill, 
+          handleAssignUserToSkill: handleAssignUserToSkill,
+          handleUnAssignUserFromSkill: handleUnAssignUserFromSkill, 
           handleAssignUserToSubSkill: handleAssignUserToSubSkill,
           handleUnAssignUserFromSubSkill: handleUnAssignUserFromSubSkill,
           handleSetActiveSkill: handleSetActiveSkill,

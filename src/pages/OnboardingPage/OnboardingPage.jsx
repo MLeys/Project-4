@@ -33,17 +33,20 @@ const Close = () => <i className="bi bi-x"></i>;
 import { SkillsContext } from '../../context/SkillsContext/SkillsContext';
 
 
-export default function OnboardingPage({ onSubmit, handleSubmit }) {
+export default function OnboardingPage() {
+  const navigate = useNavigate();
   const ctx = useContext(SkillsContext);
   const skillList = ctx.skills;
+  const assignUserToSkill = ctx.handleAssignUserToSkill;
+  const assignUserToSubSkill = ctx.handleAssignUserToSubSkill;
+
   const [activeStep, setActiveStep] = useState(0);
-  const [name, setName] = useState('');
-  const [profileImage, setProfileImage] = useState(null);
   const [skills, setSkills] = useState([]);
   const [subskills, setSubskills] = useState([]);
   const [openAddSkillDialog, setOpenAddSkillDialog] = useState(false);
   const [customSkill, setCustomSkill] = useState({ name: '', subskills: [] });
-  const navigate = useNavigate();
+
+
 
  const checkProps = {
   backgroundColor: 'transparent',
@@ -75,7 +78,7 @@ export default function OnboardingPage({ onSubmit, handleSubmit }) {
                 <FormControlLabel
                   control={
                     <Checkbox
-                      checked={skills.includes(skill)}
+                      checked={skills.some((s) => s._id === skill._id)}
                       onChange={(e) => handleSkillSelection(e, skill)}
                       color="primary"
                       sx={checkProps}
@@ -121,41 +124,61 @@ export default function OnboardingPage({ onSubmit, handleSubmit }) {
     }
   }
 
-  const handleNext = async () => {
+  function handleAddUsersSelections(){
+    if (skills?.length > 0) {
+      skills?.map((skill) => {
+        assignUserToSkill(skill)
+      })
+    }
+    if (subskills.length > 0) {
+      subskills?.map((subSkill) => {
+        assignUserToSubSkill(subSkill)
+      })
+    }
+  }
+
+
+  async function handleNext() {
     if (activeStep === 0) {
       await getSkillsFromServer();
     }
+    if (activeStep === 1) {
+      handleAddUsersSelections();
+    }
     if (activeStep === 2) {
-      // Complete the onboarding process and navigate to the dashboard
-      // TEMP TO LANDING
+      
       navigate('/');
     } else {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
-  };
+  }
 
-  const handleBack = () => {
+  function handleBack() {
+    if (activeStep === 2) {
+      setSkills([])
+      setSubskills([])
+    }
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
+  }
 
-  const handleSkillSelection = (event, skill) => {
+  function handleSkillSelection(event, skill) {
     if (event.target.checked) {
       setSkills([...skills, skill]);
     } else {
       setSkills(skills?.filter((s) => s !== skill));
       setSubskills(subskills?.filter((subskill) => !skill.subskills.includes(subskill)));
     }
-  };
+  }
 
-  const handleSubskillSelection = (event, subskill) => {
+  function handleSubskillSelection(event, subskill) {
     if (event.target.checked) {
       setSubskills([...subskills, subskill]);
     } else {
       setSubskills(subskills?.filter((s) => s !== subskill));
     }
-  };
+  }
 
-  const handleAddCustomSkill = () => {
+  function handleAddCustomSkill() {
     // Add the custom skill and its subskills to the list of selected skills and subskills
     setSkills([...skills, customSkill]);
     setSubskills([...subskills, ...customSkill?.subskills]);
@@ -163,10 +186,10 @@ export default function OnboardingPage({ onSubmit, handleSubmit }) {
     // Reset the custom skill state and close the dialog
     setCustomSkill({ name: '', subskills: [] });
     setOpenAddSkillDialog(false);
-  };
+  }
 
   return (
-    <Container maxWidth="xs">
+    <Container maxWidth="xs" sx={{color: 'black'}}>
       <Typography variant="h4" align="center">
         Welcome to SkillPath
       </Typography>

@@ -14,8 +14,8 @@ export default {
 };
 
 async function unAssignUser(req, res) {
-  console.log(req.body._id, " unassign req body._id")
-  console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+  // console.log(req.body._id, " unassign req body._id")
+  // console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
   try {
     const resource = await Resource.findById(req.params.id).populate("usersAssigned")
 
@@ -24,7 +24,7 @@ async function unAssignUser(req, res) {
     // resource.usersAssigned.splice(userAssignedIndex, 1);
     // await resource.save();
 
-    console.log(resource, " REsource doc after Unassigning user")
+    // console.log(resource, " REsource doc after Unassigning user")
     res.status(201).json({resource})
   } catch(err) {
     console.log(err, "<-- assign user to resource controller error")
@@ -40,7 +40,7 @@ async function assignUser(req, res) {
     resource.usersAssigned.splice(0,0, user);
     await resource.populate("usersAssigned");
     await resource.save();
-    console.log(resource, " REsource doc after assigning user")
+    // console.log(resource, " REsource doc after assigning user")
 
     res.status(201).json({resource})
   } catch(err) {
