@@ -53,29 +53,6 @@ const skillsReducer = produce((draft, action) => {
         break;
       }
     
-      const subSkillIndex = draft[skillIndex].subSkills.findIndex((s) => s.id === subSkill.id);
-    
-      if (subSkillIndex === -1) {
-        console.error(`Subskill with ID ${subSkill.id} not found.`);
-        break;
-      }
-
-      draft[skillIndex].subSkills[subSkillIndex] = {
-        ...draft[skillIndex].subSkills[subSkillIndex],
-        subSkill
-      }
-      console.log(draft[skillIndex].subSkills[subSkillIndex], "--- u pdated subskill")
-      break;
-    }
-    case 'assignUserToSubSkill': {
-      const subSkill = action.subSkill;
-      const user = action.user;
-      const skillIndex = draft.findIndex((s) => s._id === subSkill.parentSkill[0])
-      if (skillIndex === -1) {
-        console.error(`Skill with ID ${action.parentSkill} not found.`);
-        break;
-      }
-    
       const subSkillIndex = draft[skillIndex].subSkills.findIndex((s) => s._id === subSkill._id);
     
       if (subSkillIndex === -1) {
@@ -83,9 +60,33 @@ const skillsReducer = produce((draft, action) => {
         break;
       }
 
-      draft[skillIndex].subSkills[subSkillIndex]?.usersAssigned.splice(0,0, user)
+      draft[skillIndex].subSkills[subSkillIndex] = ({
+        ...draft[skillIndex].subSkills[subSkillIndex],
+        ...subSkill
+      })
+      ;
+      console.log(draft[skillIndex].subSkills[subSkillIndex], "--- updated subskill")
       break;
     }
+    // case 'assignUserToSubSkill': {
+    //   const subSkill = action.subSkill;
+    //   const user = action.user;
+    //   const skillIndex = draft.findIndex((s) => s._id === subSkill.parentSkill[0])
+    //   if (skillIndex === -1) {
+    //     console.error(`Skill with ID ${action.parentSkill} not found.`);
+    //     break;
+    //   }
+    
+    //   const subSkillIndex = draft[skillIndex].subSkills.findIndex((s) => s._id === subSkill._id);
+    
+    //   if (subSkillIndex === -1) {
+    //     console.error(`Subskill with ID ${subSkill.id} not found.`);
+    //     break;
+    //   }
+
+    //   draft[skillIndex].subSkills[subSkillIndex]?.usersAssigned.splice(0,0, user)
+    //   break;
+    // }
     case 'unAssignUserFromSubSkill': {
       const skillIndex = action.skillIndex;
       const subSkillIndex = action.subSkillIndex;

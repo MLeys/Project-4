@@ -286,18 +286,18 @@ export default function App() {
         //   subSkillIndex: subIndex,
         //   user: user,
         // });
+        dispatchSkills({
+          type: 'updateSubSkill',
+          subSkill: await response.subSkill,
+          
+
+        });
         // dispatchSkills({
-        //   type: 'updateSubSkill',
+        //   type: 'assignUserToSubSkill',
         //   subSkill: await response.subSkill,
         //   user: user,
 
         // });
-        dispatchSkills({
-          type: 'assignUserToSubSkill',
-          subSkill: await response.subSkill,
-          user: user,
-
-        });
 
       } catch (err) {
         setError(console.log(`*** Error assigning User to Subskill -> ${err}`));
