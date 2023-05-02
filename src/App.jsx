@@ -259,9 +259,10 @@ export default function App() {
     console.log(subSkill, '< subskill assigning user to')
     const isAssigned = await checkIfUserAssigned(subSkill?.usersAssigned);
     console.log(`parent skillid from sub===> ${subSkill.parentSkill}`)
-    const parentSkillId = skills?.[activeSkill?.index]?._id;
-    const skillIndex = getSkillIndexById(subSkill.parentSkill);
+   
+    const skillIndex = getSkillIndexById(subSkill.parentSkill[0]);
     const subIndex = getSubIndexById(subSkill?._id);
+    console.log(skillIndex,  "=== skillindex fuick")
 
     const data = {
       subSkill: {
@@ -269,7 +270,7 @@ export default function App() {
         parentSkill: subSkill?.parentSkill ? subSkill.parentSkill : parentSkillId,
       },
       user: user,
-      parentSkillId: subSkill?.parentSkill ? subSkill.parentSkill : parentSkillId,
+      parentSkillId: skills[skillIndex]._id
     };
   
     if (!isAssigned) {

@@ -45,8 +45,8 @@ const skillsReducer = produce((draft, action) => {
     }
     case 'updateSubSkill': {
       const subSkill = action.subSkill;
-      console.log(subSkill, "subskill from response in reducer")
-      console.log(action.subSkill.parentSkill[0], ' parentskill')
+      // console.log(subSkill, "subskill from response in reducer")
+      // console.log(action.subSkill.parentSkill[0], ' parentskill')
       const skillIndex = draft.findIndex((s) => s._id === subSkill.parentSkill[0])
       if (skillIndex === -1) {
         console.error(`Skill with ID ${action.subSkill.parentSkill} not found.`);

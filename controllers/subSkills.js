@@ -15,11 +15,24 @@ async function assignUser(req, res) {
   const subSkillId = req.body.subSkill?._id;
   const skillId = req.body.parentSkillId;
   const user = await User.findById(req.body.user._id);
+
   // console.log(subSkillId, ' subskillid')
   // console.log(req.body.id, ' req body id')
   // console.log(req.body.parentSkillId, ' req body bodyskillid')
   // console.log(user.username, "users username being assigned")
   // console.log(req.body, " - req body")
+
+  if (!skillId) {
+    console.log("========================================")
+    console.log(" skill id issue")
+    throw new Error('skill ID NOT FOUND')
+  }
+  if (!user) {
+    console.log("========================================")
+    console.log(" user issue")
+    throw new Error('user ID NOT FOUND')
+  }
+  
   
 
   try {
@@ -49,18 +62,33 @@ async function assignUser(req, res) {
 
     // Update the usersAssigned array for the subSkill if the user is not already assigned
     if (!isUserAssigned) {
-      skillDoc.subSkills[subSkillIndex].usersAssigned = [user, ...skillDoc.subSkills[subSkillIndex].usersAssigned];
-      await skillDoc.save();
+      // Update the document using findOneAndUpdate
+      const updatedSkill = await Skill.findOneAndUpdate(
+        { _id: skillId, "subSkills._id": subSkillId },
+        { $addToSet: { "subSkills.$.usersAssigned": user } },
+        { new: true }
+      )
+        .populate("usersAssigned", "User")
+        .populate({
+          path: "subSkills.resources",
+          model: "Resource",
+        })
+        .populate({
+          path: "subSkills.usersAssigned",
+          model: "User",
+        })
+        .exec();
+
+      res.status(201).json({ subSkill: updatedSkill.subSkills[subSkillIndex] });
+    } else {
+      res.status(201).json({ subSkill: skillDoc.subSkills[subSkillIndex] });
     }
 
-    res.status(201).json({ subSkill: skillDoc.subSkills[subSkillIndex] });
-
   } catch (err) {
-    console.log(err, "<-- assign user to resource controller error");
+    console.log(err, "<-- assign user to subSkill controller error");
     res.status(400).json({ error: err.message });
   }
 }
-
 
 
 
