@@ -43,15 +43,47 @@ const skillsReducer = produce((draft, action) => {
       draft[skillIndex].subSkills.unshift(newSub);
       break;
     }
+    case 'updateSubSkill': {
+      const subSkill = action.subSkill;
+      console.log(subSkill, "subskill from response in reducer")
+      console.log(action.subSkill.parentSkill[0], ' parentskill')
+      const skillIndex = draft.findIndex((s) => s._id === subSkill.parentSkill[0])
+      if (skillIndex === -1) {
+        console.error(`Skill with ID ${action.subSkill.parentSkill} not found.`);
+        break;
+      }
+    
+      const subSkillIndex = draft[skillIndex].subSkills.findIndex((s) => s.id === subSkill.id);
+    
+      if (subSkillIndex === -1) {
+        console.error(`Subskill with ID ${subSkill.id} not found.`);
+        break;
+      }
+
+      draft[skillIndex].subSkills[subSkillIndex] = {
+        ...draft[skillIndex].subSkills[subSkillIndex],
+        subSkill
+      }
+      console.log(draft[skillIndex].subSkills[subSkillIndex], "--- u pdated subskill")
+      break;
+    }
     case 'assignUserToSubSkill': {
-			const user = action.user;
-      const skillIndex = action.skillIndex;
-      const subSkillIndex = action.subSkillIndex;
-			const subSkill = draft[skillIndex].subSkills[subSkillIndex];
-			
-      // Ensure usersAssigned is an array of objects, and add the user.
-      subSkill.usersAssigned = subSkill?.usersAssigned.map((u) => (typeof u === 'string' ? { _id: user } : user));
-      subSkill.usersAssigned.splice(0, 0, user);
+      const subSkill = action.subSkill;
+      const user = action.user;
+      const skillIndex = draft.findIndex((s) => s._id === subSkill.parentSkill[0])
+      if (skillIndex === -1) {
+        console.error(`Skill with ID ${action.parentSkill} not found.`);
+        break;
+      }
+    
+      const subSkillIndex = draft[skillIndex].subSkills.findIndex((s) => s._id === subSkill._id);
+    
+      if (subSkillIndex === -1) {
+        console.error(`Subskill with ID ${subSkill.id} not found.`);
+        break;
+      }
+
+      draft[skillIndex].subSkills[subSkillIndex]?.usersAssigned.splice(0,0, user)
       break;
     }
     case 'unAssignUserFromSubSkill': {

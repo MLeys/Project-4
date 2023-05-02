@@ -124,14 +124,18 @@ export default function OnboardingPage() {
     }
   }
 
-  function handleAddUsersSelections(){
+  async function handleAddUsersSelections(){
+    console.log(skills, '<-- skills being adding to user')
+    console.log(subskills, '<--- subskills list being added to users')
     if (skills?.length > 0) {
       skills?.map((skill) => {
+        console.log(`==== Adding skill ${skill.name} to user ====`)
         assignUserToSkill(skill)
       })
     }
     if (subskills.length > 0) {
       subskills?.map((subSkill) => {
+        console.log(`==== Adding subskill ${subSkill.title} to user ====`)
         assignUserToSubSkill(subSkill)
       })
     }

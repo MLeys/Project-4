@@ -258,29 +258,45 @@ export default function App() {
   async function handleAssignUserToSubSkill(subSkill) {
     console.log(subSkill, '< subskill assigning user to')
     const isAssigned = await checkIfUserAssigned(subSkill?.usersAssigned);
+    console.log(`parent skillid from sub===> ${subSkill.parentSkill}`)
     const parentSkillId = skills?.[activeSkill?.index]?._id;
-    const skillIndex = getSkillIndexById(parentSkillId);
+    const skillIndex = getSkillIndexById(subSkill.parentSkill);
     const subIndex = getSubIndexById(subSkill?._id);
 
     const data = {
       subSkill: {
         ...subSkill,
-        parentSkill: parentSkillId,
+        parentSkill: subSkill?.parentSkill ? subSkill.parentSkill : parentSkillId,
       },
       user: user,
-      parentSkillId: parentSkillId,
+      parentSkillId: subSkill?.parentSkill ? subSkill.parentSkill : parentSkillId,
     };
   
     if (!isAssigned) {
+      console.log(data, 'data for for subskill before sending to api')
 
       try {
         const response = await subSkillsApi.assignUser(data);
         console.log(response, 'response from assigning user to subskills');
+
+        // dispatchSkills({
+        //   type: 'assignUserToSubSkill',
+        //   subSkill: await response,
+        //   skillIndex: skillIndex,
+        //   subSkillIndex: subIndex,
+        //   user: user,
+        // });
+        // dispatchSkills({
+        //   type: 'updateSubSkill',
+        //   subSkill: await response.subSkill,
+        //   user: user,
+
+        // });
         dispatchSkills({
           type: 'assignUserToSubSkill',
-          skillIndex: skillIndex,
-          subSkillIndex: subIndex,
+          subSkill: await response.subSkill,
           user: user,
+
         });
 
       } catch (err) {
@@ -508,6 +524,7 @@ export default function App() {
     return `${formattedDate} ${formattedTime}`;
   }
   
+
   useEffect(() => {
     console.log('useEffect for user change in app')
     if (!user) {

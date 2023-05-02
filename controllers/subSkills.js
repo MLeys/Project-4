@@ -15,11 +15,11 @@ async function assignUser(req, res) {
   const subSkillId = req.body.subSkill?._id;
   const skillId = req.body.parentSkillId;
   const user = await User.findById(req.body.user._id);
-  console.log(subSkillId, ' subskillid')
-  console.log(req.body.id, ' req body id')
-  console.log(req.body.parentSkillId, ' req body bodyskillid')
-  console.log(user.username, "users username being assigned")
-  console.log(req.body, " - req body")
+  // console.log(subSkillId, ' subskillid')
+  // console.log(req.body.id, ' req body id')
+  // console.log(req.body.parentSkillId, ' req body bodyskillid')
+  // console.log(user.username, "users username being assigned")
+  // console.log(req.body, " - req body")
   
 
   try {
@@ -36,6 +36,7 @@ async function assignUser(req, res) {
       .populate("resources", "Resource")
       .exec();
 
+    // console.log(skillDoc, "<-- skill doc")
     // Find the index of the subSkill
     const subSkillIndex = skillDoc?.subSkills?.findIndex((sub) => sub._id.equals(subSkillId));
 

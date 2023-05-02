@@ -88,13 +88,10 @@ export default function SubList() {
               }}
             >
               <Checkbox
-                
                 edge="start"
-                
                 checked={checkIfUserAssigned(sub.usersAssigned)}
                 inputProps={{ 
                   'aria-labelledby': labelId,
-                  
                 }}
                 sx={{ 
                   '& .MuiSvgIcon-root': { fontSize: 28 },

@@ -16,17 +16,15 @@ export default {
 async function unAssignUser(req, res) {
   const userId = req.body._id;
   const resourceId = req.params.id;
-  console.log(req.body._id, " unassign req body._id")
-  console.log(req.body, ' req body')
-  console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
   try {
     const resource = await Resource.findById(resourceId).populate("usersAssigned")
     console.log(resource, '<<--- remove uers from this resource')
 
-    resource.usersAssigned = resource.usersAssigned.filter((u) => u._id !== userId)
+    resource.usersAssigned = resource.usersAssigned.filter((u) => u._id.toString() !== userId)
     
     await resource.save();
 
+    console.log(resource, " NEWLY updated resource with user removed ")
     // console.log(resource, " REsource doc after Unassigning user")
     res.status(201).json({resource})
   } catch(err) {
