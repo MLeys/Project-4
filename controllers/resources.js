@@ -35,20 +35,36 @@ async function unAssignUser(req, res) {
 
 async function assignUser(req, res) {
   try {
-    const resource = await Resource.findById(req.params.id).populate("usersAssigned")
-    const user = await User.findById(req.body._id)
-    
-    resource.usersAssigned.splice(0,0, user);
-    await resource.populate("usersAssigned");
-    await resource.save();
-    // console.log(resource, " REsource doc after assigning user")
+    const userId = req.body.user._id;
+    const resourceId = req.params.id;
 
-    res.status(201).json({resource})
-  } catch(err) {
-    console.log(err, "<-- assign user to resource controller error")
-    res.status(400).json({err})
+    // Check if the user exists
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Atomically update the usersAssigned array for the resource
+    const updatedResource = await Resource.findOneAndUpdate(
+      { _id: resourceId },
+      { $addToSet: { usersAssigned: userId } },
+      { new: true, upsert: false }
+    )
+      .populate("usersAssigned")
+      .exec();
+
+    // If the resource is not found, return an error
+    if (!updatedResource) {
+      return res.status(404).json({ error: "Resource not found" });
+    }
+
+    res.status(201).json({ resource: updatedResource });
+  } catch (err) {
+    console.log(err, "<-- assign user to resource controller error");
+    res.status(400).json({ error: err.message });
   }
 }
+
 
 async function create(req, res) {
 	const user = await User.findById(req.body.userId)

@@ -47,7 +47,8 @@ function SkillPage() {
   const subSkills = ctx.activeSubSkills;
   const subIndex = subSkills?.findIndex((sub) => sub._id === activeSub?.subSkill._id)
   const subId = subSkills?.[subIndex]?._id;
-  const resources = ctx.resources.filter((r) => r.subSkillId === subId);
+  const resources = ctx.skills[skillIndex]?.subSkills[subIndex]?.resources;
+  // const resources = ctx.resources.filter((r) => r.subSkillId === subId);
   
   useEffect(() => {
     setActiveSkillById(skillId)

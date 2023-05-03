@@ -22,15 +22,19 @@ export default function SkillCardActions({ resource, index }) {
   const assignUserToResource = ctx.handleAssignUserToResource;
   const unAssignUserFromResource = ctx.handleUnAssignUserFromResource;
   const handleDeleteResourcesByVideoId = ctx.handleDeleteResourcesByVideoId;
+  const checkIfUserAssigned = ctx.checkIfUserAssigned;
+  const resources = ctx.skills[ctx.activeSkill,index]?.subSkills[ctx.activeSub.index].resources;
 
-  const [isAssigned, setIsAssigned] = useState(false);
-  const [usersAssigned, setUsersAssigned] = useState(resource.usersAssigned);
+  let isAssigned = checkIfUserAssigned(resource.usersAssigned)
 
   function handleClickDeleteResource(resource) {
     deleteResource(resource);
   }
 
   function renderIcon() {
+    console.log(resource.usersAssigned.some((u) => u === userId))
+    console.log(userId)
+    console.log(checkIfUserAssigned(resource.usersAssigned, "checking users"))
     return isAssigned ? <BookFilledIcon /> : <BookOutlinedIcon />;
   }
 
@@ -38,21 +42,12 @@ export default function SkillCardActions({ resource, index }) {
     isAssigned
       ? unAssignUserFromResource(resource)
       : assignUserToResource(resource);
-    setIsAssigned(usersAssigned.some((u) => u === userId));
   }
 
   function handleClickRemoveFromSubSkill(resource, index) {
     console.log(`Click Remove resource index: ${index}`);
   }
 
-  useEffect(() => {
-    setUsersAssigned(resource.usersAssigned);
-  }, [resource.usersAssigned]);
-
-  // useEffect(() => {
-  //   const assigned = usersAssigned.some((u) => u.toString() === userId);
-  //   setIsAssigned(assigned);
-  // }, [usersAssigned]);
 
   return (
     <CardActions disableSpacing>

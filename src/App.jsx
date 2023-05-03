@@ -49,10 +49,16 @@ export default function App() {
   const [progressData, setProgressData] = useState(null);
   
   const userId = user?._id;
-
-
+  
   function checkIfUserAssigned(usersAssigned) {
-    return usersAssigned?.some((u) => u._id === user._id);
+    if (usersAssigned && usersAssigned.length > 0) {
+      if (typeof usersAssigned[0] === "object") {
+        return usersAssigned.some((u) => u._id === user._id);
+      } else if (typeof usersAssigned[0] === "string") {
+        return usersAssigned.some((u) => u === user._id);
+      }
+    }
+    return false;
   }
 
   function getSkillIndexById(skillId){
@@ -359,6 +365,7 @@ export default function App() {
     if (!isAssigned) {
       try {
         const response = await resourcesApi.assignUserToResource(data);
+        console.log(response, 'response from assignresource')
         dispatchSkills({
           type: 'assignUserToResource',
           skillIndex: skillIndex,
@@ -374,8 +381,8 @@ export default function App() {
     }
   }
   
-  async function handleUnAssignUserFromResource(resource, skillId, subId) {
-    const isAssigned = resource.usersAssigned.some((u) => u === userId);    
+  async function handleUnAssignUserFromResource(resource) {
+    const isAssigned = checkIfUserAssigned(resource.usersAssigned)
     const skillIndex = getSkillIndexById(resource.skillId);
     const subIndex = getSubIndexById(resource.subSkillId);
     const resourceIndex = getResourceIndexById(resource._id);
