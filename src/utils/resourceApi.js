@@ -19,7 +19,6 @@ export async function unAssignUserFromResource(data) {
 	})
 }
 
-
 export async function assignUserToResource(data) {
 	console.log(`Assign- ResourceApi - DATA: ${data.user._id}`)
 	const resourceId = data.resource._id
@@ -36,7 +35,21 @@ export async function assignUserToResource(data) {
 	})
 }
 
-
+export async function completeResourceUser(data) {
+	console.log(`Assign- ResourceApi - DATA: ${data.user._id}`)
+	const resourceId = data.resource._id
+	return await fetch(`${BASE_URL}${resourceId}/complete`, {
+		method: 'POST',
+		body: JSON.stringify(data),
+		headers: {
+			Authorization: "Bearer " + tokenService.getToken(),
+			'Content-Type': 'application/json', 
+		}
+	}).then(res => {
+		if(res.ok) return res.json()
+		throw new Error('Error compelte Resource API. check server terminal')
+	})
+}
 
 export async function create(data) {
 	try {

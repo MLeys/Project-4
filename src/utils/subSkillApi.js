@@ -4,7 +4,6 @@ const BASE_URL= '/api/'
 
 export async function assignUser(data) {
   const subId = data.subSkill._id;
-  console.log(data, 'what the fuck is wrong')
   try {
     const response = await fetch(`${BASE_URL}subskills/${subId}/assign`, {
       method: 'POST',

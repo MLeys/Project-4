@@ -262,13 +262,9 @@ export default function App() {
   }
 
   async function handleAssignUserToSubSkill(subSkill) {
-    console.log(subSkill, '< subskill assigning user to')
-    const isAssigned = await checkIfUserAssigned(subSkill?.usersAssigned);
-    console.log(`parent skillid from sub===> ${subSkill.parentSkill}`)
-   
+    const isAssigned = await checkIfUserAssigned(subSkill?.usersAssigned);  
     const skillIndex = getSkillIndexById(subSkill.parentSkill[0]);
     const subIndex = getSubIndexById(subSkill?._id);
-    console.log(skillIndex,  "=== skillindex fuick")
 
     const data = {
       subSkill: {
@@ -297,7 +293,6 @@ export default function App() {
           type: 'updateSubSkill',
           subSkill: await response.subSkill,
           
-
         });
         // dispatchSkills({
         //   type: 'assignUserToSubSkill',
@@ -314,9 +309,8 @@ export default function App() {
   
 
   async function handleUnAssignUserFromSubSkill(subSkill) {
-    console.log(subSkill?.usersAssigned, 'users in UNassigning to subskill')
     const isAssigned = await checkIfUserAssigned(subSkill?.usersAssigned);
-    console.log(isAssigned, " IS ASSIGNED in unassign from sub")
+
     const parentSkillId = skills?.[activeSkill?.index]?._id;
     const skillIndex = getSkillIndexById(parentSkillId);
     const subIndex = getSubIndexById(subSkill?._id);
@@ -349,7 +343,7 @@ export default function App() {
 
 
   async function handleAssignUserToResource(resource) {
-    const isAssigned = resource.usersAssigned.some((u) => u === userId);    
+    const isAssigned = checkIfUserAssigned(resource.usersAssigned)
     const skillIndex = getSkillIndexById(resource.skillId);
     const subIndex = getSubIndexById(resource.subSkillId);
     const resourceIndex = getResourceIndexById(resource._id);
@@ -425,12 +419,38 @@ export default function App() {
     }
   };
 
-  async function handleResourceCompletion(subSkillId, resourceId, complete)  {
-    try {
-      const res = await updateResourceCompletion(userId, subSkillId, resourceId, complete);
-      setProgressData(res.data);
-    } catch (error) {
-      console.error('Error updating resource completion:', error);
+  async function handleCompleteResource(resource)  {
+
+    const isAssigned = checkIfUserAssigned(resource.usersAssigned)
+    const skillIndex = getSkillIndexById(resource.skillId);
+    const subIndex = getSubIndexById(resource.subSkillId);
+    const resourceIndex = getResourceIndexById(resource._id);
+    const data = {
+      resource: resource,
+      userId: userId,
+      skillId: resource.skillId,
+      subId: resource.subSkillId,
+      user: user,
+    };
+  
+    if (isAssigned) {
+      try {
+        const response = await resourcesApi.completeResourceUser(data);
+        console.log(response, 'response from completeresource')
+        dispatchSkills({
+          type: 'completeResourceUser',
+          skillIndex: skillIndex,
+          subSkillIndex: subIndex,
+          resource: response.resource,
+          user: user,
+          
+        });
+
+      } catch (err) {
+        setError(console.log(`*** Error unassigning User from Resource -> ${err}`));
+      }
+    } else {
+      console.log("Resource not assigned to user");
     }
   };
 
@@ -614,6 +634,7 @@ export default function App() {
           handleUnAssignUserFromResource: handleUnAssignUserFromResource,
           handleAssignUserToResource: handleAssignUserToResource,
           handleCreateInitialSkillsFromList: handleCreateInitialSkillsFromList,
+          handleCompleteResource: handleCompleteResource,
         }}
       >
         <SkillsDispatchContext.Provider value={dispatchSkills}>

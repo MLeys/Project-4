@@ -39,7 +39,9 @@ const BookOutlinedIcon = ({color='white'}) => <i className="bi bi-book" color={c
 function SkillPage() {
   const ctx = useContext(SkillsContext);
   const skills = ctx.skills;
+  const userId = ctx.loggedUser._id
   const setActiveSkillById = ctx.handleSetActiveSkillById;
+  const serverResources = ctx.resources
   const activeSkill = ctx.activeSkill;
   const activeSub = ctx.activeSub;
   const skillId = useParams().skillId;
@@ -49,15 +51,38 @@ function SkillPage() {
   const subId = subSkills?.[subIndex]?._id;
   const resources = ctx.skills[skillIndex]?.subSkills[subIndex]?.resources;
   // const resources = ctx.resources.filter((r) => r.subSkillId === subId);
-  
+
+  const usersSubSkills = subSkills?.filter((sub) => sub.usersAssigned.some((u) => u._id === userId))
+  const usersResources = resources?.filter((res) => res.usersAssigned.some((u) => u === userId))
+  const usersResourcesComplete = usersResources?.filter((res) => res.usersComplete.some((u) => u === userId))
+
+  const totalUserSubs = usersSubSkills?.length;
+  const totalSubs = subSkills?.length;
+  const totalSkillProgress = totalUserSubs/ totalSubs
+  const totalResources = resources?.length;
+  const totalUserResources = usersResources?.length;
+  const totalSubProgress = totalUserResources/ totalResources * 100;
+
+
+  function calcSubProgressValue(sub) {
+    const subResourcesAssigned = sub?.resources.filter((res) => res.usersAssigned.some((u) => u === userId))
+    const subResourcesComplete = subResourcesAssigned?.filter((res) => res.usersComplete.some((u) => u === userId))
+
+    const value = subResourcesComplete > 0 ? subResourcesComplete / subResourcesAssigned * 100 : 0;
+    return value;
+  }
+
+
   useEffect(() => {
     setActiveSkillById(skillId)
+
     
-  }, [!activeSkill]); 
+  }, [!activeSkill, skills]); 
 
 
   return ( 
     <PageDrawer >
+      <Typography>Progress for skill: {totalSkillProgress}</Typography>
       <Box 
         mr={2.5}
         ml={1}
@@ -74,9 +99,9 @@ function SkillPage() {
           <Grid xs={12} sm={6} display={'flex'} alignItems={'center'} justifyContent={'center'}>
             {/* Change to only show users currently assigned  */}
             <Card sx={{ bgcolor: 'blueGrayLight2.light', my: 1, pl: 1, minWidth: 280, maxWidth: 350, textAlign: 'left'}}>
-              {subSkills?.map((sub, index) => (
+              {usersSubSkills?.map((sub, index) => (
                 <Box key={`subProg-${sub._id}`} >
-                  <LinearProgressWithLabel height={10} key={`subProg-${index}`} title={sub.title} value={35} />
+                  <LinearProgressWithLabel height={10} key={`subProg-${index}`} title={sub.title} value={calcSubProgressValue(sub)} />
                   <Divider />
                 </Box>
               ))}     

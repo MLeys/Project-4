@@ -8,6 +8,8 @@ import resourcesCtrl  from '../../controllers/resources.js';
 router.delete('/deleteAllByVideoId/:videoId', resourcesCtrl.deleteAllByVideoId)
 router.delete('/:id', resourcesCtrl.delete)
 
+router.post('/:id/complete', resourcesCtrl.completeResource)
+
 router.put('/:id', resourcesCtrl.unAssignUser)
 router.post('/:id', resourcesCtrl.assignUser)
 router.post('/', resourcesCtrl.create)

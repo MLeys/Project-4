@@ -10,8 +10,42 @@ export default {
   deleteAllByVideoId: deleteAllByVideoId,
   assignUser: assignUser,
   unAssignUser: unAssignUser,
+  completeResource: completeResource,
 
 };
+
+async function completeResource(req, res) {
+  try {
+    const userId = req.body.user._id;
+    const resourceId = req.params.id;
+
+    // Check if the user exists
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Atomically update the usersAssigned array for the resource
+    const updatedResource = await Resource.findOneAndUpdate(
+      { _id: resourceId },
+      { $addToSet: { usersComplete: user.toObject() } },
+      { new: true, upsert: false }
+    )
+      .populate("usersAssigned")
+      .populate("usersComplete")
+      .exec();
+
+    // If the resource is not found, return an error
+    if (!updatedResource) {
+      return res.status(404).json({ error: "Resource not found" });
+    }
+
+    res.status(201).json({ resource: updatedResource });
+  } catch (err) {
+    console.log(err, "<-- complete resource controller error");
+    res.status(400).json({ error: err.message });
+  }
+}
 
 async function unAssignUser(req, res) {
   const userId = req.body._id;
@@ -47,10 +81,11 @@ async function assignUser(req, res) {
     // Atomically update the usersAssigned array for the resource
     const updatedResource = await Resource.findOneAndUpdate(
       { _id: resourceId },
-      { $addToSet: { usersAssigned: userId } },
+      { $addToSet: { usersAssigned: user } },
       { new: true, upsert: false }
     )
       .populate("usersAssigned")
+      .populate("usersComplete")
       .exec();
 
     // If the resource is not found, return an error

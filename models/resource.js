@@ -12,7 +12,7 @@ const resourceSchema = new Schema(
     skillId: String,
     source: { type: String, default: "youtube" },
     usersAssigned: [{type: Schema.Types.ObjectId, ref: "User", autopopulate: true }],
-    usersComplete: [String],
+    usersComplete: [{type: Schema.Types.ObjectId, ref: "User", autopopulate: true }],
   },
   {
     timestamps: true,

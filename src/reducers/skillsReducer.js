@@ -68,6 +68,36 @@ const skillsReducer = produce((draft, action) => {
       console.log(draft[skillIndex].subSkills[subSkillIndex], "--- updated subskill")
       break;
     }
+
+    case 'updateResource': {
+      const resource = action.resource
+      const skillIndex = action.skillIndex;
+      const subIndex = action.subIndex
+      const resourceIndex = draft[skillIndex].subSkills[subIndex].resources.findIndex((res) => res._id === resource._id)
+
+      if (skillIndex === -1) {
+        console.error(`Skill with ID ${action.resource.skillId} not found.`);
+        break;
+      }
+    
+      if (subIndex === -1) {
+        console.error(`Subskill with ID ${action.resource.subSkillId} not found.`);
+        break;
+      }
+      if (resourceIndex === -1) {
+        console.error(`resource with ID ${action.resource._id} not found.`);
+        break;
+      }
+
+      draft[skillIndex].subSkills[subIndex].resources[resourceIndex] = ({
+        ...draft[skillIndex].subSkills[subIndex].resources[resourceIndex],
+        ...resource
+      })
+      ;
+      console.log(draft[skillIndex].subSkills[subIndex], "--- updated resprce")
+      break;
+    }
+
     // case 'assignUserToSubSkill': {
     //   const subSkill = action.subSkill;
     //   const user = action.user;
@@ -94,6 +124,21 @@ const skillsReducer = produce((draft, action) => {
       draft[skillIndex].subSkills[subSkillIndex].usersAssigned.splice(userIndex, 1);
       break;
     }
+    case 'completeResourceUser': {
+      const user = action.user;
+      const skillIndex = action.skillIndex;
+      const subSkillIndex = action.subSkillIndex;
+			const resources = draft[skillIndex].subSkills[subSkillIndex].resources;
+			const resourceIndex = resources.findIndex((r) => r._id === action.resource._id)
+
+      // Ensure usersAssigned is an array of objects, and add the user.
+      const resource = draft[skillIndex].subSkills[subSkillIndex].resources[resourceIndex];
+      resource.usersComplete = resource?.usersComplete.map((u) => (typeof u === 'string' ? { _id: user } : user));
+      resource.usersComplete.splice(0, 0, user);
+
+      break;
+    }
+
     case 'assignUserToResource': {
       const user = action.user;
       const skillIndex = action.skillIndex;
