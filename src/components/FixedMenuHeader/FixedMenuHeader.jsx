@@ -17,6 +17,8 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import Stack from '@mui/material/Stack';
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
+
 
 import { ListIcon } from "../../customIcons";
 
@@ -65,12 +67,16 @@ function FixedMenuHeader({ children }) {
     navigate(`/signup`);
   }
 
-  function handleClickLearnPage() {
-    navigate(`/learn`);
-  }
-
   function handleClickIcon(page) {
     navigate(`/${page.link}`)
+  }
+
+  function handleClickOutsideList(e) {
+    console.log(e, ' <--event')
+    console.log(e.target, '<-- target clicked')
+    if (openSidebar && e.target === e.currentTarget) {
+      setOpenSidebar(e, false);
+    }
   }
 
 	return (  
@@ -87,19 +93,21 @@ function FixedMenuHeader({ children }) {
        
         <Toolbar > 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex'} }}>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={toggleDrawer()}
-              sx={{ 
-                mr: 1.5, 
-                my: 1.3, 
-                ":hover": {backgroundColor:'accent.dark'}
-              }}
-            >
-              <i as='a' className='bi bi-list'></i>
-            </IconButton>
+            
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                edge="start"
+                onClick={toggleDrawer()}
+                sx={{ 
+                  mr: 1.5, 
+                  my: 1.3, 
+                  ":hover": {backgroundColor:'accent.dark'}
+                }}
+              >
+                <i as='a' className='bi bi-list'></i>
+              </IconButton>
+            
             {sections.map((page, index) => (
                 <IconButton
                   key={`headerIcon-${index}`}
@@ -194,15 +202,18 @@ function FixedMenuHeader({ children }) {
             </Menu>
           </Box>
         </Toolbar>
-      </AppBar>      
-      <SkillDrawer open={openSidebar ? openSidebar : false} toggleDrawer={toggleDrawer} zIndex={openSidebar ? 1100 : 0} />
+      </AppBar>   
+      <SkillDrawer open={openSidebar ? openSidebar : false}  toggleDrawer={toggleDrawer} zIndex={openSidebar ? 1100 : 0} />
+      <ClickAwayListener onClickAway={toggleDrawer}>
       
       <Box width={'100%'} >
         <Toolbar />
         {children}
       </Box>
+      </ClickAwayListener>
 
     </Box>
+    
 	);
  }
  

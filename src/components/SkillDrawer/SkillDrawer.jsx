@@ -7,12 +7,13 @@ import List from '@mui/material/List';
 import TextField from "@mui/material/TextField";
 import Toolbar from "@mui/material/Toolbar";
 import Box from '@mui/material/Box';
+import ClickAwayListener from "@mui/material/ClickAwayListener";
 
 
 const SkillsList = lazy(() => import("../SkillsList/SkillsList"));
 
 const iOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
-const drawerWidth = 260;
+const drawerWidth = 375;
 
 export default function SkillDrawer({open, toggleDrawer }) {
   const ctx = useContext(SkillsContext);
@@ -33,22 +34,24 @@ export default function SkillDrawer({open, toggleDrawer }) {
       )
     );
   };
+  
+
 
   return (
     <>
     <SwipeableDrawer 
-      variant='temporary'
+      variant='persistent'
       disableBackdropTransition={!iOS} 
       disableDiscovery={iOS} 
       allowSwipeInChildren
       anchor={'left'}
-      open={open ? open : false}
+      open={open ? true : false}
       transitionDuration={400}
       hideBackdrop={true}
       elevation={24}
-      onClose={() => toggleDrawer()}
-      onOpen={() => toggleDrawer()}
-      onBackdropClick={() => toggleDrawer()}
+      onClose={(e) => toggleDrawer(e)}
+      onOpen={(e) => toggleDrawer(e)}
+      
       ModalProps={{
         keepMounted: false, // Better open performance on mobile.
       }}
@@ -60,11 +63,15 @@ export default function SkillDrawer({open, toggleDrawer }) {
           minHeight: '100%',
           bgcolor: 'primaryDarker.dark',
         },
-        zIndex: 1,
+        zIndex: 1200,
+        
       }}
     >
       <Toolbar />
-      <Button sx={{ mt: 2, bgcolor: 'accent.dark', color: "accent.contrastText" }} onClick={toggleDrawer()}>
+      <Button 
+        sx={{ mt: 2, bgcolor: 'accent.dark', color: "accent.contrastText" }} 
+        onClick={toggleDrawer()}
+      >
         Close
       </Button>
       <TextField
@@ -87,7 +94,7 @@ export default function SkillDrawer({open, toggleDrawer }) {
                 index={index}
                 toggleDrawer={toggleDrawer}
               />
-              <div>{skill.name}</div>
+              
             </div>
             
           ))}

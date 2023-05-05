@@ -69,7 +69,7 @@ function SkillsList({ skill, index, toggleDrawer}) {
           </IconButton>
         </ListItemSecondaryAction>
       </ListItemButton>
-      <LinearProgress variant="determinate" value={skill.progress} color="warning" sx={{mb: 1}} />
+      <LinearProgress variant="determinate" value={50} color="warning" sx={{mb: 1}} />
       <Collapse in={openSkills[index]} timeout="auto" unmountOnExit>
         <List component="div" disablePadding sx={{bgcolor: 'primary.dark'}}>
           {skill.subSkills?.map((subSkill, subIndex) => (
@@ -77,7 +77,7 @@ function SkillsList({ skill, index, toggleDrawer}) {
               <ListItemButton onClick={() => handleSubSkillClick(index, subIndex)}>
                 <ListItemText primary={subSkill.title} />
               </ListItemButton>
-              <LinearProgress variant="determinate" value={skill.progress} />
+              <LinearProgress variant="determinate" value={50} />
             </div>
           ))}
           <Divider />
