@@ -28,6 +28,7 @@ function SkillsList({ skill, index, toggleDrawer}) {
   const skills = ctx.skills;
   const handleSetActiveSkill = ctx.handleSetActiveSkill;
   const handleSetActiveSub = ctx.handleSetActiveSub;
+  const activeSkill = ctx.activeSkill;
 
   const navigate = useNavigate();
 
@@ -57,12 +58,24 @@ function SkillsList({ skill, index, toggleDrawer}) {
   
   
   return ( 
-    <Box key={`skillInList-${index}`} color={'black'}>
-      <ListItemButton onClick={(e) => handleClickSkill(e, index)}>
+    <>
+      <ListItemButton 
+        onClick={(e) => handleClickSkill(e, index)}
+        sx={{
+          backgroundColor: activeSkill?.index === index ? "blueGrayLight2.light" : "transparent",
+          "&:hover": {
+            backgroundColor: "blueTealLight.main",
+          },
+          my: 0,
+          py: 0,
+        }}
+        
+      >
         <ListItemText 
+          
           primary={
             <>
-              <Typography m={0} p={0}>
+              <Typography my={0} py={0}>
                 <IconButton
                   edge="start"
                   size="large"
@@ -74,7 +87,7 @@ function SkillsList({ skill, index, toggleDrawer}) {
               </Typography>
             </>
           }
-          sx={{pr: 2}}
+          sx={{py: 0, my: 0}}
         />
         <ListItemSecondaryAction>
           <IconButton
@@ -104,7 +117,7 @@ function SkillsList({ skill, index, toggleDrawer}) {
       </Collapse>
       <Divider />
     
-    </Box>
+    </>
 
    );
 }

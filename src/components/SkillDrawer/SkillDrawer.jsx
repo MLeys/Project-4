@@ -98,13 +98,13 @@ export default function SkillDrawer({open, toggleDrawer }) {
           {skills
           ?.filter(isSkillMatched)
           .map((skill, index) => (
-            <div key={`skillDrawerListIndex-${index}`}>
+            <Box key={`skillDrawerListIndex-${index}`}>
               <SkillsList 
                 skill={skill}
                 index={index}
                 toggleDrawer={toggleDrawer}
               />
-            </div>
+            </Box>
             
           ))}
         </List>
