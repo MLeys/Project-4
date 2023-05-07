@@ -1,4 +1,6 @@
 import React, { useState, useContext, lazy, Suspense } from "react";
+import mainTheme from "../../themes/mainTheme";
+
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
@@ -8,7 +10,7 @@ import TextField from "@mui/material/TextField";
 import Toolbar from "@mui/material/Toolbar";
 import Box from '@mui/material/Box';
 import ClickAwayListener from "@mui/material/ClickAwayListener";
-
+import { blueGrey } from "@mui/material/colors";
 
 const SkillsList = lazy(() => import("../SkillsList/SkillsList"));
 
@@ -16,6 +18,7 @@ const iOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigato
 const drawerWidth = 375;
 
 export default function SkillDrawer({open, toggleDrawer }) {
+  const theme = mainTheme;
   const ctx = useContext(SkillsContext);
   const skills = ctx.skills;
   
@@ -56,35 +59,42 @@ export default function SkillDrawer({open, toggleDrawer }) {
         keepMounted: false, // Better open performance on mobile.
       }}
       sx={{
+        // backgroundColor: 'black',
         display: { xs: 'block' },
         '& .MuiDrawer-paper': {
           boxSizing: 'border-box',
           width: drawerWidth,
           minHeight: '100%',
-          bgcolor: 'primaryDarker.dark',
+          // bgcolor: 'primaryDarker.main',
         },
-        zIndex: 1200,
-        
+        zIndex: 1200,        
       }}
     >
       <Toolbar />
       <Button 
-        sx={{ mt: 2, bgcolor: 'accent.dark', color: "accent.contrastText" }} 
+        sx={{ mt: 2, bgcolor: 'blue2.dark', color: 'black' }} 
         onClick={toggleDrawer()}
       >
         Close
       </Button>
       <TextField
-        label="Search skills"
+        label="Search"
         type="search"
         margin="normal"
         variant="filled"
         value={searchValue}
         onChange={handleSearchChange}
+        
+        sx={{
+          bgcolor: 'tealGray.light', 
+          color: 'black',
+
+
+        }}
       />
 
       <Suspense fallback={" Loading skill list "}>
-        <List sx={{ bgcolor: 'primaryDarker.main', color: 'primaryDarker.contrastText'}}>
+        <List sx={{ bgcolor: 'tealLight.light'}}>
           {skills
           ?.filter(isSkillMatched)
           .map((skill, index) => (
@@ -94,7 +104,6 @@ export default function SkillDrawer({open, toggleDrawer }) {
                 index={index}
                 toggleDrawer={toggleDrawer}
               />
-              
             </div>
             
           ))}

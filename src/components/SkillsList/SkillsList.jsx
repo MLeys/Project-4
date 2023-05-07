@@ -12,9 +12,16 @@ import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction";
 import Collapse from "@mui/material/Collapse";
 import LinearProgress from "@mui/material/LinearProgress";
 import IconButton from "@mui/material/IconButton";
+import Box from '@mui/material/Box';
+import Typography from "@mui/material/Typography";
 
 import { BoxArrowRightIcon, DownArrowBoxed, SettingsFilledcon } from "../../customIcons";
 
+
+const CaretDownIcon = () => <i className="bi bi-caret-down" style={{ color: 'black'}} />;
+const CaretLeftIcon = () => <i className="bi bi-caret-left" style={{ color: 'black'}} />;
+const BookFilledIcon = ({color='white'}) => <i className="bi bi-book-fill" color={color}/>;
+const BookOutlinedIcon = ({color='white'}) => <i className="bi bi-book" color={color}/>;
 
 function SkillsList({ skill, index, toggleDrawer}) {
   const ctx = useContext(SkillsContext);
@@ -27,51 +34,63 @@ function SkillsList({ skill, index, toggleDrawer}) {
   const [openSkills, setOpenSkills] = useState({});
 
 
-  const handleClickSkillArrow = ( skillIndex) => {
+  function handleClickSkillArrow(e, skillIndex) {
+    e.stopPropagation(); // Add this line to stop propagation
     toggleDrawer(false);
-    handleSkillToggle(skillIndex)
+    setOpenSkills({ ...openSkills, [skillIndex]: !openSkills[skillIndex] });
+  }
+  
+  function handleClickSkill(e, skillIndex) {
+    e.stopPropagation(); // Add this line to stop propagation
     handleSetActiveSkill(skillIndex);
     const skillId = skills[skillIndex]?._id;
-    console.log(skillId, "<<<<< SKILL ID")
+    console.log(skillId, "<<<<< SKILL ID");
+    navigate(`/skills/${skillId}`);
+  }
 
-    navigate(`/skills/${skillId}`)
-  };
-
-  const handleSkillToggle = ( skillIndex) => {
-    setOpenSkills({ ...openSkills, [skillIndex]: !openSkills[skillIndex] });
-    handleSetActiveSkill(skillIndex);
-  };
-
-  const handleSubSkillClick = (skillIndex, subSkillIndex) => {
+  function handleSubSkillClick(skillIndex, subSkillIndex) {
     if (skillIndex === activePageSkillIndex) {
       handleSetActiveSub(subSkillIndex);
     }
-  };
+  }
 
   
   
   return ( 
-    <div key={`skillInList-${index}`}>
-      <ListItemButton onClick={() => handleSkillToggle( index)}>
-        <ListItemText primary={skill.name}  sx={{pr: 2}}/>
+    <Box key={`skillInList-${index}`} color={'black'}>
+      <ListItemButton onClick={(e) => handleClickSkill(e, index)}>
+        <ListItemText 
+          primary={
+            <>
+              <Typography m={0} p={0}>
+                <IconButton
+                  edge="start"
+                  size="large"
+                  onClick={(e) => handleClickSkillArrow(e, index)}
+                >
+                  {openSkills[index] ? <CaretLeftIcon /> : <CaretDownIcon  />}
+                </IconButton>
+                {skill.name}
+              </Typography>
+            </>
+          }
+          sx={{pr: 2}}
+        />
         <ListItemSecondaryAction>
           <IconButton
-            edge="start"
-            size="small"
-          >
-            {openSkills[index] ? <DownArrowBoxed /> : <BoxArrowRightIcon  />}
-          </IconButton>
-          <IconButton
             edge="end"
-            onClick={(event) => handleClickSkillArrow(index)}
+            onClick={(e) => handleClickSkillArrow(e, index)}
           >
-            <SettingsFilledcon height={20} width={20} fill="white"/>                  
+            <BookOutlinedIcon height={20} width={20} fill="white"/>                  
           </IconButton>
         </ListItemSecondaryAction>
       </ListItemButton>
       <LinearProgress variant="determinate" value={50} color="warning" sx={{mb: 1}} />
       <Collapse in={openSkills[index]} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding sx={{bgcolor: 'primary.dark'}}>
+        <List 
+          component="div" 
+          disablePadding 
+        >
           {skill.subSkills?.map((subSkill, subIndex) => (
             <div key={`sidebar-${index}-${subIndex}`}>
               <ListItemButton onClick={() => handleSubSkillClick(index, subIndex)}>
@@ -85,7 +104,7 @@ function SkillsList({ skill, index, toggleDrawer}) {
       </Collapse>
       <Divider />
     
-    </div>
+    </Box>
 
    );
 }

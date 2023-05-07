@@ -4,6 +4,7 @@ import { CssBaseline, useTheme } from "@mui/material";
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 import mainTheme from "../../themes/mainTheme";
 
+
 import Link from '@mui/material/Link';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -33,7 +34,7 @@ function FixedMenuHeader({ children }) {
 	const handleLogout = ctx.handleLogout;
 
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const [openSidebar, setOpenSidebar] = useState(false);
+  const [openSidebar, setOpenSidebar] = useState(true);
 
 	const sections = [
 		{ title: "Home", link: "", icon: 'bi bi-house-fill' },
