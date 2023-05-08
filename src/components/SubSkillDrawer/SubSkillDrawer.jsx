@@ -13,36 +13,18 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Fab from '@mui/material/Fab';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
 
 import { ListIcon, ArrowLeftIcon, BoxArrowRightIcon } from '../../customIcons';
 import { AppBar, Main, DrawerHeader } from './Components';
 
 import SubList from "../SubList/SubList";
 
+
 const drawerWidth = 'auto';
 
 export default function SubSkillsDrawer({children}) {
   const theme = useTheme();
-  const ctx = useContext(SkillsContext);
-  const activeSkill = ctx.activeSkill;
-  const user = ctx.loggedUser;
-  const handleAssignSkill = ctx.handleAssignSkill;
-  const handleUnAssignSkill = ctx.handleUnAssignSkill;
-  const skillId = useParams().skillId;
-
-  const isSkillAssigned = activeSkill?.skill?.usersAssigned?.some(u => u._id === user._id)
-
   const [open, setOpen] = useState(false);
-  const [checked, setChecked] = useState(false);
-  // const [activeTabSub, setActiveTabSub] = useState(activeSkill?.subSkills[0])
-
-  function handleAssignChecked(e) {
-    checked ? handleUnAssignSkill(skillId) : handleAssignSkill(skillId);
-    isSkillAssigned === true ? setChecked(true) : setChecked(false) 
-    setChecked(!checked);
-  };
 
   function handleDrawerClose() {
     setOpen(false);
@@ -56,6 +38,7 @@ export default function SubSkillsDrawer({children}) {
     <Box sx={{ display: 'flex', height: '25%'}}>
       <Fab
         color="primary"
+        variant='extended'
         aria-label="floating-button"
         onClick={() => toggleDrawer()}
         sx={{
@@ -66,6 +49,7 @@ export default function SubSkillsDrawer({children}) {
         }}
       >
         {open ? <ArrowLeftIcon /> : <ListIcon height={34} width={34}/>}
+        SubSkills
       </Fab>
 
 
@@ -85,7 +69,7 @@ export default function SubSkillsDrawer({children}) {
         open={open ? open : false}
       >
         <Toolbar />
-        <DrawerHeader 
+        {/* <DrawerHeader 
           sx={{
             color: 'white', 
             justifyContent: 'space-between', 
@@ -102,7 +86,7 @@ export default function SubSkillsDrawer({children}) {
           <IconButton onClick={handleDrawerClose} sx={{ display: 'flex', flexFlow: 1}}>
             <i className="bi bi-arrow-left-square-fill" style={{color: 'white'}}></i>
           </IconButton>
-        </DrawerHeader>
+        </DrawerHeader> */}
 
         <SubList  />
         <Divider />
