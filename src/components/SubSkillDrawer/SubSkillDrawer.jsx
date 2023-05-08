@@ -12,6 +12,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
+import Fab from '@mui/material/Fab';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 
@@ -33,7 +34,7 @@ export default function SubSkillsDrawer({children}) {
 
   const isSkillAssigned = activeSkill?.skill?.usersAssigned?.some(u => u._id === user._id)
 
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [checked, setChecked] = useState(false);
   // const [activeTabSub, setActiveTabSub] = useState(activeSkill?.subSkills[0])
 
@@ -53,25 +54,20 @@ export default function SubSkillsDrawer({children}) {
 
   return (
     <Box sx={{ display: 'flex', height: '25%'}}>
-      <AppBar position='fixed' sx={{pt: 1}} open={open ? open : false}>
-        <Toolbar />
-        <Toolbar disableGutters sx={{bgcolor: 'blueGrayLight.main'}}>
-          <IconButton
-            color="inherit"
-            aria-label="open skills"
-            onClick={() => toggleDrawer()}
-          >
-            {open ? <ArrowLeftIcon /> : <ListIcon height={34} width={34}/>}
-          </IconButton>
-          <Typography align='left' variant="h5" noWrap component="div" pl={1} sx={{ flexGrow: 1 }}>
-            {activeSkill?.skill?.name}
-          </Typography>
-          {/* <FormControlLabel 
-            label="Learn" 
-            control={ <Switch checked={checked} onChange={handleAssignChecked}/> } 
-          /> */}
-        </Toolbar>
-      </AppBar>
+      <Fab
+        color="primary"
+        aria-label="floating-button"
+        onClick={() => toggleDrawer()}
+        sx={{
+          position: 'fixed',
+          bottom: theme.spacing(2),
+          right: theme.spacing(2),
+          zIndex: theme.zIndex.appBar - 1,
+        }}
+      >
+        {open ? <ArrowLeftIcon /> : <ListIcon height={34} width={34}/>}
+      </Fab>
+
 
       <Drawer
         sx={{
@@ -97,7 +93,6 @@ export default function SubSkillsDrawer({children}) {
             display: 'flex',
             alignItems: 'center',
             padding: 0,
-
           }} 
         >
           <Typography mt={1} fontSize={'20px'} fontWeight={800} color={'white'} >
@@ -113,7 +108,7 @@ export default function SubSkillsDrawer({children}) {
         <Divider />
       </Drawer>
       <Main open={open ? open : false} sx={{ mt: 2}}>
-          {children}
+        {children}
       </Main>
     </Box>
   );
