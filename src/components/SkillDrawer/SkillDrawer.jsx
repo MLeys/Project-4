@@ -47,7 +47,7 @@ export default function SkillDrawer({open, toggleDrawer }) {
       disableBackdropTransition={!iOS} 
       disableDiscovery={iOS} 
       allowSwipeInChildren
-      anchor={'left'}
+      anchor={'top'}
       open={open ? true : false}
       transitionDuration={400}
       hideBackdrop={true}

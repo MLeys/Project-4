@@ -25,7 +25,7 @@ import Button from '@mui/material/Button';
 
 import SkillCardActions from '../../components/SkillCardActions/SkillCardActions';
 import VideoCard from "../../components/VideoCard/VideoCard";
-import PageDrawer from "../../components/PageDrawer/PageDrawer";
+import PageDrawer from "../../components/SubSkillDrawer/SubSkillDrawer";
 import SubTable from '../../components/SubTable/SubTable';
 import LinearProgressWithLabel from '../../components/LinearProgressWithLabel/LinearProgressWithLabel';
 import ResourceCard2 from '../../components/ResourceCard2/ResourceCard2';

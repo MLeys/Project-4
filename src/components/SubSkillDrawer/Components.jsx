@@ -7,7 +7,7 @@ import MuiAppBar from '@mui/material/AppBar';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 
-const drawerWidth = 260;
+const drawerWidth = 'auto';
 
 export const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({

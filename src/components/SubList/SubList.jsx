@@ -7,12 +7,15 @@ import { SkillsContext } from '../../context/SkillsContext/SkillsContext';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
-import IconButton from '@mui/material/IconButton';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
+import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+
 import Divider from '@mui/material/Divider';
 import { VertDotsIcon } from '../../customIcons';
 
@@ -56,25 +59,55 @@ export default function SubList() {
     } else {
       assignUserToSubSkill(subSkill)
     }
-    
   }
+
+  const SubItem = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+    maxWidth: 400,
+  }));
+
+  const message = `Truncation should be conditionally applicable on this long line of text
+ as this is a much longer line than what the container can support.`;
 
   useEffect(() => {
     handleSetActiveSub()
   }, [selectedIndex, subSkills]); 
 
+
   return (
-    <List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'tealGray.light', borderRadius: '8px', boxShadow: 1 }}>
+    <>
+    <Box mx={3} my={1} sx={{ maxHeight: 300 }}>
+      <Stack 
+        spacing={{ xs: 1, sm: 2 }} 
+        direction="row" 
+        useFlexGap 
+        flexWrap="wrap"
+        justifyContent="center"
+        alignItems="center"
+  
+      >
       {subSkills?.map((sub, subIndex) => {
         const labelId = `checkbox-list-label-${sub._id}`;
 
         return (
-          <ListItem key={`subListItem-${subIndex}-${sub._id}`} disablePadding>
-            <ListItemButton
+          <>
+          <Paper 
+            key={`subDrawerItem-${subIndex}`} 
+            elevation={10}
+          >
+            <Button
               onClick={(e) => handleClickSub(e, sub, subIndex)}
               selected={selectedIndex === subIndex}
+              
               sx={{
-                backgroundColor: selectedIndex === subIndex ? 'blueTealGray.dark' : 'transparent',
+                pl: 1,
+                py: 0,
+                m: 0,
+                backgroundColor: selectedIndex === subIndex ? 'blue.light' : 'transparent',
                 '&:hover': {
                   backgroundColor: 'tealLight.main',
                 },
@@ -84,37 +117,32 @@ export default function SubList() {
                     backgroundColor: 'tealLight.light',
                   },
                 },
-                width: '100%',
               }}
             >
               <Checkbox
                 edge="start"
                 checked={checkIfUserAssigned(sub.usersAssigned)}
-                inputProps={{ 
-                  'aria-labelledby': labelId,
-                }}
-                sx={{ 
-                  '& .MuiSvgIcon-root': { fontSize: 28 },
-                  color: 'black',
-                  // backgroundColor: 'tealGray.main',
-                  '&.Mui-checked': { 
-                    color: 'blueTeal.dark',
-                    // backgroundColor: 'tealGray.light' 
-                  },
-                  '&:hover': {
-                    color: 'blueGray.dark',
-                    backgroundColor: 'tealGray.light',
-                  },
-
-                }}
                 onClick={(e) => handleClickCheckbox(e, subIndex, sub)}
+                sx={{
+                  color: selectedIndex === subIndex ? 'white' : 'black',
+                  '&.Mui-checked': {
+                    color: 'blueTeal.dark',
+                  },
+                }}
               />
-              <ListItemText id={labelId} primary={`${sub.title} ${subIndex}`} />
-            </ListItemButton>
-            <Divider />
-          </ListItem>
+                <Typography 
+                  color={selectedIndex === subIndex ? 'white' : 'black'}
+                >
+                  {sub.title}
+                </Typography>
+            </Button>
+          </Paper>
+          </>
         );
       })}
-    </List>
+      </Stack>
+    </Box>
+    </>
+    
   );
 }

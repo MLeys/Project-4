@@ -18,11 +18,11 @@ import Switch from '@mui/material/Switch';
 import { ListIcon, ArrowLeftIcon, BoxArrowRightIcon } from '../../customIcons';
 import { AppBar, Main, DrawerHeader } from './Components';
 
-import SubList from "../../components/SubList/SubList";
+import SubList from "../SubList/SubList";
 
-const drawerWidth = 260;
+const drawerWidth = 'auto';
 
-export default function PageDrawer({children}) {
+export default function SubSkillsDrawer({children}) {
   const theme = useTheme();
   const ctx = useContext(SkillsContext);
   const activeSkill = ctx.activeSkill;
@@ -33,7 +33,7 @@ export default function PageDrawer({children}) {
 
   const isSkillAssigned = activeSkill?.skill?.usersAssigned?.some(u => u._id === user._id)
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const [checked, setChecked] = useState(false);
   // const [activeTabSub, setActiveTabSub] = useState(activeSkill?.subSkills[0])
 
@@ -52,7 +52,7 @@ export default function PageDrawer({children}) {
   }
 
   return (
-    <Box sx={{ display: 'flex'}} >
+    <Box sx={{ display: 'flex', height: '25%'}}>
       <AppBar position='fixed' sx={{pt: 1}} open={open ? open : false}>
         <Toolbar />
         <Toolbar disableGutters sx={{bgcolor: 'blueGrayLight.main'}}>
@@ -75,16 +75,17 @@ export default function PageDrawer({children}) {
 
       <Drawer
         sx={{
-          width: drawerWidth,
+          width: 'auto',
           flexShrink: 0,
+          mx: 1,
           '& .MuiDrawer-paper': {
-            width: drawerWidth,
+            width: 'auto',
             boxSizing: 'border-box',
             bgcolor: 'blueGrayLight2.main'
           },
         }}
         variant="persistent"
-        anchor="left"
+        anchor="top"
         open={open ? open : false}
       >
         <Toolbar />

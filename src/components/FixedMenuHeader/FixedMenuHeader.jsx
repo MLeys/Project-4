@@ -34,7 +34,7 @@ function FixedMenuHeader({ children }) {
 	const handleLogout = ctx.handleLogout;
 
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const [openSidebar, setOpenSidebar] = useState(true);
+  const [openSidebar, setOpenSidebar] = useState(false);
 
 	const sections = [
 		{ title: "Home", link: "", icon: 'bi bi-house-fill' },
