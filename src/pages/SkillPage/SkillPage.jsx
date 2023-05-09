@@ -23,7 +23,7 @@ import Divider from '@mui/material/Divider';
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import Button from '@mui/material/Button';
 
-import SkillCardActions from '../../components/SkillCardActions/SkillCardActions';
+import VideoCardActions from '../../components/VideoCardActions/VideoCardActions';
 import VideoCard from "../../components/VideoCard/VideoCard";
 import PageDrawer from "../../components/SubSkillDrawer/SubSkillDrawer";
 import SubTable from '../../components/SubTable/SubTable';
@@ -120,8 +120,8 @@ function SkillPage() {
           </Grid>
           {resources?.map((resource, index) => (
             <Grid key={`resourceCard-${index}`} xs={12} sm={6} md={4}>
-              <VideoCard key={`resourceCard-${index}`} resource={resource} >
-                <SkillCardActions resource={resource} index={index} />
+              <VideoCard key={`resourceCard-${index}`} resource={resource} index={index} >
+                <VideoCardActions resource={resource} index={index} />
               </VideoCard>
             </Grid>
       ))}

@@ -17,7 +17,7 @@ const BookOutlinedIcon = ({color='white'}) => <i className="bi bi-book" color={c
 const FileMinusOutlinedIcon = ({color='white'}) => <i className="bi bi-file-minus" color={color}/>;
 
 
-export default function SkillCardActions({ resource, index }) {
+export default function VideoCardActions({ resource, index }) {
   const ctx = useContext(SkillsContext);
   const userId = ctx.loggedUser._id;
   const skills = ctx.skills;
@@ -61,43 +61,31 @@ export default function SkillCardActions({ resource, index }) {
 
 
   return (
+    <>
     <CardActions disableSpacing key={`skillCardActions-${resource._id}`}>
-      <Grid container>
-        <Grid xs={12}>
-          <IconButton
-            aria-label="Delete resource"
-            onClick={() => handleClickDeleteResource(resource, index)}
-          >
-            <TrashFilledIcon />
-          </IconButton>
-          Delete
-          <IconButton
-            aria-label="Assign user to resource"
-            onClick={() => handleClickAssigned(resource, index)}
-          >
-            {renderAssignIcon(resource)}
-          </IconButton>
-          {isAssigned ? 'unAssign' : 'Assign'}
-          <IconButton
-            aria-label="Remove resource from subSkill"
-            onClick={() => handleClickRemoveFromSubSkill(resource, index)}
-          >
-            <FileMinusOutlinedIcon />
-          </IconButton>
-          Remove
-        </Grid>
-        <Grid xs={12}>
-          <Checkbox
-            checked={isComplete}
-            onClick={handleClickComplete}
-            disabled={isComplete}
-          >
-          Complete button
-          </Checkbox>
-        </Grid>
-
-      </Grid>
-
+      <IconButton
+        aria-label="Remove resource from subSkill"
+        onClick={() => handleClickRemoveFromSubSkill(resource, index)}
+      >
+        <FileMinusOutlinedIcon />
+      </IconButton>
+      Remove
+      <Checkbox
+        checked={isComplete}
+        onClick={handleClickComplete}
+        disabled={isComplete}
+      />
+      Completed
     </CardActions>
+    <IconButton
+      aria-label="Delete resource"
+      disabled={true}
+      onClick={() => handleClickDeleteResource(resource, index)}
+    >
+      <TrashFilledIcon />
+      Delete from system
+    </IconButton>
+    </>
+
   );
 }

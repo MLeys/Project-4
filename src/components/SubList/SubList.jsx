@@ -51,7 +51,8 @@ export default function SubList() {
     const subSkill = sub;
     const isAssigned = await checkIfUserAssigned(sub.usersAssigned, sub.title)
    
-    console.log(`clicked check for sub: ${subIndex}`);
+    console.log(`cliy
+    cked check for sub: ${subIndex}`);
     console.log(isAssigned, "< isAssigned")
 
     if (isAssigned) {
