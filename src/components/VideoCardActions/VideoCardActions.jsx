@@ -8,7 +8,9 @@ import CardActions from '@mui/material/CardActions';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
-import { Checkbox } from '@mui/material';
+import Checkbox from '@mui/material/Checkbox';
+import Box from '@mui/material/Box';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 
 const TrashFilledIcon = ({color='white'}) => <i className="bi bi-trash3-fill" color={color}/>;
@@ -63,28 +65,40 @@ export default function VideoCardActions({ resource, index }) {
   return (
     <>
     <CardActions disableSpacing key={`skillCardActions-${resource._id}`}>
-      <IconButton
+      {/* <IconButton
         aria-label="Remove resource from subSkill"
         onClick={() => handleClickRemoveFromSubSkill(resource, index)}
       >
         <FileMinusOutlinedIcon />
       </IconButton>
-      Remove
-      <Checkbox
-        checked={isComplete}
-        onClick={handleClickComplete}
-        disabled={isComplete}
+      Remove */}
+      <FormControlLabel 
+        control={
+          <Checkbox
+            checked={isComplete}
+            onClick={handleClickComplete}
+            disabled={isComplete}
+            sx={{
+              color: 'black',
+              '&.Mui-checked': {
+                color: 'blueTeal.dark',
+              },
+            }}
+          />
+        } 
+        label="Completed" 
+        sx={{display: isAssigned ? 'inline-flex' : 'none' }}
       />
-      Completed
+
     </CardActions>
-    <IconButton
+    {/* <IconButton
       aria-label="Delete resource"
       disabled={true}
       onClick={() => handleClickDeleteResource(resource, index)}
     >
       <TrashFilledIcon />
       Delete from system
-    </IconButton>
+    </IconButton> */}
     </>
 
   );

@@ -50,7 +50,8 @@ const VideoCard = React.memo(function VideoCard({ resource, children, index }) {
         maxWidth: '330px',
         minWidth: '290px',
         px: .5,
-        backgroundColor: grey[100],
+        py: 0,
+        backgroundColor: 'blueGrayLight2.light',
         color: 'blueGrayLight2.contrastText'
       }} 
     >
