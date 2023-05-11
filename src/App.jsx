@@ -51,7 +51,7 @@ export default function App() {
   
   const userId = user?._id;
   
-  function calcUserProgress(){
+  function calcUserProgress2(){
     let totalResources = 0;
     let totalCompletedResources = 0;
 
@@ -606,12 +606,58 @@ export default function App() {
     const formattedTime = `${formattedHours}:${minutes} ${ampm}`;
     return `${formattedDate} ${formattedTime}`;
   }
+
+  useEffect(() => {
+    function calcUserProgress(){
+      const userSkills = getUsersSkills();
+      console.log(userSkills, "<<<< users skills");
+    
+      const skillsProgress = userSkills?.map((skill) => {
+        const userSubs = skill.subSkills.filter((sub) => checkIfUserAssigned(sub.usersAssigned));
+    
+        const subSkillsProgress = userSubs?.map((sub) => {
+          const userResources = sub.resources.filter((r) => checkIfUserAssigned(r.usersAssigned));
+          const totalResourcesAssigned = userResources.length;
+          const userResourcesComplete = userResources.filter((r) => checkIfUserAssigned(r.usersComplete));
+          const totalResourcesComplete = userResourcesComplete.length;
+    
+          const totalSubProgress = totalResourcesComplete > 0 ? totalResourcesComplete/ totalResourcesAssigned * 100 : 0;
+  
+          return {
+            subId: sub._id,
+            totalResources: sub.resources.length,
+            totalResourcesAssigned: totalResourcesAssigned,
+            totalResourcesComplete: totalResourcesComplete,
+            progress: totalSubProgress,
+          };
+        });
+    
+        const totalResourcesComplete = subSkillsProgress.reduce((acc, curr) => acc + curr.totalResourcesComplete, 0);
+        const totalResourcesAssigned = subSkillsProgress.reduce((acc, curr) => acc + curr.totalResourcesAssigned, 0);
+        const totalSkillProgess = totalResourcesComplete > 0 ? totalResourcesComplete/ totalResourcesAssigned * 100 : 0;
+        
+        return {
+          skillId: skill._id,
+          totalSubSkillsAssigned: userSubs.length,
+          totalResourcesAssigned: subSkillsProgress.reduce((acc, curr) => acc + curr.totalResourcesAssigned, 0),
+          totalResourcesComplete: subSkillsProgress.reduce((acc, curr) => acc + curr.totalResourcesComplete, 0),
+          subSkills: subSkillsProgress,
+          progress: totalSkillProgess,
+        };
+        
+      });
+      console.log(skillsProgress, "<- skills progress");
+      return skillsProgress;
+    }
+    
+    const progress = calcUserProgress();
+    setProgressData(progress);
+  }, [skills, user]); // dependency array to trigger recalculation of progress
+
   
 
   useEffect(() => {
-    console.log('useEffect for user change in app')
     if (!user) {
-      
       return;
     }
   
@@ -623,7 +669,7 @@ export default function App() {
         console.error("Error fetching skills:", error);
       }
       finally {
-        calcUserProgress()
+        // calcUserProgress()
       }
     }
   
@@ -664,6 +710,7 @@ export default function App() {
           activeSubId: activeSub?.subSkill?._id,
           activeUserId: user?._id,
           resources: resources,
+          progessData: progressData,
 
           setUser: setUser,
           checkIfUserAssigned: checkIfUserAssigned,
