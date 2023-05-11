@@ -47,10 +47,10 @@ function LandingPage() {
 
   return (
     <>
-      <Button color="secondary" contextMenu="Test" onClick={() => navigate('/onboarding')} >
+      {/* <Button color="secondary" contextMenu="Test" onClick={() => navigate('/onboarding')} >
         Onboarding
       </Button>
-      <Button color="warning" onClick={handleClickCreateInitialSkillsFromList}>Create Initial skills</Button>
+      <Button color="warning" onClick={handleClickCreateInitialSkillsFromList}>Create Initial skills</Button> */}
       <WelcomeSection />
 
       <section style={{height: '5dvh', width: '100dvw', paddingTop: 10, display: 'flex', justifyContent: 'center'}}>
