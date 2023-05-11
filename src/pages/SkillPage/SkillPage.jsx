@@ -30,6 +30,8 @@ import SubTable from '../../components/SubTable/SubTable';
 import LinearProgressWithLabel from '../../components/LinearProgressWithLabel/LinearProgressWithLabel';
 import ResourceCard2 from '../../components/ResourceCard2/ResourceCard2';
 import SearchForm from '../../components/SearchForm/SearchForm';
+import ProgressLinear from '../../components/ProgressLinear/ProgressLinear';
+import skill from '../../../models/skill';
 
 const TrashFilledIcon = ({color='white'}) => <i className="bi bi-trash3-fill" color={color}/>;
 const BookFilledIcon = ({color='white'}) => <i className="bi bi-book-fill" color={color}/>;
@@ -46,9 +48,10 @@ function SkillPage() {
   const activeSkill = ctx.activeSkill;
   const activeSub = ctx.activeSub;
   const skillId = useParams().skillId;
-  const skillIndex = skills?.findIndex((s) => s._id === skillId)
+  const skillIndex = skills?.findIndex((s) => s._id === skillId);
+  const skill = skills?.[skillIndex];
   const subSkills = ctx.activeSubSkills;
-  const subIndex = subSkills?.findIndex((sub) => sub._id === activeSub?.subSkill._id)
+  const subIndex = subSkills?.findIndex((sub) => sub._id === activeSub?.subSkill._id);
   const subId = subSkills?.[subIndex]?._id;
   const resources = ctx.skills[skillIndex]?.subSkills[subIndex]?.resources;
   // const resources = ctx.resources.filter((r) => r.subSkillId === subId);
@@ -58,23 +61,17 @@ function SkillPage() {
   const usersResourcesComplete = usersResources?.filter((res) => res.usersComplete.some((u) => u === userId))
 
   console.log(progressData, "<-- progress data")
-  const skillProgressData = progressData?.find((data) => data.skillId === skillId)
+  const skillProgressData = progressData?.find((data) => data.skillId === skillId);
   console.log(skillProgressData, "<--- skill pages progress data")
-
-  const totalUserSubs = usersSubSkills?.length;
-  const totalSubs = subSkills?.length;
-  const totalSkillProgress = totalUserSubs/ totalSubs
-  const totalResources = resources?.length;
-  const totalUserResources = usersResources?.length;
-  const totalSubProgress = totalUserResources/ totalResources * 100;
 
 
   function calcSubProgressValue(sub) {
-    const subResourcesAssigned = sub?.resources.filter((res) => res.usersAssigned.some((u) => u === userId))
-    const subResourcesComplete = subResourcesAssigned?.filter((res) => res.usersComplete.some((u) => u === userId))
+    const subId = sub._id;
+    const subProgressData = skillProgressData?.subSkills?.find((data) => data.subId === subId)
+    console.log(subProgressData, "<- sub progress data")
+    const subProgress = subProgressData?.progress ? subProgressData?.progress : 0
 
-    const value = subResourcesComplete > 0 ? subResourcesComplete / subResourcesAssigned * 100 : 0;
-    return value;
+    return subProgress;
   }
 
 
@@ -82,7 +79,7 @@ function SkillPage() {
     setActiveSkillById(skillId)
 
     
-  }, [!activeSkill, skills]); 
+  }, [!activeSkill, skills, skillId]); 
 
   if (!progressData) {
     console.log(ctx)
@@ -93,7 +90,9 @@ function SkillPage() {
 
   return ( 
     <PageDrawer >
-      <Typography>Progress for skill: {skillProgressData?.progress}</Typography>
+      <Typography variant='h3'>{skill.name}</Typography>
+      <ProgressLinear value={skillProgressData ? skillProgressData?.progress : 0} />
+      <Typography>Progress for skill: {skillProgressData ? skillProgressData?.progress : 0}</Typography>
       <Box 
         mr={2.5}
         ml={1}

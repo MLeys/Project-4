@@ -621,7 +621,7 @@ export default function App() {
           const userResourcesComplete = userResources.filter((r) => checkIfUserAssigned(r.usersComplete));
           const totalResourcesComplete = userResourcesComplete.length;
     
-          const totalSubProgress = totalResourcesComplete > 0 ? totalResourcesComplete/ totalResourcesAssigned * 100 : 0;
+          const totalSubProgress = totalResourcesComplete > 0 && totalResourcesAssigned > 0 ? totalResourcesComplete/ totalResourcesAssigned * 100 : 0;
   
           return {
             subId: sub._id,
@@ -635,7 +635,7 @@ export default function App() {
     
         const totalResourcesComplete = subSkillsProgress.reduce((acc, curr) => acc + curr.totalResourcesComplete, 0);
         const totalResourcesAssigned = subSkillsProgress.reduce((acc, curr) => acc + curr.totalResourcesAssigned, 0);
-        const totalSkillProgess = totalResourcesComplete > 0 ? totalResourcesComplete/ totalResourcesAssigned * 100 : 0;
+        const totalSkillProgess = totalResourcesComplete > 0 && totalResourcesAssigned > 0 ? totalResourcesComplete/ totalResourcesAssigned * 100 : 0;
         
         return {
           skillId: skill._id,
