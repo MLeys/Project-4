@@ -39,7 +39,8 @@ const BookOutlinedIcon = ({color='white'}) => <i className="bi bi-book" color={c
 function SkillPage() {
   const ctx = useContext(SkillsContext);
   const skills = ctx.skills;
-  const userId = ctx.loggedUser._id
+  const progressData = ctx.progressData;
+  const userId = ctx.loggedUser._id;
   const setActiveSkillById = ctx.handleSetActiveSkillById;
   const serverResources = ctx.resources
   const activeSkill = ctx.activeSkill;
@@ -55,6 +56,10 @@ function SkillPage() {
   const usersSubSkills = subSkills?.filter((sub) => sub.usersAssigned.some((u) => u._id === userId))
   const usersResources = resources?.filter((res) => res.usersAssigned.some((u) => u === userId))
   const usersResourcesComplete = usersResources?.filter((res) => res.usersComplete.some((u) => u === userId))
+
+  console.log(progressData, "<-- progress data")
+  const skillProgressData = progressData?.find((data) => data.skillId === skillId)
+  console.log(skillProgressData, "<--- skill pages progress data")
 
   const totalUserSubs = usersSubSkills?.length;
   const totalSubs = subSkills?.length;
@@ -79,10 +84,16 @@ function SkillPage() {
     
   }, [!activeSkill, skills]); 
 
+  if (!progressData) {
+    console.log(ctx)
+    return <div> loading...</div>
+  } else {
+    console.log(skillProgressData)
+  }
 
   return ( 
     <PageDrawer >
-      <Typography>Progress for skill: {totalSkillProgress}</Typography>
+      <Typography>Progress for skill: {skillProgressData?.progress}</Typography>
       <Box 
         mr={2.5}
         ml={1}

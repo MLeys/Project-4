@@ -712,7 +712,7 @@ export default function App() {
           activeSubId: activeSub?.subSkill?._id,
           activeUserId: user?._id,
           resources: resources,
-          progessData: progressData,
+          progressData: progressData,
 
           setUser: setUser,
           checkIfUserAssigned: checkIfUserAssigned,
