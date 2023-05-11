@@ -625,10 +625,11 @@ export default function App() {
   
           return {
             subId: sub._id,
+            subTitle: sub.title,
             totalResources: sub.resources.length,
             totalResourcesAssigned: totalResourcesAssigned,
             totalResourcesComplete: totalResourcesComplete,
-            progress: totalSubProgress,
+            progress: Math.round(totalSubProgress),
           };
         });
     
@@ -638,11 +639,12 @@ export default function App() {
         
         return {
           skillId: skill._id,
+          skillName: skill.name,
           totalSubSkillsAssigned: userSubs.length,
           totalResourcesAssigned: subSkillsProgress.reduce((acc, curr) => acc + curr.totalResourcesAssigned, 0),
           totalResourcesComplete: subSkillsProgress.reduce((acc, curr) => acc + curr.totalResourcesComplete, 0),
           subSkills: subSkillsProgress,
-          progress: totalSkillProgess,
+          progress: Math.round(totalSkillProgess),
         };
         
       });
@@ -652,7 +654,7 @@ export default function App() {
     
     const progress = calcUserProgress();
     setProgressData(progress);
-  }, [skills, user]); // dependency array to trigger recalculation of progress
+  }, [skills, resources]); // dependency array to trigger recalculation of progress
 
   
 
