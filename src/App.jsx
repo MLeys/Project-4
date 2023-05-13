@@ -353,6 +353,8 @@ export default function App() {
     const skillIndex = getSkillIndexById(resource.skillId);
     const subIndex = getSubIndexById(resource.subSkillId);
     const resourceIndex = getResourceIndexById(resource._id);
+    handleAssignUserToSkill(skills?.[skillIndex])
+    handleAssignUserToSubSkill(skills?.[skillIndex].subSkills?.[subIndex])
   
     const data = {
       resource: resource,
