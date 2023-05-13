@@ -53,6 +53,9 @@ function SkillCard3({skill}) {
   const checkIfUserAssigned = ctx.checkIfUserAssigned;
   const usersAssigned = skill?.usersAssigned;
   const isAssigned = checkIfUserAssigned(usersAssigned)
+  const progressData = ctx.progressData;
+
+  const skillProgressData = progressData?.find((data) => data.skillId === skill._id);
 
   const [openRemoveDialog, setOpenRemoveDialog] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -110,17 +113,21 @@ function SkillCard3({skill}) {
         <CardHeader
           onClick={(e) => handleClickSkillCard(e)} 
           avatar={ 
-            (userId) ?  <ProgressRing value={50} aria-label="skill-progress" /> : <VertDotsIcon />
+            (userId) ?  <ProgressRing value={skillProgressData ? skillProgressData?.progress : 0} aria-label="skill-progress" /> : <VertDotsIcon />
           }
           action={
-            <RemoveSkillDialog skill={skill} setOpen={setOpenRemoveDialog} open={openRemoveDialog} handleClose={handleCloseRemoveDialog} >
-              <IconButton
-                edge="end"
-                onClick={(e) => handleClickOpenRemoveSkillDialog(e)}
-              >
-                {isAssigned ? <BookFilledIcon /> : <BookOutlinedIcon /> }                 
-              </IconButton>
-            </RemoveSkillDialog>
+            <Box mx={1}>
+              <RemoveSkillDialog skill={skill} setOpen={setOpenRemoveDialog} open={openRemoveDialog} handleClose={handleCloseRemoveDialog} >
+                <IconButton
+                  edge="end"
+                  onClick={(e) => handleClickOpenRemoveSkillDialog(e)}
+                >
+                  {isAssigned ? <BookFilledIcon /> : <BookOutlinedIcon /> }                 
+                </IconButton>
+              </RemoveSkillDialog>
+
+            </Box>
+
           }
           title={skill.name}
           titleTypographyProps={{ variant: 'h5'}}

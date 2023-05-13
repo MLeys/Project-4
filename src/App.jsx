@@ -273,6 +273,7 @@ export default function App() {
     const isAssigned = await checkIfUserAssigned(subSkill?.usersAssigned);  
     const skillIndex = getSkillIndexById(subSkill.parentSkill[0]);
     const subIndex = getSubIndexById(subSkill?._id);
+    handleAssignUserToSkill(skills?.[skillIndex])
 
     const data = {
       subSkill: {
