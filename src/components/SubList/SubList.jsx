@@ -39,6 +39,7 @@ export default function SubList() {
 
   function handleClickSub(e, sub, subIndex) {
     e.stopPropagation();
+    console.log("Clicked subskill" , subIndex)
     const subId = sub._id;
     const index = subSkills?.findIndex((s) => s._id === subId);
     setSelectedIndex(subIndex);
@@ -51,9 +52,8 @@ export default function SubList() {
     const subSkill = sub;
     const isAssigned = await checkIfUserAssigned(sub.usersAssigned, sub.title)
    
-    console.log(`cliy
-    cked check for sub: ${subIndex}`);
-    console.log(isAssigned, "< isAssigned")
+    console.log(`clicked check for sub: ${subIndex}`);
+    // console.log(isAssigned, "< isAssigned")
 
     if (isAssigned) {
       unAssignUserFromSubSkill(subSkill)

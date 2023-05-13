@@ -2,7 +2,7 @@ import React from 'react';
 import mainTheme from "../../themes/mainTheme";
 import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 import { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
@@ -39,6 +39,7 @@ const BookOutlinedIcon = ({color='white'}) => <i className="bi bi-book" color={c
 
 
 function SkillPage() {
+  const navigate = useNavigate();
   const ctx = useContext(SkillsContext);
   const skills = ctx.skills;
   const progressData = ctx.progressData;
@@ -49,26 +50,27 @@ function SkillPage() {
   const activeSub = ctx.activeSub;
   const skillId = useParams().skillId;
   const skillIndex = skills?.findIndex((s) => s._id === skillId);
-  const skill = skills?.[skillIndex];
-  const subSkills = ctx.activeSubSkills;
-  const subIndex = subSkills?.findIndex((sub) => sub._id === activeSub?.subSkill._id);
+  const skill = skills?.[skillIndex]
+  const subSkills = skills?.[skillIndex]?.subSkills;
+
+  const subIndex = subSkills?.findIndex((sub) => sub._id === activeSub?.subSkill?._id);
   const subId = subSkills?.[subIndex]?._id;
-  const resources = ctx.skills[skillIndex]?.subSkills[subIndex]?.resources;
+  const resources = ctx.skills[skillIndex]?.subSkills?.[subIndex]?.resources;
   // const resources = ctx.resources.filter((r) => r.subSkillId === subId);
 
   const usersSubSkills = subSkills?.filter((sub) => sub.usersAssigned.some((u) => u._id === userId))
   const usersResources = resources?.filter((res) => res.usersAssigned.some((u) => u === userId))
   const usersResourcesComplete = usersResources?.filter((res) => res.usersComplete.some((u) => u === userId))
 
-  console.log(progressData, "<-- progress data")
+  // console.log(progressData, "<-- progress data")
   const skillProgressData = progressData?.find((data) => data.skillId === skillId);
-  console.log(skillProgressData, "<--- skill pages progress data")
+  // console.log(skillProgressData, "<--- skill pages progress data")
 
 
   function calcSubProgressValue(sub) {
     const subId = sub._id;
     const subProgressData = skillProgressData?.subSkills?.find((data) => data.subId === subId)
-    console.log(subProgressData, "<- sub progress data")
+    // console.log(subProgressData, "<- sub progress data")
     const subProgress = subProgressData?.progress ? subProgressData?.progress : 0
 
     return subProgress;
@@ -109,8 +111,9 @@ function SkillPage() {
             {/* Change to only show users currently assigned  */}
             <Card sx={{ bgcolor: 'blueGrayLight2.light', my: 1, pl: 1, minWidth: 280, maxWidth: 350, textAlign: 'left'}}>
               {usersSubSkills?.map((sub, index) => (
-                <Box key={`subProg-${sub._id}`} >
-                  <LinearProgressWithLabel height={10} key={`subProg-${index}`} title={sub.title} value={calcSubProgressValue(sub)} />
+                <Box key={`subProg-${sub._id}`} component={'span'}  >
+                  
+                  <LinearProgressWithLabel sub={sub} height={10} key={`subProg-${index}`} title={sub.title} value={calcSubProgressValue(sub)} />
                   <Divider />
                 </Box>
               ))}     
