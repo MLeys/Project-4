@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Fab from '@mui/material/Fab';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
 
 import { ListIcon, ArrowLeftIcon, BoxArrowRightIcon } from '../../customIcons';
 import { AppBar, Main, DrawerHeader } from './Components';
@@ -26,11 +27,13 @@ export default function PageDrawer({children}) {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 
-  function handleDrawerClose() {
+  function handleDrawerClose(e) {
+    e.stopPropagation();
     setOpen(false);
   };
 
-  function toggleDrawer() {
+  function toggleDrawer(e) {
+    e.stopPropagation();
     setOpen(!open);
   }
 
@@ -40,10 +43,10 @@ export default function PageDrawer({children}) {
         color="primary"
         variant='extended'
         aria-label="floating-button"
-        onClick={() => toggleDrawer()}
+        onClick={(e) => toggleDrawer(e)}
         sx={{
           position: 'fixed',
-          bottom: theme.spacing(2),
+          top: theme.spacing(10),
           right: theme.spacing(2),
           zIndex: theme.zIndex.appBar - 1,
         }}
@@ -52,45 +55,29 @@ export default function PageDrawer({children}) {
         SubSkills
       </Fab>
 
-
-      <Drawer
-        sx={{
-          width: 'auto',
-          flexShrink: 0,
-          mx: 1,
-          '& .MuiDrawer-paper': {
-            width: 'auto',
-            boxSizing: 'border-box',
-            bgcolor: 'blueGrayLight2.main'
-          },
-        }}
-        variant="persistent"
-        anchor="top"
-        open={open ? open : false}
-      >
-        <Toolbar />
-        {/* <DrawerHeader 
+      <ClickAwayListener onClickAway={(e) => handleDrawerClose(e)}>
+        <Drawer
           sx={{
-            color: 'white', 
-            justifyContent: 'space-between', 
-            bgcolor: 'blueGrayLight.dark',
-            display: 'flex',
-            alignItems: 'center',
-            padding: 0,
-          }} 
+            width: 'auto',
+            flexShrink: 0,
+            mx: 1,
+            '& .MuiDrawer-paper': {
+              width: 'auto',
+              boxSizing: 'border-box',
+              bgcolor: 'blueGrayLight2.main'
+            },
+          }}
+          variant="persistent"
+          anchor="top"
+          open={open ? open : false}
         >
-          <Typography mt={1} fontSize={'20px'} fontWeight={800} color={'white'} >
-            Subskills
-          </Typography>
+          <Toolbar />
 
-          <IconButton onClick={handleDrawerClose} sx={{ display: 'flex', flexFlow: 1}}>
-            <i className="bi bi-arrow-left-square-fill" style={{color: 'white'}}></i>
-          </IconButton>
-        </DrawerHeader> */}
+          <SubList  />
+          <Divider />
+        </Drawer>
+      </ClickAwayListener>
 
-        <SubList  />
-        <Divider />
-      </Drawer>
       <Main open={open ? open : false} sx={{ mr: 1, mt: 2}}>
         {children}
       </Main>
