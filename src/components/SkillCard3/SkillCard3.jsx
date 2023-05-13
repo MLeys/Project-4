@@ -6,6 +6,7 @@ import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 import mainTheme from "../../themes/mainTheme";
 import { styled } from '@mui/material/styles';
 
+import IconButton from '@mui/material/IconButton';
 import Link from "@mui/material/Link";
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -13,16 +14,16 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import CardActionArea from "@mui/material/CardActionArea";
 import Collapse from '@mui/material/Collapse';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
 import ProgressRing from "../../components/ProgressRing/ProgressRing";
+import RemoveSkillDialog from "../RemoveSkillDialog/RemoveSkillDialog";
 
 
 const CaretDownIcon = () => <i className="bi bi-caret-down" style={{ color: 'black'}} />;
 const CaretUpIcon = () => <i className="bi bi-caret-up" style={{ color: 'white'}}/>;
-const BookOutlineIcon = () => <i className="bi bi-book" style={{ color: 'black'}}/>;
+const BookOutlinedIcon = () => <i className="bi bi-book" style={{ color: 'black'}}/>;
 const BookFilledIcon = () => <i className="bi bi-book-fill" style={{ color: mainTheme.palette.blueTealLight.main}}/>;
 const VertDotsIcon = () => <i className="bi bi-three-dots-vertical" style={{ color: 'white'}}/>;
 const PlusSquareIcon = () => <i className="bi bi-plus-square" style={{ color: 'white'}}/>;
@@ -46,10 +47,26 @@ function SkillCard3({skill}) {
   const skills = ctx.skills;
   const userId = ctx.loggedUser?._id;
   const skillId = skill._id;
-  const isAssigned = skill?.usersAssigned?.some((user) => user._id === userId);
-  const handleAssignSkill = ctx.handleAssignUserToSkill;
-  const handleUnAssignSkill = ctx.handleUnAssignUserFromSkill;
   const setActiveSkillById = ctx.handleSetActiveSkillById;
+  const assignSkill = ctx.handleAssignUserToSkill;
+  const unAssignSkill = ctx.handleUnAssignUserFromSkill;
+  const checkIfUserAssigned = ctx.checkIfUserAssigned;
+  const usersAssigned = skill?.usersAssigned;
+  const isAssigned = checkIfUserAssigned(usersAssigned)
+
+  const [openRemoveDialog, setOpenRemoveDialog] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+
+  function handleClickAssignIcon(e, skill) {
+    e.stopPropagation();
+
+    if (isAssigned) {
+      unAssignSkill(skill)
+    } else {
+      assignSkill(skill)
+    }
+  }
 
   const [expanded, setExpanded] = useState(false);
 
@@ -57,10 +74,27 @@ function SkillCard3({skill}) {
     setExpanded(!expanded);
   };
 
-  function handleClickSkillCard() {
-    setActiveSkillById(skillId)
-    navigate(`../skills/${skillId}`)
+  function handleClickOpenRemoveSkillDialog(e) {
+    e.stopPropagation();
+    setOpenRemoveDialog(true);
+    setIsDialogOpen(true); // Set isDialogOpen to true when the dialog is opened
   }
+  
+  // Modify handleClickSkillCard to only navigate if the dialog is not open
+  function handleClickSkillCard(e) {
+    e.stopPropagation();
+    if (!isDialogOpen) {
+      setActiveSkillById(skillId);
+      navigate(`../skills/${skillId}`);
+    }
+  }
+  
+  // Modify setOpenRemoveDialog to set isDialogOpen to false when the dialog is closed
+  function handleCloseRemoveDialog() {
+    setOpenRemoveDialog(false);
+    setIsDialogOpen(false); // Set isDialogOpen to false when the dialog is closed
+  }
+
 
   return (
     <Card 
@@ -72,20 +106,27 @@ function SkillCard3({skill}) {
         flexDirection: 'column', 
       }} 
     >
-      <CardActionArea  onClick={handleClickSkillCard} >
+      <CardActionArea  >
         <CardHeader
+          onClick={(e) => handleClickSkillCard(e)} 
           avatar={ 
             (userId) ?  <ProgressRing value={50} aria-label="skill-progress" /> : <VertDotsIcon />
           }
           action={
-            
-              (isAssigned) ? <BookFilledIcon /> : <BookOutlineIcon />
-            
+            <RemoveSkillDialog skill={skill} setOpen={setOpenRemoveDialog} open={openRemoveDialog} handleClose={handleCloseRemoveDialog} >
+              <IconButton
+                edge="end"
+                onClick={(e) => handleClickOpenRemoveSkillDialog(e)}
+              >
+                {isAssigned ? <BookFilledIcon /> : <BookOutlinedIcon /> }                 
+              </IconButton>
+            </RemoveSkillDialog>
           }
           title={skill.name}
           titleTypographyProps={{ variant: 'h5'}}
-        />
-
+        >
+        
+        </CardHeader>
       </CardActionArea>
 
       <Box sx={{ flexGrow: 1 }}>
@@ -111,9 +152,7 @@ function SkillCard3({skill}) {
           m: 0,
         }}
       >
-        <IconButton onClick={() => (isAssigned) ? handleUnAssignSkill(skillId) : handleAssignSkill(skillId)}>
-          {(isAssigned) ? <BookFilledIcon /> : <BookOutlineIcon />}
-        </IconButton>
+
         <Typography>Learning X of X Subskills</Typography>
         <ExpandMore
           expand={expanded}

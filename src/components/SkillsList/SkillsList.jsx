@@ -42,15 +42,12 @@ function SkillsList({ skill, index, toggleDrawer}) {
 
   function handleClickAssignIcon(e, skill) {
     e.stopPropagation();
-    
-    
-
+  
     if (isAssigned) {
       unAssignSkill(skill)
     } else {
       assignSkill(skill)
     }
-
   }
 
   function handleClickSkillArrow(e, skillIndex) {

@@ -51,55 +51,7 @@ export default function App() {
   
   
   const userId = user?._id;
-  
-  function calcUserProgress2(){
-    let totalResources = 0;
-    let totalCompletedResources = 0;
 
-    const skillsProgress = [
-      {
-      skillId: '',
-      totalSubSkillsAssigned: 0,
-      totalResourcesAssigned: 0,
-      totalResourcesCompleted: 0,
-      subSkills: [
-        {
-          subId: '',
-          totalResources: 0,
-          totalResourcesAssigned: 0,
-          totalResourcesCompleted: 0,  
-        }
-      ]
-      },
-      {
-        ///next skill
-      }
-  ]
-    const userSkills = getUsersSkills()
-    console.log(userSkills, "<<<< users skills")
-    
-    userSkills?.map((skill, skillIndex)=> {
-      const skillId = skill._id;
-      const userSubs = skill.subSkills.filter((sub) => checkIfUserAssigned(sub.usersAssigned) === true);
-      console.log(skill.subSkills.length, '<-- total subSkills in skill');
-      console.log(userSubs, '<<--- user susbs for index: ', skillIndex);
-
-
-
-      userSubs?.map((sub, subIndex) => {
-        const subId = sub._id;
-        const userResources = sub.resources.filter((r) => checkIfUserAssigned(r.usersAssigned) === true);
-        const totalResourcesAssigned = userResources.length;
-        const userResourcesComplete = sub.resources.filter((r) => checkIfUserAssigned(r.usersComplete) === true);
-        const totalResourcesComplete = userResourcesComplete.length;
-
-        console.log(totalResourcesAssigned, '<--- total assigned resources')
-        console.log(totalResourcesComplete, '<--- total resources complete')        
-      })
-
-    })
-
-  }
 
   function getUsersSkills(){
     const userSkills = skills?.filter((skill) => checkIfUserAssigned(skill.usersAssigned) === true)
