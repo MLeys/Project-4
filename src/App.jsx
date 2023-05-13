@@ -47,6 +47,7 @@ export default function App() {
   const [activeSub, setActiveSub] = useState(null);
   const [youTubeResults, setYouTubeResults] = useState([]);
   const [progressData, setProgressData] = useState(null);
+  const [totalProgress, setTotalProgress] = useState(null);
   
   
   const userId = user?._id;
@@ -362,7 +363,6 @@ export default function App() {
     }
   }
   
-
   async function handleUnAssignUserFromSubSkill(subSkill) {
     const isAssigned = await checkIfUserAssigned(subSkill?.usersAssigned);
 
@@ -394,8 +394,6 @@ export default function App() {
       console.log("SubSkill not assigned to user. CANNOT unassign from subskill");
     }
   }
-
-
 
   async function handleAssignUserToResource(resource) {
     const isAssigned = checkIfUserAssigned(resource.usersAssigned)
@@ -461,7 +459,6 @@ export default function App() {
     }
   }
   
-
   async function handleAssignUserProgress(skillId) {
     const userId = user?._id;
     console.log(`Handle Assgn Skill ${skillId}\nUserId: ${userId}`)
@@ -612,6 +609,9 @@ export default function App() {
       const userSkills = getUsersSkills();
       console.log(userSkills, "<<<< users skills");
     
+      let totalAllResourcesAssigned = 0;
+      let totalAllResourcesComplete = 0;
+  
       const skillsProgress = userSkills?.map((skill) => {
         const userSubs = skill.subSkills.filter((sub) => checkIfUserAssigned(sub.usersAssigned));
     
@@ -621,6 +621,9 @@ export default function App() {
           const userResourcesComplete = userResources.filter((r) => checkIfUserAssigned(r.usersComplete));
           const totalResourcesComplete = userResourcesComplete.length;
     
+          totalAllResourcesAssigned += totalResourcesAssigned;
+          totalAllResourcesComplete += totalResourcesComplete;
+  
           const totalSubProgress = totalResourcesComplete > 0 && totalResourcesAssigned > 0 ? totalResourcesComplete/ totalResourcesAssigned * 100 : 0;
   
           return {
@@ -649,13 +652,16 @@ export default function App() {
         
       });
       console.log(skillsProgress, "<- skills progress");
+  
+      const totalAllProgress = totalAllResourcesComplete > 0 && totalAllResourcesAssigned > 0 ? totalAllResourcesComplete / totalAllResourcesAssigned * 100 : 0;
+      setTotalProgress(Math.round(totalAllProgress));
+  
       return skillsProgress;
     }
     
     const progress = calcUserProgress();
     setProgressData(progress);
   }, [skills, resources]); // dependency array to trigger recalculation of progress
-
   
 
   useEffect(() => {
@@ -713,6 +719,7 @@ export default function App() {
           activeUserId: user?._id,
           resources: resources,
           progressData: progressData,
+          totalProgress: totalProgress,
 
           setUser: setUser,
           checkIfUserAssigned: checkIfUserAssigned,

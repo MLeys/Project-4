@@ -10,13 +10,17 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 
 import SkillCard3 from "../../components/SkillCard3/SkillCard3";
+import ProgressLinear from "../../components/ProgressLinear/ProgressLinear";
+
 
 function DashboardPage() {
   const ctx = useContext(SkillsContext);
-  const handleSetActiveSkill = ctx.handleSetActiveSkill;0
-  const userId = ctx.loggedUser._id;
+  const checkIfUserAssigned = ctx.checkIfUserAssigned;
+  const user = ctx.loggedUser;
   const skills = ctx.skills;
+  const totalProgress = ctx.totalProgress;
 
+  const userSkills = skills?.filter((skill) => checkIfUserAssigned(skill.usersAssigned))
   
   useEffect(() => {
  
@@ -24,12 +28,15 @@ function DashboardPage() {
 
   return (
     <Grid spacing={2} justifyContent={'center'} alignContent={'center'}>
-      <h1> users dashboard</h1>
-
-      <Container sx={{ py: 8 }} maxWidth="md">
+      <Box m={2}>
+        <Typography variant="h4">{user.name}'s Progress</Typography>
+        <ProgressLinear value={totalProgress} />
+        
+      </Box>
+      <Container sx={{ py: 4 }} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={2} >
-            {skills?.map((skill, index) => (
+            {userSkills?.map((skill, index) => (
               <Grid key={`skillCard-${index}`} xs={12} sm={6} md={4} >
                 <SkillCard3 skill={skill} />
               </Grid>

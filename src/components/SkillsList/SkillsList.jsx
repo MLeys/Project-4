@@ -29,11 +29,29 @@ function SkillsList({ skill, index, toggleDrawer}) {
   const handleSetActiveSkill = ctx.handleSetActiveSkill;
   const handleSetActiveSub = ctx.handleSetActiveSub;
   const activeSkill = ctx.activeSkill;
+  const assignSkill = ctx.handleAssignUserToSkill;
+  const unAssignSkill = ctx.handleUnAssignUserFromSkill;
+  const checkIfUserAssigned = ctx.checkIfUserAssigned;
+
+  const usersAssigned = skill?.usersAssigned;
+  const isAssigned = checkIfUserAssigned(usersAssigned)
 
   const navigate = useNavigate();
 
   const [openSkills, setOpenSkills] = useState({});
 
+  function handleClickAssignIcon(e, skill) {
+    e.stopPropagation();
+    
+    
+
+    if (isAssigned) {
+      unAssignSkill(skill)
+    } else {
+      assignSkill(skill)
+    }
+
+  }
 
   function handleClickSkillArrow(e, skillIndex) {
     e.stopPropagation(); // Add this line to stop propagation
@@ -92,13 +110,12 @@ function SkillsList({ skill, index, toggleDrawer}) {
         <ListItemSecondaryAction>
           <IconButton
             edge="end"
-            onClick={(e) => handleClickSkillArrow(e, index)}
+            onClick={(e) => handleClickAssignIcon(e, skill)}
           >
-            <BookOutlinedIcon height={20} width={20} fill="white"/>                  
+            {isAssigned ? <BookFilledIcon /> : <BookOutlinedIcon /> }                 
           </IconButton>
         </ListItemSecondaryAction>
       </ListItemButton>
-      <LinearProgress variant="determinate" value={50} color="warning" sx={{mb: 1}} />
       <Collapse in={openSkills[index]} timeout="auto" unmountOnExit>
         <List 
           component="div" 
@@ -109,7 +126,6 @@ function SkillsList({ skill, index, toggleDrawer}) {
               <ListItemButton onClick={() => handleSubSkillClick(index, subIndex)}>
                 <ListItemText primary={subSkill.title} />
               </ListItemButton>
-              <LinearProgress variant="determinate" value={50} />
             </div>
           ))}
           <Divider />

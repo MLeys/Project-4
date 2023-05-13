@@ -21,12 +21,12 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
 
 function LinearProgressWithLabel(props) {
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-      <Box sx={{ width: '90%', mr: 1 }}>
+    <Box sx={{ display: 'flex', alignItems: 'center', my: 1 }}>
+      <Box sx={{ width: '90%', pl: 2 }}>
         <BorderLinearProgress variant="determinate" {...props} />
       </Box>
       <Box sx={{ minWidth: 35 }}>
-        <Typography variant="body2" color="text.secondary">{`${Math.round(
+        <Typography variant="body1" color="text.primary">{`${Math.round(
           props.value,
         )}%`}</Typography>
       </Box>

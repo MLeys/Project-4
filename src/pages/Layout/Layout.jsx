@@ -17,7 +17,7 @@ function Layout() {
   }, []); 
 
   return (
-    <Box width={'100dvw'} minHeight={'100dvh'} bgcolor={'blueGray.light'} >
+    <Box width={'100dvw'} minHeight={'100dvh'} bgcolor={'blueGrayLight.light'} >
      
       <FixedMenuHeader >
         <Outlet />

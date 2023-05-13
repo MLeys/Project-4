@@ -22,7 +22,7 @@ import SubList from "../SubList/SubList";
 
 const drawerWidth = 'auto';
 
-export default function SubSkillsDrawer({children}) {
+export default function PageDrawer({children}) {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 
@@ -91,7 +91,7 @@ export default function SubSkillsDrawer({children}) {
         <SubList  />
         <Divider />
       </Drawer>
-      <Main open={open ? open : false} sx={{ mt: 2}}>
+      <Main open={open ? open : false} sx={{ mr: 1, mt: 2}}>
         {children}
       </Main>
     </Box>

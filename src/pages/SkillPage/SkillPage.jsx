@@ -25,7 +25,7 @@ import Button from '@mui/material/Button';
 
 import VideoCardActions from '../../components/VideoCardActions/VideoCardActions';
 import VideoCard from "../../components/VideoCard/VideoCard";
-import PageDrawer from "../../components/SubSkillDrawer/SubSkillDrawer";
+import PageDrawer from "../../components/PageDrawer/PageDrawer";
 import SubTable from '../../components/SubTable/SubTable';
 import LinearProgressWithLabel from '../../components/LinearProgressWithLabel/LinearProgressWithLabel';
 import ResourceCard2 from '../../components/ResourceCard2/ResourceCard2';
@@ -90,12 +90,11 @@ function SkillPage() {
 
   return ( 
     <PageDrawer >
-      <Typography variant='h3'>{skill.name}</Typography>
+      <Typography color={'blueTeal.dark'} variant='h3'>{skill.name}</Typography>
       <ProgressLinear value={skillProgressData ? skillProgressData?.progress : 0} />
-      <Typography>Progress for skill: {skillProgressData ? skillProgressData?.progress : 0}</Typography>
       <Box 
         mr={2.5}
-        ml={1}
+        ml={0}
         flexWrap={'wrap'}
       >
         <Grid 
