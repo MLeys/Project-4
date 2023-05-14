@@ -16,6 +16,7 @@ import CardActionArea from "@mui/material/CardActionArea";
 import Collapse from '@mui/material/Collapse';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 
 import ProgressRing from "../../components/ProgressRing/ProgressRing";
 import RemoveSkillDialog from "../RemoveSkillDialog/RemoveSkillDialog";
@@ -60,6 +61,7 @@ function SkillCard3({skill}) {
   const [openRemoveDialog, setOpenRemoveDialog] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
+  console.log(skillProgressData?.totalSubSkillsAssigned, "<-- skill progress data")
 
   function handleClickAssignIcon(e, skill) {
     e.stopPropagation();
@@ -159,8 +161,16 @@ function SkillCard3({skill}) {
           m: 0,
         }}
       >
+        <Stack>
+        <Typography ml={1} align="left" >{`Learning ${skillProgressData?.totalSubSkillsAssigned} of ${skill?.subSkills?.length} Subskills`}</Typography>
+        <Typography ml={1} align="left">{`Completed ${skillProgressData?.totalResourcesComplete
+                                  ? skillProgressData?.totalResourcesComplete
+                                  : 0
+                      } of ${skillProgressData?.totalResourcesAssigned} Resources`}
+        </Typography>
+        
 
-        <Typography>Learning X of X Subskills</Typography>
+        </Stack>
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}

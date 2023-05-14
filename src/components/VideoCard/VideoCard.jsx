@@ -35,7 +35,8 @@ const VideoCard = React.memo(function VideoCard({ resource, children, index }) {
     return isAssigned ? <BookFilledIcon /> : <BookOutlinedIcon />;
   }
 
-  function handleClickAssigned(resource, index) {
+  function handleClickAssigned(e, resource) {
+    e.stopPropagation();
     isAssigned
       ? unAssignUserFromResource(resource)
       : assignUserToResource(resource);
@@ -58,13 +59,13 @@ const VideoCard = React.memo(function VideoCard({ resource, children, index }) {
 
       <CardHeader
         title={title}
-        titleTypographyProps={{ fontSize: 14, fontWeight: 600, color: 'inherit'}}
+        titleTypographyProps={{ fontSize: 20, fontWeight: 600, color: 'inherit'}}
         subheader={description}
         subheaderTypographyProps={{ fontSize: 10, fontWeight: 200, color: 'inherit' }}
         action={
           <IconButton
             aria-label="Assign user to resource"
-            onClick={() => handleClickAssigned(resource, index)}
+            onClick={(e) => handleClickAssigned(e, resource)}
           >
             {renderAssignIcon(resource)}
           </IconButton>

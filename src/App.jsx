@@ -497,12 +497,12 @@ export default function App() {
   async function handleSetActiveSkillById(skillId) {
     const skillIndex = skills?.findIndex((skill => skill._id === skillId))
     handleSetActiveSkill(skillIndex);
-    if (activeSub === null) {
-      handleSetActiveSub(0);
-    }
+
     
   }
 
+
+  // FIX THIS SO IT MATCHES SKILLS ANd THUS UPDATES
   function handleSetActiveSub(subIndex){
     const index = subIndex ? subIndex : 0;
     if (activeSkill?.subSkills ) {
@@ -538,9 +538,6 @@ export default function App() {
         skill: skills[index],
         subSkills: skills[index]?.subSkills
       })    
-      if (activeSub === null) {
-        handleSetActiveSub(0);
-      }
     }
   }
 
