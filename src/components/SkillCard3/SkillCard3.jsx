@@ -29,6 +29,12 @@ const BookFilledIcon = () => <i className="bi bi-book-fill" style={{ color: main
 const VertDotsIcon = () => <i className="bi bi-three-dots-vertical" style={{ color: 'white'}}/>;
 const PlusSquareIcon = () => <i className="bi bi-plus-square" style={{ color: 'white'}}/>;
 const PlusSquareFilledIcon = () => <i className="bi bi-plus-square-fill" style={{ color: 'white'}}/>;
+const XSquareOutlinedIcon = () => <i className="bi bi-x-square" style={{ color: 'red'}}/>;
+const XCircleOutlinedIcon = () => <i className="bi bi-x-circle" style={{ color: 'red'}}/>;
+const XSmallIcon = () => <i className="bi bi-x" style={{ color: 'red'}}/>;
+
+
+
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -103,6 +109,7 @@ function SkillCard3({skill}) {
 
   return (
     <Card 
+      key={`skillCard-${skill._id}`}
       raised={true} 
       sx={{ 
         width: '100%',
@@ -119,14 +126,21 @@ function SkillCard3({skill}) {
           }
           action={
             <Box mx={1}>
-              <RemoveSkillDialog skill={skill} setOpen={setOpenRemoveDialog} open={openRemoveDialog} handleClose={handleCloseRemoveDialog} >
-                <IconButton
-                  edge="end"
-                  onClick={(e) => handleClickOpenRemoveSkillDialog(e)}
-                >
-                  {isAssigned ? <BookFilledIcon /> : <BookOutlinedIcon /> }                 
-                </IconButton>
-              </RemoveSkillDialog>
+              <IconButton
+                edge="end"
+                onClick={(e) => handleClickOpenRemoveSkillDialog(e)}
+              >
+                <XSmallIcon />
+                {/* {isAssigned ? <BookFilledIcon /> : <BookOutlinedIcon /> }                  */}
+              </IconButton>
+              <RemoveSkillDialog 
+                skill={skill} 
+                setOpen={setOpenRemoveDialog} 
+                open={openRemoveDialog} 
+                handleClose={handleCloseRemoveDialog} 
+              />
+
+              
 
             </Box>
 

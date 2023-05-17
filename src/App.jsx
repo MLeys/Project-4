@@ -470,8 +470,12 @@ export default function App() {
   } // END handleAddSubSkill Function
 
   async function searchYouTube(search) {
+    const excludeVideoIds = activeSub.subSkill.resources.map((r) => r.videoId)
+    console.log(excludeVideoIds, '<-- video ids')
 		try {
-			const response = await youTubeApi.searchYouTube(search, activeSkill?.skill?.name, activeSub?.subSkill?.title);
+      excludeVideoIds.filter((video) => video)
+
+			const response = await youTubeApi.searchYouTube(search, activeSkill?.skill?.name, activeSub?.subSkill?.title, excludeVideoIds);
 			// console.log(response, " <------ response from YOUTUBE SEARCH");
 			setYouTubeResults([...response])
 		} catch (err) {
@@ -530,8 +534,9 @@ export default function App() {
   }
 
   async function handleSetActiveSkill(index=0){
-    if (skills) { 
+    if (activeSkill?.index != index) {
       console.log(`ActiveSkill: ${skills[index]?.name}`)
+
       setActiveSkill({
         ...activeSkill,
         index: index,
@@ -539,6 +544,15 @@ export default function App() {
         subSkills: skills[index]?.subSkills
       })    
     }
+    // if (skills) { 
+    //   console.log(`ActiveSkill: ${skills[index]?.name}`)
+    //   setActiveSkill({
+    //     ...activeSkill,
+    //     index: index,
+    //     skill: skills[index],
+    //     subSkills: skills[index]?.subSkills
+    //   })    
+    // }
   }
 
 

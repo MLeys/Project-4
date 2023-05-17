@@ -5,6 +5,8 @@ import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import Box from "@mui/material/Box";
 import Button from '@mui/material/Button';
 
+import VideoCardExpand from "../VideoCardExpand/VideoCardExpand";
+import VideoCard2 from "../VideoCardExpand/VideoCardExpand";
 import VideoCard from "../VideoCard/VideoCard";
 import CloseButton from "../CloseButton/CloseButton";
 
@@ -46,15 +48,15 @@ function SearchResultsDisplay({handleClose}) {
         <Grid container align={'center'} spacing={1} >
           
             {youTubeResults?.map((resource, index) => (
-              <Grid xs={12} md={6} lg={4} key={`searchResult-${index}`}>
-                <VideoCard key={`resource-${index}`} resource={resource} index={index} >
-                  <Button onClick={() => handleClickCreate(resource)}>
+              <Grid xs={12} key={`searchResult-${index}`}>
+                <VideoCardExpand key={`resource-${index}`} resource={resource} index={index} >
+                  <Button color="success" variant="contained" onClick={() => handleClickCreate(resource)}>
                     Add
                   </Button>
-                  <Button onClick={() => handleClickRemove(resource)}>
+                  <Button color="error" variant="contained" onClick={() => handleClickRemove(resource)}>
                     Remove
                   </Button>
-                </VideoCard>
+                </VideoCardExpand>
               </Grid>
             ))}   
           

@@ -38,7 +38,7 @@ export default function RemoveSkillDialog({skill, setOpen, open, handleClose, ch
 
   return (
     <>
-      {children}
+      
       <Dialog
         open={open}
         TransitionComponent={Transition}
@@ -55,9 +55,7 @@ export default function RemoveSkillDialog({skill, setOpen, open, handleClose, ch
 
       >
         <DialogTitle>{`Stop learning ${skill.name}?`}</DialogTitle>
-        <DialogContent 
-          // sx={{bgcolor: 'primary.light'}}
-        >
+
           <DialogContentText
            id="alert-dialog-slide-description"
            color={'black'}
@@ -65,7 +63,7 @@ export default function RemoveSkillDialog({skill, setOpen, open, handleClose, ch
             Clicking 'Remove' will delete the skill from your list of skills you want to learn. 
             This will result in changed progress.
           </DialogContentText>
-        </DialogContent>
+
         <DialogActions>
           <Button color='primary' variant='contained' onClick={handleClose}>Cancel</Button>
           <Button color='error' variant='contained' onClick={(e) => handleClickRemove(e)}>Remove</Button>
