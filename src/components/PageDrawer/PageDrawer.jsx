@@ -52,7 +52,7 @@ export default function PageDrawer({children}) {
         }}
       >
         {open ? <ArrowLeftIcon /> : <ListIcon height={34} width={34}/>}
-        SubSkills
+        
       </Fab>
 
       <ClickAwayListener onClickAway={(e) => handleDrawerClose(e)}>

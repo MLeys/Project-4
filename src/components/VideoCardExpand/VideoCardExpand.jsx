@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './VideoCardExpand.css'
 import { useContext, useEffect, useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import { styled } from '@mui/material/styles';
@@ -69,10 +70,29 @@ const VideoCardExpand = React.memo(function VideoCard({ resource, children, inde
     >
 
       <CardHeader
+        className='cardHeader'
         title={title}
-        titleTypographyProps={{ fontSize: 20, fontWeight: 600, color: 'inherit'}}
-        subheader={description}
-        subheaderTypographyProps={{ fontSize: 10, fontWeight: 200, color: 'inherit' }}
+        titleTypographyProps={{ 
+          className: 'twoLinesText',
+          fontSize: 16, 
+          fontWeight: 400, 
+          color: 'inherit',
+          pr: 1,
+          overflow: 'hidden',
+          display: '-webkit-box',
+          
+          // whiteSpace: 'nowrap',
+          // overflow: 'hidden',
+          // textOverflow: 'ellipsis',
+          // maxWidth: '5ch'
+        }}
+        // subheader={description}
+        // subheaderTypographyProps={{ 
+        //   classeName: 'twoLinesText',
+        //   fontSize: 10, 
+        //   fontWeight: 200, 
+        //   color: 'inherit' 
+        // }}
       />
 
       <CardActions disableSpacing>
@@ -90,6 +110,12 @@ const VideoCardExpand = React.memo(function VideoCard({ resource, children, inde
 
       <Box sx={{ flexGrow: 1 }}>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
+          {/* <Typography variant='h6'>
+            {title}
+          </Typography> */}
+          <Typography variant='body2' overflow='visibles'>
+            {description}
+          </Typography>
           <CardMedia
             component={"iframe"}
             src={`https://www.youtube.com/embed/${videoId}`}
